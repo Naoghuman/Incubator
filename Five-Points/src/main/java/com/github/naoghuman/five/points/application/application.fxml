@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.five.points.application.ApplicationPresenter">
+   <children>
+      <HBox layoutX="14.0" layoutY="14.0" spacing="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="14.0">
+         <children>
+            <VBox spacing="7.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox layoutX="10.0" layoutY="343.0" style="-fx-background-color: ANTIQUEWHITE;">
+                     <children>
+                        <Button disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Planing" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding>
+                  </HBox>
+                  <ScrollPane fx:id="spPlaning" fitToWidth="true" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="vbPlaning" spacing="7.0" style="-fx-background-color: DARKSALMON;" />
+                     </content>
+                  </ScrollPane>
+                  <HBox style="-fx-background-color: ANTIQUEWHITE;">
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionAddTheme" text="Add Theme" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox spacing="7.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox style="-fx-background-color: ANTIQUEWHITE;">
+                     <children>
+                        <Button disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Doing" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding>
+                  </HBox>
+                  <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="vbDoing" spacing="7.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            <VBox spacing="7.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox style="-fx-background-color: ANTIQUEWHITE;">
+                     <children>
+                        <Button disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Done" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding>
+                  </HBox>
+                  <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="vbDone" spacing="7.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
