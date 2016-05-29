@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="302.0" prefWidth="219.0" style="-fx-background-color: BURLYWOOD;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.map.generator.navigation.navigationmap.NavigationMapPresenter">
+    <children>
+        <VBox layoutX="14.0" layoutY="51.0" spacing="7.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <children>
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Label text="Maps" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button fx:id="bNewMap" mnemonicParsing="false" text="+" />
+                    </items>
+                </ToolBar>
+                <ListView fx:id="lvMaps" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

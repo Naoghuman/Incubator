@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.map.generator.mapeditor.MapEditorPresenter">
+    <children>
+        <SplitPane fx:id="spMapEditorEditor" dividerPositions="0.3" layoutX="51.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <SplitPane fx:id="spMapEditorNavigation" dividerPositions="0.4" orientation="VERTICAL">
+                    <items>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label fx:id="lMaps" text="Maps" />
+                                <ListView fx:id="lvMaps" VBox.vgrow="ALWAYS" />
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label fx:id="lMapMarkers" text="Markers" />
+                                <ListView fx:id="lvMapMarkers" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                    </items>
+                </SplitPane>
+                <ScrollPane fx:id="spMapEditorScroller" prefHeight="200.0" prefWidth="200.0">
+                    <content>
+                        <StackPane fx:id="spMapEditorContent">
+                            <children>
+                                <ImageView fx:id="ivMapBackground" fitHeight="1.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true" />
+                                <AnchorPane fx:id="apLayerForMapMarkers" mouseTransparent="true" />
+                            </children>
+                        </StackPane>
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

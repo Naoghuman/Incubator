@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="356.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.map.generator.mapwizard.MapWizardPresenter">
+    <children>
+        <TitledPane animated="false" collapsible="false" text="Map Wizard" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox spacing="10.0">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <children>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label text="Title" />
+                                <TextField fx:id="tfName" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="2.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label text="Preview" />
+                                <StackPane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <TextArea fx:id="taErrorMsg" editable="false" wrapText="true" />
+                                        <ImageView fx:id="ivMap" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                        <HBox spacing="10.0">
+                            <children>
+                                <ComboBox fx:id="cbMap" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                <Button mnemonicParsing="false" prefWidth="27.0" text="..." />
+                            </children>
+                        </HBox>
+                        <HBox alignment="TOP_RIGHT" spacing="10.0">
+                            <children>
+                                <Button fx:id="bCreate" mnemonicParsing="false" onAction="#onActionCreate" prefWidth="64.0" text="Create" />
+                                <Button mnemonicParsing="false" onAction="#onActionCancel" prefWidth="64.0" text="Cancel" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </content>
+        </TitledPane>
+    </children>
+</AnchorPane>
