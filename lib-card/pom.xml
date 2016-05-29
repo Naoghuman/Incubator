@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.naoghuman</groupId>
+    <artifactId>lib-card</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Lib-Card</name>
+    <inceptionYear>2016</inceptionYear>
+    <url>https://github.com/Naoghuman/lib-card.git</url>
+    
+    <description>lib-card is a little library to create and managed cards in a JavaFX &amp; Maven application.</description>
+	
+    <developers>
+        <developer>
+            <email>peter.rogge@yahoo.de</email>
+            <id>Naoghuman</id>
+            <name>Peter Rogge</name>
+            <timezone>+1</timezone>
+            <url>https://github.com/Naoghuman/lib-card.git</url>
+        </developer>
+    </developers>
+    
+    <licenses>
+        <license>
+            <name>The GNU General Public License, Version 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+            <comments>The GNU General Public License is a free, copyleft license for software and other kinds of works.</comments>
+        </license>
+    </licenses>
+	
+    <scm>
+        <connection>scm:git:ssh://github.com:Naoghuman/lib-card.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Naoghuman/lib-card.git</developerConnection>
+        <url>https://github.com/Naoghuman/lib-card.git</url>
+    </scm>
+
+    <organization>
+        <name>Naoghuman</name>
+    </organization>
+	
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+	
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.naoghuman</groupId>
+                <artifactId>lib-action</artifactId>
+                <version>0.3.0-SNAPSHOT</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.github.naoghuman</groupId>
+                <artifactId>lib-database-objectDB</artifactId>
+                <version>0.3.0-SNAPSHOT</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.github.naoghuman</groupId>
+                <artifactId>lib-logger</artifactId>
+                <version>0.3.1-SNAPSHOT</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.github.naoghuman</groupId>
+                <artifactId>lib-preferences</artifactId>
+                <version>0.3.0-SNAPSHOT</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.github.naoghuman</groupId>
+                <artifactId>lib-properties</artifactId>
+                <version>0.3.0-SNAPSHOT</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.github.naoghuman</groupId>
+                <artifactId>lib-resources</artifactId>
+                <version>0.3.0-SNAPSHOT</version>
+                <type>jar</type>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.airhacks</groupId>
+                <artifactId>afterburner.fx</artifactId>
+                <version>1.6.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.1</version>
+            </dependency>
+           <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>javax.persistence</artifactId>
+                <version>2.1.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>Lib-Card-Core</module>
+        <module>Lib-Card-Demo</module>
+    </modules>
+
+</project>
