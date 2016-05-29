@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" onMouseEntered="#onActionMouseEntered" onMouseExited="#onActionMouseExited" prefHeight="241.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.concentration.application.ApplicationPresenter">
+    <children>
+        <Button fx:id="bMenu" layoutX="289.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionMenuClick" text="Menu" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+    </children>
+</AnchorPane>
