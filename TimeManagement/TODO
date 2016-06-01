@@ -1,0 +1,20 @@
+--------------------------------------------------------------------------------
+TIME-MANAGEMENT
+--------------------------------------------------------------------------------
+Idea:
+ - One list on the left or right with all projects.
+    - A project can have:
+       - Name, description, color.
+ - In the list every project have button '+' and '-'.
+    - Actions add the project to the overview list on the specific day (or remove
+      it).
+ - The list have two (or more?) sections.
+    - Area automatically ranged, out of scored.
+ - The area 'Automatically ranged' ordered automatically the projects depends on 
+   there used. Projects which will used more are open, project lesser are more 
+   down.
+    - Also the user can order the projects manually.
+ - In the area 'Out of Score' the projects can manually ordered, but no 
+   automatically order will happen.
+
+--------------------------------------------------------------------------------
