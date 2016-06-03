@@ -18,3 +18,14 @@ Idea:
    automatically order will happen.
 
 --------------------------------------------------------------------------------
+VIEW
+Left side:
+ - Available projectlist
+
+Center (right)
+ - DayView (this day)
+ - WeekView (last 7 days)
+ - MonthView (last 30 days)
+ - HalfYearView (last 180 days)
+
+--------------------------------------------------------------------------------
