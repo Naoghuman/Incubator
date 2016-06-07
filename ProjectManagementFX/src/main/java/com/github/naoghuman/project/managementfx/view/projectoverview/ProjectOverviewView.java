@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.project.managementfx.gui.overview;
+package com.github.naoghuman.project.managementfx.view.projectoverview;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class OverviewView extends FXMLView {
+public class ProjectOverviewView extends FXMLView {
     
-    public OverviewPresenter getRealPresenter() {
-        return (OverviewPresenter) super.getPresenter();
+    public ProjectOverviewPresenter getRealPresenter() {
+        return (ProjectOverviewPresenter) super.getPresenter();
     }
     
 }
