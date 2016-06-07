@@ -18,15 +18,23 @@ package com.github.naoghuman.project.managementfx.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.project.managementfx.view.projectoverview.ProjectOverviewView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
  * @author Naoghuman
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
+    
+    @FXML private BorderPane bpApplication;
+    @FXML private BorderPane bpProjectOverview;
+    @FXML private SplitPane spApplication;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,7 +42,17 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
+        this.initializeProjectOverview();
+        
         this.registerActions();
+    }
+
+    private void initializeProjectOverview() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ProjectOverview"); // NOI18N
+        
+        final ProjectOverviewView view = new ProjectOverviewView();
+        
+        bpProjectOverview.setCenter(view.getView());
     }
     
     public void initializeAfterWindowIsShowing() {
