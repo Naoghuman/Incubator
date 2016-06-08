@@ -16,11 +16,17 @@
  */
 package com.github.naoghuman.project.managementfx.view.projectoverview;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
+import com.github.naoghuman.lib.action.api.TransferData;
+import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.project.managementfx.dialog.DialogProvider;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 
 /**
  *
@@ -36,7 +42,25 @@ public class ProjectOverviewPresenter implements Initializable {
     }
     
     public void onActionCreateProject() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action create Project"); // NOI18N
         
+        final TextInputDialog dialog = DialogProvider.getDialogCreateProject();
+        final Optional<String> result = dialog.showAndWait();
+        if (!result.isPresent()) {
+            return;
+        }
+        
+        final String name = result.get().trim();
+        if (name.isEmpty()) {
+            return;
+        }
+        LoggerFacade.INSTANCE.debug(this.getClass(), "------------->><<"); // NOI18N
+        
+        final TransferData transferData = new TransferData();
+//        transferData.setActionId(ACTION__CREATE__CATEGORY);
+//        transferData.setLong(matrixId);
+        transferData.setString(name);
+        ActionFacade.INSTANCE.handle(transferData);
     }
     
 }
