@@ -22,14 +22,19 @@ import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.IActionConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
+import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.view.overview.item.ItemPresenter;
+import com.github.naoghuman.pm.view.overview.item.ItemView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
+import javafx.util.Callback;
 
 /**
  *
@@ -41,8 +46,33 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize OverviewPresenter"); // NOI18N
+        
+        this.initializeListView();
         
         this.registerActions();
+    }
+    
+    private void initializeListView() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ListView"); // NOI18N
+        
+        lvProjectOverview.getItems().clear();
+        
+        lvProjectOverview.setCellFactory(new Callback<ListView<ItemView>, ListCell<ItemView>>() {
+
+            @Override
+            public ListCell<ItemView> call(ListView<ItemView> param) {
+                return new ListCell<ItemView>() {
+                    @Override
+                    public void updateItem(ItemView item, boolean empty) {
+                        super.updateItem(item, empty);
+                        
+                        this.setText(null);
+                        this.setGraphic(item == null ? null : item.getView());
+                    }
+                };
+            }
+        });
     }
     
     public void onActionCreateProject() {
@@ -88,6 +118,12 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     
                        - Later when a project d&d then the new order should be saved
                     */
+                    
+                    final ItemView view = new ItemView();
+                    final ItemPresenter presenter = view.getRealPresenter();
+                    presenter.initialize(null);
+                    
+                    lvProjectOverview.getItems().add(0, view);
                 }
         );
     }
