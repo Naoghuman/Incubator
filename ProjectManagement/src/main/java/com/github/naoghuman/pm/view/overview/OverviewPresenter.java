@@ -118,10 +118,14 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     
                        - Later when a project d&d then the new order should be saved
                     */
+                    // TODO get default model from ModelFacade in api-package
+                    final ProjectModel model = new ProjectModel();
+                    model.setGenerationTime(System.currentTimeMillis());
+                    model.setTitle(projectName);
                     
                     final ItemView view = new ItemView();
                     final ItemPresenter presenter = view.getRealPresenter();
-                    presenter.initialize(null);
+                    presenter.initialize(model);
                     
                     lvProjectOverview.getItems().add(0, view);
                 }

@@ -46,7 +46,7 @@ public class ItemPresenter implements Initializable {
         this.model = model;
         
         // XXX test
-        lProjectName.setText(System.currentTimeMillis() + "");
+        lProjectName.setText(model.getTitle());
     }
     
     public void onActionCountMinusForProject() {
