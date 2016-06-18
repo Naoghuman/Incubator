@@ -14,14 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.configuration;
+package com.github.naoghuman.pm.dialog.projectcontent;
+
+import com.airhacks.afterburner.views.FXMLView;
 
 /**
  *
  * @author Naoghuman
  */
-public interface IActionConfiguration {
+public class ProjectContentView extends FXMLView {
     
-    public static final String ON_ACTION__CREATE_NEW_PROJECT = "ON_ACTION__CREATE_NEW_PROJECT"; // NOI18N
+    public ProjectContentPresenter getRealPresenter() {
+        return (ProjectContentPresenter) super.getPresenter();
+    }
     
 }

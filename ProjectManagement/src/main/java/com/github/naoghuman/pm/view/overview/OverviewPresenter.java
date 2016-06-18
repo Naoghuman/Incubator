@@ -78,20 +78,10 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
     public void onActionCreateProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action create Project"); // NOI18N
         
-        final TextInputDialog dialog = DialogProvider.getDialogCreateProject();
-        final Optional<String> result = dialog.showAndWait();
-        if (!result.isPresent()) {
-            return;
-        }
-        
-        final String projectName = result.get().trim();
-        if (projectName.isEmpty()) {
-            return;
-        }
-        
+        final ProjectModel model = DialogProvider.showNewProjectDialog();
         final TransferData transferData = new TransferData();
-        transferData.setActionId(ON_ACTION__CREATE_PROJECT);
-        transferData.setString(projectName);
+        transferData.setActionId(ON_ACTION__CREATE_NEW_PROJECT);
+        transferData.setObject(model);
         ActionFacade.INSTANCE.handle(transferData);
     }
 
@@ -106,10 +96,9 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create project"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                ON_ACTION__CREATE_PROJECT,
+                ON_ACTION__CREATE_NEW_PROJECT,
                 (ActionEvent event) -> {
-                    final TransferData transferData = (TransferData) event.getSource();
-                    final String projectName = transferData.getString();
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action create project"); // NOI18N
                     /*
                        a) Add new project to lvProjectOverview at index 0
                        b) Save project to database.
@@ -118,14 +107,12 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     
                        - Later when a project d&d then the new order should be saved
                     */
-                    // TODO get default model from ModelFacade in api-package
-                    final ProjectModel model = new ProjectModel();
-                    model.setGenerationTime(System.currentTimeMillis());
-                    model.setTitle(projectName);
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final ProjectModel model = (ProjectModel) transferData.getObject();
                     
                     final ItemView view = new ItemView();
                     final ItemPresenter presenter = view.getRealPresenter();
-                    presenter.initialize(model);
+                    presenter.configure(model);
                     
                     lvProjectOverview.getItems().add(0, view);
                 }

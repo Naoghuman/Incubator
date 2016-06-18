@@ -24,6 +24,7 @@ public interface IProjectModel {
     
     public static final String SIGN__EMPTY = ""; // NOI18N
     
+    public static final String PROJECT_MODEL__COLUMN_NAME__COLOR = "color"; // NOI18N
     public static final String PROJECT_MODEL__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
     public static final String PROJECT_MODEL__COLUMN_NAME__ID = "id"; // NOI18N
     public static final String PROJECT_MODEL__COLUMN_NAME__TITLE = "title"; // NOI18N

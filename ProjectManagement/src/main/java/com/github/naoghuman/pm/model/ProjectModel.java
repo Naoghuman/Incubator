@@ -22,9 +22,12 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.paint.Color;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -130,6 +133,49 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     }
     // END  TITLE --------------------------------------------------------------
     
+    // START  COLOR ------------------------------------------------------------
+    private ObjectProperty colorProperty = null;
+    private Color _color = Color.AQUAMARINE;
+    
+    @Column(name = PROJECT_MODEL__COLUMN_NAME__COLOR)
+    public Color getColor() {
+        if (this.colorProperty == null) {
+            return _color;
+        } else {
+            return (Color) colorProperty.get();
+        }
+    }
+    
+    public String getColorAsStyle() {
+        final Color c = this.getColor();
+        final StringBuilder sb = new StringBuilder();
+        sb.append("-fx-background-color: rgb("); // NOI18N
+        sb.append((int)(c.getRed() * 255.0));
+        sb.append(","); // NOI18N
+        sb.append((int)(c.getGreen() * 255.0));
+        sb.append(","); // NOI18N
+        sb.append((int)(c.getBlue() * 255.0));
+        sb.append(");"); // NOI18N
+        
+        return sb.toString();
+    }
+    
+    public void setColor(Color color) {
+        if (this.colorProperty == null) {
+            _color = color;
+        } else {
+            this.colorProperty.set(color);
+        }
+    }
+    
+    public ObjectProperty colorProperty() {
+        if (colorProperty == null) {
+            colorProperty = new SimpleObjectProperty(this, PROJECT_MODEL__COLUMN_NAME__COLOR, _color);
+        }
+        return colorProperty;
+    }
+    // END  COLOR --------------------------------------------------------------
+    
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
@@ -170,6 +216,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
                 .append("id", this.getId()) // NOI18N
                 .append("title", this.getTitle()) // NOI18N
                 .append("generationtime", this.getGenerationTime()) // NOI18N
+                .append("color", this.getColorAsStyle()) // NOI18N
                 .toString();
     }
     
@@ -178,6 +225,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
         out.writeLong(this.getId());
         out.writeLong(this.getGenerationTime());
         out.writeObject(this.getTitle());
+        out.writeObject(this.getColor());
     }
 
     @Override
@@ -185,5 +233,6 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
         this.setId(in.readLong());
         this.setGenerationTime(in.readLong());
         this.setTitle(String.valueOf(in.readObject()));
+        this.setColor((Color) in.readObject());
     }
 }

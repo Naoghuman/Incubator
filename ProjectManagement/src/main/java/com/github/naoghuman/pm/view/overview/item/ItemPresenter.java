@@ -22,7 +22,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 
 /**
@@ -42,11 +46,14 @@ public class ItemPresenter implements Initializable {
         
     }
     
-    public void initialize(ProjectModel model) {
+    public void configure(ProjectModel model) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Configure"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), model.toString()); // NOI18N
+        
         this.model = model;
         
-        // XXX test
         lProjectName.setText(model.getTitle());
+        pDaDProject.setStyle(model.getColorAsStyle());
     }
     
     public void onActionCountMinusForProject() {

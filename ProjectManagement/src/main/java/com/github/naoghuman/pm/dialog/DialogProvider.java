@@ -17,8 +17,12 @@
 package com.github.naoghuman.pm.dialog;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import javafx.scene.control.TextInputDialog;
-import javafx.stage.Modality;
+import com.github.naoghuman.pm.dialog.projectcontent.ProjectContentView;
+import com.github.naoghuman.pm.model.ProjectModel;
+import java.util.Optional;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 
 /**
  *
@@ -26,15 +30,37 @@ import javafx.stage.Modality;
  */
 public class DialogProvider {
     
-    public static TextInputDialog getDialogCreateProject() {
-        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Get dialog create Project"); // NOI18N
+    public static ProjectModel showNewProjectDialog() {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new Project dialog"); // NOI18N
+        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         
-        final TextInputDialog dialog = new TextInputDialog(""); // NOI18N
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.setTitle("Project dialog"); // NOI18N
-        dialog.setHeaderText("Create new Project"); // NOI18N
+        final Dialog<ProjectModel> dialog = new Dialog<>();
+        dialog.setTitle("New project"); // NOI18N
+        dialog.setHeaderText("This dialog will create a new project."); // NOI18N
+        dialog.setResizable(false);
         
-        return dialog;
+        final ProjectContentView view = new ProjectContentView();
+        dialog.getDialogPane().setContent(view.getView());
+        
+        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+	 
+	dialog.setResultConverter((ButtonType buttonType) -> {
+            if (buttonType.equals(buttonTypeOk)) {
+                return view.getRealPresenter().getProject();
+            }
+            
+            return null;
+        });
+        
+        final Optional<ProjectModel> result = dialog.showAndWait();
+        ProjectModel model = new ProjectModel();
+        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO Add ModelFacade which delivers a default ProjectModel"); // NOI18N
+        if (result.isPresent()) {
+            model = view.getRealPresenter().getProject();
+        }
+        
+        return model;
     }
     
 }
