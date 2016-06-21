@@ -22,6 +22,7 @@ package com.github.naoghuman.pm.model.api;
  */
 public interface IProjectModel {
     
+    public static final String NO_TITLE = "<no title>"; // NOI18N
     public static final String SIGN__EMPTY = ""; // NOI18N
     
     public static final String PROJECT_MODEL__COLUMN_NAME__COLOR = "color"; // NOI18N

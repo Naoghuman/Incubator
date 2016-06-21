@@ -79,6 +79,10 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action create Project"); // NOI18N
         
         final ProjectModel model = DialogProvider.showNewProjectDialog();
+        if (model == null) {
+            return;
+        }
+        
         final TransferData transferData = new TransferData();
         transferData.setActionId(ON_ACTION__CREATE_NEW_PROJECT);
         transferData.setObject(model);

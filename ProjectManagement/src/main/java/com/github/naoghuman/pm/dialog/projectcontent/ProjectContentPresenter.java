@@ -18,6 +18,7 @@ package com.github.naoghuman.pm.dialog.projectcontent;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.model.api.IProjectModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -45,7 +46,10 @@ public class ProjectContentPresenter implements Initializable {
         
         final ProjectModel model = new ProjectModel();
         model.setColor(cpProjectColor.getValue());
-        model.setTitle(tfProjectName.getText());
+        
+        final String projectName = tfProjectName.getText().trim();
+        final String title = projectName.isEmpty() ? IProjectModel.NO_TITLE : projectName;
+        model.setTitle(title);
         
         return model;
     }

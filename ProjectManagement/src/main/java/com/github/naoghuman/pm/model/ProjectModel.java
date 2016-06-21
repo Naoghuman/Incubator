@@ -106,7 +106,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     
     // START  TITLE ------------------------------------------------------------
     private StringProperty titleProperty = null;
-    private String _title = SIGN__EMPTY;
+    private String _title = NO_TITLE;
     
     @Column(name = PROJECT_MODEL__COLUMN_NAME__TITLE)
     public String getTitle() {

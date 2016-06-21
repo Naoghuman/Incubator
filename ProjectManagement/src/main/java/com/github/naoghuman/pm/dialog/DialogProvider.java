@@ -46,7 +46,7 @@ public class DialogProvider {
 	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
 	 
 	dialog.setResultConverter((ButtonType buttonType) -> {
-            if (buttonType.equals(buttonTypeOk)) {
+            if (buttonType != null && buttonType.equals(buttonTypeOk)) {
                 return view.getRealPresenter().getProject();
             }
             
@@ -54,6 +54,10 @@ public class DialogProvider {
         });
         
         final Optional<ProjectModel> result = dialog.showAndWait();
+        if (result == null) {
+            return null;
+        }
+        
         ProjectModel model = new ProjectModel();
         LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO Add ModelFacade which delivers a default ProjectModel"); // NOI18N
         if (result.isPresent()) {
