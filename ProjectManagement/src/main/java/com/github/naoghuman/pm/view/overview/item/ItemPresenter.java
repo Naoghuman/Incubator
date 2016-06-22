@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.view.overview.item;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -63,13 +64,14 @@ public class ItemPresenter implements Initializable {
         return model.getId();
     }
     
-    public void onActionCountMinusForProject() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action count minus for project"); // NOI18N
+    public void onActionShowItemMenuDialog() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show ItemMenu dialog"); // NOI18N
         
+        DialogProvider.showItemMenuDialog(model);
     }
     
     public void onActionCountPlusForProject() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action count plus for project"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action count plus for Project"); // NOI18N
         
     }
     

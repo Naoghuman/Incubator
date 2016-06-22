@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.dialog;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogPresenter;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogView;
 import com.github.naoghuman.pm.model.ProjectModel;
 import java.util.Optional;
@@ -30,13 +31,54 @@ import javafx.scene.control.Dialog;
  */
 public class DialogProvider {
     
+    public static void showEditProjectDialog(ProjectModel model) {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show edit Project dialog"); // NOI18N
+        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        
+        final Dialog<ProjectModel> dialog = new Dialog<>();
+        dialog.setTitle("Edit project"); // NOI18N
+        dialog.setHeaderText("Updated the project."); // NOI18N
+        dialog.setResizable(false);
+        
+        final ProjectDialogView view = new ProjectDialogView();
+        final ProjectDialogPresenter presenter = view.getRealPresenter();
+        presenter.configure(model);
+        dialog.getDialogPane().setContent(view.getView());
+        
+        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+	dialog.setResultConverter((ButtonType buttonType) -> {
+            if (
+                    buttonType != null && buttonType.equals(buttonTypeOk)
+                    && presenter.isChanged()
+            ) {
+                return view.getRealPresenter().getProject();
+            }
+            
+            return null;
+        });
+        
+        final Optional<ProjectModel> result = dialog.showAndWait();
+        if (!result.isPresent()) {
+            return;
+        }
+        
+        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO fire event with changed ProjectModel"); // NOI18N
+    }
+    
+    public static void showItemMenuDialog(ProjectModel model) {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show ItemMenu dialog"); // NOI18N
+        
+        
+    }
+    
     public static ProjectModel showNewProjectDialog() {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new Project dialog"); // NOI18N
         LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         
         final Dialog<ProjectModel> dialog = new Dialog<>();
         dialog.setTitle("New project"); // NOI18N
-        dialog.setHeaderText("Create a new project."); // NOI18N
+        dialog.setHeaderText("Creates a new project."); // NOI18N
         dialog.setResizable(false);
         
         final ProjectDialogView view = new ProjectDialogView();
@@ -44,7 +86,6 @@ public class DialogProvider {
         
         final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
 	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-	 
 	dialog.setResultConverter((ButtonType buttonType) -> {
             if (buttonType != null && buttonType.equals(buttonTypeOk)) {
                 return view.getRealPresenter().getProject();
@@ -54,15 +95,11 @@ public class DialogProvider {
         });
         
         final Optional<ProjectModel> result = dialog.showAndWait();
-        if (result == null) {
+        if (!result.isPresent()) {
             return null;
         }
         
-        ProjectModel model = new ProjectModel();
-        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO Add ModelFacade which delivers a default ProjectModel"); // NOI18N
-        if (result.isPresent()) {
-            model = view.getRealPresenter().getProject();
-        }
+        final ProjectModel model = view.getRealPresenter().getProject();
         
         return model;
     }

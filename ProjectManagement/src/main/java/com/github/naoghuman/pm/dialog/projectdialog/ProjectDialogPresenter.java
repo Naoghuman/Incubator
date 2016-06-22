@@ -35,10 +35,16 @@ public class ProjectDialogPresenter implements Initializable {
     @FXML private ColorPicker cpProjectColor;
     @FXML private TextField tfProjectName;
     
+    private ProjectModel originalModel;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectContentPresenter"); // NOI18N
         
+    }
+    
+    public void configure(ProjectModel model) {
+        this.originalModel = model;
     }
     
     public ProjectModel getProject() {
@@ -52,6 +58,15 @@ public class ProjectDialogPresenter implements Initializable {
         model.setTitle(title);
         
         return model;
+    }
+    
+    public boolean isChanged() {
+        final ProjectModel changedModel = this.getProject();
+        final boolean isChanged = 
+                changedModel.getTitle().equals(originalModel.getTitle())
+                && changedModel.getColorAsStyle().equals(originalModel.getColorAsStyle());
+        
+        return isChanged;
     }
     
 }
