@@ -17,7 +17,7 @@
 package com.github.naoghuman.pm.dialog;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.pm.dialog.projectcontent.ProjectContentView;
+import com.github.naoghuman.pm.dialog.newproject.NewProjectView;
 import com.github.naoghuman.pm.model.ProjectModel;
 import java.util.Optional;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -39,7 +39,7 @@ public class DialogProvider {
         dialog.setHeaderText("This dialog will create a new project."); // NOI18N
         dialog.setResizable(false);
         
-        final ProjectContentView view = new ProjectContentView();
+        final NewProjectView view = new NewProjectView();
         dialog.getDialogPane().setContent(view.getView());
         
         final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);

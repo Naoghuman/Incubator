@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.dialog.projectcontent;
+package com.github.naoghuman.pm.dialog.newproject;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class ProjectContentView extends FXMLView {
+public class NewProjectView extends FXMLView {
     
-    public ProjectContentPresenter getRealPresenter() {
-        return (ProjectContentPresenter) super.getPresenter();
+    public NewProjectPresenter getRealPresenter() {
+        return (NewProjectPresenter) super.getPresenter();
     }
     
 }
