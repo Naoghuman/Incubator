@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.dialog.newproject;
+package com.github.naoghuman.pm.dialog.projectcontent;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.ProjectModel;
@@ -30,7 +30,7 @@ import javafx.scene.control.TextField;
  *
  * @author Naoghuman
  */
-public class NewProjectPresenter implements Initializable {
+public class ProjectContentPresenter implements Initializable {
     
     @FXML private ColorPicker cpProjectColor;
     @FXML private TextField tfProjectName;
