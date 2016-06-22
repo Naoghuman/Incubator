@@ -22,11 +22,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 /**
@@ -35,9 +34,12 @@ import javafx.scene.layout.Pane;
  */
 public class ItemPresenter implements Initializable {
     
+    @FXML private AnchorPane apProjectItem;
+    @FXML private HBox hbProjectItem;
     @FXML private Label lProjectName;
-    @FXML private Pane pDaDProject;
+    @FXML private Pane pProjectColor;
     
+    private Parent parent;
     private ProjectModel model;
     
     @Override
@@ -45,15 +47,24 @@ public class ItemPresenter implements Initializable {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ItemPresenter"); // NOI18N
         
     }
-    
-    public void configure(ProjectModel model) {
+
+    public void configure(Parent parent, ProjectModel model) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Configure"); // NOI18N
         LoggerFacade.INSTANCE.debug(this.getClass(), model.toString()); // NOI18N
         
+        this.parent = parent;
         this.model = model;
         
         lProjectName.setText(model.getTitle());
-        pDaDProject.setStyle(model.getColorAsStyle());
+        pProjectColor.setStyle(model.getColorAsStyle());
+    }
+    
+    public Parent getParent() {
+        return parent;
+    }
+    
+    public long getProjectId() {
+        return model.getId();
     }
     
     public void onActionCountMinusForProject() {

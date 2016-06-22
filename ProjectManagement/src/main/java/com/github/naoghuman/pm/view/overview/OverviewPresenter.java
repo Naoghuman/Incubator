@@ -23,18 +23,15 @@ import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.IActionConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.view.overview.item.ItemCell;
 import com.github.naoghuman.pm.view.overview.item.ItemPresenter;
 import com.github.naoghuman.pm.view.overview.item.ItemView;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
-import javafx.util.Callback;
 
 /**
  *
@@ -57,22 +54,22 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ListView"); // NOI18N
         
         lvProjectOverview.getItems().clear();
-        
-        lvProjectOverview.setCellFactory(new Callback<ListView<ItemView>, ListCell<ItemView>>() {
-
-            @Override
-            public ListCell<ItemView> call(ListView<ItemView> param) {
-                return new ListCell<ItemView>() {
-                    @Override
-                    public void updateItem(ItemView item, boolean empty) {
-                        super.updateItem(item, empty);
-                        
-                        this.setText(null);
-                        this.setGraphic(item == null ? null : item.getView());
-                    }
-                };
-            }
-        });
+        lvProjectOverview.setCellFactory(value -> new ItemCell());
+//        lvProjectOverview.setCellFactory(new Callback<ListView<ItemView>, ListCell<ItemView>>() {
+//
+//            @Override
+//            public ListCell<ItemView> call(ListView<ItemView> param) {
+//                return new ListCell<ItemView>() {
+//                    @Override
+//                    public void updateItem(ItemView item, boolean empty) {
+//                        super.updateItem(item, empty);
+//                        
+//                        this.setText(null);
+//                        this.setGraphic(item == null ? null : item.getView());
+//                    }
+//                };
+//            }
+//        });
     }
     
     public void onActionCreateProject() {
@@ -116,9 +113,10 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     
                     final ItemView view = new ItemView();
                     final ItemPresenter presenter = view.getRealPresenter();
-                    presenter.configure(model);
+                    presenter.configure(view.getView(), model);
                     
-                    lvProjectOverview.getItems().add(0, view);
+                    lvProjectOverview.getItems().add(0, presenter);
+//                    lvProjectOverview.getItems().add(0, presenter);
                 }
         );
     }
