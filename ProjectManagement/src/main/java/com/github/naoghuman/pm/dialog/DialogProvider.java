@@ -37,7 +37,7 @@ public class DialogProvider {
         
         final Dialog<ProjectModel> dialog = new Dialog<>();
         dialog.setTitle("Edit project"); // NOI18N
-        dialog.setHeaderText("Updated the project."); // NOI18N
+        dialog.setHeaderText("Updated the project details."); // NOI18N
         dialog.setResizable(false);
         
         final ProjectDialogView view = new ProjectDialogView();
@@ -49,7 +49,8 @@ public class DialogProvider {
 	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
 	dialog.setResultConverter((ButtonType buttonType) -> {
             if (
-                    buttonType != null && buttonType.equals(buttonTypeOk)
+                    buttonType != null
+                    && buttonType.equals(buttonTypeOk)
                     && presenter.isChanged()
             ) {
                 return view.getRealPresenter().getProject();
@@ -68,8 +69,43 @@ public class DialogProvider {
     
     public static void showItemMenuDialog(ProjectModel model) {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show ItemMenu dialog"); // NOI18N
+        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         
+        final Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Menu"); // NOI18N
+        dialog.setHeaderText(model.getTitle());
+        dialog.setResizable(false);
+
+        final ButtonType btDelete = new ButtonType("Delete", ButtonData.OTHER); // NOI18N
+        final ButtonType btEdit = new ButtonType("Edit", ButtonData.OTHER); // NOI18N
+        final ButtonType btRemove = new ButtonType("Remove", ButtonData.OTHER); // NOI18N
+        dialog.getDialogPane().getButtonTypes().addAll(btRemove, btEdit, btDelete);
+	dialog.setResultConverter((ButtonType buttonType) -> {
+            if (buttonType == null) {
+                return null;
+            }
+            
+            if (buttonType.equals(btDelete)) {
+                return "Delete"; // NOI18N
+            }
+            
+            if (buttonType.equals(btEdit)) {
+                return "Edit"; // NOI18N
+            }
+            
+            if (buttonType.equals(btRemove)) {
+                return "Remove"; // NOI18N
+            }
+            
+            return null;
+        });
         
+        final Optional<String> result = dialog.showAndWait();
+        if (!result.isPresent()) {
+            return;
+        }
+        
+        System.out.println("action -> " + result.get());
     }
     
     public static ProjectModel showNewProjectDialog() {
@@ -87,7 +123,10 @@ public class DialogProvider {
         final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
 	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
 	dialog.setResultConverter((ButtonType buttonType) -> {
-            if (buttonType != null && buttonType.equals(buttonTypeOk)) {
+            if (
+                    buttonType != null
+                    && buttonType.equals(buttonTypeOk)
+            ) {
                 return view.getRealPresenter().getProject();
             }
             
