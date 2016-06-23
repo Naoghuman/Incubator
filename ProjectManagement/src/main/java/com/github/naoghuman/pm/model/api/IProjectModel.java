@@ -22,12 +22,20 @@ package com.github.naoghuman.pm.model.api;
  */
 public interface IProjectModel {
     
+    public static final long DEFAULT_ID__PROJECT_MODEL = -1967_08_28_343L;
+    
     public static final String NO_TITLE = "<no title>"; // NOI18N
     public static final String SIGN__EMPTY = ""; // NOI18N
     
-    public static final String PROJECT_MODEL__COLUMN_NAME__COLOR = "color"; // NOI18N
+    public static final String NAMED_QUERY__NAME__FIND_ALL = "ProjectModel.findAll"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL = "SELECT pm FROM ProjectModel pm"; // NOI18N
+    
+    public static final String PROJECT_MODEL__COLUMN_NAME__COLOR_AS_STYLE = "color-as-style"; // NOI18N
     public static final String PROJECT_MODEL__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
     public static final String PROJECT_MODEL__COLUMN_NAME__ID = "id"; // NOI18N
+    public static final String PROJECT_MODEL__COLUMN_NAME__POSITION = "position"; // NOI18N
     public static final String PROJECT_MODEL__COLUMN_NAME__TITLE = "title"; // NOI18N
+    
+    public static final String TABLE_NAME__PROJECT_MODEL = "ProjectModel"; // NOI18N
     
 }

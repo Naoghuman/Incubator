@@ -33,7 +33,8 @@ public class DialogProvider {
     
     public static void showEditProjectDialog(ProjectModel model) {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show edit Project dialog"); // NOI18N
-        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
         
         final Dialog<ProjectModel> dialog = new Dialog<>();
         dialog.setTitle("Edit project"); // NOI18N
@@ -69,7 +70,9 @@ public class DialogProvider {
     
     public static void showItemMenuDialog(ProjectModel model) {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show ItemMenu dialog"); // NOI18N
-        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use popup instead of a dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
         
         final Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Menu"); // NOI18N
@@ -110,7 +113,8 @@ public class DialogProvider {
     
     public static ProjectModel showNewProjectDialog() {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new Project dialog"); // NOI18N
-        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
         
         final Dialog<ProjectModel> dialog = new Dialog<>();
         dialog.setTitle("New project"); // NOI18N

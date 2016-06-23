@@ -51,7 +51,7 @@ public class ProjectDialogPresenter implements Initializable {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Get Project"); // NOI18N
         
         final ProjectModel model = new ProjectModel();
-        model.setColor(cpProjectColor.getValue());
+        model.convertColorToDatabaseColumn(cpProjectColor.getValue());
         
         final String projectName = tfProjectName.getText().trim();
         final String title = projectName.isEmpty() ? IProjectModel.NO_TITLE : projectName;

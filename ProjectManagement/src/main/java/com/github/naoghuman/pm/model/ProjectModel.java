@@ -21,17 +21,23 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.paint.Color;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -41,11 +47,22 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Naoghuman
  */
+@Entity
+@Access(AccessType.PROPERTY)
+@Table(name = IProjectModel.TABLE_NAME__PROJECT_MODEL)
+@NamedQueries({
+    @NamedQuery(
+            name = IProjectModel.NAMED_QUERY__NAME__FIND_ALL,
+            query = IProjectModel.NAMED_QUERY__QUERY__FIND_ALL)//,
+//    @NamedQuery(
+//            name = IProjectModel.NAMED_QUERY__NAME__FIND_ALL_FOR_NAVIGATION_HISTORY,
+//            query = IProjectModel.NAMED_QUERY__QUERY__FIND_ALL_FOR_NAVIGATION_HISTORY)
+})
 public class ProjectModel implements Comparable<ProjectModel>, Externalizable, IProjectModel {
     
     // START  ID ---------------------------------------------------------------
     private LongProperty idProperty;
-    private long _id = System.currentTimeMillis();
+    private long _id = DEFAULT_ID__PROJECT_MODEL;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,6 +90,36 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
         return idProperty;
     }
     // END  ID -----------------------------------------------------------------
+    
+    // START  POSITION ---------------------------------------------------------
+    private IntegerProperty positionProperty;
+    private int _position = 0;
+
+    @Column(name = PROJECT_MODEL__COLUMN_NAME__POSITION)
+    public int getPosition() {
+        if (this.positionProperty == null) {
+            return _position;
+        } else {
+            return positionProperty.get();
+        }
+    }
+
+    public final void setPosition(int position) {
+        if (this.positionProperty == null) {
+            _position = position;
+        } else {
+            this.positionProperty.set(position);
+        }
+    }
+
+    public IntegerProperty positionProperty() {
+        if (positionProperty == null) {
+            positionProperty = new SimpleIntegerProperty(this,
+                    PROJECT_MODEL__COLUMN_NAME__POSITION, _position);
+        }
+        return positionProperty;
+    }
+    // END  POSITION -----------------------------------------------------------
     
     // START  GENERATIONTIME ---------------------------------------------------
     private LongProperty generationTimeProperty;
@@ -134,45 +181,68 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     // END  TITLE --------------------------------------------------------------
     
     // START  COLOR ------------------------------------------------------------
-    private ObjectProperty colorProperty = null;
-    private Color _color = Color.AQUAMARINE;
+    private static final String EXPRESSION_PREFIX = "-fx-background-color: rgb("; // NOI18N
+    private static final String EXPRESSION_SUFFIX = ");"; // NOI18N
+    private static final String SIGN_COMMA = ","; // NOI18N
     
-    @Column(name = PROJECT_MODEL__COLUMN_NAME__COLOR)
-    public Color getColor() {
-        if (this.colorProperty == null) {
-            return _color;
-        } else {
-            return (Color) colorProperty.get();
-        }
-    }
+    private StringProperty colorAsStyleProperty = null;
+    private String _colorAsStyle = SIGN__EMPTY;
     
-    public String getColorAsStyle() {
-        final Color c = this.getColor();
-        final StringBuilder sb = new StringBuilder();
-        sb.append("-fx-background-color: rgb("); // NOI18N
-        sb.append((int)(c.getRed() * 255.0));
-        sb.append(","); // NOI18N
-        sb.append((int)(c.getGreen() * 255.0));
-        sb.append(","); // NOI18N
-        sb.append((int)(c.getBlue() * 255.0));
-        sb.append(");"); // NOI18N
+    public Color convertColorToEntityAttribute() {
+        String colorParts = this.getColorAsStyle().substring(0, EXPRESSION_PREFIX.length());
+        colorParts = colorParts.substring(colorParts.length() - EXPRESSION_SUFFIX.length());
         
-        return sb.toString();
+        final String[] splittedColorParts = colorParts.split(SIGN_COMMA);
+        final double red = Double.parseDouble(splittedColorParts[0]);
+        final double green = Double.parseDouble(splittedColorParts[1]);
+        final double blue = Double.parseDouble(splittedColorParts[2]);
+        final double opactiy = 1.0d;
+        
+        final Color color = new Color(red, green, blue, opactiy);
+        
+        return color;
     }
     
-    public void setColor(Color color) {
-        if (this.colorProperty == null) {
-            _color = color;
+    public void convertColorToDatabaseColumn(Color color) {
+        final StringBuilder colorAsStyle = new StringBuilder();
+        colorAsStyle.append(EXPRESSION_PREFIX);
+        colorAsStyle.append((int)(color.getRed() * 255.0));
+        colorAsStyle.append(SIGN_COMMA);
+        colorAsStyle.append((int)(color.getGreen() * 255.0));
+        colorAsStyle.append(SIGN_COMMA);
+        colorAsStyle.append((int)(color.getBlue() * 255.0));
+        colorAsStyle.append(EXPRESSION_SUFFIX);
+        
+        if (this.colorAsStyleProperty == null) {
+            _colorAsStyle = colorAsStyle.toString();
         } else {
-            this.colorProperty.set(color);
+            this.colorAsStyleProperty.set(colorAsStyle.toString());
         }
     }
     
-    public ObjectProperty colorProperty() {
-        if (colorProperty == null) {
-            colorProperty = new SimpleObjectProperty(this, PROJECT_MODEL__COLUMN_NAME__COLOR, _color);
+    @Column(name = PROJECT_MODEL__COLUMN_NAME__COLOR_AS_STYLE)
+    public String getColorAsStyle() {
+        if (this.colorAsStyleProperty == null) {
+            return _colorAsStyle;
+        } else {
+            return colorAsStyleProperty.get();
         }
-        return colorProperty;
+    }
+    
+    public void setColorAsStyle(String colorAsStyle) {
+        if (this.colorAsStyleProperty == null) {
+            _colorAsStyle = colorAsStyle;
+        } else {
+            this.colorAsStyleProperty.set(colorAsStyle);
+        }
+    }
+    
+    public StringProperty colorProperty() {
+        if (colorAsStyleProperty == null) {
+            colorAsStyleProperty = new SimpleStringProperty(this, 
+                    PROJECT_MODEL__COLUMN_NAME__COLOR_AS_STYLE, _colorAsStyle);
+        }
+        return colorAsStyleProperty;
     }
     // END  COLOR --------------------------------------------------------------
     
@@ -214,25 +284,29 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", this.getId()) // NOI18N
-                .append("title", this.getTitle()) // NOI18N
+                .append("position", this.getPosition()) // NOI18N
                 .append("generationtime", this.getGenerationTime()) // NOI18N
-                .append("color", this.getColorAsStyle()) // NOI18N
+                .append("title", this.getTitle()) // NOI18N
+                .append("color-as-style", this.getColorAsStyle()) // NOI18N
                 .toString();
     }
     
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
+        out.writeInt(this.getPosition());
         out.writeLong(this.getGenerationTime());
         out.writeObject(this.getTitle());
-        out.writeObject(this.getColor());
+        out.writeObject(this.getColorAsStyle());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
+        this.setPosition(in.readInt());
         this.setGenerationTime(in.readLong());
         this.setTitle(String.valueOf(in.readObject()));
-        this.setColor((Color) in.readObject());
+        this.setColorAsStyle(String.valueOf(in.readObject()));
     }
+    
 }

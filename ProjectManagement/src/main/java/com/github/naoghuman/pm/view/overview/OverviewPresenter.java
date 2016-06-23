@@ -23,6 +23,7 @@ import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.IActionConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.sql.api.SqlFacade;
 import com.github.naoghuman.pm.view.overview.item.ItemCell;
 import com.github.naoghuman.pm.view.overview.item.ItemPresenter;
 import com.github.naoghuman.pm.view.overview.item.ItemView;
@@ -101,6 +102,11 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     presenter.configure(view.getView(), model);
                     
                     lvProjectOverview.getItems().add(0, presenter);
+                    
+                    // Do database stuff
+                    SqlFacade.INSTANCE.getProjectSqlProvider().createOrUpdate(model);
+                    
+                    // database update-all
                 }
         );
     }
