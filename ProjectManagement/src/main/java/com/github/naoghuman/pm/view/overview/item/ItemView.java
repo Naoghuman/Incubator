@@ -17,12 +17,21 @@
 package com.github.naoghuman.pm.view.overview.item;
 
 import com.airhacks.afterburner.views.FXMLView;
+import com.github.naoghuman.pm.model.ProjectModel;
 
 /**
  *
  * @author Naoghuman
  */
 public class ItemView extends FXMLView {
+    
+    public ItemPresenter configure(ProjectModel model) {
+        final ItemView view = new ItemView();
+        final ItemPresenter presenter = view.getRealPresenter();
+        presenter.configure(view.getView(), model);
+        
+        return presenter;
+    }
     
     public ItemPresenter getRealPresenter() {
         return (ItemPresenter) super.getPresenter();

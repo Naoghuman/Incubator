@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.model.api.IProjectModel;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,12 +65,16 @@ public class ProjectSqlProvider  implements IProjectModel {
     public ObservableList<ProjectModel> findAll() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Find all"); // NOI18N
         
-        final ObservableList<ProjectModel> allTipsOfTheNight = FXCollections.observableArrayList();     
-        allTipsOfTheNight.addAll(DatabaseFacade.INSTANCE.getCrudService()
+        final ObservableList<ProjectModel> models = FXCollections.observableArrayList();     
+        models.addAll(DatabaseFacade.INSTANCE.getCrudService()
                 .findByNamedQuery(ProjectModel.class, NAMED_QUERY__NAME__FIND_ALL));
-        Collections.sort(allTipsOfTheNight);
+        Collections.sort(
+                models,
+                (model1, model2) -> 
+                    Integer.compare(model1.getPosition(), model2.getPosition())
+                );
         
-        return allTipsOfTheNight;
+        return models;
     }
     
     public ProjectModel findById(Long dreamId) {

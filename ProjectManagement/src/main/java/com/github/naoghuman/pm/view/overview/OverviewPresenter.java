@@ -28,8 +28,11 @@ import com.github.naoghuman.pm.view.overview.item.ItemCell;
 import com.github.naoghuman.pm.view.overview.item.ItemPresenter;
 import com.github.naoghuman.pm.view.overview.item.ItemView;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,6 +62,22 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
         
         lvProjectOverview.getItems().clear();
         lvProjectOverview.setCellFactory(value -> new ItemCell());
+        
+        final ObservableList<ProjectModel> models = SqlFacade.INSTANCE.getProjectSqlProvider().findAll();
+        if (models.isEmpty()) {
+            return;
+        }
+        
+        final List<ItemPresenter> presenters = models.stream()
+                .map((ProjectModel model) -> {
+                    final ItemView view = new ItemView();
+                    final ItemPresenter presenter = view.getRealPresenter();
+                    presenter.configure(view.getView(), model);
+                    
+                    return presenter;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+        lvProjectOverview.getItems().addAll(presenters);
     }
     
     public void onActionCreateProject() {
@@ -89,14 +108,7 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                 ON_ACTION__CREATE_NEW_PROJECT,
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action create project"); // NOI18N
-                    /*
-                       a) Add new project to lvProjectOverview at index 0
-                       b) Save project to database.
-                          What is with the other projects. After that action all 
-                          projects with a new index should be saved to the database.
-                    
-                       - Later when a project d&d then the new order should be saved
-                    */
+
                     final TransferData transferData = (TransferData) event.getSource();
                     final ProjectModel model = (ProjectModel) transferData.getObject();
                     
@@ -109,29 +121,27 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     // Do database stuff
                     SqlFacade.INSTANCE.getProjectSqlProvider().createOrUpdate(model);
                     
-                    if (lvProjectOverview.getItems().size() > 1) {
-                        final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
-//                        lvProjectOverview.getItems().forEach(itemcell -> {
-//                            models.add(((ItemCell) itemcell).getProjectModel());
-//                        });
-                        
-                        final AtomicInteger counter = new AtomicInteger(0);
-                        lvProjectOverview.getItems()
-                                .stream()
-                                .filter(item -> { 
-                                    return item != null;
-                                })
-                                .forEach(item -> {
-                                    final ItemPresenter itemPresenter = (ItemPresenter) item;
-                                    final ProjectModel projectModel = itemPresenter.getProjectModel();
-                                    projectModel.setPosition(counter.get());
-                                    models.add(projectModel);
-                                    
-                                    counter.addAndGet(1);
-                                });
-                        
-                        SqlFacade.INSTANCE.getProjectSqlProvider().updatePositions(models);
+                    if (lvProjectOverview.getItems().size() <= 1) {
+                        return;
                     }
+                    
+                    final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
+                    final AtomicInteger counter = new AtomicInteger(0);
+                    lvProjectOverview.getItems()
+                            .stream()
+                            .filter(item -> { 
+                                return item != null;
+                            })
+                            .forEach(item -> {
+                                final ItemPresenter itemPresenter = (ItemPresenter) item;
+                                final ProjectModel projectModel = itemPresenter.getProjectModel();
+                                projectModel.setPosition(counter.get());
+                                models.add(projectModel);
+
+                                counter.addAndGet(1);
+                            });
+
+                    SqlFacade.INSTANCE.getProjectSqlProvider().updatePositions(models);
                 }
         );
     }
