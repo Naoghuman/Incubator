@@ -33,6 +33,7 @@ import javafx.scene.input.TransferMode;
 public class ItemCell extends ListCell<ItemPresenter> {
 
     public ItemCell() {
+        // No logging
         this.initializeSetOnDragDetected();
         this.initializeSetOnDragOver();
         this.initializeSetOnDragEntered();
@@ -42,7 +43,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
     }
     
     private void initializeSetOnDragDetected() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragDetected"); // NOI18N
+//        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragDetected"); // NOI18N
         
         super.setOnDragDetected(event -> {
             if (super.getItem() == null) {
@@ -65,7 +66,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
     }
     
     private void initializeSetOnDragOver() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragOver"); // NOI18N
+//        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragOver"); // NOI18N
 
         super.setOnDragOver(event -> {
             if (
@@ -80,7 +81,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
     }
     
     private void initializeSetOnDragEntered() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragEntered"); // NOI18N
+//        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragEntered"); // NOI18N
         
         super.setOnDragEntered(event -> {
             if (
@@ -93,7 +94,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
     }
     
     private void initializeSetOnDragExited() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragExited"); // NOI18N
+//        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragExited"); // NOI18N
         
         super.setOnDragExited(event -> {
             if (
@@ -106,7 +107,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
     }
     
     private void initializeSetOnDragDropped() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragDropped"); // NOI18N
+//        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragDropped"); // NOI18N
 
         super.setOnDragDropped(event -> {
             if (super.getItem() == null) {
@@ -144,7 +145,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
     }
     
     private void initializeSetOnDragDone() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragDone"); // NOI18N
+//        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize setOnDragDone"); // NOI18N
   
         super.setOnDragDone(DragEvent::consume);
     }
