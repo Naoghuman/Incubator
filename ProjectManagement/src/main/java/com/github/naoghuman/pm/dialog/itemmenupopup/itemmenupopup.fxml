@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" style="-fx-background-color: AZURE;" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.pm.dialog.itemmenupopup.ItemMenuPopupPresenter">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="-20.0" spacing="7.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <children>
+            <Button focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionRemoveFromDaily" text="Remove from Daily" />
+            <Button focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionEditProject" text="Edit Project" />
+            <Separator focusTraversable="false" maxWidth="1.7976931348623157E308" />
+            <Button focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionDeleteProject" text="Delete Project" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

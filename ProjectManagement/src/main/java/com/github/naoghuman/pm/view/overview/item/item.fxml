@@ -14,7 +14,7 @@
             <Pane fx:id="pProjectColor" prefWidth="15.0" style="-fx-background-color: BEIGE;" />
             <Label fx:id="lProjectName" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Label" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#onActionCountPlusForProject" prefHeight="25.0" prefWidth="25.0" text="+" />
-            <Button mnemonicParsing="false" onAction="#onActionShowItemMenuDialog" prefHeight="25.0" prefWidth="25.0" text="e" />
+            <Button mnemonicParsing="false" onMouseClicked="#onMouseClickedShowItemMenuPopup" prefHeight="25.0" prefWidth="25.0" text="e" />
          </children>
       </HBox>
    </children>

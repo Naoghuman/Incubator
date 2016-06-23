@@ -68,49 +68,6 @@ public class DialogProvider {
         LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO fire event with changed ProjectModel"); // NOI18N
     }
     
-    public static void showItemMenuDialog(ProjectModel model) {
-        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show ItemMenu dialog"); // NOI18N
-        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
-        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use popup instead of a dialog"); // NOI18N
-        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
-        
-        final Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Menu"); // NOI18N
-        dialog.setHeaderText(model.getTitle());
-        dialog.setResizable(false);
-
-        final ButtonType btDelete = new ButtonType("Delete", ButtonData.OTHER); // NOI18N
-        final ButtonType btEdit = new ButtonType("Edit", ButtonData.OTHER); // NOI18N
-        final ButtonType btRemove = new ButtonType("Remove", ButtonData.OTHER); // NOI18N
-        dialog.getDialogPane().getButtonTypes().addAll(btRemove, btEdit, btDelete);
-	dialog.setResultConverter((ButtonType buttonType) -> {
-            if (buttonType == null) {
-                return null;
-            }
-            
-            if (buttonType.equals(btDelete)) {
-                return "Delete"; // NOI18N
-            }
-            
-            if (buttonType.equals(btEdit)) {
-                return "Edit"; // NOI18N
-            }
-            
-            if (buttonType.equals(btRemove)) {
-                return "Remove"; // NOI18N
-            }
-            
-            return null;
-        });
-        
-        final Optional<String> result = dialog.showAndWait();
-        if (!result.isPresent()) {
-            return;
-        }
-        
-        System.out.println("action -> " + result.get());
-    }
-    
     public static ProjectModel showNewProjectDialog() {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new Project dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
