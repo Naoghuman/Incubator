@@ -55,21 +55,6 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
         
         lvProjectOverview.getItems().clear();
         lvProjectOverview.setCellFactory(value -> new ItemCell());
-//        lvProjectOverview.setCellFactory(new Callback<ListView<ItemView>, ListCell<ItemView>>() {
-//
-//            @Override
-//            public ListCell<ItemView> call(ListView<ItemView> param) {
-//                return new ListCell<ItemView>() {
-//                    @Override
-//                    public void updateItem(ItemView item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        
-//                        this.setText(null);
-//                        this.setGraphic(item == null ? null : item.getView());
-//                    }
-//                };
-//            }
-//        });
     }
     
     public void onActionCreateProject() {
@@ -116,7 +101,6 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     presenter.configure(view.getView(), model);
                     
                     lvProjectOverview.getItems().add(0, presenter);
-//                    lvProjectOverview.getItems().add(0, presenter);
                 }
         );
     }
