@@ -16,11 +16,16 @@
  */
 package com.github.naoghuman.pm.dialog;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.configuration.IActionConfiguration;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogPresenter;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogView;
 import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -30,6 +35,38 @@ import javafx.scene.control.Dialog;
  * @author Naoghuman
  */
 public class DialogProvider {
+    
+    public static void showDeleteProjectDialog(long idToDelete, String projectTitle) {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show delete Project dialog"); // NOI18N
+
+        final Dialog<Boolean> dialog = new Dialog<>();
+        dialog.setTitle("Delete " + projectTitle); // NOI18N
+        dialog.setHeaderText("Do you really want to delete this project?"); // NOI18N
+        dialog.setResizable(false);
+        
+        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE); // NOI18N
+        final ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE); // NOI18N
+	dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, buttonTypeCancel);
+        
+        dialog.setResultConverter((ButtonType buttonType) -> {
+            final boolean shouldProjectDelete = buttonType != null && buttonType.equals(buttonTypeOk);
+            return shouldProjectDelete;
+        });
+        
+        final Optional<Boolean> result = dialog.showAndWait();
+        if (
+                !result.isPresent()
+                || !result.get()
+        ) {
+            return;
+        }
+        
+        // Delete the project
+        SqlFacade.INSTANCE.getProjectSqlProvider().delete(idToDelete);
+        
+        // Cleanup
+        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__UPDATE_PROJECTS);
+    }
     
     public static void showEditProjectDialog(ProjectModel model) {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show edit Project dialog"); // NOI18N
@@ -46,8 +83,10 @@ public class DialogProvider {
         presenter.configure(model);
         dialog.getDialogPane().setContent(view.getView());
         
-        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
-	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        final ButtonType buttonTypeOk = new ButtonType("Done", ButtonData.OK_DONE); // NOI18N
+        final ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE); // NOI18N
+	dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, buttonTypeCancel);
+        
 	dialog.setResultConverter((ButtonType buttonType) -> {
             if (
                     buttonType != null
@@ -81,8 +120,10 @@ public class DialogProvider {
         final ProjectDialogView view = new ProjectDialogView();
         dialog.getDialogPane().setContent(view.getView());
         
-        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
-	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        final ButtonType buttonTypeOk = new ButtonType("Create", ButtonData.OK_DONE); // NOI18N
+        final ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE); // NOI18N
+	dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, buttonTypeCancel);
+        
 	dialog.setResultConverter((ButtonType buttonType) -> {
             if (
                     buttonType != null

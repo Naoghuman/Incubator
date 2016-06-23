@@ -23,5 +23,6 @@ package com.github.naoghuman.pm.configuration;
 public interface IActionConfiguration {
     
     public static final String ON_ACTION__CREATE_NEW_PROJECT = "ON_ACTION__CREATE_NEW_PROJECT"; // NOI18N
+    public static final String ON_ACTION__UPDATE_PROJECTS = "ON_ACTION__UPDATE_PROJECTS"; // NOI18N
     
 }

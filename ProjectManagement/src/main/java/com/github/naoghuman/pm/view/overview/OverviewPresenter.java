@@ -99,6 +99,7 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in OverviewPresenter"); // NOI18N
         
         this.registerOnActionCreateProject();
+        this.registerOnActionUpdateProjects();
     }
     
     private void registerOnActionCreateProject() {
@@ -142,6 +143,19 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                             });
 
                     SqlFacade.INSTANCE.getProjectSqlProvider().updatePositions(models);
+                }
+        );
+    }
+    
+    private void registerOnActionUpdateProjects() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action update projects"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__UPDATE_PROJECTS,
+                (ActionEvent event) -> {
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action update projects"); // NOI18N
+
+                    this.initializeListView();
                 }
         );
     }

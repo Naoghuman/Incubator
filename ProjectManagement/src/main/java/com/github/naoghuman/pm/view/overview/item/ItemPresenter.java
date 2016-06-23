@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.view.overview.item;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.dialog.itemmenupopup.ItemMenuPopupPresenter;
 import com.github.naoghuman.pm.dialog.itemmenupopup.ItemMenuPopupView;
 import com.github.naoghuman.pm.model.ProjectModel;
 import java.net.URL;
@@ -73,16 +74,17 @@ public class ItemPresenter implements Initializable {
     public void onMouseClickedShowItemMenuPopup(MouseEvent event) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On mouse clicked show ItemMenu popup"); // NOI18N
         
-        final Popup p = new Popup();
-        p.setAutoFix(true);
-        p.setAutoHide(true);
-        p.setHideOnEscape(true);
+        final Popup popup = new Popup();
+        popup.setAutoFix(true);
+        popup.setAutoHide(true);
+        popup.setHideOnEscape(true);
         
         final ItemMenuPopupView view = new ItemMenuPopupView();
-        p.getContent().add(view.getView());
+        final ItemMenuPopupPresenter presenter = view.getRealPresenter();
+        presenter.configure(popup, model);
+        popup.getContent().add(view.getView());
         
-        p.show(parent, event.getScreenX(), event.getScreenY());
-        
+        popup.show(parent, event.getScreenX(), event.getScreenY());
     }
     
     public void onActionCountPlusForProject() {

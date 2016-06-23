@@ -16,16 +16,25 @@
  */
 package com.github.naoghuman.pm.dialog.itemmenupopup;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.configuration.IActionConfiguration;
+import com.github.naoghuman.pm.dialog.DialogProvider;
+import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Popup;
 
 /**
  *
  * @author Naoghuman
  */
-public class ItemMenuPopupPresenter implements Initializable {
+public class ItemMenuPopupPresenter implements Initializable, IActionConfiguration {
+    
+    private Popup popup;
+    private ProjectModel model;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,19 +42,43 @@ public class ItemMenuPopupPresenter implements Initializable {
         
     }
     
+    public void configure(Popup popup, ProjectModel model) {
+        this.popup = popup;
+        this.model = model;
+    }
+    
     public void onActionDeleteProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action delete Project"); // NOI18N
+
+        popup.hide();
         
+        final long idToDelete = model.getId();
+        final String projectTitle = model.getTitle();
+        DialogProvider.showDeleteProjectDialog(idToDelete, projectTitle);
     }
     
     public void onActionEditProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action edit Project"); // NOI18N
+        /*
+         - Show EditProjectDialog
+         - Save to database
+            - ProjectModel
+            - DailyModel
+         - Update Overview
+         - Update Daily
+        */
         
+        popup.hide();
     }
     
     public void onActionRemoveFromDaily() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action remove from daily"); // NOI18N
+        /*
+         - Save to database
+         - Update Daily
+        */
         
+        popup.hide();
     }
     
 }
