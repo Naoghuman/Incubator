@@ -64,6 +64,10 @@ public class ItemPresenter implements Initializable {
         return model.getId();
     }
     
+    public ProjectModel getProjectModel() {
+        return model;
+    }
+    
     public void onActionShowItemMenuDialog() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show ItemMenu dialog"); // NOI18N
         

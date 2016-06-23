@@ -29,6 +29,9 @@ import com.github.naoghuman.pm.view.overview.item.ItemPresenter;
 import com.github.naoghuman.pm.view.overview.item.ItemView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -106,7 +109,29 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     // Do database stuff
                     SqlFacade.INSTANCE.getProjectSqlProvider().createOrUpdate(model);
                     
-                    // database update-all
+                    if (lvProjectOverview.getItems().size() > 1) {
+                        final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
+//                        lvProjectOverview.getItems().forEach(itemcell -> {
+//                            models.add(((ItemCell) itemcell).getProjectModel());
+//                        });
+                        
+                        final AtomicInteger counter = new AtomicInteger(0);
+                        lvProjectOverview.getItems()
+                                .stream()
+                                .filter(item -> { 
+                                    return item != null;
+                                })
+                                .forEach(item -> {
+                                    final ItemPresenter itemPresenter = (ItemPresenter) item;
+                                    final ProjectModel projectModel = itemPresenter.getProjectModel();
+                                    projectModel.setPosition(counter.get());
+                                    models.add(projectModel);
+                                    
+                                    counter.addAndGet(1);
+                                });
+                        
+                        SqlFacade.INSTANCE.getProjectSqlProvider().updatePositions(models);
+                    }
                 }
         );
     }

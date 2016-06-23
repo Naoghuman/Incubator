@@ -16,7 +16,6 @@
  */
 package com.github.naoghuman.pm.view.overview.item;
 
-import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;

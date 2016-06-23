@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.sql;
 
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
+import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.model.api.IProjectModel;
 import java.util.Collections;
@@ -28,7 +29,7 @@ import javafx.collections.ObservableList;
  *
  * @author Naoghuman
  */
-public class ProjectSqlProvider implements IProjectModel {
+public class ProjectSqlProvider  implements IProjectModel {
     
     private static ProjectSqlProvider instance = null;
     
@@ -45,6 +46,8 @@ public class ProjectSqlProvider implements IProjectModel {
     }
     
     public void createOrUpdate(ProjectModel model) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Create or update: " + model.getTitle()); // NOI18N
+        
         if (Objects.equals(model.getId(), DEFAULT_ID__PROJECT_MODEL)) {
             model.setId(System.currentTimeMillis());
             DatabaseFacade.INSTANCE.getCrudService().create(model);
@@ -59,6 +62,8 @@ public class ProjectSqlProvider implements IProjectModel {
     }
     
     public ObservableList<ProjectModel> findAll() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Find all"); // NOI18N
+        
         final ObservableList<ProjectModel> allTipsOfTheNight = FXCollections.observableArrayList();     
         allTipsOfTheNight.addAll(DatabaseFacade.INSTANCE.getCrudService()
                 .findByNamedQuery(ProjectModel.class, NAMED_QUERY__NAME__FIND_ALL));
@@ -68,10 +73,25 @@ public class ProjectSqlProvider implements IProjectModel {
     }
     
     public ProjectModel findById(Long dreamId) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Find by id: " + dreamId); // NOI18N
+        
         final ProjectModel model = DatabaseFacade.INSTANCE.getCrudService()
                 .findById(ProjectModel.class, dreamId);
         
         return model;
+    }
+    
+    public void updatePositions(ObservableList<ProjectModel> models) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Update positions"); // NOI18N
+        
+        DatabaseFacade.INSTANCE.getCrudService().beginTransaction();
+        
+        models.forEach(model -> {
+            DatabaseFacade.INSTANCE.getCrudService().update(model, false);
+        });
+        
+        DatabaseFacade.INSTANCE.getCrudService().commitTransaction();
+        
     }
     
 }
