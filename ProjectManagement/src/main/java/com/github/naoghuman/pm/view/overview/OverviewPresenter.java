@@ -126,7 +126,7 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                     }
                     
                     final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
-                    final AtomicInteger counter = new AtomicInteger(0);
+                    final AtomicInteger position = new AtomicInteger(0);
                     lvProjectOverview.getItems()
                             .stream()
                             .filter(item -> { 
@@ -135,10 +135,10 @@ public class OverviewPresenter implements Initializable, IActionConfiguration, I
                             .forEach(item -> {
                                 final ItemPresenter itemPresenter = (ItemPresenter) item;
                                 final ProjectModel projectModel = itemPresenter.getProjectModel();
-                                projectModel.setPosition(counter.get());
+                                projectModel.setPosition(position.get());
                                 models.add(projectModel);
 
-                                counter.addAndGet(1);
+                                position.addAndGet(1);
                             });
 
                     SqlFacade.INSTANCE.getProjectSqlProvider().updatePositions(models);

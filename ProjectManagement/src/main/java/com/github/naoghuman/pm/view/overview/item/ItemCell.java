@@ -16,8 +16,12 @@
  */
 package com.github.naoghuman.pm.view.overview.item;
 
+import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.ClipboardContent;
@@ -116,24 +120,8 @@ public class ItemCell extends ListCell<ItemPresenter> {
             final Dragboard dragboard = event.getDragboard();
             boolean success = false;
             if (dragboard.hasString()) {
-                final ObservableList<ItemPresenter> items = super.getListView().getItems();
-                int draggedIndex = items.indexOf(dragboard.getString());
-                ItemPresenter draggedItem = null;
-                for (ItemPresenter item : items) {
-                    if (item.getProjectId() == Long.parseLong(dragboard.getString())) {
-                        draggedItem = item;
-                        draggedIndex = items.indexOf(item);
-                        super.getItem().getParent().setOpacity(1.0);
-                        break;
-                    }
-                }
-                final int thisIndex = items.indexOf(getItem());
-
-                items.set(draggedIndex, getItem());
-                items.set(thisIndex, draggedItem);
-
-                final List<ItemPresenter> itemsCopy = new ArrayList<>(getListView().getItems());
-                getListView().getItems().setAll(itemsCopy);
+                final List<ItemPresenter> items = this.updateOverview(dragboard);
+                this.updateDatabase(items);
 
                 success = true;
             }
@@ -149,6 +137,22 @@ public class ItemCell extends ListCell<ItemPresenter> {
         super.setOnDragDone(DragEvent::consume);
     }
     
+    private void updateDatabase(List<ItemPresenter> items) {
+        final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
+        final AtomicInteger position = new AtomicInteger(0);
+        items.stream()
+                .map((item) -> item.getProjectModel())
+                .map((model) -> {
+                    model.setPosition(position.get());
+                    return model;
+                }).forEach((model) -> {
+                    models.add(model);
+                    position.addAndGet(1);
+                });
+
+        SqlFacade.INSTANCE.getProjectSqlProvider().updatePositions(models);
+    }
+    
     @Override
     protected void updateItem(ItemPresenter item, boolean empty) {
         super.updateItem(item, empty);
@@ -162,4 +166,28 @@ public class ItemCell extends ListCell<ItemPresenter> {
             super.setGraphic(item.getParent());
         }
     }
+    
+    private List<ItemPresenter> updateOverview(Dragboard dragboard) {
+        final ObservableList<ItemPresenter> items = super.getListView().getItems();
+        int draggedIndex = items.indexOf(dragboard.getString());
+        ItemPresenter draggedItem = null;
+        for (ItemPresenter item : items) {
+            if (item.getProjectId() == Long.parseLong(dragboard.getString())) {
+                draggedItem = item;
+                draggedIndex = items.indexOf(item);
+                super.getItem().getParent().setOpacity(1.0);
+                break;
+            }
+        }
+        final int thisIndex = items.indexOf(getItem());
+
+        items.set(draggedIndex, getItem());
+        items.set(thisIndex, draggedItem);
+
+        final List<ItemPresenter> itemsCopy = new ArrayList<>(items);
+        super.getListView().getItems().setAll(itemsCopy);
+        
+        return itemsCopy;
+    }
+    
 }
