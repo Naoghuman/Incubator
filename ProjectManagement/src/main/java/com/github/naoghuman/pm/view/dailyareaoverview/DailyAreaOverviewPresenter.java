@@ -14,18 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.dailyarea;
+package com.github.naoghuman.pm.view.dailyareaoverview;
 
-import com.airhacks.afterburner.views.FXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
  *
  * @author Naoghuman
  */
-public class DailyAreaView extends FXMLView {
+public class DailyAreaOverviewPresenter implements Initializable {
     
-    public DailyAreaPresenter getRealPresenter() {
-        return (DailyAreaPresenter) super.getPresenter();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
     }
     
 }
