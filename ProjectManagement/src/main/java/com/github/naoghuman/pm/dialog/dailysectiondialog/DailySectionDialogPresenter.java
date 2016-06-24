@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.dialog.dailydialog;
+package com.github.naoghuman.pm.dialog.dailysectiondialog;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
@@ -29,7 +29,7 @@ import javafx.scene.control.DatePicker;
  *
  * @author Naoghuman
  */
-public class DailyDialogPresenter implements Initializable {
+public class DailySectionDialogPresenter implements Initializable {
     
     @FXML private DatePicker dpDaily;
     

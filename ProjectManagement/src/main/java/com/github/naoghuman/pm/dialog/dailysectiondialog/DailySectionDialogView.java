@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.dialog.dailydialog;
+package com.github.naoghuman.pm.dialog.dailysectiondialog;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class DailyDialogView extends FXMLView {
+public class DailySectionDialogView extends FXMLView {
     
-    public DailyDialogPresenter getRealPresenter() {
-        return (DailyDialogPresenter) super.getPresenter();
+    public DailySectionDialogPresenter getRealPresenter() {
+        return (DailySectionDialogPresenter) super.getPresenter();
     }
     
 }

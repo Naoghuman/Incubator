@@ -19,7 +19,7 @@ package com.github.naoghuman.pm.dialog;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.IActionConfiguration;
-import com.github.naoghuman.pm.dialog.dailydialog.DailyDialogView;
+import com.github.naoghuman.pm.dialog.dailysectiondialog.DailySectionDialogView;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogPresenter;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogView;
 import com.github.naoghuman.pm.model.ProjectModel;
@@ -116,7 +116,7 @@ public class DialogProvider {
         dialog.setHeaderText("Creates a new Daily Section."); // NOI18N
         dialog.setResizable(false);
         
-        final DailyDialogView view = new DailyDialogView();
+        final DailySectionDialogView view = new DailySectionDialogView();
         dialog.getDialogPane().setContent(view.getView());
         
         final ButtonType buttonTypeOk = new ButtonType("Create", ButtonData.OK_DONE); // NOI18N
