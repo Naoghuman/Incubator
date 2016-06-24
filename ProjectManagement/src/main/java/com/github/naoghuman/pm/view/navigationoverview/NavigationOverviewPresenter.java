@@ -46,7 +46,7 @@ import javafx.scene.control.ListView;
  */
 public class NavigationOverviewPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
-    @FXML private ListView lvProjectOverview;
+    @FXML private ListView lvProjectNavigation;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,8 +60,8 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
     private void initializeListView() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ListView"); // NOI18N
         
-        lvProjectOverview.getItems().clear();
-        lvProjectOverview.setCellFactory(value -> new ItemCell());
+        lvProjectNavigation.getItems().clear();
+        lvProjectNavigation.setCellFactory(value -> new ItemCell());
         
         final ObservableList<ProjectModel> models = SqlFacade.INSTANCE.getProjectSqlProvider().findAll();
         if (models.isEmpty()) {
@@ -77,7 +77,7 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
                     return presenter;
                 })
                 .collect(Collectors.toCollection(ArrayList::new));
-        lvProjectOverview.getItems().addAll(presenters);
+        lvProjectNavigation.getItems().addAll(presenters);
     }
     
     public void onActionCreateProject() {
@@ -117,18 +117,18 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
                     final ItemPresenter presenter = view.getRealPresenter();
                     presenter.configure(view.getView(), model);
                     
-                    lvProjectOverview.getItems().add(0, presenter);
+                    lvProjectNavigation.getItems().add(0, presenter);
                     
                     // Do database stuff
                     SqlFacade.INSTANCE.getProjectSqlProvider().createOrUpdate(model);
                     
-                    if (lvProjectOverview.getItems().size() <= 1) {
+                    if (lvProjectNavigation.getItems().size() <= 1) {
                         return;
                     }
                     
                     final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
                     final AtomicInteger position = new AtomicInteger(0);
-                    lvProjectOverview.getItems()
+                    lvProjectNavigation.getItems()
                             .stream()
                             .filter(item -> { 
                                 return item != null;
