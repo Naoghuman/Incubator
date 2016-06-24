@@ -19,13 +19,12 @@ package com.github.naoghuman.pm.dialog;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.IActionConfiguration;
+import com.github.naoghuman.pm.dialog.dailydialog.DailyDialogView;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogPresenter;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogView;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.util.Optional;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -105,6 +104,42 @@ public class DialogProvider {
         }
         
         LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO fire event with changed ProjectModel"); // NOI18N
+    }
+    
+    public static String showNewDailyDialog() {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new Project dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
+        
+        final Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("New daily area"); // NOI18N
+        dialog.setHeaderText("Creates a new daily area."); // NOI18N
+        dialog.setResizable(false);
+        
+        final DailyDialogView view = new DailyDialogView();
+        dialog.getDialogPane().setContent(view.getView());
+        
+        final ButtonType buttonTypeOk = new ButtonType("Create", ButtonData.OK_DONE); // NOI18N
+        final ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE); // NOI18N
+	dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, buttonTypeCancel);
+        
+	dialog.setResultConverter((ButtonType buttonType) -> {
+            if (
+                    buttonType != null
+                    && buttonType.equals(buttonTypeOk)
+            ) {
+                return view.getRealPresenter().getDate();
+            }
+            
+            return null;
+        });
+        
+        final Optional<String> result = dialog.showAndWait();
+        if (!result.isPresent()) {
+            return null;
+        }
+        
+        return result.get();
     }
     
     public static ProjectModel showNewProjectDialog() {

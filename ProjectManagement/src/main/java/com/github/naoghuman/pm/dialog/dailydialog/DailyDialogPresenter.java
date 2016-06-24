@@ -14,44 +14,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.dailyareaoverview;
+package com.github.naoghuman.pm.dialog.dailydialog;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.pm.dialog.DialogProvider;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.DatePicker;
 
 /**
  *
  * @author Naoghuman
  */
-public class DailyAreaOverviewPresenter implements Initializable {
+public class DailyDialogPresenter implements Initializable {
     
-    @FXML private TabPane tpDailyAreaOverview;
+    @FXML private DatePicker dpDaily;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailyAreaOverviewPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailyDialogPresenter"); // NOI18N
         
+        this.initializeDatePicker();
     }
     
-    public void onActionShowNewDailyDialog() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new Daily dialog"); // NOI18N
+    private void initializeDatePicker() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailyDialogPresenter"); // NOI18N
         
-        /*
-         - Dialog lets user create a daily
-         - if the daily is always open, then select the corresponding tab.
-        */
+        dpDaily.setValue(LocalDate.now());
+    }
+
+    public String getDate() {
+        final LocalDate localDate = dpDaily.getValue();
+        final String date = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
         
-        final String date = DialogProvider.showNewDailyDialog();
-        if (date == null) {
-            return;
-        }
-        System.out.println("date: " + date);
-        
+        return date;
     }
     
 }
