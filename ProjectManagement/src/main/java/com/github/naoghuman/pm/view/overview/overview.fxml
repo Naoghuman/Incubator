@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="259.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.pm.view.overview.OverviewPresenter">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="259.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.pm.view.overview.OverviewPresenter">
     <children>
         <VBox layoutX="14.0" layoutY="25.0" spacing="7.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <children>
@@ -17,6 +17,9 @@
                         <Label alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Projects" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#onActionCreateProject" text="+" />
                     </children>
+               <padding>
+                  <Insets left="7.0" right="7.0" />
+               </padding>
                 </HBox>
                 <ListView fx:id="lvProjectOverview" VBox.vgrow="ALWAYS" />
             </children>
