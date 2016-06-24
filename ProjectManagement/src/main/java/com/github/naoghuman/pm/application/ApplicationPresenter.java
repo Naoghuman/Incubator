@@ -18,6 +18,7 @@ package com.github.naoghuman.pm.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.view.dailyarea.DailyAreaView;
 import com.github.naoghuman.pm.view.overview.OverviewView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,7 +33,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
-    @FXML private BorderPane bpApplication;
+    @FXML private BorderPane bpDailyArea;
     @FXML private BorderPane bpProjectOverview;
     @FXML private SplitPane spApplication;
 
@@ -43,8 +44,17 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
         this.initializeProjectOverview();
+        this.initializeDailyArea();
         
         this.registerActions();
+    }
+
+    private void initializeDailyArea() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailyArea"); // NOI18N
+        
+        final DailyAreaView view = new DailyAreaView();
+        
+        bpDailyArea.setCenter(view.getView());
     }
 
     private void initializeProjectOverview() {

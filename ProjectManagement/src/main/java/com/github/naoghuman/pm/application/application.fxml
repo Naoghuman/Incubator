@@ -11,7 +11,7 @@
         <SplitPane fx:id="spApplication" dividerPositions="0.3" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <items>
                 <BorderPane fx:id="bpProjectOverview" />
-                <BorderPane fx:id="bpApplication" />
+                <BorderPane fx:id="bpDailyArea" />
             </items>
         </SplitPane>
     </children>

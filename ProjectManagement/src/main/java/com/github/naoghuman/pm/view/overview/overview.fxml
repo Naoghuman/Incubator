@@ -12,13 +12,13 @@
     <children>
         <VBox layoutX="14.0" layoutY="25.0" spacing="7.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <children>
-                <HBox>
+                <HBox style="-fx-background-color: LIGHTBLUE;">
                     <children>
                         <Label alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Projects" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#onActionCreateProject" text="+" />
                     </children>
                <padding>
-                  <Insets left="7.0" right="7.0" />
+                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </padding>
                 </HBox>
                 <ListView fx:id="lvProjectOverview" VBox.vgrow="ALWAYS" />

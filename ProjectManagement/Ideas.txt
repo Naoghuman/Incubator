@@ -2,6 +2,20 @@
 IDEAS
 --------------------------------------------------------------------------------
 TASKS
-- User can defined daily Tasks for a project.
+- User can define daily Tasks for a project.
+
+--------------------------------------------------------------------------------
+FAVORIT-PROJECTS
+ - User can define how many from the first projects in Overview will be favorited.
+   That means they have a special ListCell background-color.
+
+--------------------------------------------------------------------------------
+DRAG & DROP
+ - From Overview a Project can be d&d to the DailyArea.
+
+--------------------------------------------------------------------------------
+PARENT PROJECT
+ - User can define a Project as Parent or as Child.
+   - No cycular dependencies allowed.
 
 --------------------------------------------------------------------------------
