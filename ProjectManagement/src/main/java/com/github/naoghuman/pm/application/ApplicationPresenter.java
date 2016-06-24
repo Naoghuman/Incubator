@@ -19,7 +19,7 @@ package com.github.naoghuman.pm.application;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.view.dailyarea.DailyAreaView;
-import com.github.naoghuman.pm.view.overview.OverviewView;
+import com.github.naoghuman.pm.view.navigationoverview.NavigationOverviewView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -43,7 +43,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        this.initializeProjectOverview();
+        this.initializeNavigationOverview();
         this.initializeDailyArea();
         
         this.registerActions();
@@ -57,11 +57,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         bpDailyArea.setCenter(view.getView());
     }
 
-    private void initializeProjectOverview() {
-        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ProjectOverview"); // NOI18N
+    private void initializeNavigationOverview() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize NavigationOverview"); // NOI18N
         
-        final OverviewView view = new OverviewView();
-        
+        final NavigationOverviewView view = new NavigationOverviewView();
         bpProjectOverview.setCenter(view.getView());
     }
     

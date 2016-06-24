@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.overview;
+package com.github.naoghuman.pm.view.navigationoverview;
 
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
@@ -24,9 +24,9 @@ import com.github.naoghuman.pm.configuration.IActionConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
-import com.github.naoghuman.pm.view.overview.item.ItemCell;
-import com.github.naoghuman.pm.view.overview.item.ItemPresenter;
-import com.github.naoghuman.pm.view.overview.item.ItemView;
+import com.github.naoghuman.pm.view.navigationoverview.item.ItemCell;
+import com.github.naoghuman.pm.view.navigationoverview.item.ItemPresenter;
+import com.github.naoghuman.pm.view.navigationoverview.item.ItemView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +44,13 @@ import javafx.scene.control.ListView;
  *
  * @author Naoghuman
  */
-public class OverviewPresenter implements Initializable, IActionConfiguration, IRegisterActions {
+public class NavigationOverviewPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
     @FXML private ListView lvProjectOverview;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize OverviewPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize NavigationOverviewPresenter"); // NOI18N
         
         this.initializeListView();
         

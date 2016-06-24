@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.overview;
+package com.github.naoghuman.pm.view.navigationoverview;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class OverviewView extends FXMLView {
+public class NavigationOverviewView extends FXMLView {
     
-    public OverviewPresenter getRealPresenter() {
-        return (OverviewPresenter) super.getPresenter();
+    public NavigationOverviewPresenter getRealPresenter() {
+        return (NavigationOverviewPresenter) super.getPresenter();
     }
     
 }
