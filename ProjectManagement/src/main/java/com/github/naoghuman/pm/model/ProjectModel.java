@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.pm.model;
 
-import com.github.naoghuman.pm.model.api.IProjectModel;
+import com.github.naoghuman.pm.model.api.IEntityModel;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -49,16 +49,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name = IProjectModel.TABLE_NAME__PROJECT_MODEL)
+@Table(name = IEntityModel.TABLE_NAME__PROJECT_MODEL)
 @NamedQueries({
     @NamedQuery(
-            name = IProjectModel.NAMED_QUERY__NAME__FIND_ALL,
-            query = IProjectModel.NAMED_QUERY__QUERY__FIND_ALL)//,
+            name = IEntityModel.NAMED_QUERY__NAME__PROJECT_MODEL__FIND_ALL,
+            query = IEntityModel.NAMED_QUERY__QUERY__PROJECT_MODEL__FIND_ALL)//,
 //    @NamedQuery(
-//            name = IProjectModel.NAMED_QUERY__NAME__FIND_ALL_FOR_NAVIGATION_HISTORY,
-//            query = IProjectModel.NAMED_QUERY__QUERY__FIND_ALL_FOR_NAVIGATION_HISTORY)
+//            name = IEntityModel.NAMED_QUERY__NAME__FIND_ALL_FOR_NAVIGATION_HISTORY,
+//            query = IEntityModel.NAMED_QUERY__QUERY__FIND_ALL_FOR_NAVIGATION_HISTORY)
 })
-public class ProjectModel implements Comparable<ProjectModel>, Externalizable, IProjectModel {
+public class ProjectModel implements Comparable<ProjectModel>, Externalizable, IEntityModel {
     
     // START  ID ---------------------------------------------------------------
     private LongProperty idProperty;
@@ -66,7 +66,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = PROJECT_MODEL__COLUMN_NAME__ID)
+    @Column(name = COLUMN_NAME__ID)
     public long getId() {
         if (this.idProperty == null) {
             return _id;
@@ -85,7 +85,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
 
     public LongProperty idProperty() {
         if (idProperty == null) {
-            idProperty = new SimpleLongProperty(this, PROJECT_MODEL__COLUMN_NAME__ID, _id);
+            idProperty = new SimpleLongProperty(this, COLUMN_NAME__ID, _id);
         }
         return idProperty;
     }
@@ -95,7 +95,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     private IntegerProperty positionProperty;
     private int _position = 0;
 
-    @Column(name = PROJECT_MODEL__COLUMN_NAME__POSITION)
+    @Column(name = COLUMN_NAME__POSITION)
     public int getPosition() {
         if (this.positionProperty == null) {
             return _position;
@@ -115,7 +115,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     public IntegerProperty positionProperty() {
         if (positionProperty == null) {
             positionProperty = new SimpleIntegerProperty(this,
-                    PROJECT_MODEL__COLUMN_NAME__POSITION, _position);
+                    COLUMN_NAME__POSITION, _position);
         }
         return positionProperty;
     }
@@ -125,7 +125,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     private LongProperty generationTimeProperty;
     private long _generationTime = System.currentTimeMillis();
 
-    @Column(name = PROJECT_MODEL__COLUMN_NAME__GENERATION_TIME)
+    @Column(name = COLUMN_NAME__GENERATION_TIME)
     public long getGenerationTime() {
         if (this.generationTimeProperty == null) {
             return _generationTime;
@@ -145,7 +145,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     public LongProperty generationTimeProperty() {
         if (generationTimeProperty == null) {
             generationTimeProperty = new SimpleLongProperty(this,
-                    PROJECT_MODEL__COLUMN_NAME__GENERATION_TIME, _generationTime);
+                    COLUMN_NAME__GENERATION_TIME, _generationTime);
         }
         return generationTimeProperty;
     }
@@ -155,7 +155,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     private StringProperty titleProperty = null;
     private String _title = NO_TITLE;
     
-    @Column(name = PROJECT_MODEL__COLUMN_NAME__TITLE)
+    @Column(name = COLUMN_NAME__TITLE)
     public String getTitle() {
         if (this.titleProperty == null) {
             return _title;
@@ -174,7 +174,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     
     public StringProperty titleProperty() {
         if (titleProperty == null) {
-            titleProperty = new SimpleStringProperty(this, PROJECT_MODEL__COLUMN_NAME__TITLE, _title);
+            titleProperty = new SimpleStringProperty(this, COLUMN_NAME__TITLE, _title);
         }
         return titleProperty;
     }
@@ -220,7 +220,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
         }
     }
     
-    @Column(name = PROJECT_MODEL__COLUMN_NAME__COLOR_AS_STYLE)
+    @Column(name = COLUMN_NAME__COLOR_AS_STYLE)
     public String getColorAsStyle() {
         if (this.colorAsStyleProperty == null) {
             return _colorAsStyle;
@@ -240,7 +240,7 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     public StringProperty colorProperty() {
         if (colorAsStyleProperty == null) {
             colorAsStyleProperty = new SimpleStringProperty(this, 
-                    PROJECT_MODEL__COLUMN_NAME__COLOR_AS_STYLE, _colorAsStyle);
+                    COLUMN_NAME__COLOR_AS_STYLE, _colorAsStyle);
         }
         return colorAsStyleProperty;
     }

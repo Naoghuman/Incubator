@@ -19,9 +19,8 @@ package com.github.naoghuman.pm.sql;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.ProjectModel;
-import com.github.naoghuman.pm.model.api.IProjectModel;
+import com.github.naoghuman.pm.model.api.IEntityModel;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +29,7 @@ import javafx.collections.ObservableList;
  *
  * @author Naoghuman
  */
-public class ProjectSqlProvider  implements IProjectModel {
+public class ProjectSqlProvider implements IEntityModel {
     
     private static ProjectSqlProvider instance = null;
     
@@ -67,7 +66,7 @@ public class ProjectSqlProvider  implements IProjectModel {
         
         final ObservableList<ProjectModel> models = FXCollections.observableArrayList();     
         models.addAll(DatabaseFacade.INSTANCE.getCrudService()
-                .findByNamedQuery(ProjectModel.class, NAMED_QUERY__NAME__FIND_ALL));
+                .findByNamedQuery(ProjectModel.class, NAMED_QUERY__NAME__PROJECT_MODEL__FIND_ALL));
         Collections.sort(
                 models,
                 (model1, model2) -> 
@@ -77,11 +76,11 @@ public class ProjectSqlProvider  implements IProjectModel {
         return models;
     }
     
-    public ProjectModel findById(Long dreamId) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Find by id: " + dreamId); // NOI18N
+    public ProjectModel findById(Long id) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Find by id: " + id); // NOI18N
         
         final ProjectModel model = DatabaseFacade.INSTANCE.getCrudService()
-                .findById(ProjectModel.class, dreamId);
+                .findById(ProjectModel.class, id);
         
         return model;
     }

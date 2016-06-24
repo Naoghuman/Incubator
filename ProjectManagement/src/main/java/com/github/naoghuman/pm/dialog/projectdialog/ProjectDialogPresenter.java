@@ -18,7 +18,7 @@ package com.github.naoghuman.pm.dialog.projectdialog;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.ProjectModel;
-import com.github.naoghuman.pm.model.api.IProjectModel;
+import com.github.naoghuman.pm.model.api.IEntityModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -54,7 +54,7 @@ public class ProjectDialogPresenter implements Initializable {
         model.convertColorToDatabaseColumn(cpProjectColor.getValue());
         
         final String projectName = tfProjectName.getText().trim();
-        final String title = projectName.isEmpty() ? IProjectModel.NO_TITLE : projectName;
+        final String title = projectName.isEmpty() ? IEntityModel.NO_TITLE : projectName;
         model.setTitle(title);
         
         return model;
