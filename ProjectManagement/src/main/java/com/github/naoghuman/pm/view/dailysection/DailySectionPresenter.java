@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.dailyarea;
+package com.github.naoghuman.pm.view.dailysection;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.dialog.DialogProvider;
@@ -30,33 +30,33 @@ import javafx.scene.control.TabPane;
  *
  * @author Naoghuman
  */
-public class DailyAreaPresenter implements Initializable {
+public class DailySectionPresenter implements Initializable {
     
-    @FXML private TabPane tpDailyAreaOverview;
+    @FXML private TabPane tpDailySections;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailyAreaOverviewPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionPresenter"); // NOI18N
         
     }
     
-    public void onActionShowNewDailyDialog() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new Daily dialog"); // NOI18N
+    public void onActionShowNewDailySectionDialog() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new DailySection dialog"); // NOI18N
 
         // User choose the new date for the DailyArea
-        final String date = DialogProvider.showNewDailyDialog();
+        final String date = DialogProvider.showNewDailySectionDialog();
         if (date == null) {
             return;
         }
         
         // Check if the DailyArea is always open
-        final Optional<Tab> result = tpDailyAreaOverview.getTabs().stream()
+        final Optional<Tab> result = tpDailySections.getTabs().stream()
                 .filter(tab -> { 
                     return tab.getText().equals(date); 
                 })
                 .findFirst();
         if (result.isPresent()) {
-            tpDailyAreaOverview.getSelectionModel().select(result.get());
+            tpDailySections.getSelectionModel().select(result.get());
             return;
         }
         
@@ -68,8 +68,8 @@ public class DailyAreaPresenter implements Initializable {
         tab.setText(date);
         
         // TODO order later the tabs
-        tpDailyAreaOverview.getTabs().add(0, tab);
-        tpDailyAreaOverview.getSelectionModel().select(tab);
+        tpDailySections.getTabs().add(0, tab);
+        tpDailySections.getSelectionModel().select(tab);
         
         // TODO Save the new DailyArea to database
         

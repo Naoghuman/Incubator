@@ -106,14 +106,14 @@ public class DialogProvider {
         LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO fire event with changed ProjectModel"); // NOI18N
     }
     
-    public static String showNewDailyDialog() {
-        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new Project dialog"); // NOI18N
+    public static String showNewDailySectionDialog() {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new DailySection dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
         
         final Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("New daily area"); // NOI18N
-        dialog.setHeaderText("Creates a new daily area."); // NOI18N
+        dialog.setTitle("New Daily Section"); // NOI18N
+        dialog.setHeaderText("Creates a new Daily Section."); // NOI18N
         dialog.setResizable(false);
         
         final DailyDialogView view = new DailyDialogView();
