@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.dailyareaoverview;
+package com.github.naoghuman.pm.view.dailyarea;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.dialog.DialogProvider;
@@ -30,7 +30,7 @@ import javafx.scene.control.TabPane;
  *
  * @author Naoghuman
  */
-public class DailyAreaOverviewPresenter implements Initializable {
+public class DailyAreaPresenter implements Initializable {
     
     @FXML private TabPane tpDailyAreaOverview;
     
