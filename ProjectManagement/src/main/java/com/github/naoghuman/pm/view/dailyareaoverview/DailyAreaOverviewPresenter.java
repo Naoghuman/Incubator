@@ -19,9 +19,11 @@ package com.github.naoghuman.pm.view.dailyareaoverview;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 /**
@@ -40,17 +42,36 @@ public class DailyAreaOverviewPresenter implements Initializable {
     
     public void onActionShowNewDailyDialog() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new Daily dialog"); // NOI18N
-        
-        /*
-         - Dialog lets user create a daily
-         - if the daily is always open, then select the corresponding tab.
-        */
-        
+
+        // User choose the new date for the DailyArea
         final String date = DialogProvider.showNewDailyDialog();
         if (date == null) {
             return;
         }
-        System.out.println("date: " + date);
+        
+        // Check if the DailyArea is always open
+        final Optional<Tab> result = tpDailyAreaOverview.getTabs().stream()
+                .filter(tab -> { 
+                    return tab.getText().equals(date); 
+                })
+                .findFirst();
+        if (result.isPresent()) {
+            tpDailyAreaOverview.getSelectionModel().select(result.get());
+            return;
+        }
+        
+        // TODO create new DailyAreaModel (add to tab, save to db)
+        
+        // Create a new Tab
+        final Tab tab = new Tab();
+        tab.setClosable(true);
+        tab.setText(date);
+        
+        // TODO order later the tabs
+        tpDailyAreaOverview.getTabs().add(0, tab);
+        tpDailyAreaOverview.getSelectionModel().select(tab);
+        
+        // TODO Save the new DailyArea to database
         
     }
     
