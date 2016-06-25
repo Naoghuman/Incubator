@@ -55,6 +55,8 @@ public class DailySqlProvider implements IEntityModel {
     }
     
     public void delete(Long idToDelete) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Delete: " + idToDelete); // NOI18N
+        
         DatabaseFacade.INSTANCE.getCrudService().delete(DailySectionModel.class, idToDelete);
     }
     

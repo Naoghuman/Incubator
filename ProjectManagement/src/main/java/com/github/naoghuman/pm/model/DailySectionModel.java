@@ -88,38 +88,40 @@ public class DailySectionModel implements Comparable<DailySectionModel>, Externa
     }
     // END  ID -----------------------------------------------------------------
     
-    // START  DAILY ------------------------------------------------------------
-    private StringProperty dailyProperty = null;
-    private String _daily = NO_DAILY;
+    // START  DAILY-DATE -------------------------------------------------------
+    private StringProperty dailyDateProperty = null;
+    private String _dailyDate = NO_DAILY_DATE;
     
-    @Column(name = COLUMN_NAME__DAILY)
-    public String getDaily() {
-        if (this.dailyProperty == null) {
-            return _daily;
+    @Column(name = COLUMN_NAME__DAILY_DATE)
+    public String getDailyDate() {
+        if (this.dailyDateProperty == null) {
+            return _dailyDate;
         } else {
-            return dailyProperty.get();
+            return dailyDateProperty.get();
         }
     }
     
-    public void setDaily(String daily) {
-        if (this.dailyProperty == null) {
-            _daily = daily;
+    public void setDailyDate(String dailyDate) {
+        if (this.dailyDateProperty == null) {
+            _dailyDate = dailyDate;
         } else {
-            this.dailyProperty.set(daily);
+            this.dailyDateProperty.set(dailyDate);
         }
     }
     
-    public StringProperty dailyProperty() {
-        if (dailyProperty == null) {
-            dailyProperty = new SimpleStringProperty(this, COLUMN_NAME__DAILY, _daily);
+    public StringProperty dailyDateProperty() {
+        if (dailyDateProperty == null) {
+            dailyDateProperty = new SimpleStringProperty(this, 
+                    COLUMN_NAME__DAILY_DATE, _dailyDate);
         }
-        return dailyProperty;
+        return dailyDateProperty;
     }
-    // END  DAILY --------------------------------------------------------------
+    // END  DAILY-DATE ---------------------------------------------------------
     
+    // TODO Save here list with append project-ids
     // START  PROJECT-ID -------------------------------------------------------
     private LongProperty projectIdProperty;
-    private long _projectId = DEFAULT_ID__DAILY_MODEL;
+    private long _projectId = -1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -152,7 +154,7 @@ public class DailySectionModel implements Comparable<DailySectionModel>, Externa
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(this.getId())
-                .append(this.getDaily())
+                .append(this.getDailyDate())
                 .append(this.getProjectId())
                 .toHashCode();
     }
@@ -170,7 +172,7 @@ public class DailySectionModel implements Comparable<DailySectionModel>, Externa
         final DailySectionModel other = (DailySectionModel) obj;
         return new EqualsBuilder()
                 .append(this.getId(), other.getId())
-                .append(this.getDaily(), other.getDaily())
+                .append(this.getDailyDate(), other.getDailyDate())
                 .append(this.getProjectId(), other.getProjectId())
                 .isEquals();
     }
@@ -178,7 +180,7 @@ public class DailySectionModel implements Comparable<DailySectionModel>, Externa
     @Override
     public int compareTo(DailySectionModel other) {
         return new CompareToBuilder()
-                .append(other.getDaily(), this.getDaily())
+                .append(other.getDailyDate(), this.getDailyDate())
                 .append(other.getProjectId(), this.getProjectId())
                 .append(other.getId(), this.getId())
                 .toComparison();
@@ -187,23 +189,23 @@ public class DailySectionModel implements Comparable<DailySectionModel>, Externa
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("id", this.getId()) // NOI18N
-                .append("daily", this.getDaily()) // NOI18N
-                .append("project-id", this.getProjectId()) // NOI18N
+                .append(COLUMN_NAME__ID, this.getId())
+                .append(COLUMN_NAME__DAILY_DATE, this.getDailyDate())
+                .append(COLUMN_NAME__PROJECT_ID, this.getProjectId())
                 .toString();
     }
     
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
-        out.writeChars(this.getDaily());
+        out.writeChars(this.getDailyDate());
         out.writeLong(this.getProjectId());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
-        this.setDaily(String.valueOf(in.readObject()));
+        this.setDailyDate(String.valueOf(in.readObject()));
         this.setProjectId(in.readLong());
     }
     

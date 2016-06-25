@@ -25,7 +25,7 @@ public interface IEntityModel {
     public static final long DEFAULT_ID__DAILY_MODEL = -1967_08_28_434L;
     public static final long DEFAULT_ID__PROJECT_MODEL = -1967_08_28_343L;
     
-    public static final String NO_DAILY = "<no daily>"; // NOI18N
+    public static final String NO_DAILY_DATE = "<no daily-date>"; // NOI18N
     public static final String NO_TITLE = "<no title>"; // NOI18N
     public static final String SIGN__EMPTY = ""; // NOI18N
     
@@ -35,7 +35,7 @@ public interface IEntityModel {
     public static final String NAMED_QUERY__QUERY__PROJECT_MODEL__FIND_ALL = "SELECT pm FROM ProjectModel pm"; // NOI18N
     
     public static final String COLUMN_NAME__COLOR_AS_STYLE = "color-as-style"; // NOI18N
-    public static final String COLUMN_NAME__DAILY = "daily"; // NOI18N
+    public static final String COLUMN_NAME__DAILY_DATE = "daily-date"; // NOI18N
     public static final String COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
     public static final String COLUMN_NAME__ID = "id"; // NOI18N
     public static final String COLUMN_NAME__PROJECT_ID = "project-id"; // NOI18N
