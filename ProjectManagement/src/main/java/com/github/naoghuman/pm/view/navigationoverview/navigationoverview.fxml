@@ -12,15 +12,16 @@
     <children>
         <VBox layoutX="14.0" layoutY="25.0" spacing="7.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <children>
-                <HBox style="-fx-background-color: LIGHTBLUE;">
+                <HBox spacing="7.0" style="-fx-background-color: LIGHTBLUE;">
                     <children>
-                        <Button fx:id="bNewDailySectionOrProject" mnemonicParsing="false" onAction="#onActionNewDailySectionOrProject" text="+" />
+                        <Button fx:id="bNewProject" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionNewProject" prefWidth="50.0" text="+ P" />
+                        <Button fx:id="bNewDailySection" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionNewDailySection" prefWidth="50.0" text="+ DS" />
                     </children>
                     <padding>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                     </padding>
                 </HBox>
-                <TabPane fx:id="tpNavigation" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                <TabPane fx:id="tpNavigationOverview" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
                         <Tab closable="false" text="Projects">
                             <content>

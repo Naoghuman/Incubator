@@ -45,7 +45,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 
@@ -58,23 +57,34 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     private static final int SELECTED_INDEX__DAILY_SECTIONS = 1;
     private static final int SELECTED_INDEX__PROJECTS = 0;
     
-    @FXML private Button bNewDailySectionOrProject;
+    @FXML private Button bNewDailySection;
+    @FXML private Button bNewProject;
     @FXML private ListView lvDailySectionsNavigation;
     @FXML private ListView lvProjectsNavigation;
-    @FXML private TabPane tpNavigation;
+    @FXML private TabPane tpNavigationOverview;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize NavigationOverviewPresenter"); // NOI18N
         
-        this.initializeDailySectionNavigation();
-        this.initializeProjectNavigation();
-        this.initializeTabPane();
+        this.initializeButtons();
+        this.initializeDailySectionsNavigation();
+        this.initializeProjectsNavigation();
         
         this.registerActions();
     }
     
-    private void initializeDailySectionNavigation() {
+    private void initializeButtons() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize Buttons"); // NOI18N
+        
+        bNewDailySection.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
+        LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
+        
+        bNewProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
+        LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
+    }
+    
+    private void initializeDailySectionsNavigation() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionNavigation"); // NOI18N
         
         lvDailySectionsNavigation.getItems().clear();
@@ -97,7 +107,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
         lvDailySectionsNavigation.getItems().addAll(presenters);
     }
     
-    private void initializeProjectNavigation() {
+    private void initializeProjectsNavigation() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectNavigation"); // NOI18N
         
         lvProjectsNavigation.getItems().clear();
@@ -120,27 +130,10 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
         lvProjectsNavigation.getItems().addAll(presenters);
     }
     
-    private void initializeTabPane() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize TabPane"); // NOI18N
-        
-        bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
-        LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
-        
-        final Tab tDailySection = tpNavigation.getTabs().get(SELECTED_INDEX__DAILY_SECTIONS);
-        tDailySection.setOnSelectionChanged(event -> {
-            bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
-            LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
-        });
-        
-        final Tab tProject = tpNavigation.getTabs().get(SELECTED_INDEX__PROJECTS);
-        tProject.setOnSelectionChanged(event -> {
-            bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
-            LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
-        });
-    }
-    
-    private void onActionNewDailySection() {
+    public void onActionNewDailySection() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action new DailySection"); // NOI18N
+                   
+        tpNavigationOverview.getSelectionModel().select(SELECTED_INDEX__DAILY_SECTIONS);
         
         final DailySectionModel model = DialogProvider.showNewDailySectionDialog();
         if (model == null) {
@@ -162,7 +155,8 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                 result.isPresent()
                 && result.get() != null
         ) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "The DailySection always exists. No new DailySection will created"); // NOI18N
+            LoggerFacade.INSTANCE.debug(this.getClass(), "The DailySection always exists. No new DailySection will created!"); // NOI18N
+            LoggerFacade.INSTANCE.error(this.getClass(), "TODO add user feedback"); // NOI18N
             return;
         }
         
@@ -172,21 +166,33 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
         ActionFacade.INSTANCE.handle(transferData);
     }
     
-    public void onActionNewDailySectionOrProject() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action new Project or DailySection"); // NOI18N
-        
-        final int selectedIndex = tpNavigation.getSelectionModel().getSelectedIndex();
-        switch(selectedIndex) {
-            case SELECTED_INDEX__PROJECTS      : { this.onActionNewProject(); break; }
-            case SELECTED_INDEX__DAILY_SECTIONS: { this.onActionNewDailySection(); break; }
-        }
-    }
-    
-    private void onActionNewProject() {
+    public void onActionNewProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action new Project"); // NOI18N
+        
+        tpNavigationOverview.getSelectionModel().select(SELECTED_INDEX__PROJECTS);
         
         final ProjectModel model = DialogProvider.showNewProjectDialog();
         if (model == null) {
+            return;
+        }
+        
+        final Optional<ProjectItemPresenter> result = lvProjectsNavigation.getItems().stream()
+                .filter(item -> {
+                    final ProjectItemPresenter presenter = (ProjectItemPresenter) item;
+                    boolean modelExists = false;
+                    if (presenter.getProjectModel().getTitle().equals(model.getTitle())) {
+                        modelExists = true;
+                    }
+                    
+                    return modelExists;
+                })
+                .findFirst();
+        if (
+                result.isPresent()
+                && result.get() != null
+        ) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "The Project always exists. No new Project will created!"); // NOI18N
+            LoggerFacade.INSTANCE.error(this.getClass(), "TODO add user feedback"); // NOI18N
             return;
         }
         
@@ -281,7 +287,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action update DailySections"); // NOI18N
 
-                    this.initializeDailySectionNavigation();
+                    this.initializeDailySectionsNavigation();
                 }
         );
     }
@@ -294,7 +300,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action update Projects"); // NOI18N
 
-                    this.initializeProjectNavigation();
+                    this.initializeProjectsNavigation();
                 }
         );
     }
