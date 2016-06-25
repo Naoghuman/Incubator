@@ -16,12 +16,10 @@
  */
 package com.github.naoghuman.pm.dialog.itemmenupopup;
 
-import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
-import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

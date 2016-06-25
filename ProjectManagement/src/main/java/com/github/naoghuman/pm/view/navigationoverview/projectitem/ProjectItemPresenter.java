@@ -86,9 +86,4 @@ public class ProjectItemPresenter implements Initializable {
         popup.show(parent, event.getScreenX(), event.getScreenY());
     }
     
-    public void onActionCountPlusForProject() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action count plus for Project"); // NOI18N
-        
-    }
-    
 }
