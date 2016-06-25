@@ -101,15 +101,18 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize TabPane"); // NOI18N
         
         bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
+        LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
         
         final Tab tDailySection = tpNavigation.getTabs().get(SELECTED_INDEX__DAILY_SECTIONS);
         tDailySection.setOnSelectionChanged(event -> {
             bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
+            LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
         });
         
         final Tab tProject = tpNavigation.getTabs().get(SELECTED_INDEX__PROJECTS);
         tProject.setOnSelectionChanged(event -> {
             bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
+            LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
         });
     }
     

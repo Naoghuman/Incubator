@@ -23,8 +23,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 
 /**
  *
@@ -32,12 +34,21 @@ import javafx.scene.control.TabPane;
  */
 public class DailySectionsOverviewPresenter implements Initializable {
     
+    @FXML private Button bNewDailySection;
     @FXML private TabPane tpDailySections;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionPresenter"); // NOI18N
         
+        this.initializeNewDailySection();
+    }
+    
+    private void initializeNewDailySection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionPresenter"); // NOI18N
+        
+        bNewDailySection.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
+        LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
     }
     
     public void onActionShowNewDailySectionDialog() {

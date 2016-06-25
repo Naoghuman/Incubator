@@ -14,7 +14,7 @@
          <children>
             <HBox style="-fx-background-color: LIGHTBLUE;">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onActionShowNewDailySectionDialog" text="+" />
+                  <Button fx:id="bNewDailySection" mnemonicParsing="false" onAction="#onActionShowNewDailySectionDialog" text="+" />
                </children>
                <padding>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
