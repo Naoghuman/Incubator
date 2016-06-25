@@ -24,9 +24,9 @@ import com.github.naoghuman.pm.configuration.IActionConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
-import com.github.naoghuman.pm.view.navigationoverview.item.ItemCell;
-import com.github.naoghuman.pm.view.navigationoverview.item.ItemPresenter;
-import com.github.naoghuman.pm.view.navigationoverview.item.ItemView;
+import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemCell;
+import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemPresenter;
+import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,17 +74,17 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectNavigation"); // NOI18N
         
         lvProjectNavigation.getItems().clear();
-        lvProjectNavigation.setCellFactory(value -> new ItemCell());
+        lvProjectNavigation.setCellFactory(value -> new ProjectItemCell());
         
         final ObservableList<ProjectModel> models = SqlFacade.INSTANCE.getProjectSqlProvider().findAll();
         if (models.isEmpty()) {
             return;
         }
         
-        final List<ItemPresenter> presenters = models.stream()
+        final List<ProjectItemPresenter> presenters = models.stream()
                 .map((ProjectModel model) -> {
-                    final ItemView view = new ItemView();
-                    final ItemPresenter presenter = view.getRealPresenter();
+                    final ProjectItemView view = new ProjectItemView();
+                    final ProjectItemPresenter presenter = view.getRealPresenter();
                     presenter.configure(view.getView(), model);
                     
                     return presenter;
@@ -149,16 +149,15 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
     private void registerOnActionCreateProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create project"); // NOI18N
         
-        ActionFacade.INSTANCE.register(
-                ON_ACTION__CREATE_NEW_PROJECT,
+        ActionFacade.INSTANCE.register(ON_ACTION__CREATE_NEW_PROJECT,
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action create project"); // NOI18N
 
                     final TransferData transferData = (TransferData) event.getSource();
                     final ProjectModel model = (ProjectModel) transferData.getObject();
                     
-                    final ItemView view = new ItemView();
-                    final ItemPresenter presenter = view.getRealPresenter();
+                    final ProjectItemView view = new ProjectItemView();
+                    final ProjectItemPresenter presenter = view.getRealPresenter();
                     presenter.configure(view.getView(), model);
                     
                     lvProjectNavigation.getItems().add(0, presenter);
@@ -178,7 +177,7 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
                                 return item != null;
                             })
                             .forEach(item -> {
-                                final ItemPresenter itemPresenter = (ItemPresenter) item;
+                                final ProjectItemPresenter itemPresenter = (ProjectItemPresenter) item;
                                 final ProjectModel projectModel = itemPresenter.getProjectModel();
                                 projectModel.setPosition(position.get());
                                 models.add(projectModel);

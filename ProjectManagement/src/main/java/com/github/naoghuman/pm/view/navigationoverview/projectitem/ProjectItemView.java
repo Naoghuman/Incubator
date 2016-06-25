@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.navigationoverview.item;
+package com.github.naoghuman.pm.view.navigationoverview.projectitem;
 
 import com.airhacks.afterburner.views.FXMLView;
 import com.github.naoghuman.pm.model.ProjectModel;
@@ -23,18 +23,18 @@ import com.github.naoghuman.pm.model.ProjectModel;
  *
  * @author Naoghuman
  */
-public class ItemView extends FXMLView {
+public class ProjectItemView extends FXMLView {
     
-    public ItemPresenter configure(ProjectModel model) {
-        final ItemView view = new ItemView();
-        final ItemPresenter presenter = view.getRealPresenter();
+    public ProjectItemPresenter configure(ProjectModel model) {
+        final ProjectItemView view = new ProjectItemView();
+        final ProjectItemPresenter presenter = view.getRealPresenter();
         presenter.configure(view.getView(), model);
         
         return presenter;
     }
     
-    public ItemPresenter getRealPresenter() {
-        return (ItemPresenter) super.getPresenter();
+    public ProjectItemPresenter getRealPresenter() {
+        return (ProjectItemPresenter) super.getPresenter();
     }
     
 }

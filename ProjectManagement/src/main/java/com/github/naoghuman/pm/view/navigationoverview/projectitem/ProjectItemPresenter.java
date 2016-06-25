@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.navigationoverview.item;
+package com.github.naoghuman.pm.view.navigationoverview.projectitem;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.dialog.itemmenupopup.ItemMenuPopupPresenter;
@@ -34,7 +34,7 @@ import javafx.stage.Popup;
  *
  * @author Naoghuman
  */
-public class ItemPresenter implements Initializable {
+public class ProjectItemPresenter implements Initializable {
     
     @FXML private Label lProjectName;
     @FXML private Pane pProjectColor;

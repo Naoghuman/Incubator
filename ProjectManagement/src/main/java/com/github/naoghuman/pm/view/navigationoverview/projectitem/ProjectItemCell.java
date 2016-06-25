@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.navigationoverview.item;
+package com.github.naoghuman.pm.view.navigationoverview.projectitem;
 
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
@@ -33,9 +33,9 @@ import javafx.scene.input.TransferMode;
  *
  * @author Naoghuman
  */
-public class ItemCell extends ListCell<ItemPresenter> {
+public class ProjectItemCell extends ListCell<ProjectItemPresenter> {
 
-    public ItemCell() {
+    public ProjectItemCell() {
         // No logging
         this.initializeSetOnDragDetected();
         this.initializeSetOnDragOver();
@@ -120,7 +120,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
             final Dragboard dragboard = event.getDragboard();
             boolean success = false;
             if (dragboard.hasString()) {
-                final List<ItemPresenter> items = this.updateOverview(dragboard);
+                final List<ProjectItemPresenter> items = this.updateOverview(dragboard);
                 this.updateDatabase(items);
 
                 success = true;
@@ -137,7 +137,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
         super.setOnDragDone(DragEvent::consume);
     }
     
-    private void updateDatabase(List<ItemPresenter> items) {
+    private void updateDatabase(List<ProjectItemPresenter> items) {
         final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
         final AtomicInteger position = new AtomicInteger(0);
         items.stream()
@@ -154,7 +154,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
     }
     
     @Override
-    protected void updateItem(ItemPresenter item, boolean empty) {
+    protected void updateItem(ProjectItemPresenter item, boolean empty) {
         super.updateItem(item, empty);
 
         if (
@@ -167,11 +167,11 @@ public class ItemCell extends ListCell<ItemPresenter> {
         }
     }
     
-    private List<ItemPresenter> updateOverview(Dragboard dragboard) {
-        final ObservableList<ItemPresenter> items = super.getListView().getItems();
+    private List<ProjectItemPresenter> updateOverview(Dragboard dragboard) {
+        final ObservableList<ProjectItemPresenter> items = super.getListView().getItems();
         int draggedIndex = items.indexOf(dragboard.getString());
-        ItemPresenter draggedItem = null;
-        for (ItemPresenter item : items) {
+        ProjectItemPresenter draggedItem = null;
+        for (ProjectItemPresenter item : items) {
             if (item.getProjectId() == Long.parseLong(dragboard.getString())) {
                 draggedItem = item;
                 draggedIndex = items.indexOf(item);
@@ -184,7 +184,7 @@ public class ItemCell extends ListCell<ItemPresenter> {
         items.set(draggedIndex, getItem());
         items.set(thisIndex, draggedItem);
 
-        final List<ItemPresenter> itemsCopy = new ArrayList<>(items);
+        final List<ProjectItemPresenter> itemsCopy = new ArrayList<>(items);
         super.getListView().getItems().setAll(itemsCopy);
         
         return itemsCopy;
