@@ -38,8 +38,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 
 /**
  *
@@ -47,11 +50,12 @@ import javafx.scene.control.TabPane;
  */
 public class NavigationOverviewPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
-    private static final int SELECTED_INDEX__DAILY_SECTION = 1;
-    private static final int SELECTED_INDEX__PROJECT = 0;
+    private static final int SELECTED_INDEX__DAILY_SECTIONS = 1;
+    private static final int SELECTED_INDEX__PROJECTS = 0;
     
-    @FXML private ListView lvDailySectionNavigation;
-    @FXML private ListView lvProjectNavigation;
+    @FXML private Button bNewDailySectionOrProject;
+    @FXML private ListView lvDailySectionsNavigation;
+    @FXML private ListView lvProjectsNavigation;
     @FXML private TabPane tpNavigation;
     
     @Override
@@ -73,8 +77,8 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
     private void initializeProjectNavigation() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectNavigation"); // NOI18N
         
-        lvProjectNavigation.getItems().clear();
-        lvProjectNavigation.setCellFactory(value -> new ProjectItemCell());
+        lvProjectsNavigation.getItems().clear();
+        lvProjectsNavigation.setCellFactory(value -> new ProjectItemCell());
         
         final ObservableList<ProjectModel> models = SqlFacade.INSTANCE.getProjectSqlProvider().findAll();
         if (models.isEmpty()) {
@@ -90,23 +94,23 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
                     return presenter;
                 })
                 .collect(Collectors.toCollection(ArrayList::new));
-        lvProjectNavigation.getItems().addAll(presenters);
+        lvProjectsNavigation.getItems().addAll(presenters);
     }
     
     private void initializeTabPane() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize TabPane"); // NOI18N
         
-        tpNavigation.getTabs()
-                .forEach(tab -> {
-                    tab.setOnSelectionChanged(event -> {
-                        final String tabName = tab.getText();
-                        switch(tabName) {
-                            case "Projects": { break; }
-                            case "Daily Sections": { break; }
-                        }
-                    });
-                });
+        bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
         
+        final Tab tDailySection = tpNavigation.getTabs().get(SELECTED_INDEX__DAILY_SECTIONS);
+        tDailySection.setOnSelectionChanged(event -> {
+            bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
+        });
+        
+        final Tab tProject = tpNavigation.getTabs().get(SELECTED_INDEX__PROJECTS);
+        tProject.setOnSelectionChanged(event -> {
+            bNewDailySectionOrProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
+        });
     }
     
     private void onActionNewDailySection() {
@@ -114,13 +118,13 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
         
     }
     
-    public void onActionNewProjectOrDailySection() {
+    public void onActionNewDailySectionOrProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action new Project or DailySection"); // NOI18N
         
         final int selectedIndex = tpNavigation.getSelectionModel().getSelectedIndex();
         switch(selectedIndex) {
-            case SELECTED_INDEX__PROJECT      : { this.onActionNewProject(); break; }
-            case SELECTED_INDEX__DAILY_SECTION: { this.onActionNewDailySection(); break; }
+            case SELECTED_INDEX__PROJECTS      : { this.onActionNewProject(); break; }
+            case SELECTED_INDEX__DAILY_SECTIONS: { this.onActionNewDailySection(); break; }
         }
     }
     
@@ -159,19 +163,19 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
                     final ProjectItemView view = new ProjectItemView();
                     final ProjectItemPresenter presenter = view.getRealPresenter();
                     presenter.configure(view.getView(), model);
+                    lvProjectsNavigation.getItems().add(0, presenter);
                     
-                    lvProjectNavigation.getItems().add(0, presenter);
-                    
-                    // Do database stuff
+                    // Do some database stuff
                     SqlFacade.INSTANCE.getProjectSqlProvider().createOrUpdate(model);
                     
-                    if (lvProjectNavigation.getItems().size() <= 1) {
+                    // Update positions in database
+                    if (lvProjectsNavigation.getItems().size() <= 1) {
                         return;
                     }
                     
                     final ObservableList<ProjectModel> models = FXCollections.observableArrayList();
                     final AtomicInteger position = new AtomicInteger(0);
-                    lvProjectNavigation.getItems()
+                    lvProjectsNavigation.getItems()
                             .stream()
                             .filter(item -> { 
                                 return item != null;
