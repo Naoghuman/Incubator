@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.dailysection;
+package com.github.naoghuman.pm.view.dailysectionsoverview;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class DailySectionView extends FXMLView {
+public class DailySectionsOverviewView extends FXMLView {
     
-    public DailySectionPresenter getRealPresenter() {
-        return (DailySectionPresenter) super.getPresenter();
+    public DailySectionsOverviewPresenter getRealPresenter() {
+        return (DailySectionsOverviewPresenter) super.getPresenter();
     }
     
 }

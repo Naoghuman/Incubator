@@ -18,7 +18,7 @@ package com.github.naoghuman.pm.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.pm.view.dailysection.DailySectionView;
+import com.github.naoghuman.pm.view.dailysectionsoverview.DailySectionsOverviewView;
 import com.github.naoghuman.pm.view.navigationoverview.NavigationOverviewView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,7 +52,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void initializeDailyAreaOverview() {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailyAreaOverview"); // NOI18N
         
-        final DailySectionView view = new DailySectionView();
+        final DailySectionsOverviewView view = new DailySectionsOverviewView();
         bpDailyArea.setCenter(view.getView());
     }
 

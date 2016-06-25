@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.dailysection;
+package com.github.naoghuman.pm.view.dailysectionsoverview;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.time.LocalDate;
