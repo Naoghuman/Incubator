@@ -18,7 +18,7 @@ package com.github.naoghuman.pm.sql;
 
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.pm.model.DailyModel;
+import com.github.naoghuman.pm.model.DailySectionModel;
 import com.github.naoghuman.pm.model.api.IEntityModel;
 import java.util.Objects;
 
@@ -42,7 +42,7 @@ public class DailySqlProvider implements IEntityModel {
     
     }
     
-    public void createOrUpdate(DailyModel model) {
+    public void createOrUpdate(DailySectionModel model) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Create or update: " + model.getId()); // NOI18N
         
         if (Objects.equals(model.getId(), DEFAULT_ID__DAILY_MODEL)) {
@@ -55,14 +55,14 @@ public class DailySqlProvider implements IEntityModel {
     }
     
     public void delete(Long idToDelete) {
-        DatabaseFacade.INSTANCE.getCrudService().delete(DailyModel.class, idToDelete);
+        DatabaseFacade.INSTANCE.getCrudService().delete(DailySectionModel.class, idToDelete);
     }
     
-    public DailyModel findById(Long id) {
+    public DailySectionModel findById(Long id) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Find by id: " + id); // NOI18N
         
-        final DailyModel model = DatabaseFacade.INSTANCE.getCrudService()
-                .findById(DailyModel.class, id);
+        final DailySectionModel model = DatabaseFacade.INSTANCE.getCrudService()
+                .findById(DailySectionModel.class, id);
         
         return model;
     }
