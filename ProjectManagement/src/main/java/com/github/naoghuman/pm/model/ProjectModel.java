@@ -283,11 +283,11 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("id", this.getId()) // NOI18N
-                .append("position", this.getPosition()) // NOI18N
-                .append("generationtime", this.getGenerationTime()) // NOI18N
-                .append("title", this.getTitle()) // NOI18N
-                .append("color-as-style", this.getColorAsStyle()) // NOI18N
+                .append(COLUMN_NAME__ID, this.getId())
+                .append(COLUMN_NAME__POSITION, this.getPosition())
+                .append(COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
+                .append(COLUMN_NAME__TITLE, this.getTitle())
+                .append(COLUMN_NAME__COLOR_AS_STYLE, this.getColorAsStyle())
                 .toString();
     }
     
