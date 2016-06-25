@@ -20,7 +20,7 @@ import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.pm.configuration.IActionConfiguration;
+import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
@@ -48,7 +48,7 @@ import javafx.scene.control.Tooltip;
  *
  * @author Naoghuman
  */
-public class NavigationOverviewPresenter implements Initializable, IActionConfiguration, IRegisterActions {
+public class NavigationOverviewPresenter implements Initializable, INavigationOverviewConfiguration, IRegisterActions {
     
     private static final int SELECTED_INDEX__DAILY_SECTIONS = 1;
     private static final int SELECTED_INDEX__PROJECTS = 0;
@@ -156,7 +156,8 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
     private void registerOnActionCreateProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create project"); // NOI18N
         
-        ActionFacade.INSTANCE.register(ON_ACTION__CREATE_NEW_PROJECT,
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__CREATE_NEW_PROJECT,
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action create project"); // NOI18N
 

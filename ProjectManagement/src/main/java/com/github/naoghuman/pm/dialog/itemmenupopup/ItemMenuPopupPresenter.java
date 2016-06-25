@@ -18,7 +18,7 @@ package com.github.naoghuman.pm.dialog.itemmenupopup;
 
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.pm.configuration.IActionConfiguration;
+import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
@@ -31,7 +31,7 @@ import javafx.stage.Popup;
  *
  * @author Naoghuman
  */
-public class ItemMenuPopupPresenter implements Initializable, IActionConfiguration {
+public class ItemMenuPopupPresenter implements Initializable, INavigationOverviewConfiguration {
     
     private Popup popup;
     private ProjectModel model;

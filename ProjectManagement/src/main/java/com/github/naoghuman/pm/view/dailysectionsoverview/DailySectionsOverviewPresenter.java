@@ -83,6 +83,7 @@ public class DailySectionsOverviewPresenter implements Initializable {
         tpDailySections.getSelectionModel().select(tab);
         
         // TODO Save the new DailyArea to database
+        // TODO action Update navigation-dailysections
         
     }
     

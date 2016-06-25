@@ -18,7 +18,7 @@ package com.github.naoghuman.pm.dialog;
 
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.pm.configuration.IActionConfiguration;
+import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.dailysectiondialog.DailySectionDialogView;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogPresenter;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogView;
@@ -64,7 +64,7 @@ public class DialogProvider {
         SqlFacade.INSTANCE.getProjectSqlProvider().delete(idToDelete);
         
         // Cleanup
-        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__UPDATE_PROJECTS);
+        ActionFacade.INSTANCE.handle(INavigationOverviewConfiguration.ON_ACTION__UPDATE_PROJECTS);
     }
     
     public static void showEditProjectDialog(ProjectModel model) {
