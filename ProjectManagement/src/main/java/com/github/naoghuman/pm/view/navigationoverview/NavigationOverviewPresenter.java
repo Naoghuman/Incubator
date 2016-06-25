@@ -39,6 +39,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 
 /**
  *
@@ -46,19 +47,31 @@ import javafx.scene.control.ListView;
  */
 public class NavigationOverviewPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
+    private static final int SELECTED_INDEX__DAILY_SECTION = 1;
+    private static final int SELECTED_INDEX__PROJECT = 0;
+    
+    @FXML private ListView lvDailySectionNavigation;
     @FXML private ListView lvProjectNavigation;
+    @FXML private TabPane tpNavigation;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize NavigationOverviewPresenter"); // NOI18N
         
-        this.initializeListView();
+        this.initializeDailySectionNavigation();
+        this.initializeProjectNavigation();
+        this.initializeTabPane();
         
         this.registerActions();
     }
     
-    private void initializeListView() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ListView"); // NOI18N
+    private void initializeDailySectionNavigation() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionNavigation"); // NOI18N
+        
+    }
+    
+    private void initializeProjectNavigation() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectNavigation"); // NOI18N
         
         lvProjectNavigation.getItems().clear();
         lvProjectNavigation.setCellFactory(value -> new ItemCell());
@@ -80,8 +93,39 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
         lvProjectNavigation.getItems().addAll(presenters);
     }
     
-    public void onActionCreateProject() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action create Project"); // NOI18N
+    private void initializeTabPane() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize TabPane"); // NOI18N
+        
+        tpNavigation.getTabs()
+                .forEach(tab -> {
+                    tab.setOnSelectionChanged(event -> {
+                        final String tabName = tab.getText();
+                        switch(tabName) {
+                            case "Projects": { break; }
+                            case "Daily Sections": { break; }
+                        }
+                    });
+                });
+        
+    }
+    
+    private void onActionNewDailySection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action new DailySection"); // NOI18N
+        
+    }
+    
+    public void onActionNewProjectOrDailySection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action new Project or DailySection"); // NOI18N
+        
+        final int selectedIndex = tpNavigation.getSelectionModel().getSelectedIndex();
+        switch(selectedIndex) {
+            case SELECTED_INDEX__PROJECT      : { this.onActionNewProject(); break; }
+            case SELECTED_INDEX__DAILY_SECTION: { this.onActionNewDailySection(); break; }
+        }
+    }
+    
+    private void onActionNewProject() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action new Project"); // NOI18N
         
         final ProjectModel model = DialogProvider.showNewProjectDialog();
         if (model == null) {
@@ -155,7 +199,7 @@ public class NavigationOverviewPresenter implements Initializable, IActionConfig
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action update projects"); // NOI18N
 
-                    this.initializeListView();
+                    this.initializeProjectNavigation();
                 }
         );
     }

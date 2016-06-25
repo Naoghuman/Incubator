@@ -14,23 +14,30 @@
             <children>
                 <HBox style="-fx-background-color: LIGHTBLUE;">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#onActionCreateProject" text="+" />
+                        <Button mnemonicParsing="false" onAction="#onActionNewProjectOrDailySection" text="+" />
                     </children>
                <padding>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </padding>
                 </HBox>
-            <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <TabPane fx:id="tpNavigation" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
               <tabs>
                 <Tab closable="false" text="Projects">
                      <content>
-                            <ListView fx:id="lvProjectNavigation" />
+                            <ListView fx:id="lvProjectNavigation">
+                           <padding>
+                              <Insets top="7.0" />
+                           </padding></ListView>
                      </content>
                 </Tab>
                 <Tab text="Daily Sections">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: LIGHTBLUE;" />
-                  </content>
+                     <content>
+                        <ListView fx:id="lvDailySectionNavigation">
+                           <padding>
+                              <Insets top="7.0" />
+                           </padding>
+                        </ListView>
+                     </content>
                 </Tab>
               </tabs>
             </TabPane>
