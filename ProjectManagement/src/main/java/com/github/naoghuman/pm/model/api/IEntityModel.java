@@ -29,8 +29,8 @@ public interface IEntityModel {
     public static final String NO_TITLE = "<no title>"; // NOI18N
     public static final String SIGN__EMPTY = ""; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__DAILY_MODEL__FIND_ALL = "DailyModel.findAll"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__DAILY_MODEL__FIND_ALL = "SELECT dm FROM DailyModel dm"; // NOI18N
+    public static final String NAMED_QUERY__NAME__DAILY_MODEL__FIND_ALL = "DailySectionModel.findAll"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__DAILY_MODEL__FIND_ALL = "SELECT dsm FROM DailySectionModel dsm"; // NOI18N
     public static final String NAMED_QUERY__NAME__PROJECT_MODEL__FIND_ALL = "ProjectModel.findAll"; // NOI18N
     public static final String NAMED_QUERY__QUERY__PROJECT_MODEL__FIND_ALL = "SELECT pm FROM ProjectModel pm"; // NOI18N
     

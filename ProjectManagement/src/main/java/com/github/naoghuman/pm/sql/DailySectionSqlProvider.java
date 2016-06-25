@@ -20,25 +20,29 @@ import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.DailySectionModel;
 import com.github.naoghuman.pm.model.api.IEntityModel;
+import static com.github.naoghuman.pm.model.api.IEntityModel.NAMED_QUERY__NAME__PROJECT_MODEL__FIND_ALL;
+import java.util.Collections;
 import java.util.Objects;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author Naoghuman
  */
-public class DailySqlProvider implements IEntityModel {
+public class DailySectionSqlProvider implements IEntityModel {
     
-    private static DailySqlProvider instance = null;
+    private static DailySectionSqlProvider instance = null;
     
-    public static DailySqlProvider getDefault() {
+    public static DailySectionSqlProvider getDefault() {
         if (instance == null) {
-            instance = new DailySqlProvider();
+            instance = new DailySectionSqlProvider();
         }
         
         return instance;
     }
     
-    private DailySqlProvider() {
+    private DailySectionSqlProvider() {
     
     }
     
@@ -67,6 +71,21 @@ public class DailySqlProvider implements IEntityModel {
                 .findById(DailySectionModel.class, id);
         
         return model;
+    }
+
+    public ObservableList<DailySectionModel> findAll() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Find all"); // NOI18N
+        
+        final ObservableList<DailySectionModel> models = FXCollections.observableArrayList();     
+        models.addAll(DatabaseFacade.INSTANCE.getCrudService()
+                .findByNamedQuery(DailySectionModel.class, NAMED_QUERY__NAME__DAILY_MODEL__FIND_ALL));
+        Collections.sort(
+                models,
+                (model1, model2) -> 
+                    model1.getDailyDate().compareTo(model2.getDailyDate())
+                );
+        
+        return models;
     }
     
 }

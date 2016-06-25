@@ -44,13 +44,12 @@ public class ProjectItemPresenter implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ItemPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectItemPresenter"); // NOI18N
         
     }
 
     public void configure(Parent parent, ProjectModel model) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Configure"); // NOI18N
-        LoggerFacade.INSTANCE.debug(this.getClass(), model.toString()); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Configure: " + model.toString()); // NOI18N
         
         this.parent = parent;
         this.model = model;

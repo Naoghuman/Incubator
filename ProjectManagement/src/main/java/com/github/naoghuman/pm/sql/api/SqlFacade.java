@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.pm.sql.api;
 
-import com.github.naoghuman.pm.sql.DailySqlProvider;
+import com.github.naoghuman.pm.sql.DailySectionSqlProvider;
 import com.github.naoghuman.pm.sql.ProjectSqlProvider;
 
 /**
@@ -27,8 +27,8 @@ public enum SqlFacade {
     
     INSTANCE;
     
-    public DailySqlProvider getDailySqlProvider() {
-        return DailySqlProvider.getDefault();
+    public DailySectionSqlProvider getDailySectionSqlProvider() {
+        return DailySectionSqlProvider.getDefault();
     }
     
     public ProjectSqlProvider getProjectSqlProvider() {

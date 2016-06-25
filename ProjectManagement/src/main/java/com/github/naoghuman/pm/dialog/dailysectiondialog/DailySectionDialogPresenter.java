@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.dialog.dailysectiondialog;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.model.DailySectionModel;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -51,6 +52,17 @@ public class DailySectionDialogPresenter implements Initializable {
         final String date = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
         
         return date;
+    }
+
+    public DailySectionModel getDailySection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Get DailySection"); // NOI18N
+        
+        final DailySectionModel model = new DailySectionModel();
+        final LocalDate localDate = dpDaily.getValue();
+        final String dailyDate = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        model.setDailyDate(dailyDate);
+        
+        return model;
     }
     
 }

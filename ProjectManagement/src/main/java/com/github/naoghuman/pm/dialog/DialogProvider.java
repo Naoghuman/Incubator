@@ -22,6 +22,7 @@ import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.dailysectiondialog.DailySectionDialogView;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogPresenter;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogView;
+import com.github.naoghuman.pm.model.DailySectionModel;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.util.Optional;
@@ -106,12 +107,12 @@ public class DialogProvider {
         LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO fire event with changed ProjectModel"); // NOI18N
     }
     
-    public static String showNewDailySectionDialog() {
+    public static DailySectionModel showNewDailySectionDialog() {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new DailySection dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
         
-        final Dialog<String> dialog = new Dialog<>();
+        final Dialog<DailySectionModel> dialog = new Dialog<>();
         dialog.setTitle("New Daily Section"); // NOI18N
         dialog.setHeaderText("Creates a new Daily Section."); // NOI18N
         dialog.setResizable(false);
@@ -128,13 +129,13 @@ public class DialogProvider {
                     buttonType != null
                     && buttonType.equals(buttonTypeOk)
             ) {
-                return view.getRealPresenter().getDate();
+                return view.getRealPresenter().getDailySection();
             }
             
             return null;
         });
         
-        final Optional<String> result = dialog.showAndWait();
+        final Optional<DailySectionModel> result = dialog.showAndWait();
         if (!result.isPresent()) {
             return null;
         }
@@ -175,7 +176,7 @@ public class DialogProvider {
             return null;
         }
         
-        final ProjectModel model = view.getRealPresenter().getProject();
+        final ProjectModel model = result.get();
         
         return model;
     }

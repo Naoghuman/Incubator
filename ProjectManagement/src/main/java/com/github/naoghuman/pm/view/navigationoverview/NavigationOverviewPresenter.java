@@ -22,14 +22,19 @@ import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
+import com.github.naoghuman.pm.model.DailySectionModel;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
+import com.github.naoghuman.pm.view.navigationoverview.dailysectionitem.DailySectionItemCell;
+import com.github.naoghuman.pm.view.navigationoverview.dailysectionitem.DailySectionItemPresenter;
+import com.github.naoghuman.pm.view.navigationoverview.dailysectionitem.DailySectionItemView;
 import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemCell;
 import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemPresenter;
 import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -72,6 +77,24 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     private void initializeDailySectionNavigation() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionNavigation"); // NOI18N
         
+        lvDailySectionsNavigation.getItems().clear();
+        lvDailySectionsNavigation.setCellFactory(value -> new DailySectionItemCell());
+        
+        final ObservableList<DailySectionModel> models = SqlFacade.INSTANCE.getDailySectionSqlProvider().findAll();
+        if (models.isEmpty()) {
+            return;
+        }
+        
+        final List<DailySectionItemPresenter> presenters = models.stream()
+                .map((DailySectionModel model) -> {
+                    final DailySectionItemView view = new DailySectionItemView();
+                    final DailySectionItemPresenter presenter = view.getRealPresenter();
+                    presenter.configure(view.getView(), model);
+                    
+                    return presenter;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+        lvDailySectionsNavigation.getItems().addAll(presenters);
     }
     
     private void initializeProjectNavigation() {
@@ -119,6 +142,34 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     private void onActionNewDailySection() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action new DailySection"); // NOI18N
         
+        final DailySectionModel model = DialogProvider.showNewDailySectionDialog();
+        if (model == null) {
+            return;
+        }
+        
+        final Optional<DailySectionItemPresenter> result = lvDailySectionsNavigation.getItems().stream()
+                .filter(item -> {
+                    final DailySectionItemPresenter presenter = (DailySectionItemPresenter) item;
+                    boolean modelExists = false;
+                    if (presenter.getDailyDate().equals(model.getDailyDate())) {
+                        modelExists = true;
+                    }
+                    
+                    return modelExists;
+                })
+                .findFirst();
+        if (
+                result.isPresent()
+                && result.get() != null
+        ) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "The DailySection always exists. No new DailySection will created"); // NOI18N
+            return;
+        }
+        
+        final TransferData transferData = new TransferData();
+        transferData.setActionId(ON_ACTION__CREATE_NEW_DAILY_SECTION);
+        transferData.setObject(model);
+        ActionFacade.INSTANCE.handle(transferData);
     }
     
     public void onActionNewDailySectionOrProject() {
@@ -147,19 +198,43 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
 
     @Override
     public void registerActions() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in OverviewPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in NavigationOverviewPresenter"); // NOI18N
         
-        this.registerOnActionCreateProject();
+        this.registerOnActionCreateNewDailySection();
+        this.registerOnActionCreateNewProject();
+        this.registerOnActionDailySections();
         this.registerOnActionUpdateProjects();
     }
     
-    private void registerOnActionCreateProject() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create project"); // NOI18N
+    private void registerOnActionCreateNewDailySection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create new DailySection"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__CREATE_NEW_DAILY_SECTION,
+                (ActionEvent event) -> {
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action create DailySection"); // NOI18N
+
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final DailySectionModel model = (DailySectionModel) transferData.getObject();
+                    
+                    final DailySectionItemView view = new DailySectionItemView();
+                    final DailySectionItemPresenter presenter = view.getRealPresenter();
+                    presenter.configure(view.getView(), model);
+                    lvDailySectionsNavigation.getItems().add(0, presenter);
+                    
+                    // Do some database stuff
+                    SqlFacade.INSTANCE.getDailySectionSqlProvider().createOrUpdate(model);
+                }
+        );
+    }
+    
+    private void registerOnActionCreateNewProject() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create new Project"); // NOI18N
         
         ActionFacade.INSTANCE.register(
                 ON_ACTION__CREATE_NEW_PROJECT,
                 (ActionEvent event) -> {
-                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action create project"); // NOI18N
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action create Project"); // NOI18N
 
                     final TransferData transferData = (TransferData) event.getSource();
                     final ProjectModel model = (ProjectModel) transferData.getObject();
@@ -198,13 +273,26 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
         );
     }
     
+    private void registerOnActionDailySections() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action update DailySections"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__UPDATE_DAILY_SECTIONS,
+                (ActionEvent event) -> {
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action update DailySections"); // NOI18N
+
+                    this.initializeDailySectionNavigation();
+                }
+        );
+    }
+    
     private void registerOnActionUpdateProjects() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action update projects"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action update Projects"); // NOI18N
         
         ActionFacade.INSTANCE.register(
                 ON_ACTION__UPDATE_PROJECTS,
                 (ActionEvent event) -> {
-                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action update projects"); // NOI18N
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action update Projects"); // NOI18N
 
                     this.initializeProjectNavigation();
                 }

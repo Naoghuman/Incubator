@@ -14,17 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.configuration;
+package com.github.naoghuman.pm.view.navigationoverview.dailysectionitem;
+
+import com.airhacks.afterburner.views.FXMLView;
 
 /**
  *
  * @author Naoghuman
  */
-public interface INavigationOverviewConfiguration {
+public class DailySectionItemView extends FXMLView {
     
-    public static final String ON_ACTION__CREATE_NEW_DAILY_SECTION = "ON_ACTION__CREATE_NEW_DAILY_SECTION"; // NOI18N
-    public static final String ON_ACTION__CREATE_NEW_PROJECT = "ON_ACTION__CREATE_NEW_PROJECT"; // NOI18N
-    public static final String ON_ACTION__UPDATE_DAILY_SECTIONS = "ON_ACTION__UPDATE_DAILY_SECTIONS"; // NOI18N
-    public static final String ON_ACTION__UPDATE_PROJECTS = "ON_ACTION__UPDATE_PROJECTS"; // NOI18N
+    public DailySectionItemPresenter getRealPresenter() {
+        return (DailySectionItemPresenter) super.getPresenter();
+    }
     
 }
