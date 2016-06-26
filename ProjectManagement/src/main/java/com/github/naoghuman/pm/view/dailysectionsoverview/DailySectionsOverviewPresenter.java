@@ -61,6 +61,30 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
     }
     
+    private void onActionOpenDailySection(DailySectionModel model) {
+        // Check if the DailyArea is always open
+        final String dailyDate = model.getDailyDate();
+        final Optional<Tab> result = tpDailySections.getTabs().stream()
+                .filter(tab -> { 
+                    return tab.getText().equals(dailyDate); 
+                })
+                .findFirst();
+        if (result.isPresent()) {
+            tpDailySections.getSelectionModel().select(result.get());
+            return;
+        }
+
+        // Otherwise create a new Tab
+        final Tab tab = new Tab();
+        tab.setClosable(true);
+        tab.setText(dailyDate);
+        tab.setUserData(model); 
+
+        tpDailySections.getTabs().add(0, tab);
+        tpDailySections.getSelectionModel().select(tab);
+        LoggerFacade.INSTANCE.trace(this.getClass(), "TODO User can filter how to order the tabs"); // NOI18N
+    }
+    
     public void onActionShowNewDailySectionDialog() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new DailySection dialog"); // NOI18N
 
@@ -113,10 +137,9 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in DailySectionsOverviewPresenter"); // NOI18N
         
         this.registerOnActionCreateNewDailySection();
-        // TODO this.registerOnActionOpenDailySection();
+        this.registerOnActionOpenDailySection();
         this.registerOnActionUpdateDailySections();
     }
-    
     
     private void registerOnActionCreateNewDailySection() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create new DailySection"); // NOI18N
@@ -132,6 +155,21 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
                       - listview
                       - database
                     */
+                }
+        );
+    }
+    
+    private void registerOnActionOpenDailySection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action open DailySection"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                INavigationOverviewConfiguration.ON_ACTION__OPEN_DAILY_SECTION,
+                (ActionEvent event) -> {
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action open DailySections"); // NOI18N
+
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final DailySectionModel model = (DailySectionModel) transferData.getObject();
+                    this.onActionOpenDailySection(model);
                 }
         );
     }

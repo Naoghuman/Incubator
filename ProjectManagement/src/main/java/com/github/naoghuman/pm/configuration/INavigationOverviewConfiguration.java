@@ -24,6 +24,7 @@ public interface INavigationOverviewConfiguration {
     
     public static final String ON_ACTION__CREATE_NEW_DAILY_SECTION = "ON_ACTION__CREATE_NEW_DAILY_SECTION"; // NOI18N
     public static final String ON_ACTION__CREATE_NEW_PROJECT = "ON_ACTION__CREATE_NEW_PROJECT"; // NOI18N
+    public static final String ON_ACTION__OPEN_DAILY_SECTION = "ON_ACTION__OPEN_DAILY_SECTION"; // NOI18N
     public static final String ON_ACTION__UPDATE_DAILY_SECTIONS = "ON_ACTION__UPDATE_DAILY_SECTIONS"; // NOI18N
     public static final String ON_ACTION__UPDATE_PROJECTS = "ON_ACTION__UPDATE_PROJECTS"; // NOI18N
     

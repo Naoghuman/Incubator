@@ -16,7 +16,10 @@
  */
 package com.github.naoghuman.pm.view.navigationoverview.dailysectionitem;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
+import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.model.DailySectionModel;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -57,6 +61,23 @@ public class DailySectionItemPresenter implements Initializable {
     
     public Parent getParent() {
         return parent;
+    }
+    
+    public void onMouseClickedOpenDailySection(MouseEvent event) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On MouseClicked open DailySection: " + model.getDailyDate()); // NOI18N
+        
+        final int doubleMouseClick = 2;
+        final int clickCount = event.getClickCount();
+        if (clickCount < doubleMouseClick) {
+            return;
+        }
+        
+        // Open the DailySection in DailySectionsOverview
+        final TransferData transferData = new TransferData();
+        transferData.setActionId(INavigationOverviewConfiguration.ON_ACTION__OPEN_DAILY_SECTION);
+        transferData.setObject(model);
+        
+        ActionFacade.INSTANCE.handle(transferData);
     }
     
 }
