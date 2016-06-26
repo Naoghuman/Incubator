@@ -78,10 +78,10 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize Buttons"); // NOI18N
         
         bNewDailySection.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
-        LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
+        LoggerFacade.INSTANCE.trace(this.getClass(), "TODO use property"); // NOI18N
         
         bNewProject.setTooltip(new Tooltip("Creates a new Project")); // NOI18N
-        LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N
+        LoggerFacade.INSTANCE.trace(this.getClass(), "TODO use property"); // NOI18N
     }
     
     private void initializeDailySectionsNavigation() {
@@ -132,38 +132,8 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     
     public void onActionNewDailySection() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action new DailySection"); // NOI18N
-                   
-        tpNavigationOverview.getSelectionModel().select(SELECTED_INDEX__DAILY_SECTIONS);
         
-        final DailySectionModel model = DialogProvider.showNewDailySectionDialog();
-        if (model == null) {
-            return;
-        }
-        
-        final Optional<DailySectionItemPresenter> result = lvDailySectionsNavigation.getItems().stream()
-                .filter(item -> {
-                    final DailySectionItemPresenter presenter = (DailySectionItemPresenter) item;
-                    boolean modelExists = false;
-                    if (presenter.getDailyDate().equals(model.getDailyDate())) {
-                        modelExists = true;
-                    }
-                    
-                    return modelExists;
-                })
-                .findFirst();
-        if (
-                result.isPresent()
-                && result.get() != null
-        ) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "The DailySection always exists. No new DailySection will created!"); // NOI18N
-            LoggerFacade.INSTANCE.error(this.getClass(), "TODO add user feedback"); // NOI18N
-            return;
-        }
-        
-        final TransferData transferData = new TransferData();
-        transferData.setActionId(ON_ACTION__CREATE_NEW_DAILY_SECTION);
-        transferData.setObject(model);
-        ActionFacade.INSTANCE.handle(transferData);
+        ActionFacade.INSTANCE.handle(ON_ACTION__SHOW_NEW_DAILY_SECTION_DIALOG);
     }
     
     public void onActionNewProject() {
@@ -192,12 +162,46 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                 && result.get() != null
         ) {
             LoggerFacade.INSTANCE.debug(this.getClass(), "The Project always exists. No new Project will created!"); // NOI18N
-            LoggerFacade.INSTANCE.error(this.getClass(), "TODO add user feedback"); // NOI18N
+            LoggerFacade.INSTANCE.trace(this.getClass(), "TODO add user feedback"); // NOI18N
             return;
         }
         
         final TransferData transferData = new TransferData();
         transferData.setActionId(ON_ACTION__CREATE_NEW_PROJECT);
+        transferData.setObject(model);
+        ActionFacade.INSTANCE.handle(transferData);
+    }
+    
+    private void onActionShowNewDailySectionDialog() {
+        tpNavigationOverview.getSelectionModel().select(SELECTED_INDEX__DAILY_SECTIONS);
+        
+        final DailySectionModel model = DialogProvider.showNewDailySectionDialog();
+        if (model == null) {
+            return;
+        }
+
+        final Optional<DailySectionItemPresenter> result = lvDailySectionsNavigation.getItems().stream()
+                .filter(item -> {
+                    final DailySectionItemPresenter presenter = (DailySectionItemPresenter) item;
+                    boolean modelExists = false;
+                    if (presenter.getDailyDate().equals(model.getDailyDate())) {
+                        modelExists = true;
+                    }
+
+                    return modelExists;
+                })
+                .findFirst();
+        if (
+                result.isPresent()
+                && result.get() != null
+        ) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "The DailySection always exists. No new DailySection will created!"); // NOI18N
+            LoggerFacade.INSTANCE.trace(this.getClass(), "TODO add user feedback"); // NOI18N
+            return;
+        }
+
+        final TransferData transferData = new TransferData();
+        transferData.setActionId(ON_ACTION__CREATE_NEW_DAILY_SECTION);
         transferData.setObject(model);
         ActionFacade.INSTANCE.handle(transferData);
     }
@@ -209,6 +213,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
         this.registerOnActionCreateNewDailySection();
         this.registerOnActionCreateNewProject();
         this.registerOnActionDailySections();
+        this.registerOnActionShowNewDailySectionDialog();
         this.registerOnActionUpdateProjects();
     }
     
@@ -241,6 +246,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                 ON_ACTION__CREATE_NEW_PROJECT,
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action create Project"); // NOI18N
+                    LoggerFacade.INSTANCE.trace(this.getClass(), "TODO method block is to long"); // NOI18N
 
                     final TransferData transferData = (TransferData) event.getSource();
                     final ProjectModel model = (ProjectModel) transferData.getObject();
@@ -288,6 +294,19 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action update DailySections"); // NOI18N
 
                     this.initializeDailySectionsNavigation();
+                }
+        );
+    }
+    
+    private void registerOnActionShowNewDailySectionDialog() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action show new DailySection dialog"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__SHOW_NEW_DAILY_SECTION_DIALOG,
+                (ActionEvent event) -> {
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new DailySection dialog"); // NOI18N
+
+                    this.onActionShowNewDailySectionDialog();
                 }
         );
     }

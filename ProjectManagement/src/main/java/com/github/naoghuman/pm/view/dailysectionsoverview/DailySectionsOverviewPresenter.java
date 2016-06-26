@@ -21,9 +21,7 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
-import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.DailySectionModel;
-import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -88,48 +86,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
     public void onActionShowNewDailySectionDialog() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new DailySection dialog"); // NOI18N
 
-        /*
-         TODO 
-          - dialog
-          - transferdata with string date
-        */
-        
-//        // User choose the new date for the DailyArea
-//        final String date = DialogProvider.showNewDailySectionDialog();
-//        if (date == null) {
-//            return;
-//        }
-//        
-//        // Check if the DailyArea is always open
-//        final Optional<Tab> result = tpDailySections.getTabs().stream()
-//                .filter(tab -> { 
-//                    return tab.getText().equals(date); 
-//                })
-//                .findFirst();
-//        if (result.isPresent()) {
-//            tpDailySections.getSelectionModel().select(result.get());
-//            return;
-//        }
-//        
-//        // Create new DailySectionModel (add to tab, save to db)
-//        final DailySectionModel model = new DailySectionModel();
-//        model.setDailyDate(date);
-//        
-//        // Create a new Tab
-//        final Tab tab = new Tab();
-//        tab.setClosable(true);
-//        tab.setText(date);
-//        tab.setUserData(model);
-//        
-//        // TODO order later the tabs
-//        tpDailySections.getTabs().add(0, tab);
-//        tpDailySections.getSelectionModel().select(tab);
-//        
-//        // Save the new DailySectionModel to database
-//        SqlFacade.INSTANCE.getDailySectionSqlProvider().createOrUpdate(model);
-//        
-//        // Update NavigationOverview
-//        ActionFacade.INSTANCE.handle(INavigationOverviewConfiguration.ON_ACTION__UPDATE_DAILY_SECTIONS);
+        ActionFacade.INSTANCE.handle(INavigationOverviewConfiguration.ON_ACTION__SHOW_NEW_DAILY_SECTION_DIALOG);
     }
 
     @Override
