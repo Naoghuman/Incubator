@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.pm.view.dailysectionsoverview.dailysectioncontent.DailySectionContentPresenter">
+   <children>
+      <ScrollPane fx:id="spDailySectionContent" fitToHeight="true" fitToWidth="true" layoutY="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+         <content>
+            <VBox fx:id="vbDailySectionContent" spacing="7.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

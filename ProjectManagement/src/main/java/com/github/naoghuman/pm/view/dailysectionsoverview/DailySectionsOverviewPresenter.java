@@ -22,6 +22,9 @@ import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.model.DailySectionModel;
+import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.view.dailysectionsoverview.dailysectioncontent.DailySectionContentPresenter;
+import com.github.naoghuman.pm.view.dailysectionsoverview.dailysectioncontent.DailySectionContentView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,7 +50,6 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionPresenter"); // NOI18N
         
         this.initializeNewDailySectionButton();
-//        this.initializeDailySectionNavigation();
         
         this.registerActions();
     }
@@ -67,6 +69,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
                     return tab.getText().equals(dailyDate); 
                 })
                 .findFirst();
+        
         if (result.isPresent()) {
             tpDailySections.getSelectionModel().select(result.get());
             return;
@@ -75,12 +78,35 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         // Otherwise create a new Tab
         final Tab tab = new Tab();
         tab.setClosable(true);
+        
+        final DailySectionContentView view = new DailySectionContentView();
+        tab.setContent(view.getView());
         tab.setText(dailyDate);
-        tab.setUserData(model); 
+        tab.setUserData(view.getRealPresenter()); 
 
         tpDailySections.getTabs().add(0, tab);
         tpDailySections.getSelectionModel().select(tab);
         LoggerFacade.INSTANCE.trace(this.getClass(), "TODO User can filter how to order the tabs"); // NOI18N
+    }
+    
+    private void onActionOpenProjectInDailySection(ProjectModel model) {
+        /*
+        * TODO
+           - If NO DailySection is open then a dialog will open ask the user
+             in which DailySection the user will open the Project.
+           - (v) If DailySections are open then the Project will added to the selected
+             DailySection.
+        */
+        // Check if no DailySection is open
+        if (tpDailySections.getTabs().isEmpty()) {
+            LoggerFacade.INSTANCE.trace(this.getClass(), "TODO show dialog which DailySection <- Project"); // NOI18N
+            return;
+        }
+        
+        // Add the ProjectModel to the selected DailySection
+        final Tab selectedTab = tpDailySections.getSelectionModel().getSelectedItem();
+        final DailySectionContentPresenter presenter = (DailySectionContentPresenter) selectedTab.getUserData();
+        presenter.addProjectToDailySection(model);
     }
     
     public void onActionShowNewDailySectionDialog() {
@@ -95,6 +121,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         
         this.registerOnActionCreateNewDailySection();
         this.registerOnActionOpenDailySection();
+        this.registerOnActionOpenProjectInDailySection();
         this.registerOnActionUpdateDailySections();
     }
     
@@ -127,6 +154,21 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
                     final TransferData transferData = (TransferData) event.getSource();
                     final DailySectionModel model = (DailySectionModel) transferData.getObject();
                     this.onActionOpenDailySection(model);
+                }
+        );
+    }
+    
+    private void registerOnActionOpenProjectInDailySection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action open Project in DailySection"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                INavigationOverviewConfiguration.ON_ACTION__OPEN_PROJECT_IN_DAILY_SECTION,
+                (ActionEvent event) -> {
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action open Project in DailySections"); // NOI18N
+
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final ProjectModel model = (ProjectModel) transferData.getObject();
+                    this.onActionOpenProjectInDailySection(model);
                 }
         );
     }

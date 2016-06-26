@@ -16,7 +16,10 @@
  */
 package com.github.naoghuman.pm.view.navigationoverview.projectitem;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
+import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.itemmenupopup.ItemMenuPopupPresenter;
 import com.github.naoghuman.pm.dialog.itemmenupopup.ItemMenuPopupView;
 import com.github.naoghuman.pm.model.ProjectModel;
@@ -78,12 +81,34 @@ public class ProjectItemPresenter implements Initializable {
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
         
+        /* TODO
+           - Right click on the project have a new button in the popup which shows
+             the dialog where the user can choose the DailySection where the Project
+             should be open.
+        */
         final ItemMenuPopupView view = new ItemMenuPopupView();
         final ItemMenuPopupPresenter presenter = view.getRealPresenter();
         presenter.configure(popup, model);
         popup.getContent().add(view.getView());
         
         popup.show(parent, event.getScreenX(), event.getScreenY());
+    }
+    
+    public void onMouseClickedShowProjectInDailySection(MouseEvent event) {
+        final int doubleMouseClick = 2;
+        final int clickCount = event.getClickCount();
+        if (clickCount < doubleMouseClick) {
+            return;
+        }
+        
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On MouseClicked show Project in DailySection: " + model.getTitle()); // NOI18N
+        
+        // Open the Project in the selected DailySection
+        final TransferData transferData = new TransferData();
+        transferData.setActionId(INavigationOverviewConfiguration.ON_ACTION__OPEN_PROJECT_IN_DAILY_SECTION);
+        transferData.setObject(model);
+        
+        ActionFacade.INSTANCE.handle(transferData);
     }
     
 }

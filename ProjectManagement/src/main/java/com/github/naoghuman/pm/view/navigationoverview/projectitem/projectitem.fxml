@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="25.0" prefWidth="150.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemPresenter">
+<AnchorPane id="AnchorPane" onMouseClicked="#onMouseClickedShowProjectInDailySection" prefHeight="25.0" prefWidth="150.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemPresenter">
    <children>
       <HBox layoutX="6.0" layoutY="-2.0" spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

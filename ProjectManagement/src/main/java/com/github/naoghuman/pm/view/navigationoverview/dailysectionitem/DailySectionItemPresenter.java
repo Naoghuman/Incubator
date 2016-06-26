@@ -64,13 +64,13 @@ public class DailySectionItemPresenter implements Initializable {
     }
     
     public void onMouseClickedOpenDailySection(MouseEvent event) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On MouseClicked open DailySection: " + model.getDailyDate()); // NOI18N
-        
         final int doubleMouseClick = 2;
         final int clickCount = event.getClickCount();
         if (clickCount < doubleMouseClick) {
             return;
         }
+        
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On MouseClicked open DailySection: " + model.getDailyDate()); // NOI18N
         
         // Open the DailySection in DailySectionsOverview
         final TransferData transferData = new TransferData();
