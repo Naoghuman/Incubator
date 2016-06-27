@@ -19,6 +19,7 @@ package com.github.naoghuman.pm.dialog;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
+import com.github.naoghuman.pm.dialog.dailysectionchooserdialog.DailySectionChooserDialogView;
 import com.github.naoghuman.pm.dialog.dailysectiondialog.DailySectionDialogView;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogPresenter;
 import com.github.naoghuman.pm.dialog.projectdialog.ProjectDialogView;
@@ -36,7 +37,43 @@ import javafx.scene.control.Dialog;
  */
 public class DialogProvider {
     
-    public static void showDeleteProjectDialog(long idToDelete, String projectTitle) {
+    public static final DailySectionModel showDailySectionChooserDialog() {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show DailySection chooser dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
+        LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
+        
+        final Dialog<DailySectionModel> dialog = new Dialog<>();
+        dialog.setTitle("Daily Section Chooser"); // NOI18N
+        dialog.setHeaderText("Select the Daily Section to which the Project should added!"); // NOI18N
+        dialog.setResizable(false);
+        
+        final DailySectionChooserDialogView view = new DailySectionChooserDialogView();
+        dialog.getDialogPane().setContent(view.getView());
+        
+        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE); // NOI18N
+        final ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE); // NOI18N
+	dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, buttonTypeCancel);
+        
+	dialog.setResultConverter((ButtonType buttonType) -> {
+            if (
+                    buttonType != null
+                    && buttonType.equals(buttonTypeOk)
+            ) {
+                return view.getRealPresenter().getDailySection(); // TODO user choose
+            }
+            
+            return null;
+        });
+        
+        final Optional<DailySectionModel> result = dialog.showAndWait();
+        if (!result.isPresent()) {
+            return null;
+        }
+        
+        return result.get();
+    }
+    
+    public static final void showDeleteProjectDialog(long idToDelete, String projectTitle) {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show delete Project dialog"); // NOI18N
 
         final Dialog<Boolean> dialog = new Dialog<>();
@@ -68,7 +105,7 @@ public class DialogProvider {
         ActionFacade.INSTANCE.handle(INavigationOverviewConfiguration.ON_ACTION__UPDATE_PROJECTS);
     }
     
-    public static void showEditProjectDialog(ProjectModel model) {
+    public static final void showEditProjectDialog(ProjectModel model) {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show edit Project dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
@@ -107,7 +144,7 @@ public class DialogProvider {
         LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO fire event with changed ProjectModel"); // NOI18N
     }
     
-    public static DailySectionModel showNewDailySectionDialog() {
+    public static final DailySectionModel showNewDailySectionDialog() {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new DailySection dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
@@ -143,7 +180,7 @@ public class DialogProvider {
         return result.get();
     }
     
-    public static ProjectModel showNewProjectDialog() {
+    public static final ProjectModel showNewProjectDialog() {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show new Project dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N

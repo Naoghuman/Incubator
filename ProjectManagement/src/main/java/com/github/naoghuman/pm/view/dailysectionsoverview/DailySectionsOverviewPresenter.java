@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
+import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.DailySectionModel;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.view.dailysectionsoverview.dailysectioncontent.DailySectionContentPresenter;
@@ -90,16 +91,16 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
     }
     
     private void onActionOpenProjectInDailySection(ProjectModel model) {
-        /*
-        * TODO
-           - If NO DailySection is open then a dialog will open ask the user
-             in which DailySection the user will open the Project.
-           - (v) If DailySections are open then the Project will added to the selected
-             DailySection.
-        */
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action open Project in DailySection"); // NOI18N
+                    
         // Check if no DailySection is open
         if (tpDailySections.getTabs().isEmpty()) {
-            LoggerFacade.INSTANCE.trace(this.getClass(), "TODO show dialog which DailySection <- Project"); // NOI18N
+            final DailySectionModel dailySectionModel = DialogProvider.showDailySectionChooserDialog();
+            if (dailySectionModel != null) {
+                this.onActionOpenDailySection(dailySectionModel);
+                this.onActionOpenProjectInDailySection(model);
+            }
+            
             return;
         }
         
@@ -164,7 +165,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         ActionFacade.INSTANCE.register(
                 INavigationOverviewConfiguration.ON_ACTION__OPEN_PROJECT_IN_DAILY_SECTION,
                 (ActionEvent event) -> {
-                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action open Project in DailySections"); // NOI18N
+                    LoggerFacade.INSTANCE.debug(this.getClass(), "On action open Project in DailySection"); // NOI18N
 
                     final TransferData transferData = (TransferData) event.getSource();
                     final ProjectModel model = (ProjectModel) transferData.getObject();
