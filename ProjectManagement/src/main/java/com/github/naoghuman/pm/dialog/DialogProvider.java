@@ -44,7 +44,7 @@ public class DialogProvider {
         
         final Dialog<DailySectionModel> dialog = new Dialog<>();
         dialog.setTitle("Daily Section Chooser"); // NOI18N
-        dialog.setHeaderText("Select the Daily Section to which the Project should added!"); // NOI18N
+        dialog.setHeaderText("Select the Daily Section to which the Project should be added!"); // NOI18N
         dialog.setResizable(false);
         
         final DailySectionChooserDialogView view = new DailySectionChooserDialogView();
@@ -59,7 +59,7 @@ public class DialogProvider {
                     buttonType != null
                     && buttonType.equals(buttonTypeOk)
             ) {
-                return view.getRealPresenter().getDailySection(); // TODO user choose
+                return view.getRealPresenter().getDailySection();
             }
             
             return null;

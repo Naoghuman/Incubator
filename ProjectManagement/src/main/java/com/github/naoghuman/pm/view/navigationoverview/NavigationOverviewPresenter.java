@@ -33,6 +33,8 @@ import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemPr
 import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemView;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -59,8 +61,8 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     
     @FXML private Button bNewDailySection;
     @FXML private Button bNewProject;
-    @FXML private ListView lvDailySectionsNavigation;
-    @FXML private ListView lvProjectsNavigation;
+    @FXML private ListView<DailySectionItemPresenter> lvDailySectionsNavigation;
+    @FXML private ListView<ProjectItemPresenter> lvProjectsNavigation;
     @FXML private TabPane tpNavigationOverview;
     
     @Override
@@ -231,7 +233,14 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                     final DailySectionItemView view = new DailySectionItemView();
                     final DailySectionItemPresenter presenter = view.getRealPresenter();
                     presenter.configure(view.getView(), model);
-                    lvDailySectionsNavigation.getItems().add(0, presenter);
+                    
+                    lvDailySectionsNavigation.getItems().add(presenter);
+                    Collections.sort(
+                        lvDailySectionsNavigation.getItems(),
+                        (presenter1, presenter2) -> 
+                            presenter2.getDailyDate().compareTo(presenter1.getDailyDate())
+                        );
+                    lvDailySectionsNavigation.getSelectionModel().select(presenter);
                     
                     // Do some database stuff
                     SqlFacade.INSTANCE.getDailySectionSqlProvider().createOrUpdate(model);

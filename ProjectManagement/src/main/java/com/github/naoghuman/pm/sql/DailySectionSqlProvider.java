@@ -20,7 +20,6 @@ import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.DailySectionModel;
 import com.github.naoghuman.pm.model.api.IEntityModel;
-import static com.github.naoghuman.pm.model.api.IEntityModel.NAMED_QUERY__NAME__PROJECT_MODEL__FIND_ALL;
 import java.util.Collections;
 import java.util.Objects;
 import javafx.collections.FXCollections;
@@ -82,7 +81,7 @@ public class DailySectionSqlProvider implements IEntityModel {
         Collections.sort(
                 models,
                 (model1, model2) -> 
-                    model1.getDailyDate().compareTo(model2.getDailyDate())
+                    model2.getDailyDate().compareTo(model1.getDailyDate())
                 );
         
         return models;

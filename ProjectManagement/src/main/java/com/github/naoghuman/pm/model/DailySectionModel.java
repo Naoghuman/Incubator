@@ -180,9 +180,9 @@ public class DailySectionModel implements Comparable<DailySectionModel>, Externa
     @Override
     public int compareTo(DailySectionModel other) {
         return new CompareToBuilder()
-                .append(other.getDailyDate(), this.getDailyDate())
-                .append(other.getProjectId(), this.getProjectId())
-                .append(other.getId(), this.getId())
+                .append(this.getDailyDate(), other.getDailyDate())
+                .append(this.getProjectId(), other.getProjectId())
+                .append(this.getId(), other.getId())
                 .toComparison();
     }
     
