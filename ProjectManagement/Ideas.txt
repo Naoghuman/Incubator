@@ -28,3 +28,7 @@ KNOWLEDGE
    (JPA 2.1 for example). Projects can have Knowledge, Knowledge can also alone.
 
 --------------------------------------------------------------------------------
+TAG
+ - Projects, Knowledges can be tagged.
+
+--------------------------------------------------------------------------------
