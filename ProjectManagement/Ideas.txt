@@ -23,3 +23,8 @@ NAVIGATION
  a) Use Tasks to load the content.
 
 --------------------------------------------------------------------------------
+KNOWLEDGE
+ - Idea and functionality is like a project - only about Knowledge from a topic
+   (JPA 2.1 for example). Projects can have Knowledge, Knowledge can also alone.
+
+--------------------------------------------------------------------------------
