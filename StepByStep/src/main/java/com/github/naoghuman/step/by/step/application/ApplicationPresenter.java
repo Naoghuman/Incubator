@@ -78,6 +78,26 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         ivCircle.setClip(clipCircle);
     }
     
+    public void onActionClickIndex1() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 1"); // NOI18N
+    }
+    
+    public void onActionClickIndex2() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 2"); // NOI18N
+    }
+    
+    public void onActionClickIndex3() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 3"); // NOI18N
+    }
+    
+    public void onActionClickIndex4() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 4"); // NOI18N
+    }
+    
+    public void onActionClickIndex5() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 5"); // NOI18N
+    }
+    
     @Override
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N

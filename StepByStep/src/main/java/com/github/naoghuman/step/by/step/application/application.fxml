@@ -16,6 +16,16 @@
             <ImageView fx:id="ivBackground" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="ivCircle" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Circle fill="TRANSPARENT" radius="300.0" stroke="#409eeb" strokeWidth="3.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="400.0">
+               <children>
+                  <Circle centerX="200.0" centerY="200.0" fill="#1f93ff00" radius="200.0" stroke="#00000033" strokeType="INSIDE" />
+                  <Button layoutX="150.0" mnemonicParsing="false" onAction="#onActionClickIndex1" prefHeight="100.0" prefWidth="100.0" text="1" />
+                  <Button layoutX="300.0" layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex2" prefHeight="100.0" prefWidth="100.0" text="2" />
+                  <Button layoutX="256.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex3" prefHeight="100.0" prefWidth="100.0" text="3" />
+                  <Button layoutX="50.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex4" prefHeight="100.0" prefWidth="100.0" text="4" />
+                  <Button layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex5" prefHeight="100.0" prefWidth="100.0" text="5" />
+               </children>
+            </AnchorPane>
          </children>
       </StackPane>
    </children>
