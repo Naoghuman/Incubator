@@ -29,6 +29,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -64,9 +67,15 @@ public class StartApplication extends Application implements IApplicationConfigu
         final ApplicationView applicationView = new ApplicationView();
         final ApplicationPresenter applicationPresenter = applicationView.getRealPresenter();
         
-        final Scene scene = new Scene(applicationView.getView(), 1280, 720);
-        primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
+        final Scene scene = new Scene(applicationView.getView(), 1920, 1080);
+        scene.setOnKeyReleased((KeyEvent event) -> {
+            this.onKeyReleased(event);
+        });
         primaryStage.setScene(scene);
+        
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
            we.consume();
            
@@ -105,6 +114,18 @@ public class StartApplication extends Application implements IApplicationConfigu
             Platform.exit();
         });
         pt.playFromStart();
+    }
+    
+    private void onKeyReleased(KeyEvent event) {
+        // Listen to Application events
+        final KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.ESCAPE) {
+            event.consume();
+            this.onCloseRequest();
+            
+            return;
+        }
+        
     }
     
 }

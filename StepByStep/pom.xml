@@ -40,6 +40,16 @@
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
             <!-- <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.10</version>
@@ -100,6 +110,7 @@
                     <include>**/*.fxml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
+                    <include>**/*.jpg</include>
                 </includes>
             </resource>
             <resource>
@@ -109,6 +120,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
+                    <include>**/*.jpg</include>
                 </includes>
             </resource>
         </resources>
