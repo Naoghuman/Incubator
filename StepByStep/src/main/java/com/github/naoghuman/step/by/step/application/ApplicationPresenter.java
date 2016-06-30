@@ -18,6 +18,7 @@ package com.github.naoghuman.step.by.step.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.step.by.step.engine.Engine;
 import com.github.naoghuman.step.by.step.resources.IResources;
 import com.github.naoghuman.step.by.step.resources.ResourcesFacade;
 import java.net.URL;
