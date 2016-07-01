@@ -18,17 +18,15 @@ package com.github.naoghuman.step.by.step.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.step.by.step.engine.Engine;
+import com.github.naoghuman.step.by.step.engine.EGameMode;
 import com.github.naoghuman.step.by.step.resources.IResources;
 import com.github.naoghuman.step.by.step.resources.ResourcesFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -37,8 +35,10 @@ import javafx.scene.shape.Circle;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
-    @FXML private ImageView ivBackground;
-    @FXML private ImageView ivCircle;
+    @FXML private ImageView ivBackgroundBig;
+    @FXML private ImageView ivBackgroundClipped;
+    
+    private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,26 +57,25 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void initializeBigBackgroundImage() {
-        ivBackground.setFitHeight(1080.0d);
-        ivBackground.setFitWidth(1920.0d);
+        ivBackgroundBig.setFitHeight(1080.0d);
+        ivBackgroundBig.setFitWidth(1920.0d);
         
         final Image img = ResourcesFacade.getDefault().getImageLoader().loadImage(IResources.IMG_146664_1920x1080);
-        ivBackground.setImage(img);
+        ivBackgroundBig.setImage(img);
     }
 
     private void initializeClippedBackgroundImage() {
-        ivCircle.setFitHeight(768.0d);
-        ivCircle.setFitWidth(1366.0d);
-//        ivCircle.setEffect(new DropShadow(15, Color.BLACK));
+        ivBackgroundClipped.setFitHeight(768.0d);
+        ivBackgroundClipped.setFitWidth(1366.0d);
         
         final Image img = ResourcesFacade.getDefault().getImageLoader().loadImage(IResources.IMG_146664_1366x768);
-        ivCircle.setImage(img);
+        ivBackgroundClipped.setImage(img);
         
         // clip image by circle
         final Circle clipCircle = new Circle(300.0d);
         clipCircle.setLayoutX(1366.0d / 2);
         clipCircle.setLayoutY(768.0d / 2);
-        ivCircle.setClip(clipCircle);
+        ivBackgroundClipped.setClip(clipCircle);
     }
     
     public void onActionClickIndex1() {
