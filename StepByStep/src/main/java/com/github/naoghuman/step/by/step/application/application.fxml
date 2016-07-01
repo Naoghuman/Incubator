@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
@@ -16,16 +17,36 @@
             <ImageView fx:id="ivBackgroundBig" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="ivBackgroundClipped" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Circle fx:id="cBorderForClippedBackground" fill="TRANSPARENT" radius="300.0" stroke="#6495ED" strokeWidth="2.0" />
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="400.0">
+            <VBox alignment="CENTER" spacing="50.0" />
+            <VBox alignment="CENTER" spacing="150.0">
                <children>
-                  <Circle centerX="200.0" centerY="200.0" fill="#1f93ff00" radius="200.0" stroke="#00000033" strokeType="INSIDE" />
-                  <Button layoutX="150.0" mnemonicParsing="false" onAction="#onActionClickIndex1" prefHeight="100.0" prefWidth="100.0" text="1" />
-                  <Button layoutX="300.0" layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex2" prefHeight="100.0" prefWidth="100.0" text="2" />
-                  <Button layoutX="256.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex3" prefHeight="100.0" prefWidth="100.0" text="3" />
-                  <Button layoutX="50.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex4" prefHeight="100.0" prefWidth="100.0" text="4" />
-                  <Button layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex5" prefHeight="100.0" prefWidth="100.0" text="5" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Step by Step">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Way is the Goal">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="400.0">
+                     <children>
+                        <Circle centerX="200.0" centerY="200.0" fill="#1f93ff00" radius="200.0" stroke="#00000033" strokeType="INSIDE" />
+                        <Button focusTraversable="false" layoutX="150.0" mnemonicParsing="false" onAction="#onActionClickIndex1" prefHeight="100.0" prefWidth="100.0" text="1" />
+                        <Button focusTraversable="false" layoutX="300.0" layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex2" prefHeight="100.0" prefWidth="100.0" text="2" />
+                        <Button focusTraversable="false" layoutX="250.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex3" prefHeight="100.0" prefWidth="100.0" text="3" />
+                        <Button focusTraversable="false" layoutX="50.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex4" prefHeight="100.0" prefWidth="100.0" text="4" />
+                        <Button focusTraversable="false" layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex5" prefHeight="100.0" prefWidth="100.0" text="5" />
+                     </children>
+                  </AnchorPane>
+                  <Button focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionPlay" prefHeight="100.0" prefWidth="300.0" text="Play" />
                </children>
-            </AnchorPane>
+            </VBox>
          </children>
       </StackPane>
    </children>

@@ -117,6 +117,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 5"); // NOI18N
     }
     
+    public void onActionPlay() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action Play"); // NOI18N
+    }
+    
     @Override
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
