@@ -25,8 +25,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -35,6 +37,7 @@ import javafx.scene.shape.Circle;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
+    @FXML private Circle cBorderForClippedBackground;
     @FXML private ImageView ivBackgroundBig;
     @FXML private ImageView ivBackgroundClipped;
     
@@ -48,6 +51,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         this.initializeBigBackgroundImage();
         this.initializeClippedBackgroundImage();
+        this.initializeBorderForClippedBackgroundImage();
         
         this.registerActions();
     }
@@ -57,6 +61,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void initializeBigBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize big Background image"); // NOI18N
+        
         ivBackgroundBig.setFitHeight(1080.0d);
         ivBackgroundBig.setFitWidth(1920.0d);
         
@@ -65,6 +71,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void initializeClippedBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize clipped Background image"); // NOI18N
+        
         ivBackgroundClipped.setFitHeight(768.0d);
         ivBackgroundClipped.setFitWidth(1366.0d);
         
@@ -76,6 +84,17 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         clipCircle.setLayoutX(1366.0d / 2);
         clipCircle.setLayoutY(768.0d / 2);
         ivBackgroundClipped.setClip(clipCircle);
+    }
+    
+    private void initializeBorderForClippedBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize Border for clipped Background image"); // NOI18N
+        
+        final DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(5.0);
+        dropShadow.setColor(Color.CORNFLOWERBLUE);
+        dropShadow.setSpread(0.15);
+ 
+        cBorderForClippedBackground.setEffect(dropShadow);
     }
     
     public void onActionClickIndex1() {
