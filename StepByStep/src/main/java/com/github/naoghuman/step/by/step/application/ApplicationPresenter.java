@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +38,7 @@ import javafx.scene.shape.Circle;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
+    @FXML private Button bPlayButton;
     @FXML private Circle cBorderForClippedBackground;
     @FXML private ImageView ivBackgroundBig;
     @FXML private ImageView ivBackgroundClipped;
@@ -97,10 +99,26 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         cBorderForClippedBackground.setEffect(dropShadow);
     }
     
-    private boolean checkAreGameButtonsNotAllowedToReceiveUserEvents() {
+    /*
+        GAME_MODE__ATTENTION = false
+        GAME_MODE__ERROR     = false
+        GAME_MODE__HELP      = false
+        GAME_MODE__HIGHSCORE = false
+        GAME_MODE__PREVIEW   = false
+        GAME_MODE__REMEMBER  = true
+        GAME_MODE__SUCCESS   = false
+    */
+    private boolean checkUserCanClickGameButtons() {
+        if (gameMode.equals(EGameMode.GAME_MODE__REMEMBER)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean checkIsPlayButtonNotAllowedToReceiveUserEvents() {
         if (
-                gameMode.equals(EGameMode.GAME_MODE__ATTENTION)
-                || gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
+                gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
                 || gameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
                 || gameMode.equals(EGameMode.GAME_MODE__SUCCESS)
         ) {
@@ -111,9 +129,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex1() {
-        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
-        if (areGameButtonsNotAllowedToReceiveUserEvents) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
             return;
         }
         
@@ -122,9 +140,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex2() {
-        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
-        if (areGameButtonsNotAllowedToReceiveUserEvents) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
             return;
         }
         
@@ -132,9 +150,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex3() {
-        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
-        if (areGameButtonsNotAllowedToReceiveUserEvents) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
             return;
         }
         
@@ -142,9 +160,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex4() {
-        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
-        if (areGameButtonsNotAllowedToReceiveUserEvents) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
             return;
         }
         
@@ -152,9 +170,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex5() {
-        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
-        if (areGameButtonsNotAllowedToReceiveUserEvents) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
             return;
         }
         
@@ -167,6 +185,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         /*
          - change GameMode to GameMode.ATTENTION
          - Show LevelInformation
+         - remove PlayButton
          - show timer (3-2-1)
             - in the middle from the application
             - use SequentialTransition to fade in and out the numbers
