@@ -17,6 +17,20 @@
                 <ImageView fx:id="ivBackgroundBig" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                 <ImageView fx:id="ivBackgroundClipped" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                 <Circle fx:id="cBorderForClippedBackground" fill="TRANSPARENT" radius="300.0" stroke="#6495ED" strokeWidth="2.0" />
+                <VBox alignment="CENTER">
+                    <children>
+                        <Text fx:id="tLevel" strokeType="OUTSIDE" strokeWidth="0.0" text="Level">
+                            <font>
+                                <Font size="56.0" />
+                            </font>
+                        </Text>
+                        <Text fx:id="tLevelInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="1 / 0">
+                            <font>
+                                <Font size="36.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </VBox>
                 <VBox alignment="CENTER" spacing="50.0" />
                 <VBox alignment="CENTER" spacing="150.0">
                     <children>

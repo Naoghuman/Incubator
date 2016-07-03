@@ -19,10 +19,12 @@ package com.github.naoghuman.step.by.step.application;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.step.by.step.engine.EGameMode;
+import com.github.naoghuman.step.by.step.engine.Engine;
 import com.github.naoghuman.step.by.step.resources.IResources;
 import com.github.naoghuman.step.by.step.resources.ResourcesFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,6 +33,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -38,10 +42,14 @@ import javafx.scene.shape.Circle;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
+    private static final Font FONT_SIZE_128 = new Font(128.0d);
+    
     @FXML private Button bPlayButton;
     @FXML private Circle cBorderForClippedBackground;
     @FXML private ImageView ivBackgroundBig;
     @FXML private ImageView ivBackgroundClipped;
+    @FXML private Text tLevel;
+    @FXML private Text tLevelInfo;
     
     private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
 
@@ -54,6 +62,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         this.initializeBigBackgroundImage();
         this.initializeClippedBackgroundImage();
         this.initializeBorderForClippedBackgroundImage();
+        this.initializePlayButton();
+        this.initializeLevelInfo();
         
         this.registerActions();
     }
@@ -99,6 +109,20 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         cBorderForClippedBackground.setEffect(dropShadow);
     }
     
+    private void initializeLevelInfo() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize LevelInfo"); // NOI18N
+        
+        final boolean showLevelInfo = false;
+        this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__PREVIEW, showLevelInfo);
+    }
+    
+    private void initializePlayButton() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize PlayButton"); // NOI18N
+        
+        final boolean showPlayButton = true;
+        this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__PREVIEW, showPlayButton);
+    }
+    
     /*
         GAME_MODE__ATTENTION = false
         GAME_MODE__ERROR     = false
@@ -116,16 +140,29 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         return false;
     }
     
-    public boolean checkIsPlayButtonNotAllowedToReceiveUserEvents() {
-        if (
-                gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
-                || gameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
-                || gameMode.equals(EGameMode.GAME_MODE__SUCCESS)
-        ) {
-            return true;
-        }
-        
-        return false;
+    /*
+        GAME_MODE__ATTENTION = 
+        GAME_MODE__ERROR     = 
+        GAME_MODE__HELP      = 
+        GAME_MODE__HIGHSCORE = 
+        GAME_MODE__PREVIEW   = true
+        GAME_MODE__REMEMBER  = 
+        GAME_MODE__SUCCESS   = 
+    */
+//    public boolean checkUserCanClickPlayButton() {
+//        if (
+//                gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
+//                || gameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
+//                || gameMode.equals(EGameMode.GAME_MODE__SUCCESS)
+//        ) {
+//            return true;
+//        }
+//        
+//        return false;
+//    }
+    
+    private boolean isGameMode(EGameMode gameMode) {
+        return this.gameMode.equals(gameMode);
     }
     
     public void onActionClickIndex1() {
@@ -183,12 +220,15 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action Play"); // NOI18N
         
         /*
-         - change GameMode to GameMode.ATTENTION
-         - Show LevelInformation
-         - remove PlayButton
-         - show timer (3-2-1)
-            - in the middle from the application
-            - use SequentialTransition to fade in and out the numbers
+         - Should the PlayButton change in GameMode.ATTENTION?
+            - Then the user have to click on the PlayButton to start every round.
+        
+         - (v) change GameMode to GameMode.ATTENTION
+         - (v) remove PlayButton
+         - (v) show Timer (3-2-1)
+            - (v) in the middle from the application
+            - (v) use SequentialTransition to fade in and out the numbers
+            - (v) Show LevelInformation when Time is finished.
          - show elements for round xy
             - change button color
             - use SequentialTransition to switch between the elements
@@ -196,11 +236,68 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                  can prepare himself when the level is ready.
          - change to GameMode.REMEMBER
         */
+        if (this.isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
+            this.switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
+            
+            final boolean showLevelInfo = true;
+            this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__ATTENTION, showLevelInfo);
+            
+            final boolean showPlayButton = false;
+            this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
+        }
+        
+        final SequentialTransition sequentialTransition = Engine.getDefault().createCounterAnimation(tLevel, tLevelInfo);
+        
+        sequentialTransition.playFromStart();
     }
     
     @Override
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+    }
+    
+    private void switchLevelInfoToGameMode(EGameMode gameMode, boolean showLevelInfo) {
+        if (gameMode.equals(EGameMode.GAME_MODE__ATTENTION)) {
+            tLevel.setText("3"); // NOI18N
+            tLevel.setFont(FONT_SIZE_128);
+            tLevel.setOpacity(0.0d);
+            tLevel.setManaged(showLevelInfo);
+            tLevel.setVisible(showLevelInfo);
+            
+            tLevelInfo.setText(Engine.getDefault().getLevel() + " / 0"); // NOI18N
+            tLevelInfo.setOpacity(0.0d);
+            tLevelInfo.setManaged(!showLevelInfo);
+            tLevelInfo.setVisible(!showLevelInfo);
+        }
+        
+        if (gameMode.equals(EGameMode.GAME_MODE__PREVIEW)) {
+            tLevel.setText("Level"); // NOI18N
+            tLevel.setManaged(showLevelInfo);
+            tLevel.setVisible(showLevelInfo);
+            
+            Engine.getDefault().resetLevel();
+            tLevelInfo.setText(Engine.getDefault().getLevel() + " / 0"); // NOI18N
+            tLevelInfo.setManaged(showLevelInfo);
+            tLevelInfo.setVisible(showLevelInfo);
+        }
+    }
+    
+    private void switchPlayButtonToGameMode(EGameMode gameMode, boolean showPlayButton) {
+        if (gameMode.equals(EGameMode.GAME_MODE__ATTENTION)) {
+            bPlayButton.setText("Start"); // NOI18N
+//            bPlayButton.setManaged(showPlayButton);
+            bPlayButton.setVisible(showPlayButton);
+        }
+        
+        if (gameMode.equals(EGameMode.GAME_MODE__PREVIEW)) {
+            bPlayButton.setText("Play"); // NOI18N
+//            bPlayButton.setManaged(showPlayButton);
+            bPlayButton.setVisible(showPlayButton);
+        }
+    }
+    
+    private void switchToGameMode(EGameMode gameMode) {
+        this.gameMode = gameMode;
     }
     
 }

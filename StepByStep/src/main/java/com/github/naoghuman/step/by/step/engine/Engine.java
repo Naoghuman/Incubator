@@ -19,14 +19,23 @@ package com.github.naoghuman.step.by.step.engine;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.util.Optional;
 import java.util.Random;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  *
  * @author Naoghuman
  */
 public final class Engine {
+    
+    private static final Font FONT_SIZE_56 = new Font(56.0d);
     
     private static final Optional<Engine> instance = Optional.of(new Engine());
     
@@ -37,6 +46,7 @@ public final class Engine {
     private final ObservableList<Integer> precalculatedElements = FXCollections.observableArrayList();
     
     private int counterForRandomIndex = -1;
+    private int level = 1;
     
     private Engine() {
         this.initialize();
@@ -61,6 +71,79 @@ public final class Engine {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
     }
     
+    public SequentialTransition createCounterAnimation(Text tLevel, Text tLevelInfo) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Create Counter animation"); // NOI18N
+        
+        final SequentialTransition sequentialTransition = new SequentialTransition();
+        
+        // 3
+        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+        fadeTransition.setDelay(Duration.millis(125.0d));
+        sequentialTransition.getChildren().add(fadeTransition);
+        
+        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
+        fadeTransition.setOnFinished(event -> {
+            tLevel.setText("2"); // NOI18N
+        });
+        sequentialTransition.getChildren().add(fadeTransition);
+        
+        // 2
+        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+        sequentialTransition.getChildren().add(fadeTransition);
+        
+        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
+        fadeTransition.setOnFinished(event -> {
+            tLevel.setText("1"); // NOI18N
+        });
+        sequentialTransition.getChildren().add(fadeTransition);
+        
+        // 1
+        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+        sequentialTransition.getChildren().add(fadeTransition);
+        
+        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
+        fadeTransition.setOnFinished(event -> {
+            tLevel.setText("Level"); // NOI18N
+            tLevel.setFont(FONT_SIZE_56);
+            
+            tLevelInfo.setManaged(true);
+            tLevelInfo.setVisible(true);
+        });
+        sequentialTransition.getChildren().add(fadeTransition);
+        
+        // Level info
+        final ParallelTransition parallelTransition = this.createLevelInfoAnimation(tLevel, tLevelInfo);
+        sequentialTransition.getChildren().add(parallelTransition);
+        
+        return sequentialTransition;
+    }
+    
+    private FadeTransition createFadeAnimation(double fromValue, double toValue, Node node) {
+        final FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.seconds(0.5d));
+        fadeTransition.setFromValue(fromValue);
+        fadeTransition.setToValue(toValue);
+        fadeTransition.setNode(node);
+        
+        return fadeTransition;
+    }
+    
+    private ParallelTransition createLevelInfoAnimation(Text tLevel, Text tLevelInfo) {
+        final ParallelTransition parallelTransition = new ParallelTransition();
+        
+        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+        parallelTransition.getChildren().add(fadeTransition);
+        
+        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevelInfo);
+        parallelTransition.getChildren().add(fadeTransition);
+        
+        return parallelTransition;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+    
     public int getNextRandomElement() {
         ++counterForRandomIndex;
         if (counterForRandomIndex >= precalculatedElements.size()) {
@@ -69,6 +152,14 @@ public final class Engine {
         }
         
         return precalculatedElements.get(counterForRandomIndex);
+    }
+    
+    public void increaseLevel() {
+        ++level;
+    }
+    
+    public void resetLevel() {
+        level = 1;
     }
     
 }
