@@ -163,6 +163,20 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     public void onActionPlay() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action Play"); // NOI18N
+        
+        /*
+         - change GameMode to GameMode.ATTENTION
+         - Show LevelInformation
+         - show timer (3-2-1)
+            - in the middle from the application
+            - use SequentialTransition to fade in and out the numbers
+         - show elements for round xy
+            - change button color
+            - use SequentialTransition to switch between the elements
+               - With each element the LevelInformation is updated so the user
+                 can prepare himself when the level is ready.
+         - change to GameMode.REMEMBER
+        */
     }
     
     @Override
