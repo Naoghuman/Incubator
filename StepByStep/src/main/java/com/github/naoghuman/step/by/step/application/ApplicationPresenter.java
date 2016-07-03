@@ -97,23 +97,67 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         cBorderForClippedBackground.setEffect(dropShadow);
     }
     
+    private boolean checkAreGameButtonsNotAllowedToReceiveUserEvents() {
+        if (
+                gameMode.equals(EGameMode.GAME_MODE__ATTENTION)
+                || gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
+                || gameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
+                || gameMode.equals(EGameMode.GAME_MODE__SUCCESS)
+        ) {
+            return true;
+        }
+        
+        return false;
+    }
+    
     public void onActionClickIndex1() {
+        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
+        if (areGameButtonsNotAllowedToReceiveUserEvents) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+            return;
+        }
+        
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 1"); // NOI18N
+        
     }
     
     public void onActionClickIndex2() {
+        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
+        if (areGameButtonsNotAllowedToReceiveUserEvents) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+            return;
+        }
+        
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 2"); // NOI18N
     }
     
     public void onActionClickIndex3() {
+        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
+        if (areGameButtonsNotAllowedToReceiveUserEvents) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+            return;
+        }
+        
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 3"); // NOI18N
     }
     
     public void onActionClickIndex4() {
+        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
+        if (areGameButtonsNotAllowedToReceiveUserEvents) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+            return;
+        }
+        
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 4"); // NOI18N
     }
     
     public void onActionClickIndex5() {
+        final boolean areGameButtonsNotAllowedToReceiveUserEvents = this.checkAreGameButtonsNotAllowedToReceiveUserEvents();
+        if (areGameButtonsNotAllowedToReceiveUserEvents) {
+            LoggerFacade.INSTANCE.debug(this.getClass(), "Game-Buttons aren't allowed to received UserEvents in GameMode: " + gameMode); // NOI18N
+            return;
+        }
+        
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 5"); // NOI18N
     }
     
