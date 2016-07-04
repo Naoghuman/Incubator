@@ -7,3 +7,8 @@ LevelInfo-Component
  - 
 
 --------------------------------------------------------------------------------
+GameBot
+ - A class which simulate different players from noob to profi.
+ - The class can be used for TestingPurpose and for the Preview.
+
+--------------------------------------------------------------------------------
