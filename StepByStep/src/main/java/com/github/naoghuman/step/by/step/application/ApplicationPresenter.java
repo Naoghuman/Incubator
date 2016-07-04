@@ -18,6 +18,7 @@ package com.github.naoghuman.step.by.step.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.step.by.step.debug.DebugConsole;
 import com.github.naoghuman.step.by.step.gameengine.EGameMode;
 import com.github.naoghuman.step.by.step.gameengine.GameEngine;
 import com.github.naoghuman.step.by.step.resources.IResources;
@@ -28,9 +29,11 @@ import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -44,6 +47,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     private static final Font FONT_SIZE_128 = new Font(128.0d);
     
+    @FXML private AnchorPane apDebugPane;
     @FXML private Button bGameButton1;
     @FXML private Button bGameButton2;
     @FXML private Button bGameButton3;
@@ -55,10 +59,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @FXML private ImageView ivBackgroundClipped;
     @FXML private Text tLevel;
     @FXML private Text tLevelInfo;
+    @FXML private TextArea taDebugInfo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
+        DebugConsole.getDefault().register(apDebugPane, taDebugInfo);
+        DebugConsole.getDefault().info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
@@ -79,7 +85,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void initializeBigBackgroundImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize big Background image"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Initialize big Background image"); // NOI18N
         
         ivBackgroundBig.setFitHeight(1080.0d);
         ivBackgroundBig.setFitWidth(1920.0d);
@@ -89,7 +95,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void initializeClippedBackgroundImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize clipped Background image"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Initialize clipped Background image"); // NOI18N
         
         ivBackgroundClipped.setFitHeight(768.0d);
         ivBackgroundClipped.setFitWidth(1366.0d);
@@ -105,7 +111,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     private void initializeBorderForClippedBackgroundImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize Border for clipped Background image"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Initialize Border for clipped Background image"); // NOI18N
         
         final DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
@@ -116,14 +122,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     private void initializeLevelInfo() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize LevelInfo"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Initialize LevelInfo"); // NOI18N
         
         final boolean showLevelInfo = false;
         this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__PREVIEW, showLevelInfo);
     }
     
     private void initializePlayButton() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize PlayButton"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Initialize PlayButton"); // NOI18N
         
         final boolean showPlayButton = true;
         this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__PREVIEW, showPlayButton);
@@ -132,61 +138,60 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     public void onActionClickIndex1() {
         final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " 
-                    + GameEngine.getDefault().getGameMode()); // NOI18N
+            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
+                    + GameEngine.getDefault().getGameMode());
             return;
         }
         
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 1"); // NOI18N
-        
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 1"); // NOI18N
     }
     
     public void onActionClickIndex2() {
         final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
                     + GameEngine.getDefault().getGameMode());
             return;
         }
         
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 2"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 2"); // NOI18N
     }
     
     public void onActionClickIndex3() {
         final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
                     + GameEngine.getDefault().getGameMode());
             return;
         }
         
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 3"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 3"); // NOI18N
     }
     
     public void onActionClickIndex4() {
         final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
                     + GameEngine.getDefault().getGameMode());
             return;
         }
         
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 4"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 4"); // NOI18N
     }
     
     public void onActionClickIndex5() {
         final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
                     + GameEngine.getDefault().getGameMode());
             return;
         }
         
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action click Index 5"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 5"); // NOI18N
     }
     
     public void onActionPlay() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action Play"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "On action Play"); // NOI18N
         
         /*
          - Should the PlayButton change in GameMode.ATTENTION?
@@ -220,15 +225,15 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         final SequentialTransition stCounterAnimation = GameEngine.getDefault().createCounterAnimation();
         sequentialTransition.getChildren().add(stCounterAnimation);
         
-        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
-        sequentialTransition.getChildren().add(stGameButtonsAnimation);
+//        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
+//        sequentialTransition.getChildren().add(stGameButtonsAnimation);
         
         sequentialTransition.playFromStart();
     }
     
     @Override
     public void registerActions() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
     }
     
     private void switchLevelInfoToGameMode(EGameMode gameMode, boolean showLevelInfo) {

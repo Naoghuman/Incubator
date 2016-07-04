@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.step.by.step.gameengine;
 
-import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.step.by.step.debug.DebugConsole;
 import java.util.Optional;
 import java.util.Random;
 import javafx.animation.FadeTransition;
@@ -64,12 +64,12 @@ public final class GameEngine {
     }
     
     private void initialize() {
-        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize Engine"); // NOI18N
+        DebugConsole.getDefault().info(this.getClass(), "Initialize Engine"); // NOI18N
         
     }
 
     public void initializePrecalculatedElements() {
-        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize precalculated Elements"); // NOI18N
+        DebugConsole.getDefault().info(this.getClass(), "Initialize precalculated Elements"); // NOI18N
         
         precalculatedElements.clear();
         
@@ -79,7 +79,7 @@ public final class GameEngine {
             precalculatedElements.add(nextInt);
         }
         
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
     }
     
     /*
@@ -121,7 +121,7 @@ public final class GameEngine {
 //    }
     
     public SequentialTransition createCounterAnimation() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Create Counter animation"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Create Counter animation"); // NOI18N
         
         final SequentialTransition sequentialTransition = new SequentialTransition();
         
@@ -178,7 +178,7 @@ public final class GameEngine {
     }
 
     public SequentialTransition createGameButtonsAnimation() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Create GameButtons animation"); // NOI18N
+        DebugConsole.getDefault().debug(this.getClass(), "Create GameButtons animation"); // NOI18N
         
         final SequentialTransition sequentialTransition = new SequentialTransition();
         
