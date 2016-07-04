@@ -215,7 +215,13 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
         }
         
-        final SequentialTransition sequentialTransition = GameEngine.getDefault().createCounterAnimation();
+        final SequentialTransition sequentialTransition = new SequentialTransition();
+        
+        final SequentialTransition stCounterAnimation = GameEngine.getDefault().createCounterAnimation();
+        sequentialTransition.getChildren().add(stCounterAnimation);
+        
+        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
+        sequentialTransition.getChildren().add(stGameButtonsAnimation);
         
         sequentialTransition.playFromStart();
     }

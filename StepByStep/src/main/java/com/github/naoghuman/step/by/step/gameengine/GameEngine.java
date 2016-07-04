@@ -176,6 +176,31 @@ public final class GameEngine {
         
         return fadeTransition;
     }
+
+    public SequentialTransition createGameButtonsAnimation() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Create GameButtons animation"); // NOI18N
+        
+        final SequentialTransition sequentialTransition = new SequentialTransition();
+        
+        /*
+        TODO
+         - aktiver modus zeigt max einen aktiven (hervorgehobenen) button
+         - deaktiver modus zeigt alle buttons in 'normalen' zustand (deaktivierte farbe)
+        
+         - pro level wird ein flash-button hinzugefügt.
+            - ändere die farbe des buttons zu aktiv
+            - verweile eine dauer mit aktiven button
+            - ändere aktiven button zu deaktiviert.
+            - verweile eine dauer im deaktivierten modus.
+        
+         - später wird abhängig vom level die dauer des aktiven buttons, 
+           sowie die dauer zwischen den aktivierungen dem level angepasst.
+            - je mehr levels, desto schneller wird das spiel bis max geschwindigkeit
+              ~level 50?
+        */
+        
+        return sequentialTransition;
+    }
     
     private ParallelTransition createLevelInfoAnimation() {
         final ParallelTransition parallelTransition = new ParallelTransition();
