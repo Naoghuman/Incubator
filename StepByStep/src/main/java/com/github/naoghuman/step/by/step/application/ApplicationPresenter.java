@@ -44,6 +44,11 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     private static final Font FONT_SIZE_128 = new Font(128.0d);
     
+    @FXML private Button bGameButton1;
+    @FXML private Button bGameButton2;
+    @FXML private Button bGameButton3;
+    @FXML private Button bGameButton4;
+    @FXML private Button bGameButton5;
     @FXML private Button bPlayButton;
     @FXML private Circle cBorderForClippedBackground;
     @FXML private ImageView ivBackgroundBig;
@@ -58,6 +63,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
+        
+        Engine.getDefault().registerGameButtons(bGameButton1, bGameButton2, bGameButton3, bGameButton4, bGameButton5);
+        Engine.getDefault().registerLevelInfo(tLevel, tLevelInfo);
         
         this.initializeBigBackgroundImage();
         this.initializeClippedBackgroundImage();
@@ -246,7 +254,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
         }
         
-        final SequentialTransition sequentialTransition = Engine.getDefault().createCounterAnimation(tLevel, tLevelInfo);
+        final SequentialTransition sequentialTransition = Engine.getDefault().createCounterAnimation();
         
         sequentialTransition.playFromStart();
     }

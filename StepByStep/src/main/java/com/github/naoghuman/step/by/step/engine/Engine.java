@@ -25,6 +25,7 @@ import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -47,6 +48,14 @@ public final class Engine {
     
     private int counterForRandomIndex = -1;
     private int level = 1;
+    
+    private Button bGameButton1;
+    private Button bGameButton2;
+    private Button bGameButton3;
+    private Button bGameButton4;
+    private Button bGameButton5;
+    private Text tLevel;
+    private Text tLevelInfo;
     
     private Engine() {
         this.initialize();
@@ -71,7 +80,7 @@ public final class Engine {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
     }
     
-    public SequentialTransition createCounterAnimation(Text tLevel, Text tLevelInfo) {
+    public SequentialTransition createCounterAnimation() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Create Counter animation"); // NOI18N
         
         final SequentialTransition sequentialTransition = new SequentialTransition();
@@ -112,7 +121,7 @@ public final class Engine {
         sequentialTransition.getChildren().add(fadeTransition);
         
         // Level info
-        final ParallelTransition parallelTransition = this.createLevelInfoAnimation(tLevel, tLevelInfo);
+        final ParallelTransition parallelTransition = this.createLevelInfoAnimation();
         sequentialTransition.getChildren().add(parallelTransition);
         
         return sequentialTransition;
@@ -128,7 +137,7 @@ public final class Engine {
         return fadeTransition;
     }
     
-    private ParallelTransition createLevelInfoAnimation(Text tLevel, Text tLevelInfo) {
+    private ParallelTransition createLevelInfoAnimation() {
         final ParallelTransition parallelTransition = new ParallelTransition();
         
         FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
@@ -156,6 +165,23 @@ public final class Engine {
     
     public void increaseLevel() {
         ++level;
+    }
+    
+    public void registerGameButtons(
+            Button bGameButton1, Button bGameButton2,
+            Button bGameButton3, Button bGameButton4,
+            Button bGameButton5
+    ) {
+        this.bGameButton1 = bGameButton1;
+        this.bGameButton2 = bGameButton2;
+        this.bGameButton3 = bGameButton3;
+        this.bGameButton4 = bGameButton4;
+        this.bGameButton5 = bGameButton5;
+    }
+    
+    public void registerLevelInfo(Text tLevel, Text tLevelInfo) {
+        this.tLevel = tLevel;
+        this.tLevelInfo = tLevelInfo;
     }
     
     public void resetLevel() {
