@@ -55,8 +55,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @FXML private ImageView ivBackgroundClipped;
     @FXML private Text tLevel;
     @FXML private Text tLevelInfo;
-    
-    private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -131,52 +129,11 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__PREVIEW, showPlayButton);
     }
     
-    /*
-        GAME_MODE__ATTENTION = false
-        GAME_MODE__ERROR     = false
-        GAME_MODE__HELP      = false
-        GAME_MODE__HIGHSCORE = false
-        GAME_MODE__PREVIEW   = false
-        GAME_MODE__REMEMBER  = true
-        GAME_MODE__SUCCESS   = false
-    */
-    private boolean checkUserCanClickGameButtons() {
-        if (gameMode.equals(EGameMode.GAME_MODE__REMEMBER)) {
-            return true;
-        }
-        
-        return false;
-    }
-    
-    /*
-        GAME_MODE__ATTENTION = 
-        GAME_MODE__ERROR     = 
-        GAME_MODE__HELP      = 
-        GAME_MODE__HIGHSCORE = 
-        GAME_MODE__PREVIEW   = true
-        GAME_MODE__REMEMBER  = 
-        GAME_MODE__SUCCESS   = 
-    */
-//    public boolean checkUserCanClickPlayButton() {
-//        if (
-//                gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
-//                || gameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
-//                || gameMode.equals(EGameMode.GAME_MODE__SUCCESS)
-//        ) {
-//            return true;
-//        }
-//        
-//        return false;
-//    }
-    
-    private boolean isGameMode(EGameMode gameMode) {
-        return this.gameMode.equals(gameMode);
-    }
-    
     public void onActionClickIndex1() {
-        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " 
+                    + Engine.getDefault().getGameMode()); // NOI18N
             return;
         }
         
@@ -185,9 +142,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex2() {
-        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+                    + Engine.getDefault().getGameMode());
             return;
         }
         
@@ -195,9 +153,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex3() {
-        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+                    + Engine.getDefault().getGameMode());
             return;
         }
         
@@ -205,9 +164,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex4() {
-        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+                    + Engine.getDefault().getGameMode());
             return;
         }
         
@@ -215,9 +175,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex5() {
-        final boolean canUserClickGameButtons = this.checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " + gameMode); // NOI18N
+            LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
+                    + Engine.getDefault().getGameMode());
             return;
         }
         
@@ -244,8 +205,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                  can prepare himself when the level is ready.
          - change to GameMode.REMEMBER
         */
-        if (this.isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
-            this.switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
+        if (Engine.getDefault().isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
+            Engine.getDefault().switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
             
             final boolean showLevelInfo = true;
             this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__ATTENTION, showLevelInfo);
@@ -302,10 +263,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 //            bPlayButton.setManaged(showPlayButton);
             bPlayButton.setVisible(showPlayButton);
         }
-    }
-    
-    private void switchToGameMode(EGameMode gameMode) {
-        this.gameMode = gameMode;
     }
     
 }

@@ -57,6 +57,8 @@ public final class Engine {
     private Text tLevel;
     private Text tLevelInfo;
     
+    private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
+    
     private Engine() {
         this.initialize();
     }
@@ -79,6 +81,44 @@ public final class Engine {
         
         LoggerFacade.INSTANCE.debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
     }
+    
+    /*
+        GAME_MODE__ATTENTION = false
+        GAME_MODE__ERROR     = false
+        GAME_MODE__HELP      = false
+        GAME_MODE__HIGHSCORE = false
+        GAME_MODE__PREVIEW   = false
+        GAME_MODE__REMEMBER  = true
+        GAME_MODE__SUCCESS   = false
+    */
+    public boolean checkUserCanClickGameButtons() {
+        if (gameMode.equals(EGameMode.GAME_MODE__REMEMBER)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /*
+        GAME_MODE__ATTENTION = 
+        GAME_MODE__ERROR     = 
+        GAME_MODE__HELP      = 
+        GAME_MODE__HIGHSCORE = 
+        GAME_MODE__PREVIEW   = true
+        GAME_MODE__REMEMBER  = 
+        GAME_MODE__SUCCESS   = 
+    */
+//    public boolean checkUserCanClickPlayButton() {
+//        if (
+//                gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
+//                || gameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
+//                || gameMode.equals(EGameMode.GAME_MODE__SUCCESS)
+//        ) {
+//            return true;
+//        }
+//        
+//        return false;
+//    }
     
     public SequentialTransition createCounterAnimation() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Create Counter animation"); // NOI18N
@@ -149,6 +189,10 @@ public final class Engine {
         return parallelTransition;
     }
     
+    public EGameMode getGameMode() {
+        return gameMode;
+    }
+    
     public int getLevel() {
         return level;
     }
@@ -165,6 +209,10 @@ public final class Engine {
     
     public void increaseLevel() {
         ++level;
+    }
+    
+    public boolean isGameMode(EGameMode gameMode) {
+        return this.gameMode.equals(gameMode);
     }
     
     public void registerGameButtons(
@@ -186,6 +234,10 @@ public final class Engine {
     
     public void resetLevel() {
         level = 1;
+    }
+    
+    public void switchToGameMode(EGameMode gameMode) {
+        this.gameMode = gameMode;
     }
     
 }
