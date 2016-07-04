@@ -124,6 +124,11 @@ public final class DebugConsole {
         this.initializeDebugInfo();
     }
     
+    /*
+    TODO Flag should 
+     a) activate logging in the TextArea and (Development-Mode)
+     b) Remove the TextArea when deactivated (Release-Mode)
+    */
     public void setShouldDebugInfoPrinted(boolean shouldDebugInfoPrinted) {
         this.shouldDebugInfoPrinted = shouldDebugInfoPrinted;
     }
