@@ -18,8 +18,8 @@ package com.github.naoghuman.step.by.step.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.step.by.step.engine.EGameMode;
-import com.github.naoghuman.step.by.step.engine.Engine;
+import com.github.naoghuman.step.by.step.gameengine.EGameMode;
+import com.github.naoghuman.step.by.step.gameengine.GameEngine;
 import com.github.naoghuman.step.by.step.resources.IResources;
 import com.github.naoghuman.step.by.step.resources.ResourcesFacade;
 import java.net.URL;
@@ -62,8 +62,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        Engine.getDefault().registerGameButtons(bGameButton1, bGameButton2, bGameButton3, bGameButton4, bGameButton5);
-        Engine.getDefault().registerLevelInfo(tLevel, tLevelInfo);
+        GameEngine.getDefault().registerGameButtons(bGameButton1, bGameButton2, bGameButton3, bGameButton4, bGameButton5);
+        GameEngine.getDefault().registerLevelInfo(tLevel, tLevelInfo);
         
         this.initializeBigBackgroundImage();
         this.initializeClippedBackgroundImage();
@@ -130,10 +130,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex1() {
-        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
             LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " 
-                    + Engine.getDefault().getGameMode()); // NOI18N
+                    + GameEngine.getDefault().getGameMode()); // NOI18N
             return;
         }
         
@@ -142,10 +142,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex2() {
-        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
             LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
-                    + Engine.getDefault().getGameMode());
+                    + GameEngine.getDefault().getGameMode());
             return;
         }
         
@@ -153,10 +153,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex3() {
-        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
             LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
-                    + Engine.getDefault().getGameMode());
+                    + GameEngine.getDefault().getGameMode());
             return;
         }
         
@@ -164,10 +164,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex4() {
-        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
             LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
-                    + Engine.getDefault().getGameMode());
+                    + GameEngine.getDefault().getGameMode());
             return;
         }
         
@@ -175,10 +175,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionClickIndex5() {
-        final boolean canUserClickGameButtons = Engine.getDefault().checkUserCanClickGameButtons();
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
         if (!canUserClickGameButtons) {
             LoggerFacade.INSTANCE.debug(this.getClass(), "User isn't allowed to click the Game-Buttons in GameMode: " // NOI18N
-                    + Engine.getDefault().getGameMode());
+                    + GameEngine.getDefault().getGameMode());
             return;
         }
         
@@ -205,8 +205,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                  can prepare himself when the level is ready.
          - change to GameMode.REMEMBER
         */
-        if (Engine.getDefault().isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
-            Engine.getDefault().switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
+        if (GameEngine.getDefault().isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
+            GameEngine.getDefault().switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
             
             final boolean showLevelInfo = true;
             this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__ATTENTION, showLevelInfo);
@@ -215,7 +215,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
         }
         
-        final SequentialTransition sequentialTransition = Engine.getDefault().createCounterAnimation();
+        final SequentialTransition sequentialTransition = GameEngine.getDefault().createCounterAnimation();
         
         sequentialTransition.playFromStart();
     }
@@ -233,7 +233,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             tLevel.setManaged(showLevelInfo);
             tLevel.setVisible(showLevelInfo);
             
-            tLevelInfo.setText(Engine.getDefault().getLevel() + " / 0"); // NOI18N
+            tLevelInfo.setText(GameEngine.getDefault().getLevel() + " / 0"); // NOI18N
             tLevelInfo.setOpacity(0.0d);
             tLevelInfo.setManaged(!showLevelInfo);
             tLevelInfo.setVisible(!showLevelInfo);
@@ -244,8 +244,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             tLevel.setManaged(showLevelInfo);
             tLevel.setVisible(showLevelInfo);
             
-            Engine.getDefault().resetLevel();
-            tLevelInfo.setText(Engine.getDefault().getLevel() + " / 0"); // NOI18N
+            GameEngine.getDefault().resetLevel();
+            tLevelInfo.setText(GameEngine.getDefault().getLevel() + " / 0"); // NOI18N
             tLevelInfo.setManaged(showLevelInfo);
             tLevelInfo.setVisible(showLevelInfo);
         }

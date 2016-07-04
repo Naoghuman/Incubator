@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.step.by.step.engine;
+package com.github.naoghuman.step.by.step.gameengine;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.util.Optional;
@@ -34,13 +34,13 @@ import javafx.util.Duration;
  *
  * @author Naoghuman
  */
-public final class Engine {
+public final class GameEngine {
     
     private static final Font FONT_SIZE_56 = new Font(56.0d);
     
-    private static final Optional<Engine> instance = Optional.of(new Engine());
+    private static final Optional<GameEngine> instance = Optional.of(new GameEngine());
     
-    public static final Engine getDefault() {
+    public static final GameEngine getDefault() {
         return instance.get();
     }
     
@@ -59,7 +59,7 @@ public final class Engine {
     
     private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
     
-    private Engine() {
+    private GameEngine() {
         this.initialize();
     }
     
