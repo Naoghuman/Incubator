@@ -21,6 +21,7 @@ import java.util.Optional;
 import java.util.Random;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,9 +37,33 @@ import javafx.util.Duration;
  */
 public final class GameEngine {
     
+    private static final int INDEX_1 = 1;
+    private static final int INDEX_2 = 2;
+    private static final int INDEX_3 = 3;
+    private static final int INDEX_4 = 4;
+    private static final int INDEX_5 = 5;
+    
     private static final Font FONT_SIZE_56 = new Font(56.0d);
     
     private static final Optional<GameEngine> instance = Optional.of(new GameEngine());
+    
+    private static final String CLICKABLE_COLOR_BASE = "-fx-base: BLANCHEDALMOND;"; // NOI18N
+    private static final String NOT_CLICKABLE_COLOR_BASE = "-fx-background-color: BLANCHEDALMOND;"; // NOI18N
+    
+    private static final String CLICKABLE_COLOR_1 = "-fx-base: #ef9a9a;"; // NOI18N
+    private static final String NOT_CLICKABLE_COLOR_1 = "-fx-background-color: #ef9a9a;"; // NOI18N
+    
+    private static final String CLICKABLE_COLOR_2 = "-fx-base: #fff59d;"; // NOI18N
+    private static final String NOT_CLICKABLE_COLOR_2 = "-fx-background-color: #fff59d;"; // NOI18N
+    
+    private static final String CLICKABLE_COLOR_3 = "-fx-base: #eeeeee;"; // NOI18N
+    private static final String NOT_CLICKABLE_COLOR_3 = "-fx-background-color: #eeeeee;"; // NOI18N
+    
+    private static final String CLICKABLE_COLOR_4 = "-fx-base: #81d4fa;"; // NOI18N
+    private static final String NOT_CLICKABLE_COLOR_4 = "-fx-background-color: #81d4fa;"; // NOI18N
+    
+    private static final String CLICKABLE_COLOR_5 = "-fx-base: #c5e1a5;"; // NOI18N
+    private static final String NOT_CLICKABLE_COLOR_5 = "-fx-background-color: #c5e1a5;"; // NOI18N
     
     public static final GameEngine getDefault() {
         return instance.get();
@@ -46,7 +71,7 @@ public final class GameEngine {
     
     private final ObservableList<Integer> precalculatedElements = FXCollections.observableArrayList();
     
-    private int counterForRandomIndex = -1;
+    private int index = 0;
     private int level = 1;
     
     private Button bGameButton1;
@@ -68,18 +93,21 @@ public final class GameEngine {
         
     }
 
-    public void initializePrecalculatedElements() {
+    private void initializePrecalculatedElements() {
         DebugConsole.getDefault().info(this.getClass(), "Initialize precalculated Elements"); // NOI18N
         
         precalculatedElements.clear();
+        this.add100PrcalculatedElements();
         
+        DebugConsole.getDefault().debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
+    }
+    
+    private void add100PrcalculatedElements() {
         final Random random = new Random();
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100; i++) {
             final int nextInt = random.nextInt(5) + 1;
             precalculatedElements.add(nextInt);
         }
-        
-        DebugConsole.getDefault().debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
     }
     
     /*
@@ -187,17 +215,47 @@ public final class GameEngine {
          - aktiver modus zeigt max einen aktiven (hervorgehobenen) button
          - deaktiver modus zeigt alle buttons in 'normalen' zustand (deaktivierte farbe)
         
-         - pro level wird ein flash-button hinzugefügt.
-            - ändere die farbe des buttons zu aktiv
-            - verweile eine dauer mit aktiven button
-            - ändere aktiven button zu deaktiviert.
-            - verweile eine dauer im deaktivierten modus.
+         - (v) pro level wird ein flash-button hinzugefügt.
+            - (v) ändere die farbe des buttons zu aktiv
+            - (v) verweile eine dauer mit aktiven button
+            - (v) ändere aktiven button zu deaktiviert.
+            - (v) verweile eine dauer im deaktivierten modus.
         
          - später wird abhängig vom level die dauer des aktiven buttons, 
            sowie die dauer zwischen den aktivierungen dem level angepasst.
             - je mehr levels, desto schneller wird das spiel bis max geschwindigkeit
               ~level 50?
         */
+        this.resetIndex();
+        
+        for (int i = 1; i <= this.getLevel(); i++) {
+            final int currentIndex = this.getIndex();
+            final int randomElement = this.getRandomElement(currentIndex);
+            
+            final PauseTransition ptShowColor = new PauseTransition();
+            ptShowColor.setDuration(Duration.millis(750.0d));
+            ptShowColor.setOnFinished(event -> {
+                final Button btn = this.getGameButton(randomElement);
+                btn.setStyle(null);
+                btn.setStyle(this.getGameButtonColorNotClickable(randomElement));
+                
+                tLevelInfo.setText(this.getLevel() + " / " + (currentIndex + 1)); // NOI18N
+                DebugConsole.getDefault().debug(this.getClass(), "Create for current index=" // NOI18N
+                        + (currentIndex + 1) + " the RandomElement=" + randomElement); // NOI18N
+            });
+            sequentialTransition.getChildren().add(ptShowColor);
+            
+            final PauseTransition ptHideColor = new PauseTransition();
+            ptHideColor.setDuration(Duration.millis(1250.0d));
+            ptHideColor.setOnFinished(event -> {
+                final Button btn = this.getGameButton(randomElement);
+                btn.setStyle(null);
+                btn.setStyle(NOT_CLICKABLE_COLOR_BASE);
+            });
+            sequentialTransition.getChildren().add(ptHideColor);
+            
+            this.increaseIndex();
+        }
         
         return sequentialTransition;
     }
@@ -214,6 +272,49 @@ public final class GameEngine {
         return parallelTransition;
     }
     
+    private int getIndex() {
+        return index;
+    }
+    
+    private Button getGameButton(int index) {
+        Button btn = null;
+        switch (index) {
+            case INDEX_1: { btn = bGameButton1; break; }
+            case INDEX_2: { btn = bGameButton2; break; }
+            case INDEX_3: { btn = bGameButton3; break; }
+            case INDEX_4: { btn = bGameButton4; break; }
+            case INDEX_5: { btn = bGameButton5; break; }
+        }
+        
+        return btn;
+    }
+    
+    private String getGameButtonColorClickable(int index) {
+        String color = null;
+        switch (index) {
+            case INDEX_1: { color = CLICKABLE_COLOR_1; break; }
+            case INDEX_2: { color = CLICKABLE_COLOR_2; break; }
+            case INDEX_3: { color = CLICKABLE_COLOR_3; break; }
+            case INDEX_4: { color = CLICKABLE_COLOR_4; break; }
+            case INDEX_5: { color = CLICKABLE_COLOR_5; break; }
+        }
+        
+        return color;
+    }
+    
+    private String getGameButtonColorNotClickable(int index) {
+        String color = null;
+        switch (index) {
+            case INDEX_1: { color = NOT_CLICKABLE_COLOR_1; break; }
+            case INDEX_2: { color = NOT_CLICKABLE_COLOR_2; break; }
+            case INDEX_3: { color = NOT_CLICKABLE_COLOR_3; break; }
+            case INDEX_4: { color = NOT_CLICKABLE_COLOR_4; break; }
+            case INDEX_5: { color = NOT_CLICKABLE_COLOR_5; break; }
+        }
+        
+        return color;
+    }
+    
     public EGameMode getGameMode() {
         return gameMode;
     }
@@ -222,14 +323,16 @@ public final class GameEngine {
         return level;
     }
     
-    public int getNextRandomElement() {
-        ++counterForRandomIndex;
-        if (counterForRandomIndex >= precalculatedElements.size()) {
-            counterForRandomIndex = 0;
-            this.initializePrecalculatedElements();
+    private int getRandomElement(int index) {
+        if (index >= precalculatedElements.size()) {
+            this.add100PrcalculatedElements();
         }
         
-        return precalculatedElements.get(counterForRandomIndex);
+        return precalculatedElements.get(index);
+    }
+    
+    private void increaseIndex() {
+        ++index;
     }
     
     public void increaseLevel() {
@@ -257,8 +360,46 @@ public final class GameEngine {
         this.tLevelInfo = tLevelInfo;
     }
     
+    private void resetIndex() {
+        index = 0;
+    }
+    
     public void resetLevel() {
         level = 1;
+    }
+    
+    private void setGameButtonsColorBaseClickable() {
+        bGameButton1.setStyle(null);
+        bGameButton1.setStyle(CLICKABLE_COLOR_BASE);
+        
+        bGameButton2.setStyle(null);
+        bGameButton2.setStyle(CLICKABLE_COLOR_BASE);
+        
+        bGameButton3.setStyle(null);
+        bGameButton3.setStyle(CLICKABLE_COLOR_BASE);
+        
+        bGameButton4.setStyle(null);
+        bGameButton4.setStyle(CLICKABLE_COLOR_BASE);
+        
+        bGameButton5.setStyle(null);
+        bGameButton5.setStyle(CLICKABLE_COLOR_BASE);
+    }
+    
+    public void setGameButtonsColorBaseNotClickable() {
+        bGameButton1.setStyle(null);
+        bGameButton1.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        
+        bGameButton2.setStyle(null);
+        bGameButton2.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        
+        bGameButton3.setStyle(null);
+        bGameButton3.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        
+        bGameButton4.setStyle(null);
+        bGameButton4.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        
+        bGameButton5.setStyle(null);
+        bGameButton5.setStyle(NOT_CLICKABLE_COLOR_BASE);
     }
     
     public void switchToGameMode(EGameMode gameMode) {

@@ -74,6 +74,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         this.initializeBigBackgroundImage();
         this.initializeClippedBackgroundImage();
         this.initializeBorderForClippedBackgroundImage();
+        this.initializeGameButtons();
         this.initializePlayButton();
         this.initializeLevelInfo();
         
@@ -119,6 +120,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         dropShadow.setSpread(0.15);
  
         cBorderForClippedBackground.setEffect(dropShadow);
+    }
+    
+    private void initializeGameButtons() {
+        DebugConsole.getDefault().debug(this.getClass(), "Initialize GameButtons"); // NOI18N
+        
+        GameEngine.getDefault().setGameButtonsColorBaseNotClickable();
     }
     
     private void initializeLevelInfo() {
@@ -225,8 +232,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         final SequentialTransition stCounterAnimation = GameEngine.getDefault().createCounterAnimation();
         sequentialTransition.getChildren().add(stCounterAnimation);
         
-//        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
-//        sequentialTransition.getChildren().add(stGameButtonsAnimation);
+        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
+        sequentialTransition.getChildren().add(stGameButtonsAnimation);
         
         sequentialTransition.playFromStart();
     }
@@ -256,6 +263,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             tLevel.setVisible(showLevelInfo);
             
             GameEngine.getDefault().resetLevel();
+//            GameEngine.getDefault().increaseLevel();
+//            GameEngine.getDefault().increaseLevel();
+//            GameEngine.getDefault().increaseLevel();
+//            GameEngine.getDefault().increaseLevel();
+//            GameEngine.getDefault().increaseLevel();
+//            GameEngine.getDefault().increaseLevel();
             tLevelInfo.setText(GameEngine.getDefault().getLevel() + " / 0"); // NOI18N
             tLevelInfo.setManaged(showLevelInfo);
             tLevelInfo.setVisible(showLevelInfo);
