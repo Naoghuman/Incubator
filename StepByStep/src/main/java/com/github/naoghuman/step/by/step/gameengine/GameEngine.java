@@ -213,15 +213,6 @@ public final class GameEngine {
         
         /*
         TODO
-         - aktiver modus zeigt max einen aktiven (hervorgehobenen) button
-         - deaktiver modus zeigt alle buttons in 'normalen' zustand (deaktivierte farbe)
-        
-         - (v) pro level wird ein flash-button hinzugefügt.
-            - (v) ändere die farbe des buttons zu aktiv
-            - (v) verweile eine dauer mit aktiven button
-            - (v) ändere aktiven button zu deaktiviert.
-            - (v) verweile eine dauer im deaktivierten modus.
-        
          - später wird abhängig vom level die dauer des aktiven buttons, 
            sowie die dauer zwischen den aktivierungen dem level angepasst.
             - je mehr levels, desto schneller wird das spiel bis max geschwindigkeit
@@ -276,7 +267,6 @@ public final class GameEngine {
         fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tPrepareYourSelf);
         fadeTransition.setDelay(Duration.millis(1000.0d));
         fadeTransition.setOnFinished(event -> {
-            System.out.println("##########################");
             tPrepareYourSelf.setManaged(false);
             tPrepareYourSelf.setVisible(false);
         });
