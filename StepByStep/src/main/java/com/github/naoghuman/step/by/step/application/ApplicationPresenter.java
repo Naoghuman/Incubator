@@ -243,6 +243,18 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         stGameModeAttention.getChildren().add(stGameButtonsAnimation);
         
         stGameModeAttention.setOnFinished(event -> {
+            /*
+            TODO
+              - Remove the LevelInfo
+              - Show the UserInfo
+              - Show the LevelInfo (resetet)
+              - Activate UserInput
+                 - If wrong show EGameMode.GAME_MODE__ERROR
+                    - User have more life? NEW FEATURE
+                       - If no then show EGameMode.GAME_MODE__HIGHSCORE
+                       - If yes then REPEAT the round EGameMode.GAME_MODE__ATTENTION
+                 - If right show NEXT round EGameMode.GAME_MODE__ATTENTION
+            */
             // EGameMode.GAME_MODE__REMEMBER
             final SequentialTransition stGameModeRemember = new SequentialTransition();
             
