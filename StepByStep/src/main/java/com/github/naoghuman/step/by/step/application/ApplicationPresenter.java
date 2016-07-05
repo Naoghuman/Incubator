@@ -228,15 +228,33 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
         }
         
-        final SequentialTransition sequentialTransition = new SequentialTransition();
+        // EGameMode.GAME_MODE__ATTENTION
+        final SequentialTransition stGameModeAttention = new SequentialTransition();
+        
+        final SequentialTransition stGameModeInformationAttention = 
+                GameEngine.getDefault().createGameModeInformationAnimation(
+                        EGameMode.GAME_MODE__ATTENTION);
+        stGameModeAttention.getChildren().add(stGameModeInformationAttention);
         
         final SequentialTransition stCounterAnimation = GameEngine.getDefault().createCounterAnimation();
-        sequentialTransition.getChildren().add(stCounterAnimation);
+        stGameModeAttention.getChildren().add(stCounterAnimation);
         
         final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
-        sequentialTransition.getChildren().add(stGameButtonsAnimation);
+        stGameModeAttention.getChildren().add(stGameButtonsAnimation);
         
-        sequentialTransition.playFromStart();
+        stGameModeAttention.setOnFinished(event -> {
+            // EGameMode.GAME_MODE__REMEMBER
+            final SequentialTransition stGameModeRemember = new SequentialTransition();
+            
+            final SequentialTransition stGameModeInformationRemember = 
+                    GameEngine.getDefault().createGameModeInformationAnimation(
+                            EGameMode.GAME_MODE__REMEMBER);
+            stGameModeRemember.getChildren().add(stGameModeInformationRemember);
+        
+            stGameModeRemember.playFromStart();
+        });
+        
+        stGameModeAttention.playFromStart();
     }
     
     @Override

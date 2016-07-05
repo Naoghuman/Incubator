@@ -22,12 +22,22 @@ package com.github.naoghuman.step.by.step.gameengine;
  */
 public enum EGameMode {
     
-    GAME_MODE__PREVIEW,
-    GAME_MODE__ATTENTION,
-    GAME_MODE__REMEMBER,
-    GAME_MODE__SUCCESS,
-    GAME_MODE__ERROR,
-    GAME_MODE__HIGHSCORE,
-    GAME_MODE__HELP;
+    GAME_MODE__PREVIEW("Preview"), // NOI18N
+    GAME_MODE__ATTENTION("Attention"), // NOI18N
+    GAME_MODE__REMEMBER("Remember"), // NOI18N
+    GAME_MODE__SUCCESS("Success"), // NOI18N
+    GAME_MODE__ERROR("Error"), // NOI18N
+    GAME_MODE__HIGHSCORE("Highscore"), // NOI18N
+    GAME_MODE__HELP("Help"); // NOI18N
+    
+    private String gameModeInformation = null;
+
+    private EGameMode(String gameModeInformation) {
+        this.gameModeInformation = gameModeInformation;
+    }
+    
+    public String getGameModeInformation() {
+        return gameModeInformation;
+    }
     
 }

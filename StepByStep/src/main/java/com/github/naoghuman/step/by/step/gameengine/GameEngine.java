@@ -154,24 +154,8 @@ public final class GameEngine {
         
         final SequentialTransition sequentialTransition = new SequentialTransition();
         
-        // Attention
-        tPrepareYourSelf.setText("Attention"); // NOI18N
-        tPrepareYourSelf.setManaged(true);
-        tPrepareYourSelf.setVisible(true);
-        
-        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tPrepareYourSelf);
-        fadeTransition.setDelay(Duration.millis(250.0d));
-        
-        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tPrepareYourSelf);
-        fadeTransition.setDelay(Duration.millis(1000.0d));
-        fadeTransition.setOnFinished(event -> {
-            tPrepareYourSelf.setManaged(false);
-            tPrepareYourSelf.setVisible(false);
-        });
-        sequentialTransition.getChildren().add(fadeTransition);
-        
         // 3
-        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
         fadeTransition.setDelay(Duration.millis(500.0d));
         sequentialTransition.getChildren().add(fadeTransition);
         
@@ -273,6 +257,30 @@ public final class GameEngine {
             
             this.increaseIndex();
         }
+        
+        return sequentialTransition;
+    }
+
+    public SequentialTransition createGameModeInformationAnimation(EGameMode gameMode) {
+        DebugConsole.getDefault().debug(this.getClass(), "Create GameModeInformation for: " + gameMode.toString()); // NOI18N
+        
+        final SequentialTransition sequentialTransition = new SequentialTransition();
+        
+        tPrepareYourSelf.setText(gameMode.getGameModeInformation()); // NOI18N
+        tPrepareYourSelf.setManaged(true);
+        tPrepareYourSelf.setVisible(true);
+        
+        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tPrepareYourSelf);
+        fadeTransition.setDelay(Duration.millis(250.0d));
+        
+        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tPrepareYourSelf);
+        fadeTransition.setDelay(Duration.millis(1000.0d));
+        fadeTransition.setOnFinished(event -> {
+            System.out.println("##########################");
+            tPrepareYourSelf.setManaged(false);
+            tPrepareYourSelf.setVisible(false);
+        });
+        sequentialTransition.getChildren().add(fadeTransition);
         
         return sequentialTransition;
     }
