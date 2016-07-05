@@ -81,6 +81,7 @@ public final class GameEngine {
     private Button bGameButton5;
     private Text tLevel;
     private Text tLevelInfo;
+    private Text tPrepareYourSelf;
     
     private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
     
@@ -153,9 +154,25 @@ public final class GameEngine {
         
         final SequentialTransition sequentialTransition = new SequentialTransition();
         
+        // Attention
+        tPrepareYourSelf.setText("Attention"); // NOI18N
+        tPrepareYourSelf.setManaged(true);
+        tPrepareYourSelf.setVisible(true);
+        
+        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tPrepareYourSelf);
+        fadeTransition.setDelay(Duration.millis(250.0d));
+        
+        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tPrepareYourSelf);
+        fadeTransition.setDelay(Duration.millis(1000.0d));
+        fadeTransition.setOnFinished(event -> {
+            tPrepareYourSelf.setManaged(false);
+            tPrepareYourSelf.setVisible(false);
+        });
+        sequentialTransition.getChildren().add(fadeTransition);
+        
         // 3
-        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
-        fadeTransition.setDelay(Duration.millis(125.0d));
+        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+        fadeTransition.setDelay(Duration.millis(500.0d));
         sequentialTransition.getChildren().add(fadeTransition);
         
         fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
@@ -355,7 +372,8 @@ public final class GameEngine {
         this.bGameButton5 = bGameButton5;
     }
     
-    public void registerLevelInfo(Text tLevel, Text tLevelInfo) {
+    public void registerLevelInfo(Text tPrepareYourSelf, Text tLevel, Text tLevelInfo) {
+        this.tPrepareYourSelf = tPrepareYourSelf;
         this.tLevel = tLevel;
         this.tLevelInfo = tLevelInfo;
     }

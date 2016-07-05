@@ -59,6 +59,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @FXML private ImageView ivBackgroundClipped;
     @FXML private Text tLevel;
     @FXML private Text tLevelInfo;
+    @FXML private Text tPrepareYourSelf;
     @FXML private TextArea taDebugInfo;
 
     @Override
@@ -69,7 +70,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
         GameEngine.getDefault().registerGameButtons(bGameButton1, bGameButton2, bGameButton3, bGameButton4, bGameButton5);
-        GameEngine.getDefault().registerLevelInfo(tLevel, tLevelInfo);
+        GameEngine.getDefault().registerLevelInfo(tPrepareYourSelf, tLevel, tLevelInfo);
         
         this.initializeBigBackgroundImage();
         this.initializeClippedBackgroundImage();
@@ -258,6 +259,11 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         }
         
         if (gameMode.equals(EGameMode.GAME_MODE__PREVIEW)) {
+            tPrepareYourSelf.setText("Attention"); // NOI18N
+            tPrepareYourSelf.setOpacity(0.0d);
+            tPrepareYourSelf.setManaged(false);
+            tPrepareYourSelf.setVisible(false);
+            
             tLevel.setText("Level"); // NOI18N
             tLevel.setManaged(showLevelInfo);
             tLevel.setVisible(showLevelInfo);
