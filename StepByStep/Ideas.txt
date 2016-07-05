@@ -12,3 +12,8 @@ GameBot
  - The class can be used for TestingPurpose and for the Preview.
 
 --------------------------------------------------------------------------------
+Sound
+ - Add unique SoundClip to the GameButtons. When a GameButton will flash then the
+   SoundClip will be played.
+
+--------------------------------------------------------------------------------
