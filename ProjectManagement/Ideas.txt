@@ -37,3 +37,12 @@ PROJECT-OVERVIEW
    where the user can choose a DailySection to which the project should be added.
 
 --------------------------------------------------------------------------------
+PROJECT IN DAILY-OVERVIEW
+ - What will the project here shown?
+ - Counter how often the project is be added to the DailySection
+ - ProjectName, -Color.
+ - Added Tags from the Project.
+ - Added Knowledges.
+ - Defined Tasks.
+
+--------------------------------------------------------------------------------
