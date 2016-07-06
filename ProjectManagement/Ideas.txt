@@ -2,10 +2,10 @@
 IDEAS
 --------------------------------------------------------------------------------
 TASKS
-- User can define daily Tasks for a project.
+- User can define (daily) Tasks for a project.
 
 --------------------------------------------------------------------------------
-FAVORIT-PROJECTS
+FAVORITE-PROJECTS
  - User can define how many from the first projects in Overview will be favorited.
    That means they have a special ListCell background-color.
 
@@ -30,5 +30,10 @@ KNOWLEDGE
 --------------------------------------------------------------------------------
 TAG
  - Projects, Knowledges can be tagged.
+
+--------------------------------------------------------------------------------
+PROJECT-OVERVIEW
+ - Add new option "Add to Daily Section" to the project-popup. Shows the dialog
+   where the user can choose a DailySection to which the project should be added.
 
 --------------------------------------------------------------------------------
