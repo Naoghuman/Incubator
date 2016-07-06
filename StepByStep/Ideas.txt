@@ -1,9 +1,36 @@
 --------------------------------------------------------------------------------
 IDEAS
 --------------------------------------------------------------------------------
+SwitchToGameMode
+ - Prepare for GameMode
+ - Show GameMode information
+    - For example "Remember"
+ - Show additional GameMode informations, components
+    - Like Counter in GameMode.ATTENTION
+    - Or (then) the LevelInformation
+       - For example "Level 2", "2/0"
+    - Dialog to define the UserName for HighScore (can be scipped).
+ - Show GameMode main features, components
+    - GameMode.PREVIEW   -> Later here is a GameBot to seen.
+    - GameMode.ATTENTION -> Animated sequence from flashed elements.
+    - GameMode.REMEMBER  -> User can remember the shown sequence.
+    - GameMode.SUCCESS   -> Shows information that the User can successful done
+                            the Level.
+    - GameMode.ERROR     -> Shows information that the User have done an error.
+    - GameMode.HIGHSCORE -> Shows a table with the Users HighScore.
+    - GameMode.HELP      -> Shows the Help from the application.
+ - Cleanup GameMode
+    - Remove GameMode specific informations, components
+
+GameEngine
+ - Contains the functionalities for SwitchToGameMode and dependens stuff.
+
+--------------------------------------------------------------------------------
 LevelInfo-Component
- - Use Component from Hansolo. This with simple color in circle and info in the
-   middle.
+ - Use Component from Hansolo. This with the simple color in circle and info in 
+   the middle from the component. The idea is also that the glowing circle around
+   the middle GameView is animated, like for every shown (successfull done) element
+   a part from the circle glows more and in other color.
  - 
 
 --------------------------------------------------------------------------------
