@@ -46,3 +46,11 @@ PROJECT IN DAILY-OVERVIEW
  - Defined Tasks.
 
 --------------------------------------------------------------------------------
+PROJECTS
+Project JavaEE (7, 8)
+ - Surf with the wave from JavaEE Guardians (Tweek all 500 people)
+ - Many people are interessted.
+ - Idea is catch the main-features from JavaEE 7 and 8 and search interessting
+   blocks, articles about it. Tweek them and intergrate them into the project.
+
+--------------------------------------------------------------------------------
