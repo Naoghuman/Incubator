@@ -21,8 +21,7 @@ import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.step.by.step.debug.DebugConsole;
 import com.github.naoghuman.step.by.step.gameengine.EGameMode;
 import com.github.naoghuman.step.by.step.gameengine.GameEngine;
-import com.github.naoghuman.step.by.step.resources.IResources;
-import com.github.naoghuman.step.by.step.resources.ResourcesFacade;
+import com.github.naoghuman.step.by.step.view.backgroundimages.BackgroundImagesView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
@@ -30,12 +29,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -54,9 +49,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @FXML private Button bGameButton4;
     @FXML private Button bGameButton5;
     @FXML private Button bPlayButton;
-    @FXML private Circle cBorderForClippedBackground;
-    @FXML private ImageView ivBackgroundBig;
-    @FXML private ImageView ivBackgroundClipped;
+    @FXML private StackPane stackPane;
     @FXML private Text tLevel;
     @FXML private Text tLevelInfo;
     @FXML private Text tPrepareYourSelf;
@@ -72,9 +65,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         GameEngine.getDefault().registerGameButtons(bGameButton1, bGameButton2, bGameButton3, bGameButton4, bGameButton5);
         GameEngine.getDefault().registerLevelInfo(tPrepareYourSelf, tLevel, tLevelInfo);
         
-        this.initializeBigBackgroundImage();
-        this.initializeClippedBackgroundImage();
-        this.initializeBorderForClippedBackgroundImage();
+        this.initializeBackgroundImages();
         this.initializeGameButtons();
         this.initializePlayButton();
         this.initializeLevelInfo();
@@ -82,62 +73,32 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         this.registerActions();
     }
     
-    public void initializeAfterWindowIsShowing() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
-    }
-
-    private void initializeBigBackgroundImage() {
-        DebugConsole.getDefault().debug(this.getClass(), "Initialize big Background image"); // NOI18N
+    public void initializeBackgroundImages() {
+        DebugConsole.getDefault().info(this.getClass(), "Initialize BackgroundImages"); // NOI18N
         
-        ivBackgroundBig.setFitHeight(1080.0d);
-        ivBackgroundBig.setFitWidth(1920.0d);
-        
-        final Image img = ResourcesFacade.getDefault().getImageLoader().loadImage(IResources.IMG_146664_1920x1080);
-        ivBackgroundBig.setImage(img);
-    }
-
-    private void initializeClippedBackgroundImage() {
-        DebugConsole.getDefault().debug(this.getClass(), "Initialize clipped Background image"); // NOI18N
-        
-        ivBackgroundClipped.setFitHeight(768.0d);
-        ivBackgroundClipped.setFitWidth(1366.0d);
-        
-        final Image img = ResourcesFacade.getDefault().getImageLoader().loadImage(IResources.IMG_146664_1366x768);
-        ivBackgroundClipped.setImage(img);
-        
-        // clip image by circle
-        final Circle clipCircle = new Circle(300.0d);
-        clipCircle.setLayoutX(1366.0d / 2);
-        clipCircle.setLayoutY(768.0d / 2);
-        ivBackgroundClipped.setClip(clipCircle);
+        final BackgroundImagesView view = new BackgroundImagesView();
+        stackPane.getChildren().add(0, view.getView());
     }
     
-    private void initializeBorderForClippedBackgroundImage() {
-        DebugConsole.getDefault().debug(this.getClass(), "Initialize Border for clipped Background image"); // NOI18N
-        
-        final DropShadow dropShadow = new DropShadow();
-        dropShadow.setRadius(5.0);
-        dropShadow.setColor(Color.CORNFLOWERBLUE);
-        dropShadow.setSpread(0.15);
- 
-        cBorderForClippedBackground.setEffect(dropShadow);
+    public void initializeAfterWindowIsShowing() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
     private void initializeGameButtons() {
-        DebugConsole.getDefault().debug(this.getClass(), "Initialize GameButtons"); // NOI18N
+        DebugConsole.getDefault().info(this.getClass(), "Initialize GameButtons"); // NOI18N
         
         GameEngine.getDefault().setGameButtonsColorBaseNotClickable();
     }
     
     private void initializeLevelInfo() {
-        DebugConsole.getDefault().debug(this.getClass(), "Initialize LevelInfo"); // NOI18N
+        DebugConsole.getDefault().info(this.getClass(), "Initialize LevelInfo"); // NOI18N
         
         final boolean showLevelInfo = false;
         this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__PREVIEW, showLevelInfo);
     }
     
     private void initializePlayButton() {
-        DebugConsole.getDefault().debug(this.getClass(), "Initialize PlayButton"); // NOI18N
+        DebugConsole.getDefault().info(this.getClass(), "Initialize PlayButton"); // NOI18N
         
         final boolean showPlayButton = true;
         this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__PREVIEW, showPlayButton);
