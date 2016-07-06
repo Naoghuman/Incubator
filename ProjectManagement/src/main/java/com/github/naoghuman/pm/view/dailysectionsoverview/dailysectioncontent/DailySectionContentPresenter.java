@@ -18,6 +18,8 @@ package com.github.naoghuman.pm.view.dailysectionsoverview.dailysectioncontent;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.view.dailysectionsoverview.projectcontent.ProjectContentPresenter;
+import com.github.naoghuman.pm.view.dailysectionsoverview.projectcontent.ProjectContentView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -102,9 +104,15 @@ public class DailySectionContentPresenter implements Initializable {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action add Project to DailySection"); // NOI18N
         
         final TitledPane titledPane = new TitledPane();
-        titledPane.setContent(new Button("the project details here"));
         titledPane.setText("(1) " + model.getTitle()); // NOI18N
         titledPane.setUserData(model);
+        titledPane.setExpanded(false);
+        
+        final ProjectContentView view = new ProjectContentView();
+        final ProjectContentPresenter presenter = view.getRealPresenter();
+        presenter.configure(model);
+        titledPane.setContent(view.getView());
+        
         vbDailySectionContent.getChildren().add(0, titledPane);
         
         this.onActionEnsureTitledPaneIsVisible(titledPane);
