@@ -53,7 +53,7 @@ Sound
 DevelopmentMode, ReleaseMode
  - In DevelopmentMode the components DebugConsole, SwitchToGameModeTesting are
    shown.
- - Add flag in pom.xml which will set a parameter "application.mode" which can 
-   be "Development", "Release".
+ - (v) Add flag in pom.xml which will set a parameter "application.mode" which 
+   can be "Development", "Release".
 
 --------------------------------------------------------------------------------
