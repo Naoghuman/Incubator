@@ -46,6 +46,11 @@ PROJECT IN DAILY-OVERVIEW
  - Defined Tasks.
 
 --------------------------------------------------------------------------------
+Twitter
+ - Add functionality to tweek Knowledge from the Application.
+ - Manual tweeks, individual tweeks.
+
+--------------------------------------------------------------------------------
 PROJECTS
 Project JavaEE (7, 8)
  - Surf with the wave from JavaEE Guardians (Tweek all 500 people)
