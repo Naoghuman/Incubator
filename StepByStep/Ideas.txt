@@ -25,6 +25,12 @@ SwitchToGameMode
 GameEngine
  - Contains the functionalities for SwitchToGameMode and dependens stuff.
 
+TestingPurpose
+ - For testing purpose I will add temporäy components so that I can test the
+   SwitchToGameMode.
+ - TextField for input level
+ - ComboBox with the GameModes, Button to switch to the GameMode.
+
 --------------------------------------------------------------------------------
 LevelInfo-Component
  - Use Component from Hansolo. This with the simple color in circle and info in 
