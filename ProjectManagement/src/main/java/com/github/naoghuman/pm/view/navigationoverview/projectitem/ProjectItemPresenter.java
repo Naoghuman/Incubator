@@ -47,7 +47,7 @@ public class ProjectItemPresenter implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectItemPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ProjectItemPresenter"); // NOI18N
         
     }
 

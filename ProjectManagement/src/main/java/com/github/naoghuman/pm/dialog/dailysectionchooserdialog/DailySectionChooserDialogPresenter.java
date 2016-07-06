@@ -37,7 +37,7 @@ public class DailySectionChooserDialogPresenter implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionChooserDialogPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailySectionChooserDialogPresenter"); // NOI18N
         
         this.initializeCombBox();
         
@@ -45,7 +45,7 @@ public class DailySectionChooserDialogPresenter implements Initializable {
     }
 
     private void initializeCombBox() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ComboBox"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ComboBox"); // NOI18N
         
         // Define rendering of the list of values in ComboBox drop down. 
         lvDailySections.setCellFactory(listView -> new ListCell<DailySectionModel>() {

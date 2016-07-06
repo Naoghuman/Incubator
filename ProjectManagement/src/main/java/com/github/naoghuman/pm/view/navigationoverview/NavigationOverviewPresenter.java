@@ -34,7 +34,6 @@ import com.github.naoghuman.pm.view.navigationoverview.projectitem.ProjectItemVi
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -67,7 +66,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize NavigationOverviewPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize NavigationOverviewPresenter"); // NOI18N
         
         this.initializeButtons();
         this.initializeDailySectionsNavigation();
@@ -77,7 +76,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     }
     
     private void initializeButtons() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize Buttons"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize Buttons"); // NOI18N
         
         bNewDailySection.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
         LoggerFacade.INSTANCE.trace(this.getClass(), "TODO use property"); // NOI18N
@@ -87,7 +86,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     }
     
     private void initializeDailySectionsNavigation() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionNavigation"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailySectionNavigation"); // NOI18N
         
         lvDailySectionsNavigation.getItems().clear();
         lvDailySectionsNavigation.setCellFactory(value -> new DailySectionItemCell());
@@ -110,7 +109,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     }
     
     private void initializeProjectsNavigation() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectNavigation"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ProjectNavigation"); // NOI18N
         
         lvProjectsNavigation.getItems().clear();
         lvProjectsNavigation.setCellFactory(value -> new ProjectItemCell());

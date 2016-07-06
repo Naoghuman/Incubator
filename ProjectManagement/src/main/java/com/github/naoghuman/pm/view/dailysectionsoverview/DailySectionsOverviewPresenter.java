@@ -48,7 +48,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailySectionPresenter"); // NOI18N
         
         this.initializeNewDailySectionButton();
         
@@ -56,7 +56,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
     }
     
     private void initializeNewDailySectionButton() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize new DailySection button"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize new DailySection button"); // NOI18N
         
         bNewDailySection.setTooltip(new Tooltip("Creates a new Daily Section")); // NOI18N
         LoggerFacade.INSTANCE.error(this.getClass(), "TODO use property"); // NOI18N

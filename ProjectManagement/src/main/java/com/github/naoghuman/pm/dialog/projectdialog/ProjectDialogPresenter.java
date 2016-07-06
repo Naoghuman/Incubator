@@ -39,7 +39,7 @@ public class ProjectDialogPresenter implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ProjectContentPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ProjectContentPresenter"); // NOI18N
         
     }
     

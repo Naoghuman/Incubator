@@ -42,13 +42,13 @@ public class DailySectionContentPresenter implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailySectionContentPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailySectionContentPresenter"); // NOI18N
         
         this.initializeScrollPane();
     }
     
     private void initializeScrollPane() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ScrollPane"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ScrollPane"); // NOI18N
         
         spDailySectionContent.viewportBoundsProperty().addListener(
                 (ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) -> {

@@ -36,13 +36,13 @@ public class DailySectionDialogPresenter implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailyDialogPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailyDialogPresenter"); // NOI18N
         
         this.initializeDatePicker();
     }
     
     private void initializeDatePicker() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize DailyDialogPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DailyDialogPresenter"); // NOI18N
         
         dpDaily.setValue(LocalDate.now());
     }

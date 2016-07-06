@@ -64,7 +64,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void initializeAfterWindowIsShowing() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
     @Override

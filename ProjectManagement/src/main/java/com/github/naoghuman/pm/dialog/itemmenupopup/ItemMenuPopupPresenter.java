@@ -36,7 +36,7 @@ public class ItemMenuPopupPresenter implements Initializable, INavigationOvervie
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Initialize ItemMenuPopupPresenter"); // NOI18N
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ItemMenuPopupPresenter"); // NOI18N
         
     }
     
