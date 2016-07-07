@@ -17,18 +17,13 @@
 package com.github.naoghuman.step.by.step.debug;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.step.by.step.view.testcomponents.TestComponentsPresenter;
+import com.github.naoghuman.step.by.step.view.testcomponents.TestComponentsView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.Level;
 
 /**
@@ -48,8 +43,8 @@ public final class DebugConsole {
     
     private boolean shouldDebugInfoPrinted = true;
     
-    private AnchorPane apDebugPane;
-    private TextArea taDebugInfo;
+    private TextArea taDebugConsole;
+    private VBox vbDebugOptions;
     
     private DebugConsole() {
         this.initialize();
@@ -60,33 +55,35 @@ public final class DebugConsole {
         
     }
     
-    private void initializeDebugInfo() {
-        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize DebugInfo"); // NOI18N
-
-        taDebugInfo.setFont(new Font("SansSerief", 10.0d));
-        taDebugInfo.setPrefSize(600.0d, 1052.0d);
+    public void configureTestComponents() {
+        final TestComponentsView view = new TestComponentsView();
+        final TestComponentsPresenter presenter = view.getRealPresenter();
+        taDebugConsole = presenter.getDebugConsole();
+        vbDebugOptions = presenter.getDebugOptions();
+        
+        this.debug(this.getClass(), "Configure TestComponents"); // NOI18N
     }
     
     public void debug(Class clazz, String msg) {
         LoggerFacade.INSTANCE.debug(this.getClass(), msg);
         
-        if (!shouldDebugInfoPrinted) {
+        if (!shouldDebugInfoPrinted || taDebugConsole == null) {
             return;
         }
         
         final String formattedMessage = this.formatMessage(clazz, msg, Level.DEBUG);
-        taDebugInfo.appendText(formattedMessage);
+        taDebugConsole.appendText(formattedMessage);
     }
     
     public void error(Class clazz, String msg) {
         LoggerFacade.INSTANCE.error(this.getClass(), msg);
         
-        if (!shouldDebugInfoPrinted) {
+        if (!shouldDebugInfoPrinted || taDebugConsole == null) {
             return;
         }
         
         final String formattedMessage = this.formatMessage(clazz, msg, Level.ERROR);
-        taDebugInfo.appendText(formattedMessage);
+        taDebugConsole.appendText(formattedMessage);
     }
 
     private String formatMessage(Class clazz, String msg, Level level) {
@@ -104,24 +101,23 @@ public final class DebugConsole {
         return sb.toString();
     }
     
+    public TextArea getDebugConsole() {
+        return taDebugConsole;
+    }
+    
+    public VBox getDebugOptions() {
+        return vbDebugOptions;
+    }
+    
     public void info(Class clazz, String msg) {
         LoggerFacade.INSTANCE.info(this.getClass(), msg);
         
-        if (!shouldDebugInfoPrinted) {
+        if (!shouldDebugInfoPrinted || taDebugConsole == null) {
             return;
         }
         
         final String formattedMessage = this.formatMessage(clazz, msg, Level.INFO);
-        taDebugInfo.appendText(formattedMessage);
-    }
-    
-    public void register(AnchorPane apDebugPane, TextArea taDebugInfo) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register"); // NOI18N
-        
-        this.apDebugPane = apDebugPane;
-        this.taDebugInfo = taDebugInfo;
-        
-        this.initializeDebugInfo();
+        taDebugConsole.appendText(formattedMessage);
     }
     
     /*

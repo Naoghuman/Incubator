@@ -27,6 +27,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -356,6 +357,10 @@ public final class GameEngine {
     
     public boolean isGameMode(EGameMode gameMode) {
         return this.gameMode.equals(gameMode);
+    }
+    
+    public void registerDebugConsole(TextArea taDebugConsole) {
+        
     }
     
     public void registerGameButtons(

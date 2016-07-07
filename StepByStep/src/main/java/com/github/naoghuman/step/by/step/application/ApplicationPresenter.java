@@ -27,9 +27,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -42,16 +39,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     private static final Font FONT_SIZE_128 = new Font(128.0d);
     
-    @FXML private AnchorPane apDebugPane;
     @FXML private StackPane stackPane;
     @FXML private Text tLevel;
     @FXML private Text tLevelInfo;
     @FXML private Text tPrepareYourSelf;
-    @FXML private TextArea taDebugInfo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DebugConsole.getDefault().register(apDebugPane, taDebugInfo);
+        DebugConsole.getDefault().configureTestComponents();
         DebugConsole.getDefault().info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N

@@ -50,6 +50,8 @@ public class GameComponentsPresenter implements Initializable {
         
         this.initializeGameElements();
         this.initializeButtonPlayGame();
+        
+        this.configureTestComponents();
     }
     
     private void initializeButtonPlayGame() {
@@ -63,6 +65,13 @@ public class GameComponentsPresenter implements Initializable {
         DebugConsole.getDefault().info(this.getClass(), "Initialize GameElements"); // NOI18N
         
         GameEngine.getDefault().setGameElementsColorBaseNotClickable();
+    }
+    
+    public void configureTestComponents() {
+        DebugConsole.getDefault().debug(this.getClass(), "Configure TestComponents"); // NOI18N
+        
+        bpGameComponents.setLeft(DebugConsole.getDefault().getDebugConsole());
+        bpGameComponents.setRight(DebugConsole.getDefault().getDebugOptions());
     }
     
     public void onActionClickGameElement1() {

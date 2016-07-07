@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="253.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.step.by.step.view.testcomponents.TestComponentsPresenter">
+    <children>
+        <TextArea fx:id="taDebugConsole" editable="false" focusTraversable="false" prefHeight="50.0" prefWidth="50.0">
+         <padding>
+            <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+         </padding></TextArea>
+        <VBox fx:id="vbDebugOptions" layoutX="69.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="14.0">
+            <children>
+                <CheckBox focusTraversable="false" mnemonicParsing="false" onAction="#onActionShowTestComponents" text="Show test components" />
+                <VBox>
+                    <children>
+                        <Label text="Which GameLevel should be simulated?" />
+                        <ComboBox fx:id="cbSimulateGameLevel" focusTraversable="false" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                    </children>
+                </VBox>
+                <VBox>
+                    <children>
+                        <Label text="Which GameMode should be simulated?" />
+                        <ComboBox fx:id="cbSimulateGameMode" focusTraversable="false" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                    </children>
+                </VBox>
+                <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionSimulate" prefWidth="125.0" text="Simulate" />
+            </children>
+         <padding>
+            <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+         </padding>
+        </VBox>
+    </children>
+</AnchorPane>
