@@ -28,35 +28,6 @@
                         </Text>
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" spacing="150.0">
-                    <children>
-                        <VBox alignment="TOP_CENTER">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Step by Step">
-                                    <font>
-                                        <Font size="48.0" />
-                                    </font>
-                                </Text>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Way is the Goal">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </VBox>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="400.0">
-                            <children>
-                                <Circle centerX="200.0" centerY="200.0" fill="#1f93ff00" radius="200.0" stroke="#00000033" strokeType="INSIDE" />
-                                <Button fx:id="bGameButton1" focusTraversable="false" layoutX="150.0" mnemonicParsing="false" onAction="#onActionClickIndex1" prefHeight="100.0" prefWidth="100.0" text="1" />
-                                <Button fx:id="bGameButton2" focusTraversable="false" layoutX="300.0" layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex2" prefHeight="100.0" prefWidth="100.0" text="2" />
-                                <Button fx:id="bGameButton3" focusTraversable="false" layoutX="250.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex3" prefHeight="100.0" prefWidth="100.0" text="3" />
-                                <Button fx:id="bGameButton4" focusTraversable="false" layoutX="50.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActionClickIndex4" prefHeight="100.0" prefWidth="100.0" text="4" />
-                                <Button fx:id="bGameButton5" focusTraversable="false" layoutY="112.0" mnemonicParsing="false" onAction="#onActionClickIndex5" prefHeight="100.0" prefWidth="100.0" text="5" />
-                            </children>
-                        </AnchorPane>
-                        <Button fx:id="bPlayButton" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionPlay" prefHeight="100.0" prefWidth="300.0" text="Play" />
-                    </children>
-                </VBox>
                 <Text fx:id="tPrepareYourSelf" strokeType="OUTSIDE" strokeWidth="0.0" text="Attention">
                     <font>
                         <Font size="96.0" />

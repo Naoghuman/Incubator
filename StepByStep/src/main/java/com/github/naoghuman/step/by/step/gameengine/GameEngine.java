@@ -74,11 +74,11 @@ public final class GameEngine {
     private int index = 0;
     private int level = 1;
     
-    private Button bGameButton1;
-    private Button bGameButton2;
-    private Button bGameButton3;
-    private Button bGameButton4;
-    private Button bGameButton5;
+    private Button bGameElement1;
+    private Button bGameElement2;
+    private Button bGameElement3;
+    private Button bGameElement4;
+    private Button bGameElement5;
     private Text tLevel;
     private Text tLevelInfo;
     private Text tPrepareYourSelf;
@@ -294,11 +294,11 @@ public final class GameEngine {
     private Button getGameButton(int index) {
         Button btn = null;
         switch (index) {
-            case INDEX_1: { btn = bGameButton1; break; }
-            case INDEX_2: { btn = bGameButton2; break; }
-            case INDEX_3: { btn = bGameButton3; break; }
-            case INDEX_4: { btn = bGameButton4; break; }
-            case INDEX_5: { btn = bGameButton5; break; }
+            case INDEX_1: { btn = bGameElement1; break; }
+            case INDEX_2: { btn = bGameElement2; break; }
+            case INDEX_3: { btn = bGameElement3; break; }
+            case INDEX_4: { btn = bGameElement4; break; }
+            case INDEX_5: { btn = bGameElement5; break; }
         }
         
         return btn;
@@ -359,15 +359,15 @@ public final class GameEngine {
     }
     
     public void registerGameButtons(
-            Button bGameButton1, Button bGameButton2,
-            Button bGameButton3, Button bGameButton4,
-            Button bGameButton5
+            Button bGameElement1, Button bGameElement2,
+            Button bGameElement3, Button bGameElement4,
+            Button bGameElement5
     ) {
-        this.bGameButton1 = bGameButton1;
-        this.bGameButton2 = bGameButton2;
-        this.bGameButton3 = bGameButton3;
-        this.bGameButton4 = bGameButton4;
-        this.bGameButton5 = bGameButton5;
+        this.bGameElement1 = bGameElement1;
+        this.bGameElement2 = bGameElement2;
+        this.bGameElement3 = bGameElement3;
+        this.bGameElement4 = bGameElement4;
+        this.bGameElement5 = bGameElement5;
     }
     
     public void registerLevelInfo(Text tPrepareYourSelf, Text tLevel, Text tLevelInfo) {
@@ -384,38 +384,38 @@ public final class GameEngine {
         level = 1;
     }
     
-    private void setGameButtonsColorBaseClickable() {
-        bGameButton1.setStyle(null);
-        bGameButton1.setStyle(CLICKABLE_COLOR_BASE);
+    private void setGameElementsColorBaseClickable() {
+        bGameElement1.setStyle(null);
+        bGameElement1.setStyle(CLICKABLE_COLOR_BASE);
         
-        bGameButton2.setStyle(null);
-        bGameButton2.setStyle(CLICKABLE_COLOR_BASE);
+        bGameElement2.setStyle(null);
+        bGameElement2.setStyle(CLICKABLE_COLOR_BASE);
         
-        bGameButton3.setStyle(null);
-        bGameButton3.setStyle(CLICKABLE_COLOR_BASE);
+        bGameElement3.setStyle(null);
+        bGameElement3.setStyle(CLICKABLE_COLOR_BASE);
         
-        bGameButton4.setStyle(null);
-        bGameButton4.setStyle(CLICKABLE_COLOR_BASE);
+        bGameElement4.setStyle(null);
+        bGameElement4.setStyle(CLICKABLE_COLOR_BASE);
         
-        bGameButton5.setStyle(null);
-        bGameButton5.setStyle(CLICKABLE_COLOR_BASE);
+        bGameElement5.setStyle(null);
+        bGameElement5.setStyle(CLICKABLE_COLOR_BASE);
     }
     
-    public void setGameButtonsColorBaseNotClickable() {
-        bGameButton1.setStyle(null);
-        bGameButton1.setStyle(NOT_CLICKABLE_COLOR_BASE);
+    public void setGameElementsColorBaseNotClickable() {
+        bGameElement1.setStyle(null);
+        bGameElement1.setStyle(NOT_CLICKABLE_COLOR_BASE);
         
-        bGameButton2.setStyle(null);
-        bGameButton2.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        bGameElement2.setStyle(null);
+        bGameElement2.setStyle(NOT_CLICKABLE_COLOR_BASE);
         
-        bGameButton3.setStyle(null);
-        bGameButton3.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        bGameElement3.setStyle(null);
+        bGameElement3.setStyle(NOT_CLICKABLE_COLOR_BASE);
         
-        bGameButton4.setStyle(null);
-        bGameButton4.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        bGameElement4.setStyle(null);
+        bGameElement4.setStyle(NOT_CLICKABLE_COLOR_BASE);
         
-        bGameButton5.setStyle(null);
-        bGameButton5.setStyle(NOT_CLICKABLE_COLOR_BASE);
+        bGameElement5.setStyle(null);
+        bGameElement5.setStyle(NOT_CLICKABLE_COLOR_BASE);
     }
     
     public void switchToGameMode(EGameMode gameMode) {

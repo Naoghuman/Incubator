@@ -22,9 +22,9 @@ import com.github.naoghuman.step.by.step.debug.DebugConsole;
 import com.github.naoghuman.step.by.step.gameengine.EGameMode;
 import com.github.naoghuman.step.by.step.gameengine.GameEngine;
 import com.github.naoghuman.step.by.step.view.backgroundimages.BackgroundImagesView;
+import com.github.naoghuman.step.by.step.view.gamecomponents.GameComponentsView;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -43,12 +43,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private static final Font FONT_SIZE_128 = new Font(128.0d);
     
     @FXML private AnchorPane apDebugPane;
-    @FXML private Button bGameButton1;
-    @FXML private Button bGameButton2;
-    @FXML private Button bGameButton3;
-    @FXML private Button bGameButton4;
-    @FXML private Button bGameButton5;
-    @FXML private Button bPlayButton;
     @FXML private StackPane stackPane;
     @FXML private Text tLevel;
     @FXML private Text tLevelInfo;
@@ -62,15 +56,19 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        GameEngine.getDefault().registerGameButtons(bGameButton1, bGameButton2, bGameButton3, bGameButton4, bGameButton5);
         GameEngine.getDefault().registerLevelInfo(tPrepareYourSelf, tLevel, tLevelInfo);
         
         this.initializeBackgroundImages();
-        this.initializeGameButtons();
-        this.initializePlayButton();
+        this.initializeGameComponents();
+        
+        
         this.initializeLevelInfo();
         
         this.registerActions();
+    }
+    
+    public void initializeAfterWindowIsShowing() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
     public void initializeBackgroundImages() {
@@ -80,14 +78,11 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         stackPane.getChildren().add(0, view.getView());
     }
     
-    public void initializeAfterWindowIsShowing() {
-        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
-    }
-    
-    private void initializeGameButtons() {
-        DebugConsole.getDefault().info(this.getClass(), "Initialize GameButtons"); // NOI18N
+    private void initializeGameComponents() {
+        DebugConsole.getDefault().info(this.getClass(), "Initialize GameComponents"); // NOI18N
         
-        GameEngine.getDefault().setGameButtonsColorBaseNotClickable();
+        final GameComponentsView view = new GameComponentsView();
+        stackPane.getChildren().add(view.getView());
     }
     
     private void initializeLevelInfo() {
@@ -95,139 +90,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         final boolean showLevelInfo = false;
         this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__PREVIEW, showLevelInfo);
-    }
-    
-    private void initializePlayButton() {
-        DebugConsole.getDefault().info(this.getClass(), "Initialize PlayButton"); // NOI18N
-        
-        final boolean showPlayButton = true;
-        this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__PREVIEW, showPlayButton);
-    }
-    
-    public void onActionClickIndex1() {
-        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
-        if (!canUserClickGameButtons) {
-            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
-                    + GameEngine.getDefault().getGameMode());
-            return;
-        }
-        
-        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 1"); // NOI18N
-    }
-    
-    public void onActionClickIndex2() {
-        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
-        if (!canUserClickGameButtons) {
-            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
-                    + GameEngine.getDefault().getGameMode());
-            return;
-        }
-        
-        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 2"); // NOI18N
-    }
-    
-    public void onActionClickIndex3() {
-        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
-        if (!canUserClickGameButtons) {
-            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
-                    + GameEngine.getDefault().getGameMode());
-            return;
-        }
-        
-        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 3"); // NOI18N
-    }
-    
-    public void onActionClickIndex4() {
-        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
-        if (!canUserClickGameButtons) {
-            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
-                    + GameEngine.getDefault().getGameMode());
-            return;
-        }
-        
-        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 4"); // NOI18N
-    }
-    
-    public void onActionClickIndex5() {
-        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
-        if (!canUserClickGameButtons) {
-            DebugConsole.getDefault().debug(this.getClass(), "Game-Buttons can't clicked in GameMode: " // NOI18N
-                    + GameEngine.getDefault().getGameMode());
-            return;
-        }
-        
-        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 5"); // NOI18N
-    }
-    
-    public void onActionPlay() {
-        DebugConsole.getDefault().debug(this.getClass(), "On action Play"); // NOI18N
-        
-        /*
-         - Should the PlayButton change in GameMode.ATTENTION?
-            - Then the user have to click on the PlayButton to start every round.
-        
-         - (v) change GameMode to GameMode.ATTENTION
-         - (v) remove PlayButton
-         - (v) show Timer (3-2-1)
-            - (v) in the middle from the application
-            - (v) use SequentialTransition to fade in and out the numbers
-            - (v) Show LevelInformation when Time is finished.
-         - show elements for round xy
-            - change button color
-            - use SequentialTransition to switch between the elements
-               - With each element the LevelInformation is updated so the user
-                 can prepare himself when the level is ready.
-         - change to GameMode.REMEMBER
-        */
-        if (GameEngine.getDefault().isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
-            GameEngine.getDefault().switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
-            
-            final boolean showLevelInfo = true;
-            this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__ATTENTION, showLevelInfo);
-            
-            final boolean showPlayButton = false;
-            this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
-        }
-        
-        // EGameMode.GAME_MODE__ATTENTION
-        final SequentialTransition stGameModeAttention = new SequentialTransition();
-        
-        final SequentialTransition stGameModeInformationAttention = 
-                GameEngine.getDefault().createGameModeInformationAnimation(
-                        EGameMode.GAME_MODE__ATTENTION);
-        stGameModeAttention.getChildren().add(stGameModeInformationAttention);
-        
-        final SequentialTransition stCounterAnimation = GameEngine.getDefault().createCounterAnimation();
-        stGameModeAttention.getChildren().add(stCounterAnimation);
-        
-        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
-        stGameModeAttention.getChildren().add(stGameButtonsAnimation);
-        
-        stGameModeAttention.setOnFinished(event -> {
-            /*
-            TODO
-              - Remove the LevelInfo
-              - Show the UserInfo
-              - Show the LevelInfo (resetet)
-              - Activate UserInput
-                 - If wrong show EGameMode.GAME_MODE__ERROR
-                    - User have more life? NEW FEATURE
-                       - If no then show EGameMode.GAME_MODE__HIGHSCORE
-                       - If yes then REPEAT the round EGameMode.GAME_MODE__ATTENTION
-                 - If right show NEXT round EGameMode.GAME_MODE__ATTENTION
-            */
-            // EGameMode.GAME_MODE__REMEMBER
-            final SequentialTransition stGameModeRemember = new SequentialTransition();
-            
-            final SequentialTransition stGameModeInformationRemember = 
-                    GameEngine.getDefault().createGameModeInformationAnimation(
-                            EGameMode.GAME_MODE__REMEMBER);
-            stGameModeRemember.getChildren().add(stGameModeInformationRemember);
-        
-            stGameModeRemember.playFromStart();
-        });
-        
-        stGameModeAttention.playFromStart();
     }
     
     @Override
@@ -269,20 +131,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             tLevelInfo.setText(GameEngine.getDefault().getLevel() + " / 0"); // NOI18N
             tLevelInfo.setManaged(showLevelInfo);
             tLevelInfo.setVisible(showLevelInfo);
-        }
-    }
-    
-    private void switchPlayButtonToGameMode(EGameMode gameMode, boolean showPlayButton) {
-        if (gameMode.equals(EGameMode.GAME_MODE__ATTENTION)) {
-            bPlayButton.setText("Start"); // NOI18N
-//            bPlayButton.setManaged(showPlayButton);
-            bPlayButton.setVisible(showPlayButton);
-        }
-        
-        if (gameMode.equals(EGameMode.GAME_MODE__PREVIEW)) {
-            bPlayButton.setText("Play"); // NOI18N
-//            bPlayButton.setManaged(showPlayButton);
-            bPlayButton.setVisible(showPlayButton);
         }
     }
     
