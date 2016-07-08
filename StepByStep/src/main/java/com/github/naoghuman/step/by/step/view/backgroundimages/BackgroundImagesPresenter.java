@@ -16,8 +16,9 @@
  */
 package com.github.naoghuman.step.by.step.view.backgroundimages;
 
+import com.github.naoghuman.lib.properties.api.PropertiesFacade;
+import com.github.naoghuman.step.by.step.configuration.IBackgroundConfiguration;
 import com.github.naoghuman.step.by.step.debug.DebugConsole;
-import com.github.naoghuman.step.by.step.resources.IResources;
 import com.github.naoghuman.step.by.step.resources.ResourcesFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +34,7 @@ import javafx.scene.shape.Circle;
  *
  * @author Naoghuman
  */
-public class BackgroundImagesPresenter implements Initializable {
+public class BackgroundImagesPresenter implements Initializable, IBackgroundConfiguration {
     
     @FXML private Circle cClippedBackgroundImage;
     @FXML private ImageView ivBackgroundImage;
@@ -54,8 +55,12 @@ public class BackgroundImagesPresenter implements Initializable {
         ivBackgroundImage.setFitHeight(1080.0d);
         ivBackgroundImage.setFitWidth(1920.0d);
         
-        final Image img = ResourcesFacade.getDefault().getImageLoader().loadImage(IResources.IMG_146664_1920x1080);
-        ivBackgroundImage.setImage(img);
+        final String imageName = this.getProperty(KEY__BACKGROUND__1920x1080_IMAGE);
+        final String widthAsString = this.getProperty(KEY__BACKGROUND__1920x1080_WIDTH);
+        final String heigthAsString = this.getProperty(KEY__BACKGROUND__1920x1080_HEIGHT);
+        final Image iBackgroundImage = ResourcesFacade.getDefault().getImageLoader().loadBackground(
+                imageName, widthAsString, heigthAsString);
+        ivBackgroundImage.setImage(iBackgroundImage);
     }
     
     private void initializeClippedBackgroundImage() {
@@ -65,8 +70,12 @@ public class BackgroundImagesPresenter implements Initializable {
         ivClippedBackgroundImage.setFitHeight(768.0d);
         ivClippedBackgroundImage.setFitWidth(1366.0d);
         
-        final Image img = ResourcesFacade.getDefault().getImageLoader().loadImage(IResources.IMG_146664_1366x768);
-        ivClippedBackgroundImage.setImage(img);
+        final String imageName = this.getProperty(KEY__BACKGROUND__1366x768_IMAGE);
+        final String widthAsString = this.getProperty(KEY__BACKGROUND__1366x768_WIDTH);
+        final String heigthAsString = this.getProperty(KEY__BACKGROUND__1366x768_HEIGHT);
+        final Image iClippedBackgroundImage = ResourcesFacade.getDefault().getImageLoader().loadBackground(
+                imageName, widthAsString, heigthAsString);
+        ivClippedBackgroundImage.setImage(iClippedBackgroundImage);
         
         // clip image by circle
         final Circle clipCircle = new Circle(300.0d);
@@ -81,6 +90,10 @@ public class BackgroundImagesPresenter implements Initializable {
         dropShadow.setSpread(0.15);
  
         cClippedBackgroundImage.setEffect(dropShadow);
+    }
+    
+    private String getProperty(String propertyKey) {
+        return PropertiesFacade.INSTANCE.getProperty(KEY__BACKGROUND__RESOURCE_BUNDLE, propertyKey);
     }
     
 }

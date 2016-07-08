@@ -17,6 +17,8 @@
 package com.github.naoghuman.step.by.step.resources.image;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.step.by.step.resources.image.background.BackgroundLoader;
+import com.github.naoghuman.step.by.step.resources.image.overlay.OverlayLoader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javafx.collections.FXCollections;
@@ -30,6 +32,7 @@ import javafx.scene.image.Image;
 public class ImageLoader {
     
     private ObservableMap<String, Image> backgroundImages;
+    private ObservableMap<String, Image> overlayImages;
     
     public ImageLoader() {
         this.init();
@@ -37,27 +40,47 @@ public class ImageLoader {
     
     private void init() {
         backgroundImages = FXCollections.observableHashMap();
+        overlayImages = FXCollections.observableHashMap();
     }
     
-    public Image loadImage(String name) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Load background image: " + name); // NOI18N
+    private double getStringAsDouble(String doubleAsString) {
+        return Double.parseDouble(doubleAsString);
+    }
+    
+    public Image loadBackground(String imageName, String widthAsString, String heightAsString) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Load background image: " + imageName); // NOI18N
         
-        final Image image = backgroundImages.computeIfAbsent(
-                name,
-                key -> {
-                    return this.load(key);
+        final Image background = backgroundImages.computeIfAbsent(
+                imageName,
+                image -> {
+                    final double width = this.getStringAsDouble(widthAsString);
+                    final double height = this.getStringAsDouble(heightAsString);
+                    
+                    return this.load(BackgroundLoader.class, image, width, height);
                 });
         
-        return image;
+        return background;
     }
     
-    private Image load(String image) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Load image: " + image + " from resources"); // NOI18N
+//    public Image loadOverlay(String name) {
+//        LoggerFacade.INSTANCE.debug(this.getClass(), "Load Overlay image: " + name); // NOI18N
+//        
+//        final Image overlay = overlayImages.computeIfAbsent(
+//                name,
+//                imageName -> {
+//                    return this.load(OverlayLoader.class, imageName);
+//                });
+//        
+//        return overlay;
+//    }
+    
+    private Image load(Class clazz, String image, double width, double height) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Load image: " + image); // NOI18N
 
         Image img = null;
         try {
-            final URI uri = this.getClass().getResource(image).toURI();
-            img = new Image(uri.toString(), 1280.0d, 720.0d, true, true);
+            final URI uri = clazz.getResource(image).toURI();
+            img = new Image(uri.toString(), width, height, true, true);
         } catch (URISyntaxException ex) {
             LoggerFacade.INSTANCE.error(this.getClass(), "Can't load image: " + image, ex); // NOI18N
         }

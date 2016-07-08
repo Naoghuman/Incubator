@@ -14,15 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.step.by.step.resources;
+package com.github.naoghuman.step.by.step.resources.image.overlay;
 
 /**
  *
  * @author Naoghuman
  */
-public interface IResources {
-    
-    public static final String IMG_146664_1366x768 = "146664_1366x768.jpg"; // NOI18N
-    public static final String IMG_146664_1920x1080 = "146664_1920x1080.jpg"; // NOI18N
+public class OverlayLoader {
     
 }
