@@ -30,10 +30,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -104,15 +100,13 @@ public class BackgroundImagesPresenter implements Initializable, IBackgroundConf
     private void initializeTileImage() {
         DebugConsole.getDefault().info(this.getClass(), "Initialize TileImage"); // NOI18N
         
-        final String imageName = this.getPropertyOverlay(KEY__OVERLAY__3PX_TILE_IMAGE);
-        final String widthAsString = this.getPropertyOverlay(KEY__OVERLAY__3PX_TILE_WIDTH);
-        final String heigthAsString = this.getPropertyOverlay(KEY__OVERLAY__3PX_TILE_HEIGHT);
-        final Image iOverlayImage = ResourcesFacade.getDefault().getImageLoader().loadOverlay(
-                imageName, widthAsString, heigthAsString);
-        final BackgroundSize backgroundSize = new BackgroundSize(100.0d, 100.0d, false, false, false, false);
-        final BackgroundImage backgroundImage = new BackgroundImage(iOverlayImage, BackgroundRepeat.REPEAT, 
-                BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        final Background background = new Background(backgroundImage);
+//        final String imageName = this.getPropertyOverlay(KEY__OVERLAY__BINDING_LIGHT_IMAGE);
+//        final String widthAsString = this.getPropertyOverlay(KEY__OVERLAY__BINDING_LIGHT_WIDTH);
+//        final String heigthAsString = this.getPropertyOverlay(KEY__OVERLAY__BINDING_LIGHT_HEIGHT);
+//        final Background background = ResourcesFacade.getDefault().getImageLoader().loadOverlay(
+//                imageName, widthAsString, heigthAsString);
+        
+        final Background background = ResourcesFacade.getDefault().getImageLoader().loadRandomOverlay();
         apTileImage.setBackground(background);
     }
     

@@ -68,4 +68,13 @@ public interface IOverlayConfiguration {
     
     public static final String KEY__OVERLAY__RESOURCE_BUNDLE = "/com/github/naoghuman/sbs/resources/image/overlay/overlay.properties"; // NOI18N
     
+    public static final String[] KEYS__TILE_IMAGES = new String[] {
+        KEY__OVERLAY__3PX_TILE_IMAGE, KEY__OVERLAY__BILLIE_HOLIDAY_IMAGE,
+        KEY__OVERLAY__BINDING_LIGHT_IMAGE, KEY__OVERLAY__BRIGTH_SQUARES_IMAGE,
+        KEY__OVERLAY__BRUSHED_ALUM_DARK_IMAGE, KEY__OVERLAY__CLEAN_GRAY_PAPER_IMAGE,
+        KEY__OVERLAY__CONCRETE_WALL_3_IMAGE, KEY__OVERLAY__CROSS_SCRATCHES_IMAGE,
+        KEY__OVERLAY__DIAMOND_UPHOLSTERY_IMAGE, KEY__OVERLAY__GRAPHY_IMAGE,
+        KEY__OVERLAY__GREY_JEAN_IMAGE
+    };
+    
 }
