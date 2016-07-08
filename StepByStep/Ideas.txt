@@ -62,3 +62,14 @@ BackgroundImage
    resolution then the BackgroundImage.
 
 --------------------------------------------------------------------------------
+Animation around MousePointer
+ - Integration from the Sun-Symbol.
+    - Center (barly visible) is in the center :) .
+    - Where the MousePointer is there is the circumference from the circle.
+ - Integration from Clock-TimePointer
+    - Like in a clock only the TimePointer is depends from the MousePointer 
+      position.
+    - The TimePointer fades, is little to the center, brigther to the corners
+      from the application.
+
+--------------------------------------------------------------------------------
