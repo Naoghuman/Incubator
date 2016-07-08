@@ -62,17 +62,20 @@ public class ImageLoader {
         return background;
     }
     
-//    public Image loadOverlay(String name) {
-//        LoggerFacade.INSTANCE.debug(this.getClass(), "Load Overlay image: " + name); // NOI18N
-//        
-//        final Image overlay = overlayImages.computeIfAbsent(
-//                name,
-//                imageName -> {
-//                    return this.load(OverlayLoader.class, imageName);
-//                });
-//        
-//        return overlay;
-//    }
+    public Image loadOverlay(String imageName, String widthAsString, String heightAsString) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Load Overlay image: " + imageName); // NOI18N
+        
+        final Image overlay = overlayImages.computeIfAbsent(
+                imageName,
+                image -> {
+                    final double width = this.getStringAsDouble(widthAsString);
+                    final double height = this.getStringAsDouble(heightAsString);
+                    
+                    return this.load(OverlayLoader.class, image, width, height);
+                });
+        
+        return overlay;
+    }
     
     private Image load(Class clazz, String image, double width, double height) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Load image: " + image); // NOI18N

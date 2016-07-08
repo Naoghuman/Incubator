@@ -48,6 +48,7 @@
                 <configuration>
                     <nonFilteredFileExtensions>
                         <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>png</nonFilteredFileExtension>
                     </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
@@ -112,6 +113,7 @@
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
                     <include>**/*.jpg</include>
+                    <include>**/*.png</include>
                 </includes>
             </resource>
             <resource>
@@ -122,6 +124,7 @@
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
                     <include>**/*.jpg</include>
+                    <include>**/*.png</include>
                 </includes>
             </resource>
         </resources>

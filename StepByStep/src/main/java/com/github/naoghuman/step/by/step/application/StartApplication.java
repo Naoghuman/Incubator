@@ -25,6 +25,7 @@ import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.preferences.api.PreferencesFacade;
 import com.github.naoghuman.lib.properties.api.PropertiesFacade;
 import com.github.naoghuman.step.by.step.configuration.IBackgroundConfiguration;
+import com.github.naoghuman.step.by.step.configuration.IOverlayConfiguration;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -52,6 +53,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         
         PropertiesFacade.INSTANCE.register(KEY__APPLICATION__RESOURCE_BUNDLE);
         PropertiesFacade.INSTANCE.register(IBackgroundConfiguration.KEY__BACKGROUND__RESOURCE_BUNDLE);
+        PropertiesFacade.INSTANCE.register(IOverlayConfiguration.KEY__OVERLAY__RESOURCE_BUNDLE);
         
         final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(KEY__APPLICATION__MESSAGE_START);

@@ -18,6 +18,7 @@ package com.github.naoghuman.step.by.step.view.backgroundimages;
 
 import com.github.naoghuman.lib.properties.api.PropertiesFacade;
 import com.github.naoghuman.step.by.step.configuration.IBackgroundConfiguration;
+import com.github.naoghuman.step.by.step.configuration.IOverlayConfiguration;
 import com.github.naoghuman.step.by.step.debug.DebugConsole;
 import com.github.naoghuman.step.by.step.resources.ResourcesFacade;
 import java.net.URL;
@@ -27,6 +28,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -34,8 +41,9 @@ import javafx.scene.shape.Circle;
  *
  * @author Naoghuman
  */
-public class BackgroundImagesPresenter implements Initializable, IBackgroundConfiguration {
+public class BackgroundImagesPresenter implements Initializable, IBackgroundConfiguration, IOverlayConfiguration {
     
+    @FXML private AnchorPane apTileImage;
     @FXML private Circle cClippedBackgroundImage;
     @FXML private ImageView ivBackgroundImage;
     @FXML private ImageView ivClippedBackgroundImage;
@@ -46,6 +54,7 @@ public class BackgroundImagesPresenter implements Initializable, IBackgroundConf
         
         this.initializeBackgroundImage();
         this.initializeClippedBackgroundImage();
+        this.initializeTileImage();
     }
     
     private void initializeBackgroundImage() {
@@ -55,9 +64,9 @@ public class BackgroundImagesPresenter implements Initializable, IBackgroundConf
         ivBackgroundImage.setFitHeight(1080.0d);
         ivBackgroundImage.setFitWidth(1920.0d);
         
-        final String imageName = this.getProperty(KEY__BACKGROUND__1920x1080_IMAGE);
-        final String widthAsString = this.getProperty(KEY__BACKGROUND__1920x1080_WIDTH);
-        final String heigthAsString = this.getProperty(KEY__BACKGROUND__1920x1080_HEIGHT);
+        final String imageName = this.getPropertyBackground(KEY__BACKGROUND__1920x1080_IMAGE);
+        final String widthAsString = this.getPropertyBackground(KEY__BACKGROUND__1920x1080_WIDTH);
+        final String heigthAsString = this.getPropertyBackground(KEY__BACKGROUND__1920x1080_HEIGHT);
         final Image iBackgroundImage = ResourcesFacade.getDefault().getImageLoader().loadBackground(
                 imageName, widthAsString, heigthAsString);
         ivBackgroundImage.setImage(iBackgroundImage);
@@ -70,9 +79,9 @@ public class BackgroundImagesPresenter implements Initializable, IBackgroundConf
         ivClippedBackgroundImage.setFitHeight(768.0d);
         ivClippedBackgroundImage.setFitWidth(1366.0d);
         
-        final String imageName = this.getProperty(KEY__BACKGROUND__1366x768_IMAGE);
-        final String widthAsString = this.getProperty(KEY__BACKGROUND__1366x768_WIDTH);
-        final String heigthAsString = this.getProperty(KEY__BACKGROUND__1366x768_HEIGHT);
+        final String imageName = this.getPropertyBackground(KEY__BACKGROUND__1366x768_IMAGE);
+        final String widthAsString = this.getPropertyBackground(KEY__BACKGROUND__1366x768_WIDTH);
+        final String heigthAsString = this.getPropertyBackground(KEY__BACKGROUND__1366x768_HEIGHT);
         final Image iClippedBackgroundImage = ResourcesFacade.getDefault().getImageLoader().loadBackground(
                 imageName, widthAsString, heigthAsString);
         ivClippedBackgroundImage.setImage(iClippedBackgroundImage);
@@ -92,8 +101,27 @@ public class BackgroundImagesPresenter implements Initializable, IBackgroundConf
         cClippedBackgroundImage.setEffect(dropShadow);
     }
     
-    private String getProperty(String propertyKey) {
+    private void initializeTileImage() {
+        DebugConsole.getDefault().info(this.getClass(), "Initialize TileImage"); // NOI18N
+        
+        final String imageName = this.getPropertyOverlay(KEY__OVERLAY__3PX_TILE_IMAGE);
+        final String widthAsString = this.getPropertyOverlay(KEY__OVERLAY__3PX_TILE_WIDTH);
+        final String heigthAsString = this.getPropertyOverlay(KEY__OVERLAY__3PX_TILE_HEIGHT);
+        final Image iOverlayImage = ResourcesFacade.getDefault().getImageLoader().loadOverlay(
+                imageName, widthAsString, heigthAsString);
+        final BackgroundSize backgroundSize = new BackgroundSize(100.0d, 100.0d, false, false, false, false);
+        final BackgroundImage backgroundImage = new BackgroundImage(iOverlayImage, BackgroundRepeat.REPEAT, 
+                BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        final Background background = new Background(backgroundImage);
+        apTileImage.setBackground(background);
+    }
+    
+    private String getPropertyBackground(String propertyKey) {
         return PropertiesFacade.INSTANCE.getProperty(KEY__BACKGROUND__RESOURCE_BUNDLE, propertyKey);
+    }
+    
+    private String getPropertyOverlay(String propertyKey) {
+        return PropertiesFacade.INSTANCE.getProperty(KEY__OVERLAY__RESOURCE_BUNDLE, propertyKey);
     }
     
 }
