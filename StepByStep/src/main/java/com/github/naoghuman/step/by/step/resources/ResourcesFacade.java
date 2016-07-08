@@ -17,6 +17,7 @@
 package com.github.naoghuman.step.by.step.resources;
 
 import com.github.naoghuman.step.by.step.resources.image.ImageLoader;
+import java.util.Optional;
 
 /**
  *
@@ -24,18 +25,13 @@ import com.github.naoghuman.step.by.step.resources.image.ImageLoader;
  */
 public class ResourcesFacade {
     
-    private static ResourcesFacade instance = null;
+    private static final Optional<ResourcesFacade> instance = Optional.of(new ResourcesFacade());
     
-    public static ResourcesFacade getDefault() {
-        if (instance == null) {
-            instance = new ResourcesFacade();
-        }
-        
-        return instance;
+    public static final ResourcesFacade getDefault() {
+        return instance.get();
     }
     
     private ImageLoader imageLoader = null;
-    
     
     private ResourcesFacade() {
         this.init();
