@@ -57,3 +57,8 @@ DevelopmentMode, ReleaseMode
    can be "Development", "Release".
 
 --------------------------------------------------------------------------------
+BackgroundImage
+ - Check how it will look if the ClippedBackgroundImage is greater in the
+   resolution then the BackgroundImage.
+
+--------------------------------------------------------------------------------
