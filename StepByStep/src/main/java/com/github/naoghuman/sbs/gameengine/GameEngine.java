@@ -50,6 +50,8 @@ public final class GameEngine {
     
     private static final String CLICKABLE_COLOR_BASE = "-fx-base: BLANCHEDALMOND;"; // NOI18N
     private static final String NOT_CLICKABLE_COLOR_BASE = "-fx-background-color: BLANCHEDALMOND;"; // NOI18N
+    // Style the buttons as circles.
+//    private static final String NOT_CLICKABLE_COLOR_BASE = "-fx-background-color: BLANCHEDALMOND; -fx-background-radius: 50;"; // NOI18N
     
     private static final String CLICKABLE_COLOR_1 = "-fx-base: #ef9a9a;"; // NOI18N
     private static final String NOT_CLICKABLE_COLOR_1 = "-fx-background-color: #ef9a9a;"; // NOI18N

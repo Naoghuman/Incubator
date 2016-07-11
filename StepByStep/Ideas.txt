@@ -24,6 +24,8 @@ SwitchToGameMode
 
 GameEngine
  - Contains the functionalities for SwitchToGameMode and dependens stuff.
+ - The GameButtons can with CSS as circles styled. Use halft of the size from the
+   buttons in -fx-background-radius: 50;
 
 TestingPurpose
  - For testing purpose I will add temporäy components so that I can test the
