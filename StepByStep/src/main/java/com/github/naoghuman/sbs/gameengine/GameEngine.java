@@ -375,6 +375,27 @@ public final class GameEngine {
         this.bGameElement3 = bGameElement3;
         this.bGameElement4 = bGameElement4;
         this.bGameElement5 = bGameElement5;
+
+        // See class LinerotationForEndPoints in TestPackages how to calculate 
+        // this endpoints (used also the tool SceneView).
+        final double centerX = 200.0;
+        final double centerY = 200.0;
+        final double halfButtonWidth = 50.0;
+        final double halfButtonHeight = 50.0;
+        this.bGameElement1.setLayoutX(centerX - halfButtonWidth);
+        this.bGameElement1.setLayoutY(centerY - 200.0 - halfButtonHeight);
+        
+        this.bGameElement2.setLayoutX(centerX + 192.47137451171875 - halfButtonWidth);
+        this.bGameElement2.setLayoutY(centerY - 64.0634765625 - halfButtonHeight);
+        
+        this.bGameElement3.setLayoutX(centerX + 119.953857421875 - halfButtonWidth);
+        this.bGameElement3.setLayoutY(centerY + 164.2001953125 - halfButtonHeight);
+        
+        this.bGameElement4.setLayoutX(centerX - 119.953857421875 - halfButtonWidth);
+        this.bGameElement4.setLayoutY(centerY + 164.2001953125 - halfButtonHeight);
+        
+        this.bGameElement5.setLayoutX(centerX - 192.47137451171875 - halfButtonWidth);
+        this.bGameElement5.setLayoutY(centerY - 64.0634765625 - halfButtonHeight);
     }
     
     public void registerLevelInfo(Text tPrepareYourSelf, Text tLevel, Text tLevelInfo) {
