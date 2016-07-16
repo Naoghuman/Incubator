@@ -75,3 +75,8 @@ Animation around MousePointer
       from the application.
 
 --------------------------------------------------------------------------------
+Different GameArts
+ - GameArts define the count of elements which will show the sequence.
+    - 2, 3, 4, 5
+
+--------------------------------------------------------------------------------
