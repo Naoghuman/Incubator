@@ -1,0 +1,103 @@
+--------------------------------------------------------------------------------
+CONCEPT Decisions
+--------------------------------------------------------------------------------
+A little application which will helps to make a decision about a topic.
+
+--------------------------------------------------------------------------------
+LEGEND
+Topic
+ - A Topic where a decision should be taken.
+ 
+Option
+ - An Option is a possibility which should be analysed in context from the 
+   Topic.
+ 
+Point
+ - A Point is a single statement which should be analysed in context from an 
+   Option and the Topic.
+ - Points can reordered through Drag&Drop.
+   
+	Note
+	 - Each Point in Context from an Option can have a Note, where the user can 
+	   write down additional informations which he means that they are important 
+	   or not to this Point in Context from the Option and Topic.
+	 - A little icon opens the NoteDialog.
+	 - Other possibility is when the user click in a Section then Note for this 
+	   Point + Option will be shown on the right side (or on the bottom).
+		- Like the Navigation on the left side -> Details or Notes.
+		
+	Weight
+	 - Default a Point have the Weight from 1.0.
+	    - That means if the user add 5 Statements to a Point in whatever 
+		Section then the Summary shows the Value 5.
+	 - Change the user the Weight from a Point to 1.5 then the Summary will 
+	   shown the value 7.5 (if 5 Statements are added).
+	 - Through the weighting the user have the possibility to highlight 
+	   some Points which will play a greater (lesser) part in the decision.
+	 - Can Statement have also a Weight?
+	    - How to compute the Statement-Weight with the Point-Weight?
+ 
+Sections
+ - Each Option is divided into 3 Sections.
+ - '+' = The given Point is in context from the Option (and Topic) positiv.
+ - '~' = The given Point is in context from the Option (and Topic) la la la. Nore 
+         positiv or negativ.
+ - '-' = The given Point is in context with the Option negativ.
+ 
+Statement
+ - A Statement is a unique information in a Section/Point/Option/Topic.
+ - The user can added as much Statements to a Section which will be 
+   reflected into the Summary.
+ - This unique Statements are the basic informations in a Section which 
+   helps the user to make his decision.
+ - User can add an individual color to a Statement to highlight a Statement.
+    - The color can have a Name which will be shown in the Summary.
+	   - Color Red   = Stopper!
+	   - Color Green = Important
+
+Summary
+ - Summaries for every Option the given Points.
+
+Decision
+ - Here the user makes his decision about the Topic and the Options.
+ 
+--------------------------------------------------------------------------------
+EXAMPLE
+Topic    : Which is the best IDE?
+Option(s): NetBeans, Eclipse, IntelliJ IDEA
+Point(s) : Download, Plugins, Configuration, Tutorials...
+
+--------------------------------------------------------------------------------
+VIEW
+In general it can be said that a Topic is like a table or excel sheet. Each 
+Option will add an column to the table.
+
+So we have on the left side a Navigation through the existing Topics.
+On the right side is then the choosen Topic.
+
+--------------------------------------------------------------------------------
+CHARTS
+A Topic an be shown as a Chart.
+The Charts can be exported as an image.
+
+--------------------------------------------------------------------------------
+REPORTS
+A Topic can be export as HTML, PDF, TXT, JSON... .
+To a Report a Chart can be added.
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
