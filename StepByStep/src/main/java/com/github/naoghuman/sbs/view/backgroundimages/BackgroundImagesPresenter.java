@@ -72,20 +72,26 @@ public class BackgroundImagesPresenter implements Initializable, IBackgroundConf
         DebugConsole.getDefault().info(this.getClass(), "Initialize ClippedBackgroundImage"); // NOI18N
         
         // The ClippedBackgroundImage
-        ivClippedBackgroundImage.setFitHeight(768.0d);
-        ivClippedBackgroundImage.setFitWidth(1366.0d);
-        
         final String imageName = this.getPropertyBackground(KEY__BACKGROUND__1366x768_IMAGE);
         final String widthAsString = this.getPropertyBackground(KEY__BACKGROUND__1366x768_WIDTH);
         final String heigthAsString = this.getPropertyBackground(KEY__BACKGROUND__1366x768_HEIGHT);
+        
+//        final String imageName = this.getPropertyBackground(KEY__BACKGROUND__3840x2160_IMAGE);
+//        final String widthAsString = this.getPropertyBackground(KEY__BACKGROUND__3840x2160_WIDTH);
+//        final String heigthAsString = this.getPropertyBackground(KEY__BACKGROUND__3840x2160_HEIGHT);
         final Image iClippedBackgroundImage = ResourcesFacade.getDefault().getImageLoader().loadBackground(
                 imageName, widthAsString, heigthAsString);
+        
+        final double fitHeight = Double.parseDouble(heigthAsString);
+        final double fitWidth = Double.parseDouble(widthAsString);
+        ivClippedBackgroundImage.setFitHeight(fitHeight);
+        ivClippedBackgroundImage.setFitWidth(fitWidth);
         ivClippedBackgroundImage.setImage(iClippedBackgroundImage);
         
         // clip image by circle
         final Circle clipCircle = new Circle(300.0d);
-        clipCircle.setLayoutX(1366.0d / 2);
-        clipCircle.setLayoutY(768.0d / 2);
+        clipCircle.setLayoutX(fitWidth / 2);
+        clipCircle.setLayoutY(fitHeight / 2);
         ivClippedBackgroundImage.setClip(clipCircle);
         
         // The border for the ClippedBackgroundImage

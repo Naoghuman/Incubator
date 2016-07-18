@@ -30,6 +30,10 @@ public interface IBackgroundConfiguration {
     public static final String KEY__BACKGROUND__1920x1080_IMAGE = "background.146664_1920x1080.image"; // NOI18N
     public static final String KEY__BACKGROUND__1920x1080_WIDTH = "background.146664_1920x1080.width"; // NOI18N
     
+    public static final String KEY__BACKGROUND__3840x2160_HEIGHT = "background.146664_3840x2160.height"; // NOI18N
+    public static final String KEY__BACKGROUND__3840x2160_IMAGE = "background.146664_3840x2160.image"; // NOI18N
+    public static final String KEY__BACKGROUND__3840x2160_WIDTH = "background.146664_3840x2160.width"; // NOI18N
+    
     public static final String KEY__BACKGROUND__RESOURCE_BUNDLE = "/com/github/naoghuman/sbs/resources/image/background/background.properties"; // NOI18N
     
 }
