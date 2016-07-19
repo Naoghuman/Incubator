@@ -7,70 +7,66 @@ A little application which will helps to make a decision about a topic.
 LEGEND
 Topic
  - A Topic where a decision should be taken.
+ - Each Topic can have one Notes where the user can add informations for the 
+   Topic. The information can the added to the single sections or used to create 
+   the single Points.
  
-Option
- - An Option is a possibility which should be analysed in context from the 
-   Topic.
+Possibility
+ - A Possibility should be analysed in context from the Topic.
  
 Point
  - A Point is a single statement which should be analysed in context from an 
-   Option and the Topic.
- - Points can reordered through Drag&Drop.
-   
-	Note
-	 - Each Point in Context from an Option can have a Note, where the user can 
-	   write down additional informations which he means that they are important 
-	   or not to this Point in Context from the Option and Topic.
-	 - A little icon opens the NoteDialog.
-	 - Other possibility is when the user click in a Section then Note for this 
-	   Point + Option will be shown on the right side (or on the bottom).
-		- Like the Navigation on the left side -> Details or Notes.
-		
+   Possibility and the Topic.
+ - Points can reordered through Drag&Drop	
 	Weight
 	 - Default a Point have the Weight from 1.0.
-	    - That means if the user add 5 Statements to a Point in whatever 
+	    - That means if the user add 5 Arguments to a Point in whatever 
 		Section then the Summary shows the Value 5.
 	 - Change the user the Weight from a Point to 1.5 then the Summary will 
 	   shown the value 7.5 (if 5 Statements are added).
 	 - Through the weighting the user have the possibility to highlight 
 	   some Points which will play a greater (lesser) part in the decision.
-	 - Can Statement have also a Weight?
+	 - Arguments can have also a Weight
 	    - How to compute the Statement-Weight with the Point-Weight?
+            - Point-Weight x Argument-Weight
  
 Sections
- - Each Option is divided into 3 Sections.
- - '+' = The given Point is in context from the Option (and Topic) positiv.
- - '~' = The given Point is in context from the Option (and Topic) la la la. Nore 
-         positiv or negativ.
- - '-' = The given Point is in context with the Option negativ.
+ - Each Possibility have a Section in Context from a Point. That means for every 
+   Point all Possibility have one Section.
+
  
-Statement
- - A Statement is a unique information in a Section/Point/Option/Topic.
- - The user can added as much Statements to a Section which will be 
+Argument
+ - A Argument is a unique information in a Section/Point/Possibility/Topic.
+ - The user can added as much Arguments to a Section which will be 
    reflected into the Summary.
- - This unique Statements are the basic informations in a Section which 
+ - This unique Arguments are the basic informations in a Section which 
    helps the user to make his decision.
- - User can add an individual color to a Statement to highlight a Statement.
+ - User can add an individual color to a Argument to highlight a Argument.
     - The color can have a Name which will be shown in the Summary.
 	   - Color Red   = Stopper!
 	   - Color Green = Important
+ - Arguments can have additional informations like:
+    - '+' = The given Argument is in context from the Point/Possibility/Topic positiv.
+    - '~' = The given Argument is in context from the Point/Possibility/Topic  is neutral. Nore 
+         positiv or negativ.
+    - '-' = The given Argument is in context with the Point/Possibility/Topic  negativ.
 
 Summary
- - Summaries for every Option the given Points.
+ - Summaries for every Possibility the given Points.
 
 Decision
- - Here the user makes his decision about the Topic and the Options.
+ - Here the user makes his decision about the Topic and the Possibility.
  
 --------------------------------------------------------------------------------
 EXAMPLE
-Topic    : Which is the best IDE?
-Option(s): NetBeans, Eclipse, IntelliJ IDEA
-Point(s) : Download, Plugins, Configuration, Tutorials...
+Topic         : Which is the best IDE?
+Possibility(s): NetBeans, Eclipse, IntelliJ IDEA
+Point(s)      : Download, Plugins, Configuration, Tutorials...
 
 --------------------------------------------------------------------------------
 VIEW
 In general it can be said that a Topic is like a table or excel sheet. Each 
-Option will add an column to the table.
+Possibility will add a column to the table.
 
 So we have on the left side a Navigation through the existing Topics.
 On the right side is then the choosen Topic.
