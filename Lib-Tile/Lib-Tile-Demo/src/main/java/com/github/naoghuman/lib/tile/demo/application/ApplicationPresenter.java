@@ -16,14 +16,19 @@
  */
 package com.github.naoghuman.lib.tile.demo.application;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
+import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundPresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundView;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TileView;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
@@ -73,9 +78,45 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         bpTile.setCenter(view.getView());
     }
     
+    private void onActionLoadBackgroundImage(String url) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action load Background image"); // NOI18N
+        
+        System.out.println("url: " + url);
+    }
+    
+    private void onActionResetBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
+        
+    }
+    
     @Override
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+        
+        this.registerOnActionLoadBackgroundImage();
+        this.registerOnActionResetBackgroundImage();
+    }
+
+    private void registerOnActionLoadBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action load Background image"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                IActionConfiguration.ON_ACTION__SHOW_BACKGROUND_IMAGE,
+                (ActionEvent event) -> {
+                    final TransferData data = (TransferData) event.getSource();
+                    final String url = data.getString();
+                    this.onActionLoadBackgroundImage(url);
+                });
+    }
+
+    private void registerOnActionResetBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action reset Background image"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                IActionConfiguration.ON_ACTION__RESET_BACKGROUND_IMAGE,
+                (ActionEvent event) -> {
+                    this.onActionResetBackgroundImage();
+                });
     }
     
 }
