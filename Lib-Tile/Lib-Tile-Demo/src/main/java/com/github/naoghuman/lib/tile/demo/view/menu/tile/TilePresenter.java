@@ -20,7 +20,9 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 
 /**
  *
@@ -28,15 +30,29 @@ import javafx.fxml.Initializable;
  */
 public class TilePresenter implements Initializable, IRegisterActions {
     
+    @FXML private ListView lvTransparentTextures;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize TilePresenter"); // NOI18N
+        
+        this.initializeTransparentTextures();
+    }
+
+    private void initializeTransparentTextures() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize TransparentTextures"); // NOI18N
+        
+    }
+    
+    public void onActionResetTileChoose() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile choose"); // NOI18N
         
     }
     
     @Override
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in TilePresenter"); // NOI18N
+        
     }
     
 }
