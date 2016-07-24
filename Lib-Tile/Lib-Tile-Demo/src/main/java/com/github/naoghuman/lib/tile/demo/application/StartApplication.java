@@ -67,7 +67,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         final Scene scene = new Scene(applicationView.getView(), 1280, 720);
         primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+//        primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
            we.consume();
            

@@ -26,11 +26,12 @@ import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundView;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TileView;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -41,6 +42,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     @FXML private BorderPane bpBackground;
     @FXML private BorderPane bpTile;
+    @FXML private ImageView ivBackgroundImage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,6 +50,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
+        this.initializeBackgroundImage();
         this.initializeMenuBackground();
         this.initializeMenuTile();
         
@@ -56,6 +59,13 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
+    }
+    
+    private void initializeBackgroundImage() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize Background image"); // NOI18N
+        
+        ivBackgroundImage.setFitWidth(1280.0d);
+        ivBackgroundImage.setFitHeight(720.0d);
     }
 
     private void initializeMenuBackground() {
@@ -80,13 +90,23 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     private void onActionLoadBackgroundImage(String url) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action load Background image"); // NOI18N
-        
-        System.out.println("url: " + url);
+        // https://initiate.alphacoders.com/images/107/cropped-1280-720-10767.png?5608
+        // https://initiate.alphacoders.com/images/742/cropped-1280-720-742.jpg?6785
+        try {
+            final Image image = new Image(url, 1280.0d, 720.0d, true, true);
+            ivBackgroundImage.setImage(image);
+        } catch (NullPointerException | IllegalArgumentException ex) {
+            LoggerFacade.INSTANCE.error(this.getClass(), 
+                    "Can't load the Background image with the URL: " + url, ex); // NOI18N
+            
+            this.onActionResetBackgroundImage();
+        }
     }
     
     private void onActionResetBackgroundImage() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
         
+        ivBackgroundImage.setImage(null);
     }
     
     @Override
