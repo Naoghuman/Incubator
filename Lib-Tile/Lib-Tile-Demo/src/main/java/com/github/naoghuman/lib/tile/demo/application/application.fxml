@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tile.demo.application.ApplicationPresenter">
    <children>
-      <AnchorPane layoutX="386.0" layoutY="14.0" prefWidth="320.0" style="-fx-background-color: rgba(255, 255, 255, 0.5);; -fx-border-color: rgba(0, 0, 0, 0.3);;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <AnchorPane layoutX="386.0" layoutY="14.0" prefWidth="403.33" style="-fx-background-color: rgba(255, 255, 255, 0.5);; -fx-border-color: rgba(0, 0, 0, 0.3);;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <children>
             <Accordion AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
               <panes>
