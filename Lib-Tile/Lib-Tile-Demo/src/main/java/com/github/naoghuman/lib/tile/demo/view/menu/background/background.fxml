@@ -14,7 +14,7 @@
                 <Label text="URL to the image" />
                 <HBox spacing="7.0">
                     <children>
-                        <TextField fx:id="tfUrlBackgroundImage" onAction="#onActionLoadBackgroundImage" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="tfUrlBackgroundImage" onAction="#onActionLoadBackgroundImage" promptText="The image will be resized to 1280 x 720" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#onActionLoadBackgroundImage" prefWidth="64.0" text="Load" />
                     </children>
                 </HBox>
