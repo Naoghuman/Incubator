@@ -474,15 +474,6 @@ public enum TransparentTexturesTile implements Tile {
         this.height = height;
         this.autor = autor;
         this.url = url;
-        
-        // XXX remove
-        System.out.println(
-                "name="+name
-                        +", header="+header
-                        +", w="+ width
-                        +", h="+height
-                        +", autor="+autor
-                        +", url="+url);
 
         DefaultTileLoader.getDefault().checkParameters(name, header, width, height);
     }
