@@ -18,7 +18,7 @@
          <children>
             <Accordion AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
               <panes>
-                <TitledPane text="Background">
+                <TitledPane fx:id="tpBackground" text="Background">
                      <content>
                         <BorderPane fx:id="bpBackground" />
                      </content>

@@ -27,9 +27,11 @@ import com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TileView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -43,6 +45,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @FXML private BorderPane bpBackground;
     @FXML private BorderPane bpTile;
     @FXML private ImageView ivBackgroundImage;
+    @FXML private TitledPane tpBackground;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,6 +62,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
+    
+        Platform.runLater(() -> {
+            tpBackground.setExpanded(true);
+        });
     }
     
     private void initializeBackgroundImage() {
