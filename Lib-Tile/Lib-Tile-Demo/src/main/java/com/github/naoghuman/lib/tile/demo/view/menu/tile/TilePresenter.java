@@ -18,8 +18,18 @@ package com.github.naoghuman.lib.tile.demo.view.menu.tile;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemCell;
+import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemPresenter;
+import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemView;
+import com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -42,6 +52,25 @@ public class TilePresenter implements Initializable, IRegisterActions {
     private void initializeTransparentTextures() {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize TransparentTextures"); // NOI18N
         
+        lvTransparentTextures.getItems().clear();
+        lvTransparentTextures.setCellFactory(value -> new TransparentTexturesItemCell());
+        
+        final ObservableList<TransparentTexturesTile> tiles = FXCollections.observableArrayList();
+        tiles.addAll(TransparentTexturesTile.values());
+        
+        final List<TransparentTexturesItemPresenter> presenters = tiles.stream()
+                .map((TransparentTexturesTile tile) -> {
+                    final TransparentTexturesItemView view = new TransparentTexturesItemView();
+                    final TransparentTexturesItemPresenter presenter = view.getRealPresenter();
+                    presenter.configure(view.getView(), tile);
+                    
+                    return presenter;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+        
+        Platform.runLater(() -> {
+            lvTransparentTextures.getItems().addAll(presenters);
+        });
     }
     
     public void onActionResetTileChoose() {

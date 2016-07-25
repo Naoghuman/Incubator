@@ -8,10 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox id="VBox" prefHeight="400.0" prefWidth="328.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter">
+<VBox id="VBox" prefHeight="400.0" prefWidth="328.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox>
          <children>
             <Button mnemonicParsing="false" onAction="#onActionResetTileChoose" prefWidth="64.0" text="Reset" />
          </children>
