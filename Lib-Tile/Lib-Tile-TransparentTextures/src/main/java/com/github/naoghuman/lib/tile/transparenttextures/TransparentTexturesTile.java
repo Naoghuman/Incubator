@@ -388,7 +388,7 @@ public enum TransparentTexturesTile implements Tile {
     TT_TEXTURETASTIC_GRAY("tt-texturetastic-gray.png", "Texturetastic Gray", 476, 476, "Adam Pickering", ""), // NOI18N
     TT_TICKS("tt-ticks.png", "Ticks", 400, 400, "Laura Gilbert Gilardenghi", ""), // NOI18N
     TT_TILEABLE_WOOD("tt-tileable-wood.png", "Tileable Wood", 400, 317, "Elemis", ""), // NOI18N
-    TT_TILEABLE_WOOD_COLORED("tt-tileable-wood-colored.png", "", 400, 317, "Elemis", ""), // NOI18N
+    TT_TILEABLE_WOOD_COLORED("tt-tileable-wood-colored.png", "Tileable Wood Colored", 400, 317, "Elemis", ""), // NOI18N
     TT_TINY_GRID("tt-tiny-grid.png", "Tiny Grid", 26, 26, "Atle Mo", "http://atle.co/"), // NOI18N
     TT_TRANSLUCENT_FIBRES("tt-translucent-fibres.png", "Translucent Fibres", 16, 16, "Angelica", ""), // NOI18N
     TT_TRANSPARENT_SQUARE_TILES("tt-transparent-square-tiles.png", "Transparent Square Tiles", 252, 230, "Nathan Spady", ""), // NOI18N
@@ -474,6 +474,15 @@ public enum TransparentTexturesTile implements Tile {
         this.height = height;
         this.autor = autor;
         this.url = url;
+        
+        // XXX remove
+        System.out.println(
+                "name="+name
+                        +", header="+header
+                        +", w="+ width
+                        +", h="+height
+                        +", autor="+autor
+                        +", url="+url);
 
         DefaultTileLoader.getDefault().checkParameters(name, header, width, height);
     }
