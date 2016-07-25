@@ -20,11 +20,13 @@ import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.tile.core.Tile;
 import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundPresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundView;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TileView;
+import com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -95,10 +97,23 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         bpTile.setCenter(view.getView());
     }
     
-    private void onActionLoadBackgroundImage(String url) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action load Background image"); // NOI18N
+    private void onActionResetBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
+        
+        ivBackgroundImage.setImage(null);
+    }
+    
+    private void onActionResetTileImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile image"); // NOI18N
+        
+        // TODO reset the tile image
+    }
+    
+    private void onActionShowBackgroundImage(String url) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background image"); // NOI18N
         // https://initiate.alphacoders.com/images/107/cropped-1280-720-10767.png?5608
         // https://initiate.alphacoders.com/images/742/cropped-1280-720-742.jpg?6785
+        
         try {
             final Image image = new Image(url, 1280.0d, 720.0d, true, true);
             ivBackgroundImage.setImage(image);
@@ -110,30 +125,20 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         }
     }
     
-    private void onActionResetBackgroundImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
+    private void onActionShowTileImage(Tile tile) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Tile image"); // NOI18N
         
-        ivBackgroundImage.setImage(null);
+        // TODO show the tile image
     }
     
     @Override
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
         
-        this.registerOnActionLoadBackgroundImage();
         this.registerOnActionResetBackgroundImage();
-    }
-
-    private void registerOnActionLoadBackgroundImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action load Background image"); // NOI18N
-        
-        ActionFacade.INSTANCE.register(
-                IActionConfiguration.ON_ACTION__SHOW_BACKGROUND_IMAGE,
-                (ActionEvent event) -> {
-                    final TransferData data = (TransferData) event.getSource();
-                    final String url = data.getString();
-                    this.onActionLoadBackgroundImage(url);
-                });
+        this.registerOnActionResetTileImage();
+        this.registerOnActionShowBackgroundImage();
+        this.registerOnActionShowTileImage();
     }
 
     private void registerOnActionResetBackgroundImage() {
@@ -143,6 +148,41 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                 IActionConfiguration.ON_ACTION__RESET_BACKGROUND_IMAGE,
                 (ActionEvent event) -> {
                     this.onActionResetBackgroundImage();
+                });
+    }
+
+    private void registerOnActionResetTileImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action reset Tile image"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                IActionConfiguration.ON_ACTION__RESET_TILE_IMAGE,
+                (ActionEvent event) -> {
+                    this.onActionResetTileImage();
+                });
+    }
+
+    private void registerOnActionShowBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action show Background image"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                IActionConfiguration.ON_ACTION__SHOW_BACKGROUND_IMAGE,
+                (ActionEvent event) -> {
+                    final TransferData data = (TransferData) event.getSource();
+                    final String url = data.getString();
+                    this.onActionShowBackgroundImage(url);
+                });
+    }
+
+    private void registerOnActionShowTileImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action show Tile image"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                IActionConfiguration.ON_ACTION__SHOW_TILE_IMAGE,
+                (ActionEvent event) -> {
+                    final TransferData data = (TransferData) event.getSource();
+//                    final TransparentTexturesTile tile = (TransparentTexturesTile) data.getObject();
+                    final Tile tile = (Tile) data.getObject();
+                    this.onActionShowTileImage(tile);
                 });
     }
     

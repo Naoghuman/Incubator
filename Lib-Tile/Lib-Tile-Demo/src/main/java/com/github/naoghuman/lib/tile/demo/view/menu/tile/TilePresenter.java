@@ -16,8 +16,12 @@
  */
 package com.github.naoghuman.lib.tile.demo.view.menu.tile;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
+import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.tile.core.Tile;
+import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemCell;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemPresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemView;
@@ -28,6 +32,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -55,27 +61,46 @@ public class TilePresenter implements Initializable, IRegisterActions {
         lvTransparentTextures.getItems().clear();
         lvTransparentTextures.setCellFactory(value -> new TransparentTexturesItemCell());
         
-        final ObservableList<TransparentTexturesTile> tiles = FXCollections.observableArrayList();
-        tiles.addAll(TransparentTexturesTile.values());
-        
-        final List<TransparentTexturesItemPresenter> presenters = tiles.stream()
-                .map((TransparentTexturesTile tile) -> {
-                    final TransparentTexturesItemView view = new TransparentTexturesItemView();
-                    final TransparentTexturesItemPresenter presenter = view.getRealPresenter();
-                    presenter.configure(view.getView(), tile);
-                    
-                    return presenter;
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
-        
         Platform.runLater(() -> {
+            final ObservableList<TransparentTexturesTile> tiles = FXCollections.observableArrayList();
+            tiles.addAll(TransparentTexturesTile.values());
+
+            final List<TransparentTexturesItemPresenter> presenters = tiles.stream()
+                    .map((TransparentTexturesTile tile) -> {
+                        final TransparentTexturesItemView view = new TransparentTexturesItemView();
+                        final TransparentTexturesItemPresenter presenter = view.getRealPresenter();
+                        presenter.configure(view.getView(), tile);
+
+                        return presenter;
+                    })
+                    .collect(Collectors.toCollection(ArrayList::new));
+        
             lvTransparentTextures.getItems().addAll(presenters);
+        });
+        
+        lvTransparentTextures.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (newValue instanceof TransparentTexturesItemPresenter) {
+                    final TransferData data = new TransferData();
+                    data.setActionId(IActionConfiguration.ON_ACTION__SHOW_TILE_IMAGE);
+                    
+                    final TransparentTexturesItemPresenter presenter = (TransparentTexturesItemPresenter) newValue;
+                    final Tile tile = presenter.getTile();
+                    data.setObject(tile);
+                    
+                    ActionFacade.INSTANCE.handle(data);
+                }
+            }
         });
     }
     
-    public void onActionResetTileChoose() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile choose"); // NOI18N
+    public void onActionResetTileImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile image"); // NOI18N
         
+        lvTransparentTextures.getSelectionModel().clearSelection();
+        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__RESET_TILE_IMAGE);
     }
     
     @Override
