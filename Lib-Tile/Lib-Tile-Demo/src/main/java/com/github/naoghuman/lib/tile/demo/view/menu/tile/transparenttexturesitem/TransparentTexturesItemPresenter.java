@@ -18,18 +18,21 @@ package com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesite
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile;
+import com.github.naoghuman.lib.tile.transparenttextures.images.TransparentTexturesTileLoader;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -37,6 +40,7 @@ import javafx.scene.text.FontWeight;
  */
 public final class TransparentTexturesItemPresenter implements Initializable {
     
+    @FXML private AnchorPane apBackground;
     @FXML private Label lAutor;
     @FXML private Label lHeader;
     
@@ -82,6 +86,13 @@ public final class TransparentTexturesItemPresenter implements Initializable {
             // No URL - no handling
             lAutor.setFont(new Font("System Italic", 14.0d)); // NOI18N
         }
+        
+        // Background
+        Platform.runLater(() -> {
+            final Background background = TransparentTexturesTileLoader.getDefault().loadAsBackground(tile);
+            apBackground.setBackground(background);
+        });
+        
     }
     
     public final Parent getParent() {

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" style="-fx-background-color: BEIGE;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemPresenter">
+<AnchorPane id="AnchorPane" fx:id="apBackground" prefHeight="100.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemPresenter">
     <children>
         <Label fx:id="lHeader" layoutX="7.0" layoutY="7.0" text="&lt;header&gt;" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="7.0">
             <font>
