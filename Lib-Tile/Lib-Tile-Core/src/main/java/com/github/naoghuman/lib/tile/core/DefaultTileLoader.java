@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.tile.core;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -30,15 +31,11 @@ import javafx.scene.layout.BackgroundSize;
  * @author Naoghuman
  */
 public final class DefaultTileLoader {
-
-    private static DefaultTileLoader instance = null;
+	
+    private static final Optional<DefaultTileLoader> instance = Optional.of(new DefaultTileLoader());
 
     public static final DefaultTileLoader getDefault() {
-        if (instance == null) {
-            instance = new DefaultTileLoader();
-        }
-
-        return instance;
+        return instance.get();
     }
 
     private DefaultTileLoader() {
@@ -47,27 +44,27 @@ public final class DefaultTileLoader {
 
     public void checkParameters(final String name, final String header, final double width, final double height) {
         if (name == null) {
-            throw new NullPointerException("name can't be NULL");
+            throw new NullPointerException("Parameter 'name' can't be NULL"); // NOI18N
         }
         
         if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException("name can't be EMPTY");
+            throw new IllegalArgumentException("Parameter 'name' can't be EMPTY"); // NOI18N
         }
 
         if (header == null) {
-            throw new NullPointerException("header can't be NULL");
+            throw new NullPointerException("Parameter 'header' can't be NULL"); // NOI18N
         }
 
         if (header.trim().isEmpty()) {
-            throw new IllegalArgumentException("header can't be EMPTY");
+            throw new IllegalArgumentException("Parameter 'header' can't be EMPTY"); // NOI18N
         }
 
         if (width <= 0.0d) {
-            throw new IllegalArgumentException("width can't <= 0.0d");
+            throw new IllegalArgumentException("Parameter 'width' can't <= 0.0d"); // NOI18N
         }
 
         if (height <= 0.0d) {
-            throw new UnsupportedOperationException("height can't <= 0.0d");
+            throw new UnsupportedOperationException("Parameter 'height' can't <= 0.0d"); // NOI18N
         }
     }
 
@@ -87,8 +84,9 @@ public final class DefaultTileLoader {
         // DebugConsole.getDefault().debug(this.getClass(), "Load image: " + image); // NOI18N
 
         if (!loader.isSupported(tile)) {
-            throw new UnsupportedOperationException("The tile-loader " + loader.getClass().getSimpleName()
-                    + " doesn't support the Tile " + tile.getName());
+            throw new UnsupportedOperationException(
+                    "The tile-loader " + loader.getClass().getSimpleName() // NOI18N
+                    + " doesn't support the Tile " + tile.getName()); // NOI18N
         }
 
         Image img = null;
