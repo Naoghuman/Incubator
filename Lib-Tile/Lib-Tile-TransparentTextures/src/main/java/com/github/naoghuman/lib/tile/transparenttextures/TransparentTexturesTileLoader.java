@@ -21,12 +21,23 @@ import javafx.scene.layout.Background;
 import com.github.naoghuman.lib.tile.core.Tile;
 import com.github.naoghuman.lib.tile.core.TileLoader;
 import com.github.naoghuman.lib.tile.core.DefaultTileLoader;
+import java.util.Optional;
 
 /**
  *
  * @author Naoghuman
  */
-public class TransparentTexturesTileLoader implements TileLoader {
+public final class TransparentTexturesTileLoader implements TileLoader {
+	
+    private static final Optional<TransparentTexturesTileLoader> instance = Optional.of(new TransparentTexturesTileLoader());
+
+    public static final TransparentTexturesTileLoader getDefault() {
+        return instance.get();
+    }
+
+    private TransparentTexturesTileLoader() {
+
+    }
 
     @Override
     public String getPrefix() {
@@ -46,12 +57,12 @@ public class TransparentTexturesTileLoader implements TileLoader {
 
     @Override
     public Background loadAsBackground(final Tile tile) {
-        return DefaultTileLoader.getDefault().loadAsBackground(this, tile);
+        return DefaultTileLoader.getDefault().loadAsBackground(TransparentTexturesTileLoader.getDefault(), tile);
     }
 
     @Override
     public Image loadAsImage(final Tile tile) {
-        return DefaultTileLoader.getDefault().loadAsImage(this, tile);
+        return DefaultTileLoader.getDefault().loadAsImage(TransparentTexturesTileLoader.getDefault(), tile);
     }
 
 }
