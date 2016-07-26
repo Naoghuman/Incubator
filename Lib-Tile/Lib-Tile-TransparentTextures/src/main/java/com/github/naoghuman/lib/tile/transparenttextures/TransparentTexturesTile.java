@@ -507,5 +507,33 @@ public enum TransparentTexturesTile implements Tile {
     public double getWidth() {
         return width;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("Tile ["); // NOI18N
+        sb.append("name=").append(this.getName()); // NOI18N
+        sb.append(", "); // NOI18N
+        sb.append("header=").append(this.getHeader()); // NOI18N
+        sb.append(", "); // NOI18N
+        sb.append("w=").append(this.getWidth()); // NOI18N
+        sb.append(", "); // NOI18N
+        sb.append("h=").append(this.getHeight()); // NOI18N
+        sb.append(", "); // NOI18N
+        sb.append("autor=").append(this.getAutor()); // NOI18N
+        
+        final String url = this.getUrl();
+        if (
+                (url != null)
+                && (!url.isEmpty())
+        ) {
+            sb.append(", "); // NOI18N
+            sb.append("url=").append(url); // NOI18N
+        }
+                
+        sb.append("]"); // NOI18N
+        
+        return sb.toString();
+    }
     
 }
