@@ -86,7 +86,7 @@ public final class DefaultTileLoader {
         if (!loader.isSupported(tile)) {
             throw new UnsupportedOperationException(
                     "The tile-loader " + loader.getClass().getSimpleName() // NOI18N
-                    + " doesn't support the Tile " + tile.getName()); // NOI18N
+                    + " doesn't support the Tile: " + tile.getName()); // NOI18N
         }
 
         Image img = null;
