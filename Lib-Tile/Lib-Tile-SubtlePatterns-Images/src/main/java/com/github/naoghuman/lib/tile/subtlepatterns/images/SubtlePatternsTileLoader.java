@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.lib.tile.subtlepatterns;
+package com.github.naoghuman.lib.tile.subtlepatterns.images;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
