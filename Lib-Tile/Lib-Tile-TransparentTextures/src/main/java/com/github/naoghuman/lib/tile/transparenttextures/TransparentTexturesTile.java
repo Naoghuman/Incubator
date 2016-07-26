@@ -32,7 +32,7 @@ public enum TransparentTexturesTile implements Tile {
 
     TT_ABSURDITY("tt-absurdity.png", "Absurdity", 4, 4, "Carlos Valdez", "http://saveder.blogspot.de/"), // NOI18N
     TT_AG_SQUARE("tt-ag-square.png", "AG Square", 50, 50, "Erikdel"), // NOI18N
-    TT_ALWAYS_GREY("tt-always-grey.png", "Always Grey", 35, 35, "Stefan Aleksić", "http://www.facebook.com/stefanaleksic88"), // NOI18N
+    TT_ALWAYS_GREY("tt-always-grey.png", "Always Grey", 35, 35, "Stefan Aleksic", "http://www.facebook.com/stefanaleksic88"), // NOI18N
     TT_ARABESQUE("tt-arabesque.png", "Arabesque", 110, 110, "David Sanchez", "http://www.twitter.com/davidsancar"), // NOI18N
     TT_ARCHES("tt-arches.png", "Arches", 103, 23, "Kim Ruddock"), // NOI18N
     TT_ARGYLE("tt-argyle.png", "Argyle", 106, 96, "Will Monson"), // NOI18N
