@@ -12,7 +12,7 @@
     <children>
         <HBox>
             <children>
-                <Button mnemonicParsing="false" onAction="#onActionResetTileImage" prefWidth="64.0" text="Reset" />
+                <Button mnemonicParsing="false" onAction="#onActionResetTileBackground" prefWidth="64.0" text="Reset" />
             </children>
             <padding>
                 <Insets bottom="7.0" top="7.0" />

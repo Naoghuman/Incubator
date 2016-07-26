@@ -18,12 +18,18 @@ package com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesite
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -31,7 +37,8 @@ import javafx.scene.control.Label;
  */
 public final class TransparentTexturesItemPresenter implements Initializable {
     
-    @FXML private Label lTileHeader;
+    @FXML private Label lAutor;
+    @FXML private Label lHeader;
     
     private Parent parent;
     private TransparentTexturesTile tile;
@@ -39,7 +46,6 @@ public final class TransparentTexturesItemPresenter implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.trace(this.getClass(), "Initialize TransparentTexturesItemPresenter"); // NOI18N
-        
     }
     
     public final void configure(Parent parent, TransparentTexturesTile tile) {
@@ -48,7 +54,34 @@ public final class TransparentTexturesItemPresenter implements Initializable {
         this.parent = parent;
         this.tile = tile;
         
-        lTileHeader.setText(tile.getHeader());
+        // Header
+        lHeader.setText(tile.getHeader());
+	
+        // Autor
+        lAutor.setText(tile.getAutor());
+		
+        // Url
+        final String url = tile.getUrl();
+        if (
+                (url != null)
+                && (!url.isEmpty())
+        ) {
+            // URL -> handling
+            lAutor.setCursor(Cursor.CLOSED_HAND);
+            lAutor.setOnMouseClicked(event -> {
+                if (Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop.getDesktop().browse(new URL(url).toURI());
+                    } catch (URISyntaxException | IOException ex) {
+                        LoggerFacade.INSTANCE.error(this.getClass(), "Can't open URL in system browser: " + url, ex); // NOI18N
+                    }
+                }
+            });
+        }
+        else {
+            // No URL - no handling
+            lAutor.setFont(new Font("System Italic", 14.0d)); // NOI18N
+        }
     }
     
     public final Parent getParent() {

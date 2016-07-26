@@ -20,13 +20,11 @@ import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.lib.tile.core.Tile;
 import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundPresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundView;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TileView;
-import com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -36,14 +34,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 
 /**
  *
  * @author Naoghuman
  */
-public class ApplicationPresenter implements Initializable, IRegisterActions {
+public class ApplicationPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
+    @FXML private AnchorPane apTileBackground;
     @FXML private BorderPane bpBackground;
     @FXML private BorderPane bpTile;
     @FXML private ImageView ivBackgroundImage;
@@ -103,10 +104,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         ivBackgroundImage.setImage(null);
     }
     
-    private void onActionResetTileImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile image"); // NOI18N
+    private void onActionResetTileBackground() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile background"); // NOI18N
         
-        // TODO reset the tile image
+        apTileBackground.setBackground(null);
     }
     
     private void onActionShowBackgroundImage(String url) {
@@ -125,10 +126,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         }
     }
     
-    private void onActionShowTileImage(Tile tile) {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Tile image"); // NOI18N
+    private void onActionShowTileBackground(Background background) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Tile background"); // NOI18N
         
-        // TODO show the tile image
+        apTileBackground.setBackground(background);
     }
     
     @Override
@@ -145,19 +146,19 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action reset Background image"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                IActionConfiguration.ON_ACTION__RESET_BACKGROUND_IMAGE,
+                ON_ACTION__RESET_BACKGROUND_IMAGE,
                 (ActionEvent event) -> {
                     this.onActionResetBackgroundImage();
                 });
     }
 
     private void registerOnActionResetTileImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action reset Tile image"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action reset Tile background"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                IActionConfiguration.ON_ACTION__RESET_TILE_IMAGE,
+                ON_ACTION__RESET_TILE_BACKGROUND,
                 (ActionEvent event) -> {
-                    this.onActionResetTileImage();
+                    this.onActionResetTileBackground();
                 });
     }
 
@@ -165,7 +166,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action show Background image"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                IActionConfiguration.ON_ACTION__SHOW_BACKGROUND_IMAGE,
+                ON_ACTION__SHOW_BACKGROUND_IMAGE,
                 (ActionEvent event) -> {
                     final TransferData data = (TransferData) event.getSource();
                     final String url = data.getString();
@@ -174,15 +175,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
 
     private void registerOnActionShowTileImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action show Tile image"); // NOI18N
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action show Tile background"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                IActionConfiguration.ON_ACTION__SHOW_TILE_IMAGE,
+                ON_ACTION__SHOW_TILE_BACKGROUND,
                 (ActionEvent event) -> {
                     final TransferData data = (TransferData) event.getSource();
-//                    final TransparentTexturesTile tile = (TransparentTexturesTile) data.getObject();
-                    final Tile tile = (Tile) data.getObject();
-                    this.onActionShowTileImage(tile);
+                    final Background background = (Background) data.getObject();
+                    this.onActionShowTileBackground(background);
                 });
     }
     

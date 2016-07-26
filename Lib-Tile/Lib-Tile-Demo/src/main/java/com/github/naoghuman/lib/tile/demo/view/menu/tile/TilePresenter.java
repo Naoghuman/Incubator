@@ -26,6 +26,7 @@ import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemPresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.transparenttexturesitem.TransparentTexturesItemView;
 import com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile;
+import com.github.naoghuman.lib.tile.transparenttextures.images.TransparentTexturesTileLoader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
 
 /**
  *
@@ -83,25 +85,32 @@ public class TilePresenter implements Initializable, IRegisterActions {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 if (newValue instanceof TransparentTexturesItemPresenter) {
-                    final TransferData data = new TransferData();
-                    data.setActionId(IActionConfiguration.ON_ACTION__SHOW_TILE_IMAGE);
-                    
                     final TransparentTexturesItemPresenter presenter = (TransparentTexturesItemPresenter) newValue;
                     final Tile tile = presenter.getTile();
-                    data.setObject(tile);
-                    
-                    ActionFacade.INSTANCE.handle(data);
+                    TilePresenter.this.onActionShowTileBackground(tile);
                 }
             }
         });
     }
     
-    public void onActionResetTileImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile image"); // NOI18N
+    public void onActionResetTileBackground() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile background"); // NOI18N
         
         lvTransparentTextures.getSelectionModel().clearSelection();
-        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__RESET_TILE_IMAGE);
+        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__RESET_TILE_BACKGROUND);
     }
+
+    private void onActionShowTileBackground(Tile tile) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Tile background"); // NOI18N
+        
+		final TransferData data = new TransferData();
+		data.setActionId(IActionConfiguration.ON_ACTION__SHOW_TILE_BACKGROUND);
+		
+		final Background background = TransparentTexturesTileLoader.getDefault().loadAsBackground(tile);
+		data.setObject(background);
+		
+		ActionFacade.INSTANCE.handle(data);
+	}
     
     @Override
     public void registerActions() {
