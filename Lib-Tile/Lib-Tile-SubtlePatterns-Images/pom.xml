@@ -7,54 +7,18 @@
         <artifactId>lib.tile</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
+    
     <artifactId>lib.tile.subtlepatterns.images</artifactId>
     <name>Lib-Tile-SubtlePatterns-Images</name>
     <packaging>jar</packaging>
+    
     <description>TODO add description</description>
     
     <build>
         <defaultGoal>clean package</defaultGoal>
-        <!-- COMMENT OUT for release -->
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>png</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
-        </plugins>
-        <resources>
-            <!--
-                Hint: Add here the suffixes from the files with should be in the
-                jar included.
-            -->
-            <!-- TODO move to parent-project is okay or in every project needed? -->
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.css</include>
-                    <include>**/*.properties</include>
-                    <include>**/*.png</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.css</include>
-                    <include>**/*.properties</include>
-                    <include>**/*.png</include>
-                </includes>
-            </resource>
-        </resources>
         <finalName>${project.artifactId}-${project.version}</finalName>
     </build>
+    
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -62,4 +26,5 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+    
 </project>

@@ -5,6 +5,7 @@
     <groupId>com.github.naoghuman</groupId>
     <artifactId>lib.tile</artifactId>
     <version>0.1.0-SNAPSHOT</version> <!-- -SNAPSHOT -->
+    
     <packaging>pom</packaging>
     <name>Lib-Tile</name>
     <inceptionYear>2016</inceptionYear>
@@ -71,6 +72,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.0.1</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>png</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -85,7 +91,7 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>**/*.xml</include>
+                    <include>**/*.fxml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
                 </includes>
@@ -96,6 +102,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+		<!-- TODO use commons-lang-3 -->
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>2.6</version>
