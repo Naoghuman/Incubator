@@ -19,6 +19,8 @@ package com.github.naoghuman.lib.tile.core;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -81,8 +83,6 @@ public final class DefaultTileLoader {
     }
 
     public Image loadAsImage(final TileLoader loader, final Tile tile) {
-        // DebugConsole.getDefault().debug(this.getClass(), "Load image: " + image); // NOI18N
-
         if (!loader.isSupported(tile)) {
             throw new UnsupportedOperationException(
                     "The tile-loader " + loader.getClass().getSimpleName() // NOI18N
@@ -93,8 +93,9 @@ public final class DefaultTileLoader {
         try {
             final URI uri = loader.getClass().getResource(tile.getName()).toURI();
             img = new Image(uri.toString(), tile.getWidth(), tile.getHeight(), true, true);
-        } catch (final URISyntaxException ex) {
-            // LoggerFacade.INSTANCE.error(this.getClass(), "Can't load image: " + image, ex); // NOI18N
+        } catch (Exception ex) {
+            Logger.getLogger(DefaultTileLoader.class.getName()).log(Level.SEVERE, 
+                    "Can't load Tile: " + tile.toString(), ex);
         }
 
         return img;
