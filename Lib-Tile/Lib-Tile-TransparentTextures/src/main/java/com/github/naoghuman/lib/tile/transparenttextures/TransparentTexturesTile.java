@@ -343,7 +343,7 @@ public enum TransparentTexturesTile implements Tile {
     TT_SMOOTH_WALL_LIGHT("tt-smooth-wall-light.png", "Smooth Wall (Light)", 358, 358, "Atle Mo", "http://atle.co/"), // NOI18N
     TT_SNEAKER_MESH_FABRIC("tt-sneaker-mesh-fabric.png", "Sneaker Mesh Fabric", 150, 111, "Victor Bejar", ""), // NOI18N
     TT_SNOW("tt-snow.png", "Snow", 500, 500, "Atle Mo", "http://atle.co/"), // NOI18N
-    TT_SOFT_CIRCLE_SCALE("tt-soft-circle-scale.pngs", "Soft Circle Scales", 256, 56, "Ian Soper", ""), // NOI18N
+    TT_SOFT_CIRCLE_SCALES("tt-soft-circle-scales.png", "Soft Circle Scales", 256, 56, "Ian Soper", ""), // NOI18N
     TT_SOFT_KILL("tt-soft-kill.png", "Soft Kill", 28, 48, "Factorio.us Collective", ""), // NOI18N
     TT_SOFT_PAD("tt-soft-pad.png", "Soft Pad", 8, 8, "Badhon Ebrahim", ""), // NOI18N
     TT_SOFT_WALLPAPER("tt-soft-wallpaper.png", "Soft Wallpaper", 666, 666, "Atle Mo", "http://atle.co/"), // NOI18N
