@@ -53,19 +53,19 @@ public final class TransparentTexturesItemPresenter implements Initializable {
     }
     
     public final void configure(Parent parent, TransparentTexturesTile tile) {
-        LoggerFacade.INSTANCE.trace(this.getClass(), "Configure tile: " + tile.getName()); // NOI18N
+        LoggerFacade.INSTANCE.trace(this.getClass(), "Configure tile: " + tile.getImageName()); // NOI18N
         
         this.parent = parent;
         this.tile = tile;
         
         // Header
-        lHeader.setText(tile.getHeader());
+        lHeader.setText(tile.getTitle());
 	
         // Autor
         lAutor.setText(tile.getAutor());
 		
         // Url
-        final String url = tile.getUrl();
+        final String url = tile.getAutorUrl();
         if (
                 (url != null)
                 && (!url.isEmpty())

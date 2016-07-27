@@ -17,7 +17,6 @@
 package com.github.naoghuman.lib.tile.core;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,33 +43,33 @@ public final class DefaultTileLoader {
 
     }
 
-    public void checkParameters(final String name, final String header, final double width, final double height) {
-        if (name == null) {
-            throw new NullPointerException("Parameter 'name' can't be NULL"); // NOI18N
+    public void checkParameters(final String imageName, final String title, final double width, final double height) {
+        if (imageName == null) {
+            throw new NullPointerException("The parameter 'imageName' can't be NULL"); // NOI18N
         }
         
-        if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Parameter 'name' can't be EMPTY"); // NOI18N
+        if (imageName.trim().isEmpty()) {
+            throw new IllegalArgumentException("The parameter 'imageName' can't be EMPTY"); // NOI18N
         }
 
-        if (header == null) {
-            throw new NullPointerException("Parameter 'header' can't be NULL"); // NOI18N
+        if (title == null) {
+            throw new NullPointerException("The parameter 'title' can't be NULL"); // NOI18N
         }
 
-        if (header.trim().isEmpty()) {
-            throw new IllegalArgumentException("Parameter 'header' can't be EMPTY"); // NOI18N
+        if (title.trim().isEmpty()) {
+            throw new IllegalArgumentException("The parameter 'title' can't be EMPTY"); // NOI18N
         }
 
         if (width <= 0.0d) {
-            throw new IllegalArgumentException("Parameter 'width' can't <= 0.0d"); // NOI18N
+            throw new IllegalArgumentException("The parameter 'width' can't <= 0.0d"); // NOI18N
         }
 
         if (height <= 0.0d) {
-            throw new UnsupportedOperationException("Parameter 'height' can't <= 0.0d"); // NOI18N
+            throw new IllegalArgumentException("The parameter 'height' can't <= 0.0d"); // NOI18N
         }
     }
 
-    public Background loadAsBackground(final TileLoader loader, final Tile tile) {
+    public Background loadAsBackground(final AbstractTileLoader loader, final Tile tile) {
         final Image overlay = DefaultTileLoader.getDefault().loadAsImage(loader, tile);
 
         final BackgroundSize backgroundSize = new BackgroundSize(tile.getWidth(), tile.getHeight(), 
@@ -82,16 +81,16 @@ public final class DefaultTileLoader {
         return background;
     }
 
-    public Image loadAsImage(final TileLoader loader, final Tile tile) {
+    public Image loadAsImage(final AbstractTileLoader loader, final Tile tile) {
         if (!loader.isSupported(tile)) {
             throw new UnsupportedOperationException(
                     "The tile-loader " + loader.getClass().getSimpleName() // NOI18N
-                    + " doesn't support the Tile: " + tile.getName()); // NOI18N
+                    + " doesn't support the Tile: " + tile.toString()); // NOI18N
         }
 
         Image img = null;
         try {
-            final URI uri = loader.getClass().getResource(tile.getName()).toURI();
+            final URI uri = loader.getClass().getResource(tile.getImageName()).toURI();
             img = new Image(uri.toString(), tile.getWidth(), tile.getHeight(), true, true);
         } catch (Exception ex) {
             Logger.getLogger(DefaultTileLoader.class.getName()).log(Level.SEVERE, 

@@ -447,13 +447,13 @@ public enum TransparentTexturesTile implements Tile {
 
     TT_ZIG_ZAG("tt-zig-zag.png", "Zig Zag", 10, 10, "Dmitriy Prodchenko", ""); // NOI18N
 
-    private final double height; // (must)
-    private final double width; // (must)
+    private final double height;
+    private final double width;
 
     private final String autor;
-    private final String header; // (must)
-    private final String name; // (must)
-    private final String url;
+    private final String autorUrl;
+    private final String imageName;
+    private final String title;
 
     TransparentTexturesTile(
             final String name, final String header,
@@ -464,18 +464,18 @@ public enum TransparentTexturesTile implements Tile {
     }
 
     TransparentTexturesTile(
-            final String name, final String header,
+            final String imageName, final String title,
             final double width, final double height,
-            final String autor, final String url
+            final String autor, final String autorUrl
     ) {
-        this.name = name;
-        this.header = header;
+        this.imageName = imageName;
+        this.title = title;
         this.width = width;
         this.height = height;
         this.autor = autor;
-        this.url = url;
+        this.autorUrl = autorUrl;
 
-        DefaultTileLoader.getDefault().checkParameters(name, header, width, height);
+        DefaultTileLoader.getDefault().checkParameters(imageName, title, width, height);
     }
 
     @Override
@@ -484,8 +484,8 @@ public enum TransparentTexturesTile implements Tile {
     }
 
     @Override
-    public String getHeader() {
-        return header;
+    public String getAutorUrl() {
+        return autorUrl;
     }
 
     @Override
@@ -494,13 +494,13 @@ public enum TransparentTexturesTile implements Tile {
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getImageName() {
+        return imageName;
     }
 
     @Override
-    public String getUrl() {
-        return url;
+    public String getTitle() {
+        return title;
     }
 
     @Override
@@ -512,9 +512,9 @@ public enum TransparentTexturesTile implements Tile {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("Tile ["); // NOI18N
-        sb.append("name=").append(this.getName()); // NOI18N
+        sb.append("imageName=").append(this.getImageName()); // NOI18N
         sb.append(", "); // NOI18N
-        sb.append("header=").append(this.getHeader()); // NOI18N
+        sb.append("title=").append(this.getTitle()); // NOI18N
         sb.append(", "); // NOI18N
         sb.append("w=").append(this.getWidth()); // NOI18N
         sb.append(", "); // NOI18N
@@ -522,13 +522,13 @@ public enum TransparentTexturesTile implements Tile {
         sb.append(", "); // NOI18N
         sb.append("autor=").append(this.getAutor()); // NOI18N
         
-        final String url = this.getUrl();
+        final String autorUrl = this.getAutorUrl();
         if (
-                (url != null)
-                && (!url.isEmpty())
+                (autorUrl != null)
+                && (!autorUrl.isEmpty())
         ) {
             sb.append(", "); // NOI18N
-            sb.append("url=").append(url); // NOI18N
+            sb.append("autorUrl=").append(autorUrl); // NOI18N
         }
                 
         sb.append("]"); // NOI18N

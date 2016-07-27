@@ -23,7 +23,7 @@ import javafx.scene.layout.Background;
  *
  * @author Naoghuman
  */
-public interface TileLoader {
+public interface AbstractTileLoader {
 
     /**
      * 
@@ -44,12 +44,12 @@ public interface TileLoader {
      * @return 
      */
     public Background loadAsBackground(Tile tile);
-
+    
     /**
      * 
      * @param tile
      * @return 
      */
     public Image loadAsImage(Tile tile);
-
+    
 }

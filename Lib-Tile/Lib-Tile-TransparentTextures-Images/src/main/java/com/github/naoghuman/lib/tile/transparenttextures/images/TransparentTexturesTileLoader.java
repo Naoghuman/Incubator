@@ -19,7 +19,7 @@ package com.github.naoghuman.lib.tile.transparenttextures.images;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import com.github.naoghuman.lib.tile.core.Tile;
-import com.github.naoghuman.lib.tile.core.TileLoader;
+import com.github.naoghuman.lib.tile.core.AbstractTileLoader;
 import com.github.naoghuman.lib.tile.core.DefaultTileLoader;
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ import java.util.Optional;
  *
  * @author Naoghuman
  */
-public final class TransparentTexturesTileLoader implements TileLoader {
+public final class TransparentTexturesTileLoader implements AbstractTileLoader {
 	
     private static final Optional<TransparentTexturesTileLoader> instance = Optional.of(new TransparentTexturesTileLoader());
 
@@ -46,7 +46,7 @@ public final class TransparentTexturesTileLoader implements TileLoader {
 
     @Override
     public boolean isSupported(final Tile tile) {
-        final String name = tile.getName();
+        final String name = tile.getImageName();
         final boolean isSupported = 
                 (name != null)
                 && (!name.trim().isEmpty())

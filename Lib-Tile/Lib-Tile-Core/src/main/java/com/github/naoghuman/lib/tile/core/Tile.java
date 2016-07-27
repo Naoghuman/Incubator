@@ -26,36 +26,36 @@ public interface Tile {
      * 
      * @return 
      */
-    public double getHeight(); // (must)
-    
-    /**
-     * 
-     * @return 
-     */
-    public double getWidth(); // (must)
-    
-    /**
-     * 
-     * @return 
-     */
     public String getAutor();
     
     /**
      * 
      * @return 
      */
-    public String getHeader(); // (must)
+    public String getAutorUrl();
     
     /**
      * 
      * @return 
      */
-    public String getName(); // (must)
+    public double getHeight();
     
     /**
      * 
      * @return 
      */
-    public String getUrl();
+    public String getImageName();
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getTitle();
+    
+    /**
+     * 
+     * @return 
+     */
+    public double getWidth();
 
 }
