@@ -17,7 +17,6 @@
 package com.github.naoghuman.lib.tile.subtlepatterns;
 
 import com.github.naoghuman.lib.tile.core.Tile;
-import com.github.naoghuman.lib.tile.core.DefaultTileLoader;
 
 /**
  *
@@ -46,8 +45,6 @@ public enum SubtlePatternsTile implements Tile {
         this.height = height;
         this.autor = autor;
         this.autorUrl = autorUrl;
-
-        DefaultTileLoader.getDefault().checkParameters(imageName, title, width, height);
     }
 
     @Override

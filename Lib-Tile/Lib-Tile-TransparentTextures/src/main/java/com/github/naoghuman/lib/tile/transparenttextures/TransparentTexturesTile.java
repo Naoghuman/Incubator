@@ -17,7 +17,6 @@
 package com.github.naoghuman.lib.tile.transparenttextures;
 
 import com.github.naoghuman.lib.tile.core.Tile;
-import com.github.naoghuman.lib.tile.core.DefaultTileLoader;
 
 /**
  *
@@ -474,8 +473,6 @@ public enum TransparentTexturesTile implements Tile {
         this.height = height;
         this.autor = autor;
         this.autorUrl = autorUrl;
-
-        DefaultTileLoader.getDefault().checkParameters(imageName, title, width, height);
     }
 
     @Override
