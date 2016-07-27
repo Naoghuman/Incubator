@@ -1,4 +1,1 @@
-/database/
-/log/
-/target/
-/todo/
+*.versionsBackup

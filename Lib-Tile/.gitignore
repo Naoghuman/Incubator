@@ -1,4 +1,8 @@
-/database/
-/log/
-/target/
-/todo/
+/Lib-Tile-Core/target/
+/Lib-Tile-Demo/log/
+/Lib-Tile-Demo/target/
+/Lib-Tile-Demo/Preferences.properties
+/Lib-Tile-SubtlePatterns/target/
+/Lib-Tile-SubtlePatterns-Images/target/
+/Lib-Tile-TransparentTextures/target/
+/Lib-Tile-TransparentTextures-Images/target/
