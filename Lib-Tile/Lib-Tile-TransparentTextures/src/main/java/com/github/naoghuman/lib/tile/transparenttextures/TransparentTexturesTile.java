@@ -19,8 +19,17 @@ package com.github.naoghuman.lib.tile.transparenttextures;
 import com.github.naoghuman.lib.tile.core.Tile;
 
 /**
+ * The <code>enum</code> TransparentTexturesTile is a collection from 
+ * {@link com.github.naoghuman.lib.tile.core.Tile}s which representated the 
+ * <code>Tileset</code> from the internet page https://www.transparenttextures.com/.
+ * <p />
+ * The individual {@link com.github.naoghuman.lib.tile.core.Tile} can be loaded 
+ * with the class {@link com.github.naoghuman.lib.tile.transparenttextures.images.TransparentTexturesTileLoader} 
+ * from the associated library <code>Lib-Tile-TransparentTextures-Images</code>.
  *
  * @author Naoghuman
+ * @see com.github.naoghuman.lib.tile.core.Tile
+ * @see com.github.naoghuman.lib.tile.transparenttextures.images.TransparentTexturesTileLoader
  */
 public enum TransparentTexturesTile implements Tile {
 
