@@ -7,18 +7,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox id="VBox" prefHeight="264.0" prefWidth="242.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundPresenter">
+<VBox id="VBox" prefHeight="264.0" prefWidth="242.0" spacing="7.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundPresenter">
     <children>
         <VBox spacing="2.0">
             <children>
-                <Label text="URL to the image" />
+                <Label text="Background image" />
                 <HBox spacing="7.0">
                     <children>
-                        <TextField fx:id="tfUrlBackgroundImage" onAction="#onActionLoadBackgroundImage" promptText="The image will be resized to 1280 x 720" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="tfUrlBackgroundImage" onAction="#onActionLoadBackgroundImage" promptText="URL to the image, will be resized to 1280x720" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#onActionLoadBackgroundImage" prefWidth="64.0" text="Load" />
                     </children>
                 </HBox>
             </children>
         </VBox>
+      <VBox>
+         <children>
+            <Label text="Background color" />
+            <ColorPicker fx:id="cpBackgroundColor" maxWidth="1.7976931348623157E308" />
+         </children>
+      </VBox>
     </children>
 </VBox>

@@ -22,10 +22,10 @@ import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
@@ -35,17 +35,34 @@ import javafx.scene.control.Tooltip;
  */
 public class BackgroundPresenter implements Initializable, IRegisterActions {
     
+    @FXML private ColorPicker cpBackgroundColor;
     @FXML private TextField tfUrlBackgroundImage;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize BackgroundPresenter"); // NOI18N
         
-        this.initializeTextField();
+        this.initializeColorPickerForBackgroundColor();
+        this.initializeTextFieldForBackgroundImage();
     }
     
-    private void initializeTextField() {
-        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize TextField"); // NOI18N
+    private void initializeColorPickerForBackgroundColor() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ColorPicker for background color"); // NOI18N
+        
+        /**
+         * TODO
+         *  - catch last color from properties file
+         *     a) load the color into the colorpicker
+         *     b) fire action -> change background color
+         *  - add changelistener to the colorpicker
+         *     - if changed then
+         *        a) fire action -> change background color
+         *        b) save the new color to the properties file
+         */
+    }
+    
+    private void initializeTextFieldForBackgroundImage() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize TextField for background image"); // NOI18N
         
         final Tooltip tt = new Tooltip("Empty URL reset the background image");
         tfUrlBackgroundImage.setTooltip(tt);
