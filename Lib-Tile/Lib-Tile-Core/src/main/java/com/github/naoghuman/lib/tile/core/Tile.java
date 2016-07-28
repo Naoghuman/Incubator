@@ -17,10 +17,13 @@
 package com.github.naoghuman.lib.tile.core;
 
 /**
- * A <code>Tile</code> is per definition a little transparent image which overlay
- * a background color or image with the help of repetitions from the image.
+ * A <code>Tile</code> is per definition a little transparent 
+ * {@link javafx.scene.image.Image} which overlay a background color or an 
+ * {@link javafx.scene.image.Image} with the help of repetitions from the 
+ * {@link javafx.scene.image.Image} in a layer.
  *
  * @author Naoghuman
+ * @see javafx.scene.image.Image
  */
 public interface Tile {
 
