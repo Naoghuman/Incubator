@@ -28,10 +28,11 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 
 /**
- * The singleton <code>DefaultTileLoader</code> alloweds the developer to load a 
+ * The singleton <code>DefaultTileLoader</code> allowed the developer to load a 
  * {@link com.github.naoghuman.lib.tile.core.Tile} as a 
  * {@link javafx.scene.layout.Background} or an {@link javafx.scene.image.Image} 
- * with an {@link com.github.naoghuman.lib.tile.core.AbstractTileLoader}.
+ * with a concrete implementation from an 
+ * {@link com.github.naoghuman.lib.tile.core.AbstractTileLoader}.
  * 
  * @author Naoghuman
  * @see com.github.naoghuman.lib.tile.core.AbstractTileLoader
@@ -93,9 +94,11 @@ public final class DefaultTileLoader {
     }
 
     /**
-     * Loads a {@link javafx.scene.layout.Background} with the given 
+     * Loads an {@link javafx.scene.image.Image} with the given 
      * {@link com.github.naoghuman.lib.tile.core.AbstractTileLoader} and 
-     * {@link com.github.naoghuman.lib.tile.core.Tile}.
+     * {@link com.github.naoghuman.lib.tile.core.Tile}. Then the 
+     * {@link javafx.scene.image.Image} will be converted to a 
+     * {@link javafx.scene.layout.Background} and returned.
      * <p />
      * First it will be checked if the given 
      * {@link com.github.naoghuman.lib.tile.core.AbstractTileLoader} supports the 
@@ -103,7 +106,8 @@ public final class DefaultTileLoader {
      * {@link java.lang.UnsupportedOperationException} is thrown.<br />
      * Secondly the method 
      * {@link #checkParameters(java.lang.String, java.lang.String, double, double)}
-     * is called to check the given parameters. See there for more informations.
+     * is called to check the given parameters. See the <code>JavaDoc</code> from 
+     * the method for more informations.
      * 
      * @param loader the loader which loads the given 
      * {@link com.github.naoghuman.lib.tile.core.Tile} as an 
@@ -115,6 +119,7 @@ public final class DefaultTileLoader {
      * @see com.github.naoghuman.lib.tile.core.AbstractTileLoader
      * @see com.github.naoghuman.lib.tile.core.Tile
      * @see javafx.scene.layout.Background
+     * @see javafx.scene.image.Image
      * @see #checkParameters(java.lang.String, java.lang.String, double, double)
      */
     public Background loadAsBackground(final AbstractTileLoader loader, final Tile tile) {
@@ -140,7 +145,8 @@ public final class DefaultTileLoader {
      * {@link java.lang.UnsupportedOperationException} is thrown.<br />
      * Secondly the method 
      * {@link #checkParameters(java.lang.String, java.lang.String, double, double)}
-     * is called to check the given parameters. See there for more informations.
+     * is called to check the given parameters. See the <code>JavaDoc</code> from 
+     * the method for more informations.
      * 
      * @param loader the loader which loads the given 
      * {@link com.github.naoghuman.lib.tile.core.Tile} as an 
