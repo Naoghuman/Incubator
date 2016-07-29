@@ -6,12 +6,14 @@ Lib-Tile
 Intention
 ---
 
-`Lib-Tile` provides the functionalities to use `Tiles` in your [JavaFX] application.
+`Lib-Tile` provides the functionalities to use [Tile]s in your [JavaFX] application.
 
-A `Tile` is per definition a little transparent [Image] which overlay a 
+A [Tile] is per definition a little transparent [Image] which overlay a 
 background-color or -image with the help of repetitions from the image in a layer.
 
-TODO add screenshot which shows different tiles in the same image.
+The current `version` is `0.1.0` from MM.dd.2016.
+
+TODO add screenshots which shows different tiles in the same image.
 
 
 
@@ -52,8 +54,11 @@ Currently supported is [Transparent Textures] with the libraries
 <br />
 ##### Lib-Tile-Core<a name="LiTiCo" />
 
-The library `Lib-Tile-Core` provides the main functionalities to load a [Tile] as 
-a [Background] or an [Image] with a concrete implementation from an [AbstractTileLoader].
+The library `Lib-Tile-Core` provides the main functionalities to load a [Tile] 
+as a [Background] or an [Image] with a concrete implementation from an 
+[AbstractTileLoader].
+
+TODO add screenshot from the package
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-Core].
 
@@ -61,7 +66,23 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Core].
 <br />
 ##### Lib-Tile-Demo<a name="LiTiDe" />
 
-TODO add section
+The demo application can be easily started with a double click on the jar file. 
+It's also possible to start the application in a IDE with the class 
+[StartApplication].
+
+TODO add screenshot from the demo application
+
+Momentary the developer have following features during the demo application:
+* Choose an own background image.
+* Define an own background color.
+* Browse through all `tiles` from the tileset `Transparent Textures`.
+
+__Hint:__  
+For the future I plan to implement the feature that the developer can define 
+own `tilesets` based on the existing `tilesets`. That's mean the developer can 
+say I will have only the [Tile]s `a, b, c` from the tileset `xy`. During that 
+definition only the choosen tile images needed to be included into the target 
+application.
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 
@@ -69,7 +90,14 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 <br />
 ##### Lib-Tile-TransparentTextures<a name="LiTiTrTe" />
 
-TODO add section
+With the library `Lib-Tile-TransparentTextures` the developer have access to the 
+tileset `Transparent Textures` from the internet page https://www.transparenttextures.com/ 
+through the enum `TransparentTexturesTile`.
+
+The tile images from this tileset are outsourced in a own library 
+`Lib-Tile-TransparentTextures-Images` to reduce the size from this library.
+
+TODO add screenshot from the package
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-TransparentTextures].
 
@@ -77,7 +105,15 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Transparent
 <br />
 ##### Lib-Tile-TransparentTextures-Images<a name="LiTiTrTeIm" />
 
-TODO add section
+The library `Lib-Tile-TransparentTextures-Images` contains all images from the 
+tileset `Transparent Textures` and the loader `TransparentTexturesTileLoader` 
+which allowed the developer to load a single [Tile] image.
+
+In the examples from this library is also an example how to load only `xy` tile 
+images, so that's not necessary to include the hole library (which size is 
+momentary 13MB) in an application.
+
+TODO add screenshot from the package
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-TransparentTextures-Images].
 
@@ -86,7 +122,22 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Transparent
 Download<a name="Download" />
 ---
 
-TODO add section
+There are different `zip` files as download available. Plz choose the right one 
+in dependency from your necessities:
+* Download Lib-Tile-Core-0.1.0.zip
+    * Contains only the library lib-tile-core-0.1.0.jar.
+    * You need to define your own [AbstractTileLoader] and your own [Tile]s 
+      images in your application.
+* Download Lib-Tile-Core-And-TransparentTextures-0.1.0.zip
+    * Contains the libraries lib-tile-core-0.1.0.jar, lib-tile-transparenttextures-0.1.0.jar, 
+      lib-tile-transparenttextures-images-0.1.0.jar.
+    * You can use the predefined tileset `Transparent Textures` in your application.
+* Download Lib-Tile-Demo-0.1.0.zip
+    * Contains the library lib-tile-demo-0.1.0.jar as an executable jar  
+      with included libraries lib-tile-core-0.1.0.jar, lib-tile-transparenttextures-0.1.0.jar, 
+      lib-tile-transparenttextures-images-0.1.0.jar.
+    * Use the demo application as a preview how the chosen tiles will be looks 
+      over your chosen background.
 
 
 
@@ -157,5 +208,6 @@ You can reach me under <peter.rogge@yahoo.de>.
 [ReadMe from Lib-Tile-Demo]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Demo
 [ReadMe from Lib-Tile-TransparentTextures]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures
 [ReadMe from Lib-Tile-TransparentTextures-Images]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures-Images
+[StartApplication]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Demo/src/main/java/com/github/naoghuman/lib/tile/demo/application/StartApplication.java
 [Tile]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Core/src/main/java/com/github/naoghuman/lib/tile/core/Tile.java
 [Transparent Textures]:https://www.transparenttextures.com/
