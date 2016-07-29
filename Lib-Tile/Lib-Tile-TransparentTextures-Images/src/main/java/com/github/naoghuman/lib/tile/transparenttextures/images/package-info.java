@@ -16,6 +16,14 @@
  */
 
 /**
- * TODO
+ * The main functionality from this package is to allowed the developer to load 
+ * a {@link com.github.naoghuman.lib.tile.core.Tile} which must be defined in the 
+ * enum {@link com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile} 
+ * as a {@link javafx.scene.layout.Background} or an {@link javafx.scene.image.Image} 
+ * with the class {@link com.github.naoghuman.lib.tile.transparenttextures.images.TransparentTexturesTileLoader}.
+ *
+ * @see com.github.naoghuman.lib.tile.core.Tile
+ * @see com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile
+ * @see com.github.naoghuman.lib.tile.transparenttextures.images.TransparentTexturesTileLoader
  */
 package com.github.naoghuman.lib.tile.transparenttextures.images;
