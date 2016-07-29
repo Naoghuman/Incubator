@@ -52,7 +52,7 @@ Currently supported is [Transparent Textures] with the libraries
 
 
 <br />
-##### Lib-Tile-Core<a name="LiTiCo" />
+### Lib-Tile-Core<a name="LiTiCo" />
 
 The library `Lib-Tile-Core` provides the main functionalities to load a [Tile] 
 as a [Background] or an [Image] with a concrete implementation from an 
@@ -64,7 +64,7 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Core].
 
 
 <br />
-##### Lib-Tile-Demo<a name="LiTiDe" />
+### Lib-Tile-Demo<a name="LiTiDe" />
 
 The demo application can be easily started with a double click on the jar file. 
 It's also possible to start the application in a IDE with the class 
@@ -88,7 +88,7 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 
 
 <br />
-##### Lib-Tile-TransparentTextures<a name="LiTiTrTe" />
+### Lib-Tile-TransparentTextures<a name="LiTiTrTe" />
 
 With the library `Lib-Tile-TransparentTextures` the developer have access to the 
 tileset `Transparent Textures` from the internet page https://www.transparenttextures.com/ 
@@ -103,7 +103,7 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Transparent
 
 
 <br />
-##### Lib-Tile-TransparentTextures-Images<a name="LiTiTrTeIm" />
+### Lib-Tile-TransparentTextures-Images<a name="LiTiTrTeIm" />
 
 The library `Lib-Tile-TransparentTextures-Images` contains all images from the 
 tileset `Transparent Textures` and the loader `TransparentTexturesTileLoader` 
