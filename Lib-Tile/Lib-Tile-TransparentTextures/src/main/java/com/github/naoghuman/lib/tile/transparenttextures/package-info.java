@@ -16,6 +16,10 @@
  */
 
 /**
- * TODO
+ * This package allowed access to the tileset <code>Transparent Textures<code> 
+ * from the internet page https://www.transparenttextures.com/ through the enum 
+ * {@link com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile}.
+ * 
+ * @see com.github.naoghuman.lib.tile.transparenttextures.TransparentTexturesTile
  */
 package com.github.naoghuman.lib.tile.transparenttextures;
