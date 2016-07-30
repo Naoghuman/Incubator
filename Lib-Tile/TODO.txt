@@ -11,3 +11,35 @@ log-files
  - The configuration in 'log4j2.xml' wont be applied.
 
 --------------------------------------------------------------------------------
+DOCUMENTATION
+ - Write READMEs from the libraries.
+ - Add Screenshots.
+
+ - Example to customize predefined tile(-loader)?
+
+--------------------------------------------------------------------------------
+VIDEO
+ - Create short video for Twitter.
+ - Upload it also to YouTube (or longer version).
+
+--------------------------------------------------------------------------------
+ARTICLE
+ - Write short article?
+
+--------------------------------------------------------------------------------
+PREPERATION for publication
+ - Check JavaDoc
+ - Check ReadMes
+ - Check Screenshots
+ - Videos ready?
+ - Article okay?
+
+--------------------------------------------------------------------------------
+PUBLISH the project
+ - Create on project in GitHub.
+ - Move content to the new project.
+ - Release it.
+ - Tweet about it.
+ - Email to FXExpierence.
+
+--------------------------------------------------------------------------------
