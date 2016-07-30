@@ -22,9 +22,11 @@ package com.github.naoghuman.lib.tile.demo.configuration;
  */
 public interface IActionConfiguration {
     
+    public static final String ON_ACTION__RESET_BACKGROUND_COLOR = "ON_ACTION__RESET_BACKGROUND_COLOR"; // NOI18N
     public static final String ON_ACTION__RESET_BACKGROUND_IMAGE = "ON_ACTION__RESET_BACKGROUND_IMAGE"; // NOI18N
     public static final String ON_ACTION__RESET_TILE_BACKGROUND = "ON_ACTION__RESET_TILE_BACKGROUND"; // NOI18N
     
+    public static final String ON_ACTION__SHOW_BACKGROUND_COLOR = "ON_ACTION__SHOW_BACKGROUND_COLOR"; // NOI18N
     public static final String ON_ACTION__SHOW_BACKGROUND_IMAGE = "ON_ACTION__SHOW_BACKGROUND_IMAGE"; // NOI18N
     public static final String ON_ACTION__SHOW_TILE_BACKGROUND = "ON_ACTION__SHOW_TILE_BACKGROUND"; // NOI18N
     

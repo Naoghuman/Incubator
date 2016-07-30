@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
+import com.github.naoghuman.lib.tile.demo.configuration.IApplicationConfiguration;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -28,12 +29,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.paint.Color;
 
 /**
+ * https://wall.alphacoders.com
  *
  * @author Naoghuman
  */
-public class BackgroundPresenter implements Initializable, IRegisterActions {
+public class BackgroundPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
     @FXML private ColorPicker cpBackgroundColor;
     @FXML private TextField tfUrlBackgroundImage;
@@ -59,6 +62,8 @@ public class BackgroundPresenter implements Initializable, IRegisterActions {
          *        a) fire action -> change background color
          *        b) save the new color to the properties file
          */
+        
+        cpBackgroundColor.setValue(IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR);
     }
     
     private void initializeTextFieldForBackgroundImage() {
@@ -83,14 +88,33 @@ public class BackgroundPresenter implements Initializable, IRegisterActions {
                 || (url.isEmpty())
         ) {
             // Reset the Background image
-            ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__RESET_BACKGROUND_IMAGE);
+            ActionFacade.INSTANCE.handle(ON_ACTION__RESET_BACKGROUND_IMAGE);
             return;
         }
         
         // Load new Background image
         final TransferData data = new TransferData();
-        data.setActionId(IActionConfiguration.ON_ACTION__SHOW_BACKGROUND_IMAGE);
+        data.setActionId(ON_ACTION__SHOW_BACKGROUND_IMAGE);
         data.setString(url);
+        
+        ActionFacade.INSTANCE.handle(data);
+    }
+    
+    public void onActionResetBackgroundColor() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background color"); // NOI18N
+        
+        cpBackgroundColor.setValue(IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR);
+        ActionFacade.INSTANCE.handle(ON_ACTION__RESET_BACKGROUND_COLOR);
+    }
+    
+    public void onActionShowBackgroundColor() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background color"); // NOI18N
+        
+        final TransferData data = new TransferData();
+        data.setActionId(ON_ACTION__SHOW_BACKGROUND_COLOR);
+        
+        final Color backgroundColor = cpBackgroundColor.getValue();
+        data.setObject(backgroundColor);
         
         ActionFacade.INSTANCE.handle(data);
     }

@@ -23,7 +23,12 @@
       <VBox>
          <children>
             <Label text="Background color" />
-            <ColorPicker fx:id="cpBackgroundColor" maxWidth="1.7976931348623157E308" />
+            <HBox spacing="7.0">
+               <children>
+                  <ColorPicker fx:id="cpBackgroundColor" maxWidth="1.7976931348623157E308" onAction="#onActionShowBackgroundColor" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#onActionResetBackgroundColor" prefWidth="64.0" text="Reset" />
+               </children>
+            </HBox>
          </children>
       </VBox>
     </children>

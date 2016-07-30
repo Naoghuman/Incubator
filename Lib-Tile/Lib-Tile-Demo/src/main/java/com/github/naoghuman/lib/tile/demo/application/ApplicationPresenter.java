@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
+import com.github.naoghuman.lib.tile.demo.configuration.IApplicationConfiguration;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundPresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundView;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter;
@@ -31,12 +32,16 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -44,6 +49,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class ApplicationPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
+    @FXML private AnchorPane apBackground;
     @FXML private AnchorPane apTileBackground;
     @FXML private BorderPane bpBackground;
     @FXML private BorderPane bpTile;
@@ -98,6 +104,13 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         bpTile.setCenter(view.getView());
     }
     
+    private void onActionResetBackgroundColor() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
+        
+        apBackground.setBackground(new Background(new BackgroundFill(
+                IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+    
     private void onActionResetBackgroundImage() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
         
@@ -110,10 +123,15 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         apTileBackground.setBackground(null);
     }
     
+    private void onActionShowBackgroundColor(Color backgroundColor) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background color"); // NOI18N
+        
+        apBackground.setBackground(new Background(new BackgroundFill(
+                backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+    
     private void onActionShowBackgroundImage(String url) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background image"); // NOI18N
-        // https://initiate.alphacoders.com/images/107/cropped-1280-720-10767.png?5608
-        // https://initiate.alphacoders.com/images/742/cropped-1280-720-742.jpg?6785
         
         try {
             final Image image = new Image(url, 1280.0d, 720.0d, true, true);
@@ -136,10 +154,23 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
         
+        this.registerOnActionResetBackgroundColor();
         this.registerOnActionResetBackgroundImage();
         this.registerOnActionResetTileImage();
+        
+        this.registerOnActionShowBackgroundColor();
         this.registerOnActionShowBackgroundImage();
         this.registerOnActionShowTileImage();
+    }
+
+    private void registerOnActionResetBackgroundColor() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action reset Background color"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__RESET_BACKGROUND_COLOR,
+                (ActionEvent event) -> {
+                    this.onActionResetBackgroundColor();
+                });
     }
 
     private void registerOnActionResetBackgroundImage() {
@@ -159,6 +190,18 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 ON_ACTION__RESET_TILE_BACKGROUND,
                 (ActionEvent event) -> {
                     this.onActionResetTileBackground();
+                });
+    }
+    
+    private void registerOnActionShowBackgroundColor() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action show Background color"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__SHOW_BACKGROUND_COLOR,
+                (ActionEvent event) -> {
+                    final TransferData data = (TransferData) event.getSource();
+                    final Color backgroundColor = (Color) data.getObject();
+                    this.onActionShowBackgroundColor(backgroundColor);
                 });
     }
 

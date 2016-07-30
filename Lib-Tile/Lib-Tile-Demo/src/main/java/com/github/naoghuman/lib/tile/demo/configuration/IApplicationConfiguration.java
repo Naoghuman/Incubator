@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.lib.tile.demo.configuration;
 
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -23,6 +24,8 @@ import javafx.util.Duration;
  * @author Naoghuman
  */
 public interface IApplicationConfiguration {
+    
+    public static final Color DEFAULT_BACKGROUND_COLOR = Color.AQUAMARINE;
     
     public static final Duration DURATION__125 = Duration.millis(125.0d);
     
