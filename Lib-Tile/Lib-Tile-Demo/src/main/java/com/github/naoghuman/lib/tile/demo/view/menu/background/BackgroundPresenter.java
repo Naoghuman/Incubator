@@ -60,24 +60,14 @@ public class BackgroundPresenter implements Initializable, IActionConfiguration,
     private void initializeColorPickerForBackgroundColor() {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ColorPicker for background color"); // NOI18N
         
-        /**
-         * TODO
-         *  - catch last color from properties file
-         *     a) load the color into the colorpicker
-         *     b) fire action -> change background color
-         *  - add changelistener to the colorpicker
-         *     - if changed then
-         *        a) fire action -> change background color
-         *        b) save the new color to the properties file
-         */
-        
         cpBackgroundColor.setValue(IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR);
     }
     
     private void initializeTextFieldForBackgroundImage() {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize TextField for background image"); // NOI18N
         
-        final Tooltip tt = new Tooltip("Empty URL reset the background image");
+        final Tooltip tt = new Tooltip("Images will be resized to 1280x720" // NOI18N
+                + "\nEmpty URL reset the background image"); // NOI18N
         tfUrlBackgroundImage.setTooltip(tt);
     }
     
