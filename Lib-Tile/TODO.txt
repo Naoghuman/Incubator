@@ -11,10 +11,55 @@ log-files
  - The configuration in 'log4j2.xml' wont be applied.
 
 --------------------------------------------------------------------------------
-DOCUMENTATION
- - Write READMEs from the libraries.
- - Add Screenshots.
+CHECK-LIST JavaDoc
+ - Lib-Tile
+    - (v) NO JavaDoc (parent modul haven't source code)
+ - Lib-Tile-Core
+    - (v) AbstractTileLoader.java
+    - (v) DefaultTileLoader.java
+    - (v) Tile.java
+    - (v) package-info.java
+ - Lib-Tile-Demo
+    - ( ) do or not?
+ - Lib-Tile-SubtlePatterns
+    - (v) NO JavaDoc (library will integrated in later version)
+ - Lib-Tile-SubtlePatterns-Images
+    - (v) NO JavaDoc (library will integrated in later version)
+ - Lib-Tile-TransparentTextures
+    - (v) TransparentTexturesTile.java
+    - (v) package-info.java
+ - Lib-Tile-TransparentTextures-Images
+    - (v) TransparentTexturesTileLoader.java
+    - (v) package-info.java
 
+--------------------------------------------------------------------------------
+CHECK-LIST README.md
+ - Lib-Tile
+    - ( ) ReadMe.md
+ - Lib-Tile-Core
+    - ( ) ReadMe.md
+ - Lib-Tile-Demo
+    - ( ) ReadMe.md
+ - Lib-Tile-SubtlePatterns
+    - ( ) No ReadMe.md  (library will integrated in later version)
+ - Lib-Tile-SubtlePatterns-Images
+    - ( ) NO ReadMe.md  (library will integrated in later version)
+ - Lib-Tile-TransparentTextures
+    - ( ) ReadMe.md
+ - Lib-Tile-TransparentTextures-Images
+    - ( ) ReadMe.md
+
+--------------------------------------------------------------------------------
+CHECK-LIST Extras
+TransparentTexturesTile.java
+ - ( ) Add missing autorUrl
+
+DefaultTileLoader.java
+ - ( ) Check functionality for checking the must-have parameters.
+
+--------------------------------------------------------------------------------
+DOCUMENTATION
+ - Add screenshots
  - Example to customize predefined tile(-loader)?
 
 --------------------------------------------------------------------------------
