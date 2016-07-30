@@ -24,11 +24,7 @@ CHECK-LIST JavaDoc
     - (v) Tile.java
     - (v) package-info.java
  - Lib-Tile-Demo
-    - ( ) do or not?
- - Lib-Tile-SubtlePatterns
-    - (v) NO JavaDoc (library will integrated in later version)
- - Lib-Tile-SubtlePatterns-Images
-    - (v) NO JavaDoc (library will integrated in later version)
+    - ( ) JavaDoc yes or no?
  - Lib-Tile-TransparentTextures
     - (v) TransparentTexturesTile.java
     - (v) package-info.java
@@ -44,14 +40,18 @@ CHECK-LIST README.md
     - ( ) ReadMe.md
  - Lib-Tile-Demo
     - ( ) ReadMe.md
- - Lib-Tile-SubtlePatterns
-    - ( ) No ReadMe.md  (library will integrated in later version)
- - Lib-Tile-SubtlePatterns-Images
-    - ( ) NO ReadMe.md  (library will integrated in later version)
  - Lib-Tile-TransparentTextures
     - ( ) ReadMe.md
  - Lib-Tile-TransparentTextures-Images
     - ( ) ReadMe.md
+
+--------------------------------------------------------------------------------
+CHECK-LIST project description in pom.xml
+ - ( ) Lib-Tile
+ - ( ) Lib-Tile-Core
+ - ( ) Lib-Tile-Demo
+ - ( ) Lib-Tile-TransparentTextures
+ - ( ) Lib-Tile-TransparentTextures-Images
 
 --------------------------------------------------------------------------------
 CHECK-LIST Extras
