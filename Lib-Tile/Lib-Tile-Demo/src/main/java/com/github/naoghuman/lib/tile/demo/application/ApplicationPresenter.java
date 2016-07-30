@@ -106,9 +106,10 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     
     private void onActionResetBackgroundColor() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
-        
-        apBackground.setBackground(new Background(new BackgroundFill(
-                IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        Platform.runLater(() -> {
+            apBackground.setStyle("-fx-base: AQUAMARINE;"); // NOI18N
+        });
     }
     
     private void onActionResetBackgroundImage() {
@@ -125,9 +126,24 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     
     private void onActionShowBackgroundColor(Color backgroundColor) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background color"); // NOI18N
-        
-        apBackground.setBackground(new Background(new BackgroundFill(
-                backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        Platform.runLater(() -> {
+            final String _fx_base = "-fx-base: rgba("; // NOI18N
+            final String _fx_control_inner_background = "-fx-control-inner-background: rgba("; // NOI18N
+
+            final StringBuilder sb = new StringBuilder();
+            sb.append((int)(backgroundColor.getRed() * 255));
+            sb.append(", "); // NOI18N
+            sb.append((int)(backgroundColor.getGreen() * 255));
+            sb.append(", "); // NOI18N
+            sb.append((int)(backgroundColor.getBlue() * 255));
+            sb.append(", "); // NOI18N
+            sb.append(backgroundColor.getOpacity());
+            sb.append("); "); // NOI18N
+
+            apBackground.setStyle(_fx_base + sb.toString()
+                    + _fx_control_inner_background + sb.toString());
+        });
     }
     
     private void onActionShowBackgroundImage(String url) {
