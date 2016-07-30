@@ -19,9 +19,9 @@
             </children>
         </StackPane>
         <AnchorPane fx:id="apTileBackground" mouseTransparent="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <AnchorPane layoutX="386.0" layoutY="14.0" prefWidth="403.33" style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-border-color: rgba(0, 0, 0, 0.3);" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <AnchorPane layoutX="386.0" layoutY="14.0" prefWidth="403.33" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <children>
-                <Accordion AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                <Accordion AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <panes>
                         <TitledPane fx:id="tpBackground" expanded="true" text="Background">
                             <content>
