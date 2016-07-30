@@ -58,8 +58,6 @@ The library `Lib-Tile-Core` provides the main functionalities to load a [Tile]
 as a [Background] or an [Image] with a concrete implementation from an 
 [AbstractTileLoader].
 
-TODO add screenshot from the package
-
 For more informations and examples plz see the [ReadMe from Lib-Tile-Core].
 
 
@@ -78,11 +76,11 @@ Momentary the developer have following features during the demo application:
 * Browse through all `tiles` from the tileset `Transparent Textures`.
 
 __Hint:__  
-For the future I plan to implement the feature that the developer can define 
-own `tilesets` based on the existing `tilesets`. That's mean the developer can 
-say I will have only the [Tile]s `a, b, c` from the tileset `xy`. During that 
-definition only the choosen tile images needed to be included into the target 
-application.
+For a future version I plan to implement the feature that the developer can 
+define own `tilesets` based on the existing `tilesets`.  
+For example the developer said that he want only the [Tile]s `a, b, c` from the 
+tileset `xy`. The bigest advance from this feature will be that only the choosen 
+[Tile] images are needed to be included into the target application.
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 
@@ -97,8 +95,6 @@ through the enum `TransparentTexturesTile`.
 The tile images from this tileset are outsourced in a own library 
 `Lib-Tile-TransparentTextures-Images` to reduce the size from this library.
 
-TODO add screenshot from the package
-
 For more informations and examples plz see the [ReadMe from Lib-Tile-TransparentTextures].
 
 
@@ -112,8 +108,6 @@ which allowed the developer to load a single [Tile] image.
 In the examples from this library is also an example how to load only `xy` tile 
 images, so that's not necessary to include the hole library (which size is 
 momentary 13MB) in an application.
-
-TODO add screenshot from the package
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-TransparentTextures-Images].
 
