@@ -16,7 +16,7 @@
                     <children>
                         <TextField fx:id="tfUrlBackgroundImage" onAction="#onActionShowBackgroundImage" promptText="URL to the image, will be resized to 1280x720" HBox.hgrow="ALWAYS" />
                         <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionShowBackgroundImage" prefWidth="64.0" text="Load" />
-                  <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="64.0" text="Reset" />
+                  <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionResetBackgroundImage" prefWidth="64.0" text="Reset" />
                     </children>
                 </HBox>
             </children>

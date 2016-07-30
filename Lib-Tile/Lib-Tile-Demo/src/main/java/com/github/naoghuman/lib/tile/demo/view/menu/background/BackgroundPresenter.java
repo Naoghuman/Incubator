@@ -32,8 +32,16 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
 /**
- * https://wall.alphacoders.com
- *
+ * <ul>
+ * <li>Open https://wall.alphacoders.com</li>
+ * <li>Search for example -> landscape</li>
+ * <li>Choose a wallpaper</li>
+ * <li>Crop to 1280x720 (under -> More Resolustion -> 16:9)</li>
+ * <li>Submit your changes</li>
+ * <li>Copy the graphic address from the cropped image</li>
+ * <li>Use the copied graphic address in the TextField</li>
+ * </ul>
+ * 
  * @author Naoghuman
  */
 public class BackgroundPresenter implements Initializable, IActionConfiguration, IRegisterActions {
@@ -83,6 +91,13 @@ public class BackgroundPresenter implements Initializable, IActionConfiguration,
         
         cpBackgroundColor.setValue(IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR);
         ActionFacade.INSTANCE.handle(ON_ACTION__RESET_BACKGROUND_COLOR);
+    }
+    
+    public void onActionResetBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background image"); // NOI18N
+        
+        tfUrlBackgroundImage.setText(null);
+        ActionFacade.INSTANCE.handle(ON_ACTION__RESET_BACKGROUND_IMAGE);
     }
     
     public void onActionShowBackgroundColor() {
