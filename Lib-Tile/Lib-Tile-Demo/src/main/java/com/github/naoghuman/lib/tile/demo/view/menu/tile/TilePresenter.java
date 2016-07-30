@@ -37,6 +37,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -63,22 +64,28 @@ public class TilePresenter implements Initializable, IRegisterActions {
         lvTransparentTextures.getItems().clear();
         lvTransparentTextures.setCellFactory(value -> new TransparentTexturesItemCell());
         
-        Platform.runLater(() -> {
-            final ObservableList<TransparentTexturesTile> tiles = FXCollections.observableArrayList();
-            tiles.addAll(TransparentTexturesTile.values());
+        final Task task = new Task<ObservableList<TransparentTexturesItemPresenter>>() {
+            @Override
+            protected ObservableList<TransparentTexturesItemPresenter> call() throws InterruptedException {
 
-            final List<TransparentTexturesItemPresenter> presenters = tiles.stream()
-                    .map((TransparentTexturesTile tile) -> {
-                        final TransparentTexturesItemView view = new TransparentTexturesItemView();
-                        final TransparentTexturesItemPresenter presenter = view.getRealPresenter();
-                        presenter.configure(view.getView(), tile);
+                final ObservableList<TransparentTexturesTile> tiles = FXCollections.observableArrayList();
+                tiles.addAll(TransparentTexturesTile.values());
 
-                        return presenter;
-                    })
-                    .collect(Collectors.toCollection(ArrayList::new));
-        
-            lvTransparentTextures.getItems().addAll(presenters);
-        });
+                final List<TransparentTexturesItemPresenter> presenters = tiles.stream()
+                        .map((TransparentTexturesTile tile) -> {
+                            final TransparentTexturesItemView view = new TransparentTexturesItemView();
+                            final TransparentTexturesItemPresenter presenter = view.getRealPresenter();
+                            presenter.configure(view.getView(), tile);
+
+                            return presenter;
+                        })
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                return FXCollections.observableArrayList(presenters);
+            }
+        };
+        lvTransparentTextures.itemsProperty().bind(task.valueProperty());
+        new Thread(task).start();
         
         lvTransparentTextures.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
 
