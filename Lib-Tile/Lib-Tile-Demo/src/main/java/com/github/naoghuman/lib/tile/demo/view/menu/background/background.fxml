@@ -14,8 +14,9 @@
                 <Label text="Background image" />
                 <HBox spacing="7.0">
                     <children>
-                        <TextField fx:id="tfUrlBackgroundImage" onAction="#onActionLoadBackgroundImage" promptText="URL to the image, will be resized to 1280x720" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#onActionLoadBackgroundImage" prefWidth="64.0" text="Load" />
+                        <TextField fx:id="tfUrlBackgroundImage" onAction="#onActionShowBackgroundImage" promptText="URL to the image, will be resized to 1280x720" HBox.hgrow="ALWAYS" />
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionShowBackgroundImage" prefWidth="64.0" text="Load" />
+                  <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="64.0" text="Reset" />
                     </children>
                 </HBox>
             </children>
@@ -26,7 +27,7 @@
             <HBox spacing="7.0">
                <children>
                   <ColorPicker fx:id="cpBackgroundColor" maxWidth="1.7976931348623157E308" onAction="#onActionShowBackgroundColor" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" onAction="#onActionResetBackgroundColor" prefWidth="64.0" text="Reset" />
+                  <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionResetBackgroundColor" prefWidth="64.0" text="Reset" />
                </children>
             </HBox>
          </children>

@@ -78,8 +78,27 @@ public class BackgroundPresenter implements Initializable, IActionConfiguration,
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in BackgroundPresenter"); // NOI18N
     }
     
-    public void onActionLoadBackgroundImage() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action load Background image"); // NOI18N
+    public void onActionResetBackgroundColor() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background color"); // NOI18N
+        
+        cpBackgroundColor.setValue(IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR);
+        ActionFacade.INSTANCE.handle(ON_ACTION__RESET_BACKGROUND_COLOR);
+    }
+    
+    public void onActionShowBackgroundColor() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background color"); // NOI18N
+        
+        final TransferData data = new TransferData();
+        data.setActionId(ON_ACTION__SHOW_BACKGROUND_COLOR);
+        
+        final Color backgroundColor = cpBackgroundColor.getValue();
+        data.setObject(backgroundColor);
+        
+        ActionFacade.INSTANCE.handle(data);
+    }
+    
+    public void onActionShowBackgroundImage() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background image"); // NOI18N
         
         // Check URL
         final String url = tfUrlBackgroundImage.getText().trim();
@@ -96,25 +115,6 @@ public class BackgroundPresenter implements Initializable, IActionConfiguration,
         final TransferData data = new TransferData();
         data.setActionId(ON_ACTION__SHOW_BACKGROUND_IMAGE);
         data.setString(url);
-        
-        ActionFacade.INSTANCE.handle(data);
-    }
-    
-    public void onActionResetBackgroundColor() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Background color"); // NOI18N
-        
-        cpBackgroundColor.setValue(IApplicationConfiguration.DEFAULT_BACKGROUND_COLOR);
-        ActionFacade.INSTANCE.handle(ON_ACTION__RESET_BACKGROUND_COLOR);
-    }
-    
-    public void onActionShowBackgroundColor() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Background color"); // NOI18N
-        
-        final TransferData data = new TransferData();
-        data.setActionId(ON_ACTION__SHOW_BACKGROUND_COLOR);
-        
-        final Color backgroundColor = cpBackgroundColor.getValue();
-        data.setObject(backgroundColor);
         
         ActionFacade.INSTANCE.handle(data);
     }
