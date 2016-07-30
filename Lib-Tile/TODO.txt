@@ -1,0 +1,13 @@
+--------------------------------------------------------------------------------
+TODO
+--------------------------------------------------------------------------------
+ISSUE
+pom.xml variables weren't replaced with values
+ - pom.version, pom.name...
+ - Start application and see header.
+
+log-files
+ - Starting the demo application create a 'Lib-Database-ObjectDB.log'.
+ - The configuration in 'log4j2.xml' wont be applied.
+
+--------------------------------------------------------------------------------
