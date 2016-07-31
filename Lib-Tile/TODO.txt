@@ -55,9 +55,6 @@ CHECK-LIST project description in pom.xml
 
 --------------------------------------------------------------------------------
 CHECK-LIST Extras
-TransparentTexturesTile.java
- - ( ) Add missing autorUrl
-
 DefaultTileLoader.java
  - ( ) Check functionality for checking the must-have parameters.
 
