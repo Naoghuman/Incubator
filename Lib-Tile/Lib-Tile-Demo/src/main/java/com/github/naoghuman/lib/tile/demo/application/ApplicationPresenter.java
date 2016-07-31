@@ -21,7 +21,6 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.tile.demo.configuration.IActionConfiguration;
-import com.github.naoghuman.lib.tile.demo.configuration.IApplicationConfiguration;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundPresenter;
 import com.github.naoghuman.lib.tile.demo.view.menu.background.BackgroundView;
 import com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter;
@@ -29,18 +28,16 @@ import com.github.naoghuman.lib.tile.demo.view.menu.tile.TileView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 /**
@@ -55,6 +52,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     @FXML private BorderPane bpTile;
     @FXML private ImageView ivBackgroundImage;
     @FXML private TitledPane tpBackground;
+    @FXML private TitledPane tpTile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,8 +63,21 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         this.initializeBackgroundImage();
         this.initializeMenuBackground();
         this.initializeMenuTile();
+        this.initializeTitledPaneTile();
         
         this.registerActions();
+    }
+    
+    private void initializeTitledPaneTile() {
+        LoggerFacade.INSTANCE.info(this.getClass(), "Initialize TitledPane tile"); // NOI18N
+    
+        tpTile.expandedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            final TransferData data = new TransferData();
+            data.setActionId(ON_ACTION__SWITCH_SELECTION);
+            data.setBoolean(newValue);
+            
+            ActionFacade.INSTANCE.handle(data);
+        });
     }
     
     public void initializeAfterWindowIsShowing() {

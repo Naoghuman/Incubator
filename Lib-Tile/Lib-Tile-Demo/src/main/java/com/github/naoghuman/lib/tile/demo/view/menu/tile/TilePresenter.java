@@ -38,6 +38,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -47,9 +48,13 @@ import javafx.scene.layout.Background;
  *
  * @author Naoghuman
  */
-public class TilePresenter implements Initializable, IRegisterActions {
+public class TilePresenter implements Initializable, IActionConfiguration, IRegisterActions {
+    
+    private static final int NO_SELECTION_INDEX = -1;
     
     @FXML private ListView lvTransparentTextures;
+    
+    private int selectionIndex = NO_SELECTION_INDEX;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -104,25 +109,72 @@ public class TilePresenter implements Initializable, IRegisterActions {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action reset Tile background"); // NOI18N
         
         lvTransparentTextures.getSelectionModel().clearSelection();
-        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__RESET_TILE_BACKGROUND);
+        ActionFacade.INSTANCE.handle(ON_ACTION__RESET_TILE_BACKGROUND);
     }
 
     private void onActionShowTileBackground(Tile tile) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show Tile background"); // NOI18N
         
-		final TransferData data = new TransferData();
-		data.setActionId(IActionConfiguration.ON_ACTION__SHOW_TILE_BACKGROUND);
-		
-		final Background background = TransparentTexturesTileLoader.getDefault().loadAsBackground(tile);
-		data.setObject(background);
-		
-		ActionFacade.INSTANCE.handle(data);
-	}
+        final TransferData data = new TransferData();
+        data.setActionId(ON_ACTION__SHOW_TILE_BACKGROUND);
+
+        final Background background = TransparentTexturesTileLoader.getDefault().loadAsBackground(tile);
+        data.setObject(background);
+
+        ActionFacade.INSTANCE.handle(data);
+    }
+
+    private void onActionSwitchSelection(boolean titledPaneExpand) {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show switch Selection"); // NOI18N
+        
+        /*
+        try a hack for the false background color when the selection is vanished.
+         - don't work
+        */
+//        System.out.println("titledPaneExpand: " + titledPaneExpand);
+//        if (titledPaneExpand) {
+//            System.out.println("(selectionIndex != NO_SELECTION_INDEX): " + (selectionIndex != NO_SELECTION_INDEX));
+//            if (selectionIndex != NO_SELECTION_INDEX) {
+//                System.out.println("0) selectionIndex: " + selectionIndex);
+//                Platform.runLater(() -> {
+//                    lvTransparentTextures.getSelectionModel().select(selectionIndex);
+//                    lvTransparentTextures.getFocusModel().focus(selectionIndex);
+////                    lvTransparentTextures.scrollTo(selectionIndex);
+//                });
+//            }
+//        }
+//        else {
+//            System.out.println("lvTransparentTextures.getSelectionModel().isEmpty(): " + lvTransparentTextures.getSelectionModel().isEmpty());
+//            if (lvTransparentTextures.getSelectionModel().isEmpty()) {
+//                selectionIndex = NO_SELECTION_INDEX;
+//                System.out.println("1) selectionIndex: " + selectionIndex);
+//            }
+//            else {
+//                selectionIndex = lvTransparentTextures.getSelectionModel().getSelectedIndex();
+//                System.out.println("2) selectionIndex: " + selectionIndex);
+//            }
+//            
+//            lvTransparentTextures.getSelectionModel().clearSelection();
+//        }
+    }
     
     @Override
     public void registerActions() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register actions in TilePresenter"); // NOI18N
         
+        this.registerOnActionSwitchSelection();
+    }
+    
+    private void registerOnActionSwitchSelection() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "Register on Action switch Selection"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__SWITCH_SELECTION,
+                (ActionEvent event) -> {
+                    final TransferData data = (TransferData) event.getSource();
+                    final boolean titledPaneExpand = data.getBoolean();
+                    this.onActionSwitchSelection(titledPaneExpand);
+                });
     }
     
 }

@@ -21,6 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 .root {
     
+    /* A bright blue for highlighting/accenting objects.  For example: selected
+     * text; selected items in menus, lists, trees, and tables; progress bars;
+     * default buttons.
+     */
+    /*-fx-accent: AQUA;*/
+    
     /* A light grey that is the base color for objects. Instead of using -fx-base 
      * directly, the sections in this file will typically use -fx-color.
      */

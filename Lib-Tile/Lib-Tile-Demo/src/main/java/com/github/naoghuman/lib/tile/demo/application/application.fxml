@@ -28,7 +28,7 @@
                                 <BorderPane fx:id="bpBackground" />
                             </content>
                         </TitledPane>
-                        <TitledPane expanded="false" text="Tile">
+                        <TitledPane fx:id="tpTile" expanded="false" text="Tile">
                             <content>
                                 <BorderPane fx:id="bpTile" />
                             </content>
