@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="VBox" prefHeight="400.0" prefWidth="328.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tile.demo.view.menu.tile.TilePresenter">
+    <children>
+        <HBox>
+            <children>
+                <Button mnemonicParsing="false" onAction="#onActionResetTileBackground" prefWidth="64.0" text="Reset" />
+            </children>
+            <padding>
+                <Insets bottom="7.0" top="7.0" />
+            </padding>
+        </HBox>
+        <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab closable="false" text="Transparent Textures">
+                    <content>
+                        <ListView fx:id="lvTransparentTextures" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>
