@@ -61,7 +61,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: AG Square
      */
-    TT_AG_SQUARE("tt-ag-square.png", "AG Square", 50, 50, "Erikdel"), // NOI18N
+    TT_AG_SQUARE("tt-ag-square.png", "AG Square", 50, 50, "Erikdel", "http://www.erikdel.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Always Grey
@@ -126,7 +126,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Bedge Grunge
      */
-    TT_BEDGE_GRUNGE("tt-bedge-grunge.png", "Bedge Grunge", 588, 375, "Alex Tapein"), // NOI18N
+    TT_BEDGE_GRUNGE("tt-bedge-grunge.png", "Bedge Grunge", 588, 375, "Alex Tapein", "http://www.tapein.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Beige Paper
@@ -136,7 +136,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Billie Holiday
      */
-    TT_BILLIE_HOLIDAY("tt-billie-holiday.png", "Billie Holiday", 100, 100, "Thomas Myrman"), // NOI18N
+    TT_BILLIE_HOLIDAY("tt-billie-holiday.png", "Billie Holiday", 100, 100, "Thomas Myrman", "http://thomasmyrman.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Binding Dark
@@ -236,17 +236,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Broken Noise
      */
-    TT_BROKEN_NOISE("tt-broken-noise.png", "Broken Noise", 476, 476, "Vincent Klaiber"), // NOI18N
+    TT_BROKEN_NOISE("tt-broken-noise.png", "Broken Noise", 476, 476, "Vincent Klaiber", "http://vincentklaiber.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Brushed Alum
      */
-    TT_BRUSHED_ALUM("tt-brushed-alum.png", "Brushed Alum", 400, 400, "Tim Ward"), // NOI18N
+    TT_BRUSHED_ALUM("tt-brushed-alum.png", "Brushed Alum", 400, 400, "Tim Ward", "http://www.MentalWardDesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Brushed Alum Dark
      */
-    TT_BRUSHED_ALUM_DARK("tt-brushed-alum-dark.png", "Brushed Alum Dark", 400, 400, "Tim Ward"), // NOI18N
+    TT_BRUSHED_ALUM_DARK("tt-brushed-alum-dark.png", "Brushed Alum Dark", 400, 400, "Tim Ward", "http://www.MentalWardDesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Buried
@@ -316,7 +316,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Clean Gray Paper
      */
-    TT_CLEAN_GRAY_PAPER("tt-clean-gray-paper.png", "Clean Gray Paper", 512, 512, "Paul Phönixweiß"), // NOI18N
+    TT_CLEAN_GRAY_PAPER("tt-clean-gray-paper.png", "Clean Gray Paper", 512, 512, "Paul Phönixweiß", "http://phoenixweiss.me"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Clean Textile
@@ -351,7 +351,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Connected
      */
-    TT_CONNECTED("tt-connected.png", "Connected", 160, 160, "Mark Collins"), // NOI18N
+    TT_CONNECTED("tt-connected.png", "Connected", 160, 160, "Mark Collins", "http://pixxel.co/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Corrugation
@@ -361,12 +361,12 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Cream Dust
      */
-    TT_CREAM_DUST("tt-cream-dust.png", "Cream Dust", 50, 50, "Thomas Myrman"), // NOI18N
+    TT_CREAM_DUST("tt-cream-dust.png", "Cream Dust", 50, 50, "Thomas Myrman", "http://thomasmyrman.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Cream Paper
      */
-    TT_CREAM_PAPER("tt-cream-paper.png", "Cream Paper", 158, 144, "Devin Holmes"), // NOI18N
+    TT_CREAM_PAPER("tt-cream-paper.png", "Cream Paper", 158, 144, "Devin Holmes", "http://www.strick9design.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Cream Pixels
@@ -426,7 +426,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Dark Denim 3
      */
-    TT_DARK_DENIM_3("tt-dark-denim-3.png", "Dark Denim 3", 420, 326, "Brandon Jacoby"), // NOI18N
+    TT_DARK_DENIM_3("tt-dark-denim-3.png", "Dark Denim 3", 420, 326, "Brandon Jacoby", "http://www.brandonjacoby.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Dark Dot
@@ -436,12 +436,12 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Dark Dotted 2
      */
-    TT_DARK_DOTTED_2("tt-dark-dotted-2.png", "Dark Dotted 2", 7, 7, "Venam"), // NOI18N
+    TT_DARK_DOTTED_2("tt-dark-dotted-2.png", "Dark Dotted 2", 7, 7, "Venam", "http://venam.1.ai"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Dark Exa
      */
-    TT_DARK_EXA("tt-dark-exa.png", "Dark Exa", 18, 30, "Venam"), // NOI18N
+    TT_DARK_EXA("tt-dark-exa.png", "Dark Exa", 18, 30, "Venam", "http://venam.1.ai"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Dark Fish Skin
@@ -491,7 +491,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Dark Wood
      */
-    TT_DARK_WOOD("tt-dark-wood.png", "Dark Wood", 512, 512, "Omar Alvarado"), // NOI18N
+    TT_DARK_WOOD("tt-dark-wood.png", "Dark Wood", 512, 512, "Omar Alvarado", "http://www.oaadesigns.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Darth Stripe
@@ -526,7 +526,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Diagonal Noise
      */
-    TT_DIAGONAL_NOISE("tt-diagonal-noise.png", "Diagonal Noise", 100, 100, "Christopher Burton"), // NOI18N
+    TT_DIAGONAL_NOISE("tt-diagonal-noise.png", "Diagonal Noise", 100, 100, "Christopher Burton", "http://ChristopherBurton.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Diagonal Striped Brick
@@ -541,7 +541,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Diamonds Are Forever
      */
-    TT_DIAMONDS_ARE_FOREVER("tt-diamonds-are-forever.png", "Diamonds Are Forever", 24, 18, "Tom Neal"), // NOI18N
+    TT_DIAMONDS_ARE_FOREVER("tt-diamonds-are-forever.png", "Diamonds Are Forever", 24, 18, "Tom Neal", "http://imaketees.co.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Diamond Eyes
@@ -571,7 +571,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Double Lined"
      */
-    TT_DOUBLE_LINED("tt-double-lined.png", "Double Lined", 150, 64, "Adam Anlauf"), // NOI18N
+    TT_DOUBLE_LINED("tt-double-lined.png", "Double Lined", 150, 64, "Adam Anlauf", "http://www.depcore.pl"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Dust
@@ -586,7 +586,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Egg Shell
      */
-    TT_EGG_SHELL("tt-egg-shell.png", "Egg Shell", 256, 256, "Paul Phönixweiß"), // NOI18N
+    TT_EGG_SHELL("tt-egg-shell.png", "Egg Shell", 256, 256, "Paul Phönixweiß", "http://phoenixweiss.me"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Elastoplast
@@ -596,17 +596,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Elegant Grid
      */
-    TT_ELEGANT_GRID("tt-elegant-grid.png", "Elegant Grid", 16, 28, "GraphicsWall", ""), // NOI18N
+    TT_ELEGANT_GRID("tt-elegant-grid.png", "Elegant Grid", 16, 28, "GraphicsWall", "http://www.graphicswall.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Embossed Paper
      */
-    TT_EMBOSSED_PAPER("tt-embossed-paper.png", "Embossed Paper", 8, 10, "Badhon Ebrahim", ""), // NOI18N
+    TT_EMBOSSED_PAPER("tt-embossed-paper.png", "Embossed Paper", 8, 10, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Escheresque
      */
-    TT_ESCHERESQUE("tt-escheresque.png", "Escheresque", 46, 29, "Jan Meeus", ""), // NOI18N
+    TT_ESCHERESQUE("tt-escheresque.png", "Escheresque", 46, 29, "Jan Meeus", "https://dribbble.com/janmeeus"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Escheresque Dark
@@ -631,12 +631,12 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Fabric Of Squares
      */
-    TT_FABRIC_OF_SQUARES("tt-fabric-of-squares.png", "Fabric Of Squares", 410, 410, "Heliodor Jalba", ""), // NOI18N
+    TT_FABRIC_OF_SQUARES("tt-fabric-of-squares.png", "Fabric Of Squares", 410, 410, "Heliodor Jalba", "https://about.me/heliodor"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Fabric (Plaid)
      */
-    TT_FABRIC_PLAID("tt-fabric-plaid.png", "Fabric (Plaid)", 200, 200, "James Basoo", ""), // NOI18N
+    TT_FABRIC_PLAID("tt-fabric-plaid.png", "Fabric (Plaid)", 200, 200, "James Basoo", "https://twitter.com/jbasoo"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Fake Brick
@@ -646,17 +646,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Fake Luxury
      */
-    TT_FAKE_LUXURY("tt-fake-luxury.png", "Fake Luxury", 16, 26, "Factorio.us Collective", ""), // NOI18N
+    TT_FAKE_LUXURY("tt-fake-luxury.png", "Fake Luxury", 16, 26, "Factorio.us Collective", "http://www.factorious.co/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Fancy Deboss
      */
-    TT_FANCY_DEBOSS("tt-fancy-deboss.png", "Fancy Deboss", 18, 13, "Daniel Beaton", ""), // NOI18N
+    TT_FANCY_DEBOSS("tt-fancy-deboss.png", "Fancy Deboss", 18, 13, "Daniel Beaton", "http://danielbeaton.tumblr.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Farmer
      */
-    TT_FARMER("tt-farmer.png", "Farmer", 349, 349, "Fabian Schultz", ""), // NOI18N
+    TT_FARMER("tt-farmer.png", "Farmer", 349, 349, "Fabian Schultz", "http://fabianschultz.de"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Felt
@@ -681,7 +681,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Foggy Birds"
      */
-    TT_FOGGY_BIRDS("tt-foggy-birds.png", "Foggy Birds", 206, 206, "Pete Fecteau", ""), // NOI18N
+    TT_FOGGY_BIRDS("tt-foggy-birds.png", "Foggy Birds", 206, 206, "Pete Fecteau", "http://buttonpresser.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Food
@@ -692,17 +692,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Football (No Yardlines)
      */
-    TT_FOOTBALL_NO_LINES("tt-football-no-lines.png", "Football (No Yardlines)", 714, 240, "Mike Hearn", ""), // NOI18N
+    TT_FOOTBALL_NO_LINES("tt-football-no-lines.png", "Football (No Yardlines)", 714, 240, "Mike Hearn", "https://www.mikehearn.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: French Stucco
      */
-    TT_FRENCH_STUCCO("tt-french-stucco.png", "French Stucco", 400, 355, "Christopher Buecheler", ""), // NOI18N
+    TT_FRENCH_STUCCO("tt-french-stucco.png", "French Stucco", 400, 355, "Christopher Buecheler", "http://cwbuecheler.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Fresh Snow
      */
-    TT_FRESH_SNOW("tt-fresh-snow.png", "Fresh Snow", 500, 500, "Kerstkaarten", ""), // NOI18N
+    TT_FRESH_SNOW("tt-fresh-snow.png", "Fresh Snow", 500, 500, "Kerstkaarten", "https://www.fotokaarten.nl/kerst.html"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Gold Scale
@@ -712,37 +712,37 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Gplay
      */
-    TT_GPLAY("tt-gplay.png", "Gplay", 188, 178, "Dimitrie Hoekstra", ""), // NOI18N
+    TT_GPLAY("tt-gplay.png", "Gplay", 188, 178, "Dimitrie Hoekstra", "http://dhesign.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Gradient Squares
      */
-    TT_GRADIENT_SQUARES("tt-gradient-squares.png", "Gradient Squares", 202, 202, "Brankic1979", ""), // NOI18N
+    TT_GRADIENT_SQUARES("tt-gradient-squares.png", "Gradient Squares", 202, 202, "Brankic1979", "http://www.brankic1979.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Graphcoders Lil Fiber
      */
-    TT_GRAPHCODERS_LIL_FIBER("tt-graphcoders-lil-fiber.png", "Graphcoders Lil Fiber", 21, 35, "Badhon Ebrahim", ""), // NOI18N
+    TT_GRAPHCODERS_LIL_FIBER("tt-graphcoders-lil-fiber.png", "Graphcoders Lil Fiber", 21, 35, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Graphy (Dark)
      */
-    TT_GRAPHY_DARK("tt-graphy-dark.png", "Graphy (Dark)", 80, 160, "We Are Pixel8", ""), // NOI18N
+    TT_GRAPHY_DARK("tt-graphy-dark.png", "Graphy (Dark)", 80, 160, "We Are Pixel8", "http://www.wearepixel8.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Graphy (Light)
      */
-    TT_GRAPHY_LIGHT("tt-graphy-light.png", "Graphy (Light)", 80, 160, "We Are Pixel8", ""), // NOI18N
+    TT_GRAPHY_LIGHT("tt-graphy-light.png", "Graphy (Light)", 80, 160, "We Are Pixel8", "http://www.wearepixel8.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Gravel
      */
-    TT_GRAVEL("tt-gravel.png", "Gravel", 222, 206, "Mike Hearn", ""), // NOI18N
+    TT_GRAVEL("tt-gravel.png", "Gravel", 222, 206, "Mike Hearn", "http://www.mikehearn.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Gray Floral
      */
-    TT_GRAY_FLORAL("tt-gray-floral.png", "Gray Floral", 150, 124, "Lauren", ""), // NOI18N
+    TT_GRAY_FLORAL("tt-gray-floral.png", "Gray Floral", 150, 124, "Lauren", "http://laurenharrison.org"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Gray Lines
@@ -767,42 +767,42 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Green Fibers
      */
-    TT_GREEN_FIBERS("tt-green-fibers.png", "Green Fibers", 200, 200, "Matteo Di Capua", ""), // NOI18N
+    TT_GREEN_FIBERS("tt-green-fibers.png", "Green Fibers", 200, 200, "Matteo Di Capua", "http://www.matteodicapua.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Green Gobbler
      */
-    TT_GREEN_GOBBLER("tt-green-gobbler.png", "Green Gobbler", 39, 39, "Simon Meek", ""), // NOI18N
+    TT_GREEN_GOBBLER("tt-green-gobbler.png", "Green Gobbler", 39, 39, "Simon Meek", "http://www.simonmeek.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Greyzz
      */
-    TT_GREYZZ("tt-greyzz.png", "Greyzz", 149, 139, "Infographiste", ""), // NOI18N
+    TT_GREYZZ("tt-greyzz.png", "Greyzz", 149, 139, "Infographiste", "http://www.peax-webdesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Grey Jean
      */
-    TT_GREY_JEAN("tt-grey-jean.png", "Grey Jean", 150, 150, "Omur Uluask", ""), // NOI18N
+    TT_GREY_JEAN("tt-grey-jean.png", "Grey Jean", 150, 150, "Omur Uluask", "http://mr.pn"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Grey Sandbag
      */
-    TT_GREY_SANDBAG("tt-grey-sandbag.png", "Grey Sandbag", 100, 98, "Diogo Silva", ""), // NOI18N
+    TT_GREY_SANDBAG("tt-grey-sandbag.png", "Grey Sandbag", 100, 98, "Diogo Silva", "http://www.diogosilva.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Grey Washed Wall
      */
-    TT_GREY_WASHED_WALL("tt-grey-washed-wall.png", "Grey Washed Wall", 350, 259, "Sagive SEO", ""), // NOI18N
+    TT_GREY_WASHED_WALL("tt-grey-washed-wall.png", "Grey Washed Wall", 350, 259, "Sagive SEO", "http://www.sagive.co.il"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Grid
      */
-    TT_GRID("tt-grid.png", "Grid", 310, 310, "Dominik Kiss", ""), // NOI18N
+    TT_GRID("tt-grid.png", "Grid", 310, 310, "Dominik Kiss", "http://www.werk.sk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Grid Me
      */
-    TT_GRID_ME("tt-grid-me.png", "Grid Me", 50, 50, "Arno Gregorian", ""), // NOI18N
+    TT_GRID_ME("tt-grid-me.png", "Grid Me", 50, 50, "Arno Gregorian", "http://www.gobigbang.nl"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Grid Noise
@@ -812,22 +812,22 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Grilled Noise
      */
-    TT_GRILLED_NOISE("tt-grilled-noise.png", "Grilled Noise", 170, 180, "Dertig Media", ""), // NOI18N
+    TT_GRILLED_NOISE("tt-grilled-noise.png", "Grilled Noise", 170, 180, "Dertig Media", "http://30.nl"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Groovepaper
      */
-    TT_GROOVEPAPER("tt-groovepaper.png", "Groovepaper", 300, 300, "Isaac", ""), // NOI18N
+    TT_GROOVEPAPER("tt-groovepaper.png", "Groovepaper", 300, 300, "Isaac", "http://graphicriver.net/user/krispdesigns"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Grunge Wall
      */
-    TT_GRUNGE_WALL("tt-grunge-wall.png", "Grunge Wall", 500, 375, "Adam Anlauf", ""), // NOI18N
+    TT_GRUNGE_WALL("tt-grunge-wall.png", "Grunge Wall", 500, 375, "Adam Anlauf", "http://www.depcore.pl"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Gun Metal
      */
-    TT_GUN_METAL("tt-gun-metal.png", "Gun Metal", 10, 10, "Nikolay Boltachev", ""), // NOI18N
+    TT_GUN_METAL("tt-gun-metal.png", "Gun Metal", 10, 10, "Nikolay Boltachev", "http://www.zigzain.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Handmade Paper
@@ -837,17 +837,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Hexabump
      */
-    TT_HEXABUMP("tt-hexabump.png", "Hexabump", 19, 33, "Norbert Levajsics", ""), // NOI18N
+    TT_HEXABUMP("tt-hexabump.png", "Hexabump", 19, 33, "Norbert Levajsics", "http://spom.me"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Hexellence
      */
-    TT_HEXELLENCE("tt-hexellence.png", "Hexellence", 150, 173, "Kim Ruddock", ""), // NOI18N
+    TT_HEXELLENCE("tt-hexellence.png", "Hexellence", 150, 173, "Kim Ruddock", "http://www.webdesigncreare.co.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Hixs Evolution
      */
-    TT_HIXS_EVOLUTION("tt-hixs-evolution.png", "Hixs Evolution", 35, 34, "Damian Rivas", ""), // NOI18N
+    TT_HIXS_EVOLUTION("tt-hixs-evolution.png", "Hixs Evolution", 35, 34, "Damian Rivas", "http://www.hybridixstudio.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Hoffman
@@ -857,42 +857,42 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Honey I'm Subtle
      */
-    TT_HONEY_IM_SUBTLE("tt-honey-im-subtle.png", "Honey I'm Subtle", 179, 132, "Alex M. Balling", ""), // NOI18N
+    TT_HONEY_IM_SUBTLE("tt-honey-im-subtle.png", "Honey I'm Subtle", 179, 132, "Alex M. Balling", "http://www.blof.dk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Ice Age
      */
-    TT_ICE_AGE("tt-ice-age.png", "Ice Age", 400, 400, "Gjermund Gustavsen", ""), // NOI18N
+    TT_ICE_AGE("tt-ice-age.png", "Ice Age", 400, 400, "Gjermund Gustavsen", "http://tight.no"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Inflicted
      */
-    TT_INFLICTED("tt-inflicted.png", "Inflicted", 240, 240, "Hugo Loning", ""), // NOI18N
+    TT_INFLICTED("tt-inflicted.png", "Inflicted", 240, 240, "Hugo Loning", "http://www.inflicted.nl"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Inspiration Geometry
      */
-    TT_INSPIRATION_GEOMETRY("tt-inspiration-geometry.png", "Inspiration Geometry", 412, 412, "Welsley", ""), // NOI18N
+    TT_INSPIRATION_GEOMETRY("tt-inspiration-geometry.png", "Inspiration Geometry", 412, 412, "Welsley", "http://www.pdmb.org/work"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Iron Grip
      */
-    TT_IRON_GRIP("tt-iron-grip.png", "Iron Grip", 300, 301, "Tony Kinard", ""), // NOI18N
+    TT_IRON_GRIP("tt-iron-grip.png", "Iron Grip", 300, 301, "Tony Kinard", "http://www.tonykinard.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Kinda Jean
      */
-    TT_KINDA_JEAN("tt-kinda-jean.png", "Kinda Jean", 147, 147, "Graphiste", ""), // NOI18N
+    TT_KINDA_JEAN("tt-kinda-jean.png", "Kinda Jean", 147, 147, "Graphiste", "http://www.peax-webdesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Knitted Netting
      */
-    TT_KNITTED_NETTING("tt-knitted-netting.png", "Knitted Netting", 8, 8, "Anna Litvinuk", ""), // NOI18N
+    TT_KNITTED_NETTING("tt-knitted-netting.png", "Knitted Netting", 8, 8, "Anna Litvinuk", "http://graphicriver.net/user/Naf_Naf?ref=Naf_Naf"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Knitted Sweater
      */
-    TT_KNITTED_SEATER("tt-knitted-sweater.png", "Knitted Sweater", 250, 250, "Victoria Spahn", ""), // NOI18N
+    TT_KNITTED_SEATER("tt-knitted-sweater.png", "Knitted Sweater", 250, 250, "Victoria Spahn", "https://twitter.com/VictoriaSpahn"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Kuji
@@ -902,7 +902,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Large Leather
      */
-    TT_LARGE_LEATHER("tt-large-leather.png", "Large Leather", 400, 343, "Elemis", ""), // NOI18N
+    TT_LARGE_LEATHER("tt-large-leather.png", "Large Leather", 400, 343, "Elemis", "http://elemisfreebies.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Leather
@@ -917,62 +917,62 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Light Gray
      */
-    TT_LIGHT_GRAY("tt-light-gray.png", "Light Gray", 301, 621, "Brenda Lay", ""), // NOI18N
+    TT_LIGHT_GRAY("tt-light-gray.png", "Light Gray", 301, 621, "Brenda Lay", "http://poisones.tumblr.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Grey Floral Motif
      */
-    TT_LIGHT_GREY_FLORAL_MOTIF("tt-light-grey-floral-motif.png", "Light Grey Floral Motif", 32, 56, "GraphicsWall", ""), // NOI18N
+    TT_LIGHT_GREY_FLORAL_MOTIF("tt-light-grey-floral-motif.png", "Light Grey Floral Motif", 32, 56, "GraphicsWall", "http://www.graphicswall.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Honeycomb
      */
-    TT_LIGHT_HONEYCOMB("tt-light-honeycomb.png", "Light Honeycomb", 270, 289, "Federica Pelzel", ""), // NOI18N
+    TT_LIGHT_HONEYCOMB("tt-light-honeycomb.png", "Light Honeycomb", 270, 289, "Federica Pelzel", "http://about.me/federicca"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Honeycomb (Dark)
      */
-    TT_LIGHT_HONEYCOMB_DARK("tt-light-honeycomb-dark.png", "Light Honeycomb (Dark)", 270, 289, "Federica Pelzel", ""), // NOI18N
+    TT_LIGHT_HONEYCOMB_DARK("tt-light-honeycomb-dark.png", "Light Honeycomb (Dark)", 270, 289, "Federica Pelzel", "http://about.me/federicca"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Mesh
      */
-    TT_LIGHT_MESH("tt-light-mesh.png", "Light Mesh", 256, 256, "Wilmotte Bastien", ""), // NOI18N
+    TT_LIGHT_MESH("tt-light-mesh.png", "Light Mesh", 256, 256, "Wilmotte Bastien", "http://dribbble.com/bastienwilmotte"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Paper Fibers
      */
-    TT_LIGHT_PAPER_FIBERS("tt-light-paper-fibers.png", "Light Paper Fibers", 500, 300, "Jorge Fuentes", ""), // NOI18N
+    TT_LIGHT_PAPER_FIBERS("tt-light-paper-fibers.png", "Light Paper Fibers", 500, 300, "Jorge Fuentes", "http://www.jorgefuentes.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Sketch
      */
-    TT_LIGHT_SKETCH("tt-light-sketch.png", "Light Sketch", 600, 600, "Dan Kruse", ""), // NOI18N
+    TT_LIGHT_SKETCH("tt-light-sketch.png", "Light Sketch", 600, 600, "Dan Kruse", "http://dankruse.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Toast
      */
-    TT_LIGHT_TOAST("tt-light-toast.png", "Light Toast", 200, 200, "Pippin Lee", ""), // NOI18N
+    TT_LIGHT_TOAST("tt-light-toast.png", "Light Toast", 200, 200, "Pippin Lee", "https://twitter.com/#!/pippinlee"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Light Wool
      */
-    TT_LIGHT_WOOL("tt-light-wool.png", "Light Wool", 190, 191, "Andy", ""), // NOI18N
+    TT_LIGHT_WOOL("tt-light-wool.png", "Light Wool", 190, 191, "Andy", "http://www.tall.me.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Lined Paper
      */
-    TT_LINED_PAPER("tt-lined-paper.png", "Lined Paper", 300, 224, "Are Sundnes", ""), // NOI18N
+    TT_LINED_PAPER("tt-lined-paper.png", "Lined Paper", 300, 224, "Are Sundnes", "http://www.paranaiv.no"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Lined Paper 2
      */
-    TT_LINED_PAPER_2("tt-lined-paper-2.png", "Lined Paper 2", 412, 300, "Gjermund Gustavsen", ""), // NOI18N
+    TT_LINED_PAPER_2("tt-lined-paper-2.png", "Lined Paper 2", 412, 300, "Gjermund Gustavsen", "http://www.tight.no"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Little Knobs
      */
-    TT_LITTLE_KNOBS("tt-little-knobs.png", "Little Knobs", 10, 10, "Amos", ""), // NOI18N
+    TT_LITTLE_KNOBS("tt-little-knobs.png", "Little Knobs", 10, 10, "Amos", "http://www.freepx.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Little Pluses
@@ -992,32 +992,32 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Lyonnette
      */
-    TT_LYONNETTE("tt-lyonnette.png", "Lyonnette", 90, 90, "Tish", ""), // NOI18N
+    TT_LYONNETTE("tt-lyonnette.png", "Lyonnette", 90, 90, "Tish", "http://www.ayonnette.blogspot.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Maze Black
      */
-    TT_MAZE_BLACK("tt-maze-black.png", "Maze Black", 46, 23, "Peax", ""), // NOI18N
+    TT_MAZE_BLACK("tt-maze-black.png", "Maze Black", 46, 23, "Peax", "http://www.peax-webdesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Maze White
      */
-    TT_MAZE_WHITE("tt-maze-white.png", "Maze White", 46, 23, "Peax", ""), // NOI18N
+    TT_MAZE_WHITE("tt-maze-white.png", "Maze White", 46, 23, "Peax", "http://www.peax-webdesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Mbossed
      */
-    TT_MBOSSED("tt-mbossed.png", "Mbossed", 26, 26, "Alex Parker", ""), // NOI18N
+    TT_MBOSSED("tt-mbossed.png", "Mbossed", 26, 26, "Alex Parker", "http://twitter.com/misterparker"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Medic Packaging Foil
      */
-    TT_MEDIC_PACKAGING_FOIL("tt-medic-packaging-foil.png", "Medic Packaging Foil", 8, 8, "pixilated", ""), // NOI18N
+    TT_MEDIC_PACKAGING_FOIL("tt-medic-packaging-foil.png", "Medic Packaging Foil", 8, 8, "pixilated", "http://be.net/pixilated"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Merely Cubed
      */
-    TT_MERELY_CUBED("tt-merely-cubed.png", "Merely Cubed", 16, 16, "Etienne Rallion", ""), // NOI18N
+    TT_MERELY_CUBED("tt-merely-cubed.png", "Merely Cubed", 16, 16, "Etienne Rallion", "http://www.etiennerallion.fr"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Micro Carbon
@@ -1032,37 +1032,37 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Mocha Grunge
      */
-    TT_MOCHA_GRUNGE("tt-mocha-grunge.png", "Mocha Grunge", 400, 400, "Joel Klein", ""), // NOI18N
+    TT_MOCHA_GRUNGE("tt-mocha-grunge.png", "Mocha Grunge", 400, 400, "Joel Klein", "http://www.evelt.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Mooning
      */
-    TT_MOONING("tt-mooning.png", "Mooning", 400, 400, "Joel Klein", ""), // NOI18N
+    TT_MOONING("tt-mooning.png", "Mooning", 400, 400, "Joel Klein", "http://www.evelt.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Moulin
      */
-    TT_MOULING("tt-moulin.png", "Moulin", 20, 20, "Venam", ""), // NOI18N
+    TT_MOULING("tt-moulin.png", "Moulin", 20, 20, "Venam", "http://venam.1.ai"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: My Little Plaid (Dark)
      */
-    TT_MY_LITTLE_PLAID_DARK("tt-my-little-plaid-dark.png", "My Little Plaid (Dark)", 54, 54, "Pete Fecteau", ""), // NOI18N
+    TT_MY_LITTLE_PLAID_DARK("tt-my-little-plaid-dark.png", "My Little Plaid (Dark)", 54, 54, "Pete Fecteau", "http://buttonpresser.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: My Little Plaid (Light)
      */
-    TT_MY_LITTLE_PLAID_LIGHT("tt-my-little-plaid-light.png", "My Little Plaid (Light)", 54, 54, "Pete Fecteau", ""), // NOI18N
+    TT_MY_LITTLE_PLAID_LIGHT("tt-my-little-plaid-light.png", "My Little Plaid (Light)", 54, 54, "Pete Fecteau", "http://buttonpresser.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Nami
      */
-    TT_NAMI("tt-nami.png", "Nami", 16, 16, "Dertig Media", ""), // NOI18N
+    TT_NAMI("tt-nami.png", "Nami", 16, 16, "Dertig Media", "http://30.nl"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Nasty Fabric
      */
-    TT_NASTY_FABRIC("tt-nasty-fabric.png", "Nasty Fabric", 198, 200, "Badhon Ebrahim", ""), // NOI18N
+    TT_NASTY_FABRIC("tt-nasty-fabric.png", "Nasty Fabric", 198, 200, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Natural Paper
@@ -1072,17 +1072,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Navy
      */
-    TT_NAVY("tt-navy.png", "Navy", 600, 385, "Ethan Hamilton", ""), // NOI18N
+    TT_NAVY("tt-navy.png", "Navy", 600, 385, "Ethan Hamilton", "http://ultranotch.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Nice Snow
      */
-    TT_NICE_SNOW("tt-nice-snow.png", "Nice Snow", 250, 250, "Kerstkaarten", ""), // NOI18N
+    TT_NICE_SNOW("tt-nice-snow.png", "Nice Snow", 250, 250, "Kerstkaarten", "http://www.fotokaarten.nl/kerst.html"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Nistri
      */
-    TT_NISTRI("tt-nistri.png", "Nistri", 38, 38, "Markus Reiter", ""), // NOI18N
+    TT_NISTRI("tt-nistri.png", "Nistri", 38, 38, "Markus Reiter", "http://reitermark.us/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Noise Lines
@@ -1097,17 +1097,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Noisy
      */
-    TT_NOISY("tt-noisy.png", "Noisy", 300, 300, "Mladjan Antic", ""), // NOI18N
+    TT_NOISY("tt-noisy.png", "Noisy", 300, 300, "Mladjan Antic", "http://anticdesign.info/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Noisy Grid
      */
-    TT_NOISY_GRID("tt-noisy-grid.png", "Noisy Grid", 150, 150, "Vectorpile", ""), // NOI18N
+    TT_NOISY_GRID("tt-noisy-grid.png", "Noisy Grid", 150, 150, "Vectorpile", "http://www.vectorpile.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Noisy Net
      */
-    TT_NOISY_NET("tt-noisy-net.png", "Noisy Net", 200, 200, "Tom McArdle", ""), // NOI18N
+    TT_NOISY_NET("tt-noisy-net.png", "Noisy Net", 200, 200, "Tom McArdle", "http://twitter.com/_mcrdl"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Norwegian Rose"
@@ -1117,17 +1117,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Notebook
      */
-    TT_NOTEBOOK("tt-notebook.png", "Notebook", 300, 154, "HQvectors", ""), // NOI18N
+    TT_NOTEBOOK("tt-notebook.png", "Notebook", 300, 154, "HQvectors", "http://www.hqvectors.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Notebook (Dark)
      */
-    TT_NOTEBOOK_DARK("tt-notebook-dark.png", "Notebook (Dark)", 300, 154, "HQvectors", ""), // NOI18N
+    TT_NOTEBOOK_DARK("tt-notebook-dark.png", "Notebook (Dark)", 300, 154, "HQvectors", "http://www.hqvectors.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Office
      */
-    TT_OFFICE("tt-office.png", "Office", 70, 70, "Andres Rigo", ""), // NOI18N
+    TT_OFFICE("tt-office.png", "Office", 70, 70, "Andres Rigo", "http://www.andresrigo.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Old Husks
@@ -1137,7 +1137,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Old Map
      */
-    TT_OLD_MAP("tt-old-map.png", "Old Map", 256, 256, "Andreas Föhl", ""), // NOI18N
+    TT_OLD_MAP("tt-old-map.png", "Old Map", 256, 256, "Andreas Föhl", "http://www.netzfeld.de"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Old Mathematics
@@ -1147,57 +1147,57 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Old Moon
      */
-    TT_OLD_MOON("tt-old-moon.png", "Old Moon", 300, 300, "Nick Batchelor", ""), // NOI18N
+    TT_OLD_MOON("tt-old-moon.png", "Old Moon", 300, 300, "Nick Batchelor", "http://www.italicsbold.com.au"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Old Wall
      */
-    TT_OLD_WALL("tt-old-wall.png", "Old Wall", 300, 300, "Bartosz Kaszubowski", ""), // NOI18N
+    TT_OLD_WALL("tt-old-wall.png", "Old Wall", 300, 300, "Bartosz Kaszubowski", "http://twitter.com/simek"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Otis Redding
      */
-    TT_OTIS_REDDING("tt-otis-redding.png", "Otis Redding", 100, 100, " Thomas Myrman", ""), // NOI18N
+    TT_OTIS_REDDING("tt-otis-redding.png", "Otis Redding", 100, 100, "Thomas Myrman", "http://thomasmyrman.com\""), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Outlets
      */
-    TT_OUTLETS("tt-outlets.png", "Outlets", 4, 8, "Michal Chovanec", ""), // NOI18N
+    TT_OUTLETS("tt-outlets.png", "Outlets", 4, 8, "Michal Chovanec", "http://michalchovanec.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: P1
      */
-    TT_P1("tt-p1.png", "P1", 8, 9, "Dima Shiper", ""), // NOI18N
+    TT_P1("tt-p1.png", "P1", 8, 9, "Dima Shiper", "http://www.epictextures.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: P2
      */
-    TT_P2("tt-p2.png", "P2", 4, 5, "Dima Shiper", ""), // NOI18N
+    TT_P2("tt-p2.png", "P2", 4, 5, "Dima Shiper", "http://www.epictextures.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: P4
      */
-    TT_P4("tt-p4.png", "P4", 8, 8, "Dima Shiper", ""), // NOI18N
+    TT_P4("tt-p4.png", "P4", 8, 8, "Dima Shiper", "http://www.epictextures.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: P5
      */
-    TT_P5("tt-p5.png", "P5", 8, 8, "Dima Shiper", ""), // NOI18N
+    TT_P5("tt-p5.png", "P5", 8, 8, "Dima Shiper", "http://www.epictextures.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: P6
      */
-    TT_P6("tt-p6.png", "P6", 8, 8, "Dima Shiper", ""), // NOI18N
+    TT_P6("tt-p6.png", "P6", 8, 8, "Dima Shiper", "http://www.epictextures.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Padded
      */
-    TT_PADDED("tt-padded.png", "Padded", 160, 160, "Chris Baldie", ""), // NOI18N
+    TT_PADDED("tt-padded.png", "Padded", 160, 160, "Chris Baldie", "http://papertank.co.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Padded (Light)
      */
-    TT_PADDED_LIGHT("tt-padded-light.png", "Padded (Light)", 160, 160, "Chris Baldie", ""), // NOI18N
+    TT_PADDED_LIGHT("tt-padded-light.png", "Padded (Light)", 160, 160, "Chris Baldie", "http://papertank.co.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Paper
@@ -1222,7 +1222,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Paper Fibers
      */
-    TT_PAPER_FIBERS("tt-paper-fibers.png", "Paper Fibers", 410, 410, "Heliodor jalba", ""), // NOI18N
+    TT_PAPER_FIBERS("tt-paper-fibers.png", "Paper Fibers", 410, 410, "Heliodor jalba", "http://about.me/heliodor"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Josh Green
@@ -1237,72 +1237,72 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Pineapple Cut
      */
-    TT_PINEAPPLE_CUT("tt-pineapple-cut.png", "Pineapple Cut", 36, 62, "Audee Mirza", ""), // NOI18N
+    TT_PINEAPPLE_CUT("tt-pineapple-cut.png", "Pineapple Cut", 36, 62, "Audee Mirza", "http://audeemirza.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Pinstriped Suit
      */
-    TT_PINSTRIPED_SUIT("tt-pinstriped-suit.png", "Pinstriped Suit", 400, 333, "Alex Berkowitz", ""), // NOI18N
+    TT_PINSTRIPED_SUIT("tt-pinstriped-suit.png", "Pinstriped Suit", 400, 333, "Alex Berkowitz", "http://www.alexberkowitz.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Pinstripe (Dark)
      */
-    TT_PINSTRIPE_DARK("tt-pinstripe-dark.png", "Pinstripe (Dark)", 50, 500, "Brandon", ""), // NOI18N
+    TT_PINSTRIPE_DARK("tt-pinstripe-dark.png", "Pinstripe (Dark)", 50, 500, "Brandon", "http://extrast.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Pinstripe (Light)
      */
-    TT_PINSTRIPE_LIGHT("tt-pinstripe-light.png", "Pinstripe (Light)", 50, 500, "Brandon", ""), // NOI18N
+    TT_PINSTRIPE_LIGHT("tt-pinstripe-light.png", "Pinstripe (Light)", 50, 500, "Brandon", "http://extrast.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Pixel Weave
      */
-    TT_PIXEL_WEAVE("tt-pixel-weave.png", "Pixel Weave", 64, 64, "Dax Kieran", ""), // NOI18N
+    TT_PIXEL_WEAVE("tt-pixel-weave.png", "Pixel Weave", 64, 64, "Dax Kieran", "http://daxkieran.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Polaroid
      */
-    TT_POLAROID("tt-polaroid.png", "Polaroid", 58, 36, "Daniel Beaton", ""), // NOI18N
+    TT_POLAROID("tt-polaroid.png", "Polaroid", 58, 36, "Daniel Beaton", "http://danielbeaton.tumblr.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Polonez Pattern
      */
-    TT_POLONEZ_PATTERN("tt-polonez-pattern.png", "Polonez Pattern", 300, 300, "Radoslaw Rzepecki", ""), // NOI18N
+    TT_POLONEZ_PATTERN("tt-polonez-pattern.png", "Polonez Pattern", 300, 300, "Radoslaw Rzepecki", "Radoslaw Rzepecki"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Polyester Lite
      */
-    TT_POLYESTER_LITE("tt-polyester-lite.png", "Polyester Lite", 17, 22, "Jeremy", ""), // NOI18N
+    TT_POLYESTER_LITE("tt-polyester-lite.png", "Polyester Lite", 17, 22, "Jeremy", "http://dribbble.com/jeremyelder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Pool Table
      */
-    TT_POOL_TABLE("tt-pool-table.png", "Pool Table", 256, 256, "Caveman", ""), // NOI18N
+    TT_POOL_TABLE("tt-pool-table.png", "Pool Table", 256, 256, "Caveman", "http://caveman.chlova.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Project Paper
      */
-    TT_PROJECT_PAPER("tt-project-paper.png", "Project Paper", 105, 105, "Rafael Almeida", ""), // NOI18N
+    TT_PROJECT_PAPER("tt-project-paper.png", "Project Paper", 105, 105, "Rafael Almeida", "http://www.fotografiaetc.com.br/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Psychedelic
      */
-    TT_PSYCHEDELIC("tt-psychedelic.png", "Psychedelic", 84, 72, "Pixeden", ""), // NOI18N
+    TT_PSYCHEDELIC("tt-psychedelic.png", "Psychedelic", 84, 72, "Pixeden", "http://www.pixeden.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Ps Neutral
      */
-    TT_PS_NEUTRAL("tt-ps-neutral.png", "Ps Neutral", 16, 16, "Gluszczenko", ""), // NOI18N
+    TT_PS_NEUTRAL("tt-ps-neutral.png", "Ps Neutral", 16, 16, "Gluszczenko", "http://www.gluszczenko.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Purty Wood
      */
-    TT_PURTY_WOOD("tt-purty-wood.png", "Purty Wood", 400, 400, "Richard Tabor", ""), // NOI18N
+    TT_PURTY_WOOD("tt-purty-wood.png", "Purty Wood", 400, 400, "Richard Tabor", "http://www.purtypixels.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Pw Pattern
      */
-    TT_PW_PATTERN("tt-pw-pattern.png", "Pw Pattern", 188, 188, "Peax", ""), // NOI18N
+    TT_PW_PATTERN("tt-pw-pattern.png", "Pw Pattern", 188, 188, "Peax", "http://www.peax-webdesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Pyramid
@@ -1317,12 +1317,12 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Random Grey Variations
      */
-    TT_RANOM_GREY_VARIATIONS("tt-random-grey-variations.png", "Random Grey Variations", 200, 200, "Stefan Aleksic", ""), // NOI18N
+    TT_RANOM_GREY_VARIATIONS("tt-random-grey-variations.png", "Random Grey Variations", 200, 200, "Stefan Aleksic", "http://www.MentalWardDesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Ravenna
      */
-    TT_RAVENNA("tt-ravenna.png", "Ravenna", 387, 201, "Sentel", ""), // NOI18N
+    TT_RAVENNA("tt-ravenna.png", "Ravenna", 387, 201, "Sentel", "http://sentel.co"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Real Carbon Fibre
@@ -1332,22 +1332,22 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Rebel
      */
-    TT_REBEL("tt-rebel.png", "Rebel", 320, 360, "Hendrik Lammers", ""), // NOI18N
+    TT_REBEL("tt-rebel.png", "Rebel", 320, 360, "Hendrik Lammers", "http://www.hendriklammers.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Redox 01
      */
-    TT_REDOX_01("tt-redox-01.png", "Redox 01", 600, 375, "Hendrik Lammers", ""), // NOI18N
+    TT_REDOX_01("tt-redox-01.png", "Redox 01", 600, 375, "Hendrik Lammers", "http://www.hendriklammers.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Redox 02
      */
-    TT_REDOX_02("tt-redox-02.png", "Redox 02", 600, 340, "Hendrik Lammers", ""), // NOI18N
+    TT_REDOX_02("tt-redox-02.png", "Redox 02", 600, 340, "Hendrik Lammers", "http://www.hendriklammers.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Reticular Tissue
      */
-    TT_RETICULAR_TISSUE("tt-reticular-tissue.png", "Reticular Tissue", 25, 25, "Anna Litvinuk", ""), // NOI18N
+    TT_RETICULAR_TISSUE("tt-reticular-tissue.png", "Reticular Tissue", 25, 25, "Anna Litvinuk", "http://graphicriver.net/user/Naf_Naf?ref=Naf_Naf"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Retina Dust
@@ -1362,7 +1362,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Retro Intro
      */
-    TT_RETRO_INTRO("tt-retro-intro.png", "Retro Intro", 109, 109, "Bilal Ketab", ""), // NOI18N
+    TT_RETRO_INTRO("tt-retro-intro.png", "Retro Intro", 109, 109, "Bilal Ketab", "http://www.twitter.com/Creartinc"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Rice Paper
@@ -1387,27 +1387,27 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Rocky Wall
      */
-    TT_ROCKY_WALL("tt-rocky-wall.png", "Rocky Wall", 500, 500, "Projecteightyfive", ""), // NOI18N
+    TT_ROCKY_WALL("tt-rocky-wall.png", "Rocky Wall", 500, 500, "Projecteightyfive", "http://projecteightyfive.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Rough Cloth
      */
-    TT_ROUGH_CLOTH("tt-rough-cloth.png", "Rough Cloth", 320, 320, "Bartosz Kaszubowski", ""), // NOI18N
+    TT_ROUGH_CLOTH("tt-rough-cloth.png", "Rough Cloth", 320, 320, "Bartosz Kaszubowski", "http://twitter.com/simek"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Rough Cloth (Light)
      */
-    TT_ROUGH_CLOTH_LIGHT("tt-rough-cloth-light.png", "Rough Cloth (Light)", 320, 320, "Bartosz Kaszubowski", ""), // NOI18N
+    TT_ROUGH_CLOTH_LIGHT("tt-rough-cloth-light.png", "Rough Cloth (Light)", 320, 320, "Bartosz Kaszubowski", "http://twitter.com/simek"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Rough Diagonal
      */
-    TT_ROUGH_DIAGONAL("tt-rough-diagonal.png", "Rough Diagonal", 256, 256, "Jorick van Hees", ""), // NOI18N
+    TT_ROUGH_DIAGONAL("tt-rough-diagonal.png", "Rough Diagonal", 256, 256, "Jorick van Hees", "http://jorickvanhees.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Rubber Grip
      */
-    TT_RUBBER_GRIP("tt-rubber-grip.png", "Rubber Grip", 5, 20, "Sinisha", ""), // NOI18N
+    TT_RUBBER_GRIP("tt-rubber-grip.png", "Rubber Grip", 5, 20, "Sinisha", "http://be.net/pixilated"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Sandpaper
@@ -1417,52 +1417,52 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Satin Weave
      */
-    TT_SATIN_WEAVE("tt-satin-weave.png", "Satin Weave", 24, 12, "Merrin Macleod", ""), // NOI18N
+    TT_SATIN_WEAVE("tt-satin-weave.png", "Satin Weave", 24, 12, "Merrin Macleod", "http://www.merxplat.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Scribble Light
      */
-    TT_SCRIBBLE_LIGHT("tt-scribble-light.png", "Scribble Light", 304, 306, "Tegan Male", ""), // NOI18N
+    TT_SCRIBBLE_LIGHT("tt-scribble-light.png", "Scribble Light", 304, 306, "Tegan Male", "http://thelovelyfox.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Shattered (Dark)
      */
-    TT_SHATTERED_DARK("tt-shattered-dark.png", "Shattered (Dark)", 500, 500, "Luuk van Baars", ""), // NOI18N
+    TT_SHATTERED_DARK("tt-shattered-dark.png", "Shattered (Dark)", 500, 500, "Luuk van Baars", "http://luukvanbaars.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Shattered (Light)
      */
-    TT_SHATTERED_LIGHT("tt-shattered-light.png", "Shattered (Light)", 500, 500, "Luuk van Baars", ""), // NOI18N
+    TT_SHATTERED_LIGHT("tt-shattered-light.png", "Shattered (Light)", 500, 500, "Luuk van Baars", "http://luukvanbaars.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Shine Caro
      */
-    TT_SHINE_CARO("tt-shine-caro.png", "Shine Caro", 9, 9, "mediumidee", ""), // NOI18N
+    TT_SHINE_CARO("tt-shine-caro.png", "Shine Caro", 9, 9, "mediumidee", "http://www.mediumidee.de"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Shine Dotted
      */
-    TT_SHINE_DOTTED("tt-shine-dotted.png", "Shine Dotted", 6, 5, "mediumidee", ""), // NOI18N
+    TT_SHINE_DOTTED("tt-shine-dotted.png", "Shine Dotted", 6, 5, "mediumidee", "http://www.mediumidee.de"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Shley Tree 1
      */
-    TT_SHLEY_TREE_1("tt-shley-tree-1.png", "Shley Tree 1", 300, 409, "Derek Ramsey", ""), // NOI18N
+    TT_SHLEY_TREE_1("tt-shley-tree-1.png", "Shley Tree 1", 300, 409, "Derek Ramsey", "http://en.wikipedia.org/wiki/User:Ram-Man"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Shley Tree 2
      */
-    TT_SHLEY_TREE_2("tt-shley-tree-2.png", "Shley Tree 2", 400, 414, "Mike Hearn", ""), // NOI18N
+    TT_SHLEY_TREE_2("tt-shley-tree-2.png", "Shley Tree 2", 400, 414, "Mike Hearn", "http://www.mikehearn.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Silver Scales
      */
-    TT_SILVER_SCALES("tt-silver-scales.png", "Silver Scales", 40, 40, "Alex Parker", ""), // NOI18N
+    TT_SILVER_SCALES("tt-silver-scales.png", "Silver Scales", 40, 40, "Alex Parker", "http://twitter.com/misterparker"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Simple Dashed
      */
-    TT_SIMPLE_DASHED("tt-simple-dashed.png", "Simple Dashed", 14, 14, "Venam", ""), // NOI18N
+    TT_SIMPLE_DASHED("tt-simple-dashed.png", "Simple Dashed", 14, 14, "Venam", "http://venam.1.ai"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Simple Horizontal Light
@@ -1472,17 +1472,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Skeletal Weave
      */
-    TT_SKELETAL_WEAVE("tt-skeletal-weave.png", "Skeletal Weave", 25, 25, "Angelica", ""), // NOI18N
+    TT_SKELETAL_WEAVE("tt-skeletal-weave.png", "Skeletal Weave", 25, 25, "Angelica", "http://fleeting_days.livejournal.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Skewed Print
      */
-    TT_SKEWED_PRINT("tt-skewed-print.png", "Skewed Print", 330, 320, "Hendrik Lammers", ""), // NOI18N
+    TT_SKEWED_PRINT("tt-skewed-print.png", "Skewed Print", 330, 320, "Hendrik Lammers", "http://www.hendriklammers.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Skin Side Up
      */
-    TT_SKIN_SIDE_UP("tt-skin-side-up.png", "Skin Side Up", 320, 360, "Hendrik Lammers", ""), // NOI18N
+    TT_SKIN_SIDE_UP("tt-skin-side-up.png", "Skin Side Up", 320, 360, "Hendrik Lammers", "http://www.hendriklammers.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Skulls
@@ -1492,12 +1492,12 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Slash It
      */
-    TT_SLASH_IT("tt-slash-it.png", "Slash It", 9, 9, "Venam", ""), // NOI18N
+    TT_SLASH_IT("tt-slash-it.png", "Slash It", 9, 9, "Venam", "http://venam.1.ai"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Small Crackle Bright
      */
-    TT_SMALL_CRACKLE_BRIGTH("tt-small-crackle-bright.png", "Small Crackle Bright", 14, 14, "Markus Tinner", ""), // NOI18N
+    TT_SMALL_CRACKLE_BRIGTH("tt-small-crackle-bright.png", "Small Crackle Bright", 14, 14, "Markus Tinner", "http://www.markustinner.ch"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Small Crosses
@@ -1517,7 +1517,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Sneaker Mesh Fabric
      */
-    TT_SNEAKER_MESH_FABRIC("tt-sneaker-mesh-fabric.png", "Sneaker Mesh Fabric", 150, 111, "Victor Bejar", ""), // NOI18N
+    TT_SNEAKER_MESH_FABRIC("tt-sneaker-mesh-fabric.png", "Sneaker Mesh Fabric", 150, 111, "Victor Bejar", "http://victorbejar.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Snow
@@ -1527,17 +1527,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Soft Circle Scales
      */
-    TT_SOFT_CIRCLE_SCALES("tt-soft-circle-scales.png", "Soft Circle Scales", 256, 56, "Ian Soper", ""), // NOI18N
+    TT_SOFT_CIRCLE_SCALES("tt-soft-circle-scales.png", "Soft Circle Scales", 256, 56, "Ian Soper", "http://iansoper.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Soft Kill
      */
-    TT_SOFT_KILL("tt-soft-kill.png", "Soft Kill", 28, 48, "Factorio.us Collective", ""), // NOI18N
+    TT_SOFT_KILL("tt-soft-kill.png", "Soft Kill", 28, 48, "Factorio.us Collective", "http://www.factorio.us"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Soft Pad
      */
-    TT_SOFT_PAD("tt-soft-pad.png", "Soft Pad", 8, 8, "Badhon Ebrahim", ""), // NOI18N
+    TT_SOFT_PAD("tt-soft-pad.png", "Soft Pad", 8, 8, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Soft Wallpaper
@@ -1547,17 +1547,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Solid
      */
-    TT_SOLID("tt-solid.png", "Solid", 500, 500, "Hendrik Lammers", ""), // NOI18N
+    TT_SOLID("tt-solid.png", "Solid", 500, 500, "Hendrik Lammers", "http://www.hendriklammers.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Sos
      */
-    TT_SOS("tt-sos.png", "Sos", 25, 25, "JBasoo", ""), // NOI18N
+    TT_SOS("tt-sos.png", "Sos", 25, 25, "JBasoo", "https://twitter.com/JBasoo"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Sprinkles
      */
-    TT_SPRINKLES("tt-sprinkles.png", "Sprinkles", 10, 5, "Rebecca Litt", ""), // NOI18N
+    TT_SPRINKLES("tt-sprinkles.png", "Sprinkles", 10, 5, "Rebecca Litt", "http://yellowmangodesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Squairy
@@ -1567,17 +1567,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Squared Metal
      */
-    TT_SQUARED_METAL("tt-squared-metal.png", "Squared Metal", 132, 132, "doot0", ""), // NOI18N
+    TT_SQUARED_METAL("tt-squared-metal.png", "Squared Metal", 132, 132, "doot0", "http://twitter.com/doot0"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Squares
      */
-    TT_SQUARES("tt-squares.png", "Squares", 32, 32, "Jaromir Kavan", ""), // NOI18N
+    TT_SQUARES("tt-squares.png", "Squares", 32, 32, "Jaromir Kavan", "http://www.toshtak.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Stacked Circles
      */
-    TT_STACKED_CIRCLES("tt-stacked-circles.png", "Stacked Circles", 9, 9, "Saqib", ""), // NOI18N
+    TT_STACKED_CIRCLES("tt-stacked-circles.png", "Stacked Circles", 9, 9, "Saqib", "http://www.960development.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Stardust
@@ -1587,22 +1587,22 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Starring
      */
-    TT_STARRING("tt-starring.png", "Starring", 35, 39, "Agus Riyadi", ""), // NOI18N
+    TT_STARRING("tt-starring.png", "Starring", 35, 39, "Agus Riyadi", "http://logosmile.net/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Stitched Wool
      */
-    TT_STITCHED_WOOL("tt-stitched-wool.png", "Stitched Wool", 224, 128, "Badhon Ebrahim", ""), // NOI18N
+    TT_STITCHED_WOOL("tt-stitched-wool.png", "Stitched Wool", 224, 128, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Strange Bullseyes
      */
-    TT_STRANGE_BULLSEYES("tt-strange-bullseyes.png", "Strange Bullseyes", 300, 300, "Christopher Buecheler", ""), // NOI18N
+    TT_STRANGE_BULLSEYES("tt-strange-bullseyes.png", "Strange Bullseyes", 300, 300, "Christopher Buecheler", "http://cwbuecheler.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Straws
      */
-    TT_STRAWS("tt-straws.png", "Straws", 16, 16, "Pavel", ""), // NOI18N
+    TT_STRAWS("tt-straws.png", "Straws", 16, 16, "Pavel", "http://evaluto.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Stressed Linen
@@ -1612,27 +1612,27 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Bartosz Kaszubowski
      */
-    TT_STUCCO("tt-stucco.png", "Stucco", 250, 249, "Bartosz Kaszubowski", ""), // NOI18N
+    TT_STUCCO("tt-stucco.png", "Stucco", 250, 249, "Bartosz Kaszubowski", "http://twitter.com/#!/simek"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtlenet
      */
-    TT_SUBTLENET("tt-subtlenet.png", "Subtlenet", 60, 60, "Designova", ""), // NOI18N
+    TT_SUBTLENET("tt-subtlenet.png", "Subtlenet", 60, 60, "Designova", "http://www.designova.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Carbon
      */
-    TT_SUBTLE_CARBON("tt-subtle-carbon.png", "Subtle Carbon", 18, 15, "Designova", ""), // NOI18N
+    TT_SUBTLE_CARBON("tt-subtle-carbon.png", "Subtle Carbon", 18, 15, "Designova", "http://www.designova.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Dark Vertical
      */
-    TT_SUBTLE_DARK_VERTICAL("tt-subtle-dark-vertical.png", "Subtle Dark Vertical", 40, 40, "Cody L", ""), // NOI18N
+    TT_SUBTLE_DARK_VERTICAL("tt-subtle-dark-vertical.png", "Subtle Dark Vertical", 40, 40, "Cody L", "http://tirl.tk/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Dots
      */
-    TT_SUBTLE_DOTS("tt-subtle-dots.png", "Subtle Dots", 27, 15, "Designova", ""), // NOI18N
+    TT_SUBTLE_DOTS("tt-subtle-dots.png", "Subtle Dots", 27, 15, "Designova", "http://www.designova.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Freckles
@@ -1642,37 +1642,37 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Subtle Grey
      */
-    TT_SUBTLE_GREY("tt-subtle-grey.png", "Subtle Grey", 397, 322, "Haris Sumic", ""), // NOI18N
+    TT_SUBTLE_GREY("tt-subtle-grey.png", "Subtle Grey", 397, 322, "Haris Sumic"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Grunge
      */
-    TT_SUBTLE_GRUNGE("tt-subtle-grunge.png", "Subtle Grunge", 400, 400, "Breezi", ""), // NOI18N
+    TT_SUBTLE_GRUNGE("tt-subtle-grunge.png", "Subtle Grunge", 400, 400, "Breezi", "http://breezi.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Stripes
      */
-    TT_SUBTLE_STRIPES("tt-subtle-stripes.png", "Subtle Stripes", 40, 40, "Raasa", ""), // NOI18N
+    TT_SUBTLE_STRIPES("tt-subtle-stripes.png", "Subtle Stripes", 40, 40, "Raasa", "http://cargocollective.com/raasa"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Surface
      */
-    TT_SUBTLE_SURFACE("tt-subtle-surface.png", "Subtle Surface", 16, 8, "Designova", ""), // NOI18N
+    TT_SUBTLE_SURFACE("tt-subtle-surface.png", "Subtle Surface", 16, 8, "Designova", "http://www.designova.net"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle White Feathers
      */
-    TT_SUBTLE_WHITE_FEATHERS("tt-subtle-white-feathers.png", "Subtle White Feathers", 500, 333, "Viahorizon", ""), // NOI18N
+    TT_SUBTLE_WHITE_FEATHERS("tt-subtle-white-feathers.png", "Subtle White Feathers", 500, 333, "Viahorizon", "http://therapywarsaw.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Subtle Zebra 3D
      */
-    TT_SUBTLE_ZEBRA_3D("tt-subtle-zebra-3d.png", "Subtle Zebra 3D", 121, 38, "Mike Warner", ""), // NOI18N
+    TT_SUBTLE_ZEBRA_3D("tt-subtle-zebra-3d.png", "Subtle Zebra 3D", 121, 38, "Mike Warner", "http://www.miketheindian.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Swirl
      */
-    TT_SWIRL("tt-swirl.png", "Swirl", 200, 200, "Peter Chon", ""), // NOI18N
+    TT_SWIRL("tt-swirl.png", "Swirl", 200, 200, "Peter Chon", "http://peterchondesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tactile Noise (Dark)
@@ -1687,67 +1687,67 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Tapestry
      */
-    TT_TAPESTRY("tt-tapestry.png", "Tapestry", 72, 61, "Pixeden", ""), // NOI18N
+    TT_TAPESTRY("tt-tapestry.png", "Tapestry", 72, 61, "Pixeden", "http://www.pixeden.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tasky
      */
-    TT_TASKY("tt-tasky.png", "Tasky", 10, 10, "Michal Chovanec", ""), // NOI18N
+    TT_TASKY("tt-tasky.png", "Tasky", 10, 10, "Michal Chovanec", "http://michalchovanec.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tex2Res1
      */
-    TT_TEX2RES1("tt-tex2res1.png", "Tex2Res1", 500, 500, "Janos Koos", ""), // NOI18N
+    TT_TEX2RES1("tt-tex2res1.png", "Tex2Res1", 500, 500, "Janos Koos", "http://joxadesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tex2Res2
      */
-    TT_TEX2RES2("tt-tex2res2.png", "Tex2Res2", 500, 500, "Janos Koos", ""), // NOI18N
+    TT_TEX2RES2("tt-tex2res2.png", "Tex2Res2", 500, 500, "Janos Koos", "http://joxadesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tex2Res3
      */
-    TT_TEX2RES3("tt-tex2res3.png", "Tex2Res3", 500, 500, "Janos Koos", ""), // NOI18N
+    TT_TEX2RES3("tt-tex2res3.png", "Tex2Res3", 500, 500, "Janos Koos", "http://joxadesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tex2Res4
      */
-    TT_TEX2RES4("tt-tex2res4.png", "Tex2Res4", 500, 500, "Janos Koos", ""), // NOI18N
+    TT_TEX2RES4("tt-tex2res4.png", "Tex2Res4", 500, 500, "Janos Koos", "http://joxadesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tex2Res5
      */
-    TT_TEX2RES5("tt-tex2res5.png", "Tex2Res5", 500, 500, "Janos Koos", ""), // NOI18N
+    TT_TEX2RES5("tt-tex2res5.png", "Tex2Res5", 500, 500, "Janos Koos", "http://joxadesign.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Textured Paper
      */
-    TT_TEXTURED_PAPER("tt-textured-paper.png", "Textured Paper", 500, 500, "Stephen Gilbert", ""), // NOI18N
+    TT_TEXTURED_PAPER("tt-textured-paper.png", "Textured Paper", 500, 500, "Stephen Gilbert", "http://stephen.io"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Textured Stripes
      */
-    TT_TEXTURED_STRIPES("tt-textured-stripes.png", "Textured Stripes", 256, 256, "V Hartikainen", ""), // NOI18N
+    TT_TEXTURED_STRIPES("tt-textured-stripes.png", "Textured Stripes", 256, 256, "V Hartikainen", "http://tiled-bg.blogspot.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Texturetastic Gray
      */
-    TT_TEXTURETASTIC_GRAY("tt-texturetastic-gray.png", "Texturetastic Gray", 476, 476, "Adam Pickering", ""), // NOI18N
+    TT_TEXTURETASTIC_GRAY("tt-texturetastic-gray.png", "Texturetastic Gray", 476, 476, "Adam Pickering", "http://www.adampickering.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Laura Gilbert Gilardenghi
      */
-    TT_TICKS("tt-ticks.png", "Ticks", 400, 400, "Laura Gilbert Gilardenghi", ""), // NOI18N
+    TT_TICKS("tt-ticks.png", "Ticks", 400, 400, "Laura Gilbert Gilardenghi", "http://rossomenta.blogspot.it/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tileable Wood
      */
-    TT_TILEABLE_WOOD("tt-tileable-wood.png", "Tileable Wood", 400, 317, "Elemis", ""), // NOI18N
+    TT_TILEABLE_WOOD("tt-tileable-wood.png", "Tileable Wood", 400, 317, "Elemis", "http://elemisfreebies.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tileable Wood Colored
      */
-    TT_TILEABLE_WOOD_COLORED("tt-tileable-wood-colored.png", "Tileable Wood Colored", 400, 317, "Elemis", ""), // NOI18N
+    TT_TILEABLE_WOOD_COLORED("tt-tileable-wood-colored.png", "Tileable Wood Colored", 400, 317, "Elemis", "http://elemisfreebies.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tiny Grid
@@ -1757,32 +1757,32 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Translucent Fibres
      */
-    TT_TRANSLUCENT_FIBRES("tt-translucent-fibres.png", "Translucent Fibres", 16, 16, "Angelica", ""), // NOI18N
+    TT_TRANSLUCENT_FIBRES("tt-translucent-fibres.png", "Translucent Fibres", 16, 16, "Angelica", "http://fleeting_days.livejournal.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Transparent Square Tiles
      */
-    TT_TRANSPARENT_SQUARE_TILES("tt-transparent-square-tiles.png", "Transparent Square Tiles", 252, 230, "Nathan Spady", ""), // NOI18N
+    TT_TRANSPARENT_SQUARE_TILES("tt-transparent-square-tiles.png", "Transparent Square Tiles", 252, 230, "Nathan Spady", "http://nspady.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tree Bark
      */
-    TT_TREE_BARK("tt-tree-bark.png", "Tree Bark", 350, 350, "GetDiscount", ""), // NOI18N
+    TT_TREE_BARK("tt-tree-bark.png", "Tree Bark", 350, 350, "GetDiscount", "http://getdiscount.co.uk/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Triangles
      */
-    TT_TRIANGLES("tt-triangles.png", "Triangles", 33, 36, "Ivan Ginev", ""), // NOI18N
+    TT_TRIANGLES("tt-triangles.png", "Triangles", 33, 36, "Ivan Ginev", "http://coggraphics.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Triangles 2
      */
-    TT_TRIANGLES_2("tt-triangles-2.png", "Triangles 2", 72, 72, "Pixeden", ""), // NOI18N
+    TT_TRIANGLES_2("tt-triangles-2.png", "Triangles 2", 72, 72, "Pixeden", "http://www.pixeden.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Triangular
      */
-    TT_TRIANGULAR("tt-triangular.png", "Triangular", 60, 60, "Dax Kieran", ""), // NOI18N
+    TT_TRIANGULAR("tt-triangular.png", "Triangular", 60, 60, "Dax Kieran", "http://daxkieran.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Tweed
@@ -1792,12 +1792,12 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Twinkle Twinkle
      */
-    TT_TWINKLE_TWINKLE("tt-twinkle-twinkle.png", "Twinkle Twinkle", 360, 300, "Badhon Ebrahim", ""), // NOI18N
+    TT_TWINKLE_TWINKLE("tt-twinkle-twinkle.png", "Twinkle Twinkle", 360, 300, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Txture
      */
-    TT_TXTURE("tt-txture.png", "Txture", 400, 300, "Anatoli Nicolae", ""), // NOI18N
+    TT_TXTURE("tt-txture.png", "Txture", 400, 300, "Anatoli Nicolae", "http://designchomp.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Type
@@ -1807,27 +1807,27 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Use Your Illusion
      */
-    TT_USE_YOUR_ILLUSION("tt-use-your-illusion.png", "Use Your Illusion", 54, 58, "Mohawk Studios", ""), // NOI18N
+    TT_USE_YOUR_ILLUSION("tt-use-your-illusion.png", "Use Your Illusion", 54, 58, "Mohawk Studios", "http://www.mohawkstudios.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Vaio
      */
-    TT_VAIO("tt-vaio.png", "Vaio", 37, 28, "Zigzain", ""), // NOI18N
+    TT_VAIO("tt-vaio.png", "Vaio", 37, 28, "Zigzain", "http://www.zigzain.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Vertical Cloth
      */
-    TT_VERTICAL_CLOTH("tt-vertical-cloth.png", "Vertical Cloth", 399, 400, "Krisp Designs", ""), // NOI18N
+    TT_VERTICAL_CLOTH("tt-vertical-cloth.png", "Vertical Cloth", 399, 400, "Krisp Designs", "http://dribbble.com/krisp"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Vichy
      */
-    TT_VICHY("tt-vichy.png", "Vichy", 70, 70, "Olivier Pineda", ""), // NOI18N
+    TT_VICHY("tt-vichy.png", "Vichy", 70, 70, "Olivier Pineda", "http://www.olivierpineda.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Vintage Speckles
      */
-    TT_VINTAGE_SPECKLES("tt-vintage-speckles.png", "Vintage Speckles", 400, 300, "David Pomfret", ""), // NOI18N
+    TT_VINTAGE_SPECKLES("tt-vintage-speckles.png", "Vintage Speckles", 400, 300, "David Pomfret", "http://simpleasmilk.co.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wall #4 Light
@@ -1837,47 +1837,47 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Washi
      */
-    TT_WASHI("tt-washi.png", "Washi", 100, 100, "Carolynne", ""), // NOI18N
+    TT_WASHI("tt-washi.png", "Washi", 100, 100, "Carolynne", "http://www.sweetstudio.co.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wavecut
      */
-    TT_WAVECUT("tt-wavecut.png", "Wavecut", 162, 15, "Ian Soper", ""), // NOI18N
+    TT_WAVECUT("tt-wavecut.png", "Wavecut", 162, 15, "Ian Soper", "http://iansoper.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wave Grid
      */
-    TT_WAVE_GRID("tt-wave-grid.png", "Wave Grid", 100, 100, "DomainsInfo", ""), // NOI18N
+    TT_WAVE_GRID("tt-wave-grid.png", "Wave Grid", 100, 100, "DomainsInfo", "http://www.domainsinfo.org/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Weave
      */
-    TT_WEAVE("tt-weave.png", "Weave", 35, 31, "Catherine", ""), // NOI18N
+    TT_WEAVE("tt-weave.png", "Weave", 35, 31, "Catherine", "http://wellterned.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wet Snow
      */
-    TT_WET_SNOW("tt-wet-snow.png", "Wet Snow", 250, 250, "Kerstkaarten", ""), // NOI18N
+    TT_WET_SNOW("tt-wet-snow.png", "Wet Snow", 250, 250, "Kerstkaarten", "http://www.fotokaarten.nl/kerst.html"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Whitey
      */
-    TT_WHITEY("tt-whitey.png", "Whitey", 654, 654, "Ant Eksiler", ""), // NOI18N
+    TT_WHITEY("tt-whitey.png", "Whitey", 654, 654, "Ant Eksiler", "http://www.turkhitbox.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Bed Sheet
      */
-    TT_WHITE_BED_SHEET("tt-white-bed-sheet.png", "White Bed Sheet", 54, 54, "Badhon Ebrahim", ""), // NOI18N
+    TT_WHITE_BED_SHEET("tt-white-bed-sheet.png", "White Bed Sheet", 54, 54, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Brick Wall
      */
-    TT_WHITE_BRICK_WALL("tt-white-brick-wall.png", "White Brick Wall", 24, 16, "Listvetra", ""), // NOI18N
+    TT_WHITE_BRICK_WALL("tt-white-brick-wall.png", "White Brick Wall", 24, 16, "Listvetra", "http://www.listvetra.ru"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Brushed
      */
-    TT_WHITE_BRUSHED("tt-white-brushed.png", "White Brushed", 114, 114, "Andre Schouten", ""), // NOI18N
+    TT_WHITE_BRUSHED("tt-white-brushed.png", "White Brushed", 114, 114, "Andre Schouten", "http://uniqappz.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Carbon
@@ -1887,7 +1887,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: White Carbonfiber
      */
-    TT_WHITE_CARBONFIBER("tt-white-carbonfiber.png", "White Carbonfiber", 4, 4, "Badhon Ebrahim", ""), // NOI18N
+    TT_WHITE_CARBONFIBER("tt-white-carbonfiber.png", "White Carbonfiber", 4, 4, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Diamond (Dark)
@@ -1907,7 +1907,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: White Linen
      */
-    TT_WHITE_LINEN("tt-white-linen.png", "White Linen", 400, 300, "Fabian Schultz", ""), // NOI18N
+    TT_WHITE_LINEN("tt-white-linen.png", "White Linen", 400, 300, "Fabian Schultz", "http://fabianschultz.de/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Paperboard
@@ -1917,7 +1917,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: White Plaster
      */
-    TT_WHITE_PLASTER("tt-white-plaster.png", "White Plaster", 300, 300, "Phil Maurer", ""), // NOI18N
+    TT_WHITE_PLASTER("tt-white-plaster.png", "White Plaster", 300, 300, "Phil Maurer", "http://aurer.co.uk"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile:White Sand 
@@ -1932,7 +1932,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: White Tiles
      */
-    TT_WHITE_TILES("tt-white-tiles.png", "White Tiles", 800, 250, "Another One", ""), // NOI18N
+    TT_WHITE_TILES("tt-white-tiles.png", "White Tiles", 800, 250, "Another One", "http://www.anotherone.fr/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Wall
@@ -1942,12 +1942,12 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: White Wall 3
      */
-    TT_WHITE_WALL_3("tt-white-wall-3.png", "White Wall 3", 150, 150, "Viahorizon", ""), // NOI18N
+    TT_WHITE_WALL_3("tt-white-wall-3.png", "White Wall 3", 150, 150, "Viahorizon", "http://centrumpar.pl/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Wall 3[2]
      */
-    TT_WHITE_WALL_3_2("tt-white-wall-3-2.png", "White Wall 3[2]", 500, 500, "Luca", ""), // NOI18N
+    TT_WHITE_WALL_3_2("tt-white-wall-3-2.png", "White Wall 3[2]", 500, 500, "Luca", "http://skymbu.info/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: White Wave
@@ -1957,17 +1957,17 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Wide Rectangles
      */
-    TT_WIDE_RECTANGLES("tt-wide-rectangles.png", "Wide Rectangles", 32, 14, "Petr Sulc", ""), // NOI18N
+    TT_WIDE_RECTANGLES("tt-wide-rectangles.png", "Wide Rectangles", 32, 14, "Petr Sulc", "http://www.petrsulc.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wild Flowers
      */
-    TT_WILD_FLOWERS("tt-wild-flowers.png", "Wild Flowers", 350, 350, "Themes Tube", ""), // NOI18N
+    TT_WILD_FLOWERS("tt-wild-flowers.png", "Wild Flowers", 350, 350, "Themes Tube", "http://themestube.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wild Oliva
      */
-    TT_WILD_OLIVA("tt-wild-oliva.png", "Wild Oliva", 198, 200, "Badhon Ebrahim", ""), // NOI18N
+    TT_WILD_OLIVA("tt-wild-oliva.png", "Wild Oliva", 198, 200, "Badhon Ebrahim", "http://dribbble.com/graphcoder"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wine Cork
@@ -1977,7 +1977,7 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Wood
      */
-    TT_WOOD("tt-wood.png", "Wood", 700, 700, "Cloaks", ""), // NOI18N
+    TT_WOOD("tt-wood.png", "Wood", 700, 700, "Cloaks", "http://cloaks.deviantart.com/"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Wood Pattern
@@ -1987,27 +1987,27 @@ public enum TransparentTexturesTile implements Tile {
     /**
      * The <code>Java</code> representation from the tile: Worn Dots
      */
-    TT_WORN_DOTS("tt-worn-dots.png", "Worn Dots", 200, 200, "Matt McDaniel", ""), // NOI18N
+    TT_WORN_DOTS("tt-worn-dots.png", "Worn Dots", 200, 200, "Matt McDaniel", "http://mattmcdaniel.me"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Woven
      */
-    TT_WOVEN("tt-woven.png", "Woven", 42, 42, "Max Rudberg", ""), // NOI18N
+    TT_WOVEN("tt-woven.png", "Woven", 42, 42, "Max Rudberg", "http://www.maxthemes.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Woven (Light)
      */
-    TT_WOVEN_LIGHT("tt-woven-light.png", "Woven (Light)", 42, 42, "Max Rudberg", ""), // NOI18N
+    TT_WOVEN_LIGHT("tt-woven-light.png", "Woven (Light)", 42, 42, "Max Rudberg", "http://www.maxthemes.com"), // NOI18N
     
     /**
      * The <code>Java</code> representation from the tile: Xv
      */
-    TT_XV("tt-xv.png", "Xv", 294, 235, "Lasma", ""), // NOI18N
+    TT_XV("tt-xv.png", "Xv", 294, 235, "Lasma", "http://www.oddfur.com"), // NOI18N
 
     /**
      * The <code>Java</code> representation from the tile: 
      */
-    TT_ZIG_ZAG("tt-zig-zag.png", "Zig Zag", 10, 10, "Dmitriy Prodchenko", ""); // NOI18N
+    TT_ZIG_ZAG("tt-zig-zag.png", "Zig Zag", 10, 10, "Dmitriy Prodchenko", "http://www.behance.net/dmpr0"); // NOI18N
 
     private final double height;
     private final double width;
