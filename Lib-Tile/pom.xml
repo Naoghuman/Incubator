@@ -107,6 +107,7 @@
                     <include>**/*.fxml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
+                    <include>**/*.png</include>
                 </includes>
             </resource>
             <resource>
@@ -115,6 +116,7 @@
                     <include>**/*.fxml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
+                    <include>**/*.png</include>
                 </includes>
             </resource>
         </resources>
@@ -151,7 +153,6 @@
     
     <modules>
         <module>Lib-Tile-Core</module>
-        <module>Lib-Tile-Demo</module>
         <module>Lib-Tile-SubtlePatterns</module>
         <module>Lib-Tile-SubtlePatterns-Images</module>
         <module>Lib-Tile-TransparentTextures</module>

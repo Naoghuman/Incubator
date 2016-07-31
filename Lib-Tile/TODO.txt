@@ -10,11 +10,6 @@ log-files
  - Starting the demo application create a 'Lib-Database-ObjectDB.log'.
  - The configuration in 'log4j2.xml' wont be applied.
 
-TitledPane (Background, Tiles)
- - Change from tpTiles back to tpBackground reset an selection in tpTiles.
-    - If not the the background color is white and not the the choosen.
-    - Hack don't work - ask in StackoverFlow
-
 --------------------------------------------------------------------------------
 CHECK-LIST JavaDoc
  - Lib-Tile
@@ -24,8 +19,6 @@ CHECK-LIST JavaDoc
     - (v) DefaultTileLoader.java
     - (v) Tile.java
     - (v) package-info.java
- - Lib-Tile-Demo
-    - ( ) JavaDoc yes or no?
  - Lib-Tile-TransparentTextures
     - (v) TransparentTexturesTile.java
     - (v) package-info.java
@@ -38,8 +31,6 @@ CHECK-LIST README.md
  - Lib-Tile
     - ( ) ReadMe.md
  - Lib-Tile-Core
-    - ( ) ReadMe.md
- - Lib-Tile-Demo
     - ( ) ReadMe.md
  - Lib-Tile-TransparentTextures
     - ( ) ReadMe.md
@@ -58,10 +49,6 @@ CHECK-LIST project description in pom.xml
 CHECK-LIST Extras
 DefaultTileLoader.java
  - ( ) Check functionality for checking the must-have parameters.
-
-Lib-Tile-Demo
- - Check which libraries are needed to included into the project.
-    - For example the Lib-Database-ObjectDB isn't needed.
 
 --------------------------------------------------------------------------------
 DOCUMENTATION
