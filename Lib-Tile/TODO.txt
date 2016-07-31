@@ -37,6 +37,8 @@ CHECK-LIST README.md
  - Lib-Tile-TransparentTextures-Images
     - ( ) ReadMe.md
 
+ - Check links to github/lib-xy files or projects.
+
 --------------------------------------------------------------------------------
 CHECK-LIST project description in pom.xml
  - ( ) Lib-Tile

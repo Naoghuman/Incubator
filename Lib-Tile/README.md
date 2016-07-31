@@ -6,7 +6,8 @@ Lib-Tile
 Intention
 ---
 
-`Lib-Tile` provides the functionalities to use [Tile]s in your [JavaFX] application.
+`Lib-Tile` is a multi [Maven] project written in [JavaFX] and [NetBeans IDE] 8.0.2 
+and provides the functionalities to use [Tile]s in your [JavaFX] application.
 
 A [Tile] is per definition a little transparent [Image] which overlay a 
 background-color or -image with the help of repetitions from the image in a layer.
@@ -20,9 +21,9 @@ TODO add screenshots which shows different tiles in the same image.
 Content
 ---
 
+* [Demo](#Demo)
 * [Libraries](#Libraries)
     - [Lib-Tile-Core](#LiTiCo)
-    - [Lib-Tile-Demo](#LiTiDe)
     - [Lib-Tile-TransparentTextures](#LiTiTrTe)
     - [Lib-Tile-TransparentTextures-Images](#LiTiTrTeIm)
 * [Download](#Download)
@@ -36,10 +37,25 @@ Content
 
 
 
-Libraries<a name="Libraries" />
+Demo<a name="Demo" />
 ---
 
-`Lib-Tile` is a multi [Maven] project written in [JavaFX] and [NetBeans IDE] 8.0.
+The demo application is a `demonstration` to show the features from the project 
+`Lib-Tile` with it included sublibraries.
+
+TODO add screenshot from the demo application
+
+Momentary the developer have following features during the demo application:
+* Choose your own background image.
+* Define your own background color.
+* Browse through all `tiles` from the tileset `Transparent Textures`.
+
+For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
+
+
+
+Libraries<a name="Libraries" />
+---
 
 To use `Lib-Tile` in your project you need minimal the library `Lib-Tile-Core` 
 plus a concrete implementation from an [AbstractTileLoader] which loads your 
@@ -59,30 +75,6 @@ as a [Background] or an [Image] with a concrete implementation from an
 [AbstractTileLoader].
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-Core].
-
-
-<br />
-### Lib-Tile-Demo<a name="LiTiDe" />
-
-The demo application can be easily started with a double click on the jar file. 
-It's also possible to start the application in a IDE with the class 
-[StartApplication].
-
-TODO add screenshot from the demo application
-
-Momentary the developer have following features during the demo application:
-* Choose an own background image.
-* Define an own background color.
-* Browse through all `tiles` from the tileset `Transparent Textures`.
-
-__Hint:__  
-For a future version I plan to implement the feature that the developer can 
-define own `tilesets` based on the existing `tilesets`.  
-For example the developer said that he want only the [Tile]s `a, b, c` from the 
-tileset `xy`. The bigest advance from this feature will be that only the choosen 
-[Tile] images are needed to be included into the target application.
-
-For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 
 
 <br />
