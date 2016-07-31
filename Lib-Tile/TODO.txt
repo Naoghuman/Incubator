@@ -13,6 +13,7 @@ log-files
 TitledPane (Background, Tiles)
  - Change from tpTiles back to tpBackground reset an selection in tpTiles.
     - If not the the background color is white and not the the choosen.
+    - Hack don't work - ask in StackoverFlow
 
 --------------------------------------------------------------------------------
 CHECK-LIST JavaDoc
@@ -57,6 +58,10 @@ CHECK-LIST project description in pom.xml
 CHECK-LIST Extras
 DefaultTileLoader.java
  - ( ) Check functionality for checking the must-have parameters.
+
+Lib-Tile-Demo
+ - Check which libraries are needed to included into the project.
+    - For example the Lib-Database-ObjectDB isn't needed.
 
 --------------------------------------------------------------------------------
 DOCUMENTATION
