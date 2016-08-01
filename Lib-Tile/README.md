@@ -16,7 +16,7 @@ background-color or -image with the help of repetitions from the image in a laye
 
 The current `version` is `0.1.0` from MM.dd.2016.
 
-TODO add screenshots which shows different tiles in the same image.
+TODO add screenshots which shows different [Tile]s in the same image.
 
 
 
@@ -59,7 +59,7 @@ Momentary the developer have following features during the demo application:
     * Currently only single colors are supported. For a later version I planed 
       the option to define a [LinearGradient] or a [RadialGradient] colors 
       through `css` &#040;[JavaFX CSS Reference Guide]&#041;.
-* Browse through all `tiles` from the tileset `Transparent Textures`.
+* Browse through all [Tile]s from the tileset `Transparent Textures`.
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 
@@ -71,7 +71,7 @@ Libraries<a name="Libraries" />
 
 To use `Lib-Tile` in your project you need minimal the library `Lib-Tile-Core` 
 plus a concrete implementation from an [AbstractTileLoader] which loads your 
-own `Tiles` images. How that work will be explained in the sub-project 
+own [Tile]s images. How that work will be explained in the sub-project 
 [Lib-Tile-Demo](#LiTiDe).
 
 Natural you can use additional libraries which contains predefined `tilesets`. 
@@ -109,7 +109,7 @@ The library `Lib-Tile-TransparentTextures-Images` contains all images from the
 tileset `Transparent Textures` and the loader `TransparentTexturesTileLoader` 
 which allowed the developer to load a single [Tile] image.
 
-In the examples from this library is also an example how to load only `xy` tile 
+In the examples from this library is also an example how to load only `xy` [Tile] 
 images, so that's not necessary to include the hole library (which size is 
 momentary 13MB) in an application.
 
@@ -135,8 +135,8 @@ in dependency from your necessities:
     * Contains the library lib-tile-demo-0.1.0.jar as an executable jar  
       with included libraries lib-tile-core-0.1.0.jar, lib-tile-transparenttextures-0.1.0.jar, 
       lib-tile-transparenttextures-images-0.1.0.jar.
-    * Use the demo application as a preview how the chosen tiles will be looks 
-      over your chosen background.
+    * Use the demo application as a preview how the chosen [Tile]s will be looks 
+      over your chosen background image/color.
 
 
 
