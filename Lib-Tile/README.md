@@ -151,7 +151,9 @@ Requirements<a name="Requirements" />
 Installation<a name="Installation" />
 ---
 
-TODO add section
+Depends on your necessities you have different options like in the section 
+[Download](#Download) is shown. Download the right `zip` file, extract it and 
+include the jar file&#040;s&#041; into your project. That was it :smile: .
 
 
 
