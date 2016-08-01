@@ -3,6 +3,7 @@ Lib-Tile
 
 
 
+<br />
 Intention
 ---
 
@@ -18,6 +19,7 @@ TODO add screenshots which shows different tiles in the same image.
 
 
 
+<br />
 Content
 ---
 
@@ -37,6 +39,7 @@ Content
 
 
 
+<br />
 Demo<a name="Demo" />
 ---
 
@@ -54,6 +57,7 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 
 
 
+<br />
 Libraries<a name="Libraries" />
 ---
 
@@ -105,6 +109,7 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Transparent
 
 
 
+<br />
 Download<a name="Download" />
 ---
 
@@ -127,6 +132,7 @@ in dependency from your necessities:
 
 
 
+<br />
 Requirements<a name="Requirements" />
 ---
 
@@ -134,6 +140,7 @@ TODO add section
 
 
 
+<br />
 Installation<a name="Installation" />
 ---
 
@@ -141,6 +148,7 @@ TODO add section
 
 
 
+<br />
 Documentation<a name="Documentation" />
 ---
 
@@ -148,6 +156,7 @@ TODO add section
 
 
 
+<br />
 Contribution<a name="Contribution" />
 ---
 
@@ -156,6 +165,7 @@ Contribution<a name="Contribution" />
 
 
 
+<br />
 License<a name="License" />
 ---
 
@@ -163,6 +173,7 @@ The project `Lib-Tile` and all sub-projects are licensed under [General Public L
 
 
 
+<br />
 Autor<a name="Autor" />
 ---
 
@@ -170,6 +181,7 @@ The project `Lib-Tile` and all sub-projects are maintained by me, Peter Rogge. S
 
 
 
+<br />
 Contact<a name="Contact" />
 ---
 
