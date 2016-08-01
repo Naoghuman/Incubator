@@ -19,9 +19,9 @@ The current `version` is `0.1.0` from MM.dd.2016.
 TODO add screenshots which shows different [Tile]s in the same image.
 Crimson Night &#040;Dark / Landscape&#041;
 
-> __Hint__
-> The image is from the webpage https://wall.alphacoders.com. The image haven't 
-> neither a `created by` or `shared by` &#040;see http://alphacoders.com/site/faq&#041;. 
+> __Hint__  
+> This image is from the webpage https://wall.alphacoders.com. The image haven't 
+> neither a `created by` or `shared by` flag &#040;see http://alphacoders.com/site/faq &#041;. 
 > If anyone is the autor and won't that I use this image here in my open souce 
 > project plz send me an email &#040;see [Contact](#Contact)&#041; and I will 
 > remove it. Thanks for your great work :smiley:.
