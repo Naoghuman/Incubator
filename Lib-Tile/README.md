@@ -8,7 +8,8 @@ Intention
 ---
 
 `Lib-Tile` is a multi [Maven] project written in [JavaFX] and [NetBeans IDE] 8.0.2 
-and provides the functionalities to use [Tile]s in your [JavaFX] application.
+and provides the functionalities to use and handle easily [Tile]s in your [JavaFX] 
+application.
 
 A [Tile] is per definition a little transparent [Image] which overlay a 
 background-color or -image with the help of repetitions from the image in a layer.
@@ -42,6 +43,8 @@ Content
 <br />
 Demo<a name="Demo" />
 ---
+
+With the project [Lib-Tile-Demo]
 
 The demo application is a `demonstration` to show the features from the project 
 `Lib-Tile` with it included sublibraries.
