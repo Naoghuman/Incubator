@@ -161,7 +161,12 @@ include the jar file&#040;s&#041; into your project. That was it :smile: .
 Documentation<a name="Documentation" />
 ---
 
-TODO add section
+In general `Lib-Tile` and `Lib-Tile-Demo` haven't an official documentation. But 
+you can
+* read the `README.md` from every project and
+* read the [JavaDoc] in the project and libraries.
+
+where examples are shown and the api from the libaries are explained.
 
 
 
@@ -206,6 +211,7 @@ You can reach me under <peter.rogge@yahoo.de>.
 [General Public License 3.0]:http://www.gnu.org/licenses/gpl-3.0.en.html
 [Image]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html
 [Issue]:https://github.com/Naoghuman/lib-tile/issues
+[JavaDoc]:http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
 [JavaFX CSS Reference Guide]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html
 [JDK 8]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
