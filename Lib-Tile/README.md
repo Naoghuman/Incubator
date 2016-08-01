@@ -44,16 +44,20 @@ Content
 Demo<a name="Demo" />
 ---
 
-With the project [Lib-Tile-Demo]
-
-The demo application is a `demonstration` to show the features from the project 
-`Lib-Tile` with it included sublibraries.
+The application [Lib-Tile-Demo] shows a `demonstration` how to use and handle 
+the features from the libraries in the project `Lib-Tile`. 
 
 TODO add screenshot from the demo application
 
 Momentary the developer have following features during the demo application:
 * Choose your own background image.
+    * Currently only images from the internet &#040;http or https&#041; with 
+      the size 1280x720 are supported. In a later version it will be possible 
+      to load also local images.
 * Define your own background color.
+    * Currently only single colors are supported. For a later version I planed 
+      the option to define a [LinearGradient] or a [RadialGradient] colors 
+      through `css` &#040;[JavaFX CSS Reference Guide]&#041;.
 * Browse through all `tiles` from the tileset `Transparent Textures`.
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
@@ -201,12 +205,16 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Image]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html
 [Issue]:https://github.com/Naoghuman/lib-tile/issues
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
+[JavaFX CSS Reference Guide]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html
 [Lib-Tile]:https://github.com/Naoghuman/lib-tile
+[Lib-Tile-Demo]:https://github.com/Naoghuman/lib-tile-demo
+[LinearGradient]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/LinearGradient.html
 [Maven]:http://maven.apache.org/
 [NetBeans IDE]:https://netbeans.org/
 [Pull Request]:https://help.github.com/articles/using-pull-requests
+[RadialGradient]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/RadialGradient.html
 [ReadMe from Lib-Tile-Core]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Core
-[ReadMe from Lib-Tile-Demo]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Demo
+[ReadMe from Lib-Tile-Demo]:https://github.com/Naoghuman/lib-tile-demo/blob/master/README.md
 [ReadMe from Lib-Tile-TransparentTextures]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures
 [ReadMe from Lib-Tile-TransparentTextures-Images]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures-Images
 [StartApplication]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Demo/src/main/java/com/github/naoghuman/lib/tile/demo/application/StartApplication.java
