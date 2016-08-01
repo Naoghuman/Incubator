@@ -143,7 +143,7 @@ in dependency from your necessities:
 Requirements<a name="Requirements" />
 ---
 
-TODO add section
+* On your system you need [JRE 8] or [JDK 8] installed.
 
 
 
@@ -206,6 +206,8 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Issue]:https://github.com/Naoghuman/lib-tile/issues
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
 [JavaFX CSS Reference Guide]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html
+[JDK 8]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[JRE 8]:http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
 [Lib-Tile]:https://github.com/Naoghuman/lib-tile
 [Lib-Tile-Demo]:https://github.com/Naoghuman/lib-tile-demo
 [LinearGradient]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/LinearGradient.html
