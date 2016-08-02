@@ -196,8 +196,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                 result.isPresent()
                 && result.get() != null
         ) {
-            LoggerFacade.INSTANCE.debug(this.getClass(), "The DailySection always exists. No new DailySection will created!"); // NOI18N
-            LoggerFacade.INSTANCE.trace(this.getClass(), "TODO add user feedback"); // NOI18N
+            DialogProvider.showDailySectionAlwaysExistsDialog();
             return;
         }
 

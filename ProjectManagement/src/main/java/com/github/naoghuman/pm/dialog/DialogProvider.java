@@ -27,6 +27,8 @@ import com.github.naoghuman.pm.model.DailySectionModel;
 import com.github.naoghuman.pm.model.ProjectModel;
 import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -36,6 +38,17 @@ import javafx.scene.control.Dialog;
  * @author Naoghuman
  */
 public class DialogProvider {
+    
+    public static final void showDailySectionAlwaysExistsDialog() {
+        LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show DailySection always exits dialog"); // NOI18N
+        
+        final Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Daily Section"); // NOI18N
+        alert.setHeaderText(null);
+        alert.setContentText("The 'Daily Section' always exists!"); // NOI18N
+
+        alert.showAndWait();
+    }
     
     public static final DailySectionModel showDailySectionChooserDialog() {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show DailySection chooser dialog"); // NOI18N
