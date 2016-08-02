@@ -14,8 +14,8 @@
             <children>
                 <HBox spacing="7.0" style="-fx-background-color: LIGHTBLUE;">
                     <children>
-                        <Button fx:id="bNewProject" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionNewProject" prefWidth="50.0" text="+ P" />
-                        <Button fx:id="bNewDailySection" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionNewDailySection" prefWidth="50.0" text="+ DS" />
+                        <Button fx:id="bNewProject" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionNewProject" prefWidth="100.0" text="+ Project" />
+                        <Button fx:id="bNewDailySection" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionNewDailySection" prefWidth="100.0" text="+ DailySection" />
                     </children>
                     <padding>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
