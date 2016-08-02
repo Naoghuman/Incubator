@@ -41,7 +41,7 @@ import javafx.scene.control.Tooltip;
  *
  * @author Naoghuman
  */
-public class DailySectionsOverviewPresenter implements Initializable, IRegisterActions {
+public class DailySectionsOverviewPresenter implements Initializable, INavigationOverviewConfiguration, IRegisterActions {
     
     @FXML private Button bNewDailySection;
     @FXML private TabPane tpDailySections;
@@ -113,7 +113,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
     public void onActionShowNewDailySectionDialog() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action show new DailySection dialog"); // NOI18N
 
-        ActionFacade.INSTANCE.handle(INavigationOverviewConfiguration.ON_ACTION__SHOW_NEW_DAILY_SECTION_DIALOG);
+        ActionFacade.INSTANCE.handle(ON_ACTION__SHOW_NEW_DAILY_SECTION_DIALOG);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action create new DailySection"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                INavigationOverviewConfiguration.ON_ACTION__CREATE_NEW_DAILY_SECTION,
+                ON_ACTION__CREATE_NEW_DAILY_SECTION,
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action create new DailySections"); // NOI18N
 
@@ -148,7 +148,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action open DailySection"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                INavigationOverviewConfiguration.ON_ACTION__OPEN_DAILY_SECTION,
+                ON_ACTION__OPEN_DAILY_SECTION,
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action open DailySections"); // NOI18N
 
@@ -163,7 +163,7 @@ public class DailySectionsOverviewPresenter implements Initializable, IRegisterA
         LoggerFacade.INSTANCE.debug(this.getClass(), "Register on action open Project in DailySection"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                INavigationOverviewConfiguration.ON_ACTION__OPEN_PROJECT_IN_DAILY_SECTION,
+                ON_ACTION__OPEN_PROJECT_IN_DAILY_SECTION,
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action open Project in DailySection"); // NOI18N
 
