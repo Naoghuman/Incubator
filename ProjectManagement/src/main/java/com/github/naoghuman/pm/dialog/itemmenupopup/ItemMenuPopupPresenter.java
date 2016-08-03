@@ -67,6 +67,11 @@ public class ItemMenuPopupPresenter implements Initializable, INavigationOvervie
         */
         
         popup.hide();
+        
+        final ProjectModel changedModel = DialogProvider.showEditProjectDialog(model);
+        if (changedModel == null) {
+            return; // no changes
+        }
     }
     
     public void onActionRemoveFromDaily() {

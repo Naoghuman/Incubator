@@ -81,11 +81,6 @@ public class ProjectItemPresenter implements Initializable {
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
         
-        /* TODO
-           - Right click on the project have a new button in the popup which shows
-             the dialog where the user can choose the DailySection where the Project
-             should be open.
-        */
         final ItemMenuPopupView view = new ItemMenuPopupView();
         final ItemMenuPopupPresenter presenter = view.getRealPresenter();
         presenter.configure(popup, model);

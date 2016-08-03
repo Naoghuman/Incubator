@@ -118,7 +118,7 @@ public class DialogProvider {
         ActionFacade.INSTANCE.handle(INavigationOverviewConfiguration.ON_ACTION__UPDATE_PROJECTS);
     }
     
-    public static final void showEditProjectDialog(ProjectModel model) {
+    public static final ProjectModel showEditProjectDialog(ProjectModel model) {
         LoggerFacade.INSTANCE.debug(DialogProvider.class, "Show edit Project dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO add size to the dialog"); // NOI18N
         LoggerFacade.INSTANCE.trace(DialogProvider.class, "TODO use properties"); // NOI18N
@@ -141,9 +141,13 @@ public class DialogProvider {
             if (
                     buttonType != null
                     && buttonType.equals(buttonTypeOk)
-                    && presenter.isChanged()
+                    && presenter.isChanged(model)
             ) {
-                return view.getRealPresenter().getProject();
+                final ProjectModel changedModel = new ProjectModel();
+                changedModel.setTitle(view.getRealPresenter().getTitle());
+                changedModel.convertColorToDatabaseColumn(view.getRealPresenter().getColor());
+                
+                return changedModel;
             }
             
             return null;
@@ -151,10 +155,10 @@ public class DialogProvider {
         
         final Optional<ProjectModel> result = dialog.showAndWait();
         if (!result.isPresent()) {
-            return;
+            return null;
         }
         
-        LoggerFacade.INSTANCE.error(DialogProvider.class, "TODO fire event with changed ProjectModel"); // NOI18N
+        return result.get();
     }
     
     public static final DailySectionModel showNewDailySectionDialog() {
@@ -215,7 +219,11 @@ public class DialogProvider {
                     buttonType != null
                     && buttonType.equals(buttonTypeOk)
             ) {
-                return view.getRealPresenter().getProject();
+                final ProjectModel changedModel = new ProjectModel();
+                changedModel.setTitle(view.getRealPresenter().getTitle());
+                changedModel.convertColorToDatabaseColumn(view.getRealPresenter().getColor());
+                
+                return changedModel;
             }
             
             return null;

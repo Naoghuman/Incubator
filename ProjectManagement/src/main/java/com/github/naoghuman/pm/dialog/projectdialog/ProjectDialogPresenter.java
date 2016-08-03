@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -35,8 +36,6 @@ public class ProjectDialogPresenter implements Initializable {
     @FXML private ColorPicker cpProjectColor;
     @FXML private TextField tfProjectName;
     
-    private ProjectModel originalModel;
-    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ProjectContentPresenter"); // NOI18N
@@ -44,27 +43,28 @@ public class ProjectDialogPresenter implements Initializable {
     }
     
     public void configure(ProjectModel model) {
-        this.originalModel = model;
+        tfProjectName.setText(model.getTitle());
+        cpProjectColor.setValue(model.convertEntityAttributeToColor());
     }
     
-    public ProjectModel getProject() {
-        LoggerFacade.INSTANCE.debug(this.getClass(), "Get Project"); // NOI18N
-        
-        final ProjectModel model = new ProjectModel();
-        model.convertColorToDatabaseColumn(cpProjectColor.getValue());
-        
+    public Color getColor() {
+        return cpProjectColor.getValue();
+    }
+    
+    public String getTitle() {
         final String projectName = tfProjectName.getText().trim();
         final String title = projectName.isEmpty() ? IEntityModel.NO_TITLE : projectName;
-        model.setTitle(title);
         
-        return model;
+        return title;
     }
     
-    public boolean isChanged() {
-        final ProjectModel changedModel = this.getProject();
-        final boolean isChanged = 
-                changedModel.getTitle().equals(originalModel.getTitle())
-                && changedModel.getColorAsStyle().equals(originalModel.getColorAsStyle());
+    public boolean isChanged(ProjectModel originalModel) {
+        final boolean isTitleChanged = !originalModel.getTitle().equals(this.getTitle());
+        final boolean isColorChanged = !originalModel.convertEntityAttributeToColor().equals(cpProjectColor.getValue());
+        final boolean isChanged = isTitleChanged || isColorChanged;
+        System.out.println("isChanged: " + isChanged);
+        System.out.println("originalModel.getTitle():"+originalModel.getTitle()+"==model.getTitle():"+this.getTitle());
+        System.out.println("originalModel.color: " + originalModel.convertEntityAttributeToColor()+"==cp: " +this.getColor());
         
         return isChanged;
     }
