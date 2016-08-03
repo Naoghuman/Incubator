@@ -108,7 +108,7 @@ through the enum `TransparentTexturesTile`.
 The tile images from this tileset are outsourced in a own library 
 `Lib-Tile-TransparentTextures-Images` to reduce the size from this library. One 
 more advance is that you can use an `own` [AbstractTileLoader] in combination 
-with the library `Lib-Tile-TransparentTextures`. So you don't need include the 
+with the library `Lib-Tile-TransparentTextures`. So you don't need to include the 
 library `Lib-Tile-TransparentTextures-Images` into your project which size is 
 momenatry `13MB`.
 
@@ -119,12 +119,9 @@ For more informations and examples plz see the [ReadMe from Lib-Tile-Transparent
 ### Lib-Tile-TransparentTextures-Images<a name="LiTiTrTeIm" />
 
 The library `Lib-Tile-TransparentTextures-Images` contains all images from the 
-tileset `Transparent Textures` and the loader `TransparentTexturesTileLoader` 
-which allowed the developer to load a single [Tile] image.
-
-In the examples from this library is also an example how to load only `xy` [Tile] 
-images, so that's not necessary to include the hole library (which size is 
-momentary 13MB) in an application.
+tileset `Transparent Textures` and the loader [TransparentTexturesTileLoader] 
+which allowed the developer to load a [Tile] image from the enum 
+[TransparentTexturesTile].
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-TransparentTextures-Images].
 
@@ -247,4 +244,5 @@ You can reach me under <peter.rogge@yahoo.de>.
 [StartApplication]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Demo/src/main/java/com/github/naoghuman/lib/tile/demo/application/StartApplication.java
 [Tile]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Core/src/main/java/com/github/naoghuman/lib/tile/core/Tile.java
 [Transparent Textures]:https://www.transparenttextures.com/
-[TransparentTexturesTileLoader]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures-Images/src/main/java/com/github/naoghuman/lib/tile/transparenttextures.images/TransparentTexturesTileLoader.java
+[TransparentTexturesTile]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures/src/main/java/com/github/naoghuman/lib/tile/transparenttextures/TransparentTexturesTile.java
+[TransparentTexturesTileLoader]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures-Images/src/main/java/com/github/naoghuman/lib/tile/transparenttextures/images/TransparentTexturesTileLoader.java
