@@ -188,16 +188,15 @@ public class ProjectModel implements Comparable<ProjectModel>, Externalizable, I
     private StringProperty colorAsStyleProperty = null;
     private String _colorAsStyle = SIGN__EMPTY;
     
-    public Color convertColorToEntityAttribute() {
-        String colorParts = this.getColorAsStyle().substring(0, EXPRESSION_PREFIX.length());
-        colorParts = colorParts.substring(colorParts.length() - EXPRESSION_SUFFIX.length());
-        
+    public Color convertEntityAttributeToColor() {
+        final String colorAsStyle = this.getColorAsStyle();
+        final String colorParts = colorAsStyle.substring(EXPRESSION_PREFIX.length(), 
+                colorAsStyle.length() - EXPRESSION_SUFFIX.length());
         final String[] splittedColorParts = colorParts.split(SIGN_COMMA);
-        final double red = Double.parseDouble(splittedColorParts[0]);
-        final double green = Double.parseDouble(splittedColorParts[1]);
-        final double blue = Double.parseDouble(splittedColorParts[2]);
+        final double red = Double.parseDouble(splittedColorParts[0]) / 255.0d;
+        final double green = Double.parseDouble(splittedColorParts[1]) / 255.0d;
+        final double blue = Double.parseDouble(splittedColorParts[2]) / 255.0d;
         final double opactiy = 1.0d;
-        
         final Color color = new Color(red, green, blue, opactiy);
         
         return color;
