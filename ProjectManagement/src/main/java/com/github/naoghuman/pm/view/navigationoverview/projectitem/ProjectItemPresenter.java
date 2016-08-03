@@ -29,6 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
@@ -75,6 +76,10 @@ public class ProjectItemPresenter implements Initializable {
     
     public void onMouseClickedShowItemMenuPopup(MouseEvent event) {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On mouse clicked show ItemMenu popup"); // NOI18N
+        
+        if (!event.getButton().equals(MouseButton.SECONDARY)) {
+            return;
+        }
         
         final Popup popup = new Popup();
         popup.setAutoFix(true);
