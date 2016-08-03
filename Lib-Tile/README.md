@@ -80,7 +80,8 @@ Libraries<a name="Libraries" />
 To use `Lib-Tile` in your project you need minimal the library `Lib-Tile-Core` 
 plus a concrete implementation from an [AbstractTileLoader] which loads your 
 own [Tile]s images. How that work will be explained in the sub-project 
-[Lib-Tile-Demo](#LiTiDe).
+[Lib-Tile-Demo](#LiTiDe) or have a look into the class [TransparentTexturesTileLoader] 
+from the library [Lib-Tile-TransparentTextures-Images](#LiTiTrTeIm).
 
 Natural you can use additional libraries which contains predefined `tilesets`. 
 Currently supported is [Transparent Textures] with the libraries 
@@ -242,3 +243,4 @@ You can reach me under <peter.rogge@yahoo.de>.
 [StartApplication]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Demo/src/main/java/com/github/naoghuman/lib/tile/demo/application/StartApplication.java
 [Tile]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-Core/src/main/java/com/github/naoghuman/lib/tile/core/Tile.java
 [Transparent Textures]:https://www.transparenttextures.com/
+[TransparentTexturesTileLoader]:https://github.com/Naoghuman/lib-tile/blob/master/Lib-Tile-TransparentTextures-Images/src/main/java/com/github/naoghuman/lib/tile/transparenttextures.images/TransparentTexturesTileLoader.java
