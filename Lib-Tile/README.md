@@ -106,7 +106,11 @@ tileset `Transparent Textures` from the internet page https://www.transparenttex
 through the enum `TransparentTexturesTile`.
 
 The tile images from this tileset are outsourced in a own library 
-`Lib-Tile-TransparentTextures-Images` to reduce the size from this library.
+`Lib-Tile-TransparentTextures-Images` to reduce the size from this library. One 
+more advance is that you can use an `own` [AbstractTileLoader] in combination 
+with the library `Lib-Tile-TransparentTextures`. So you don't need include the 
+library `Lib-Tile-TransparentTextures-Images` into your project which size is 
+momenatry `13MB`.
 
 For more informations and examples plz see the [ReadMe from Lib-Tile-TransparentTextures].
 
