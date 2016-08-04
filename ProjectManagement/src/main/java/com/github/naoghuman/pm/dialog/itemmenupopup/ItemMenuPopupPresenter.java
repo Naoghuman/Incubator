@@ -16,10 +16,13 @@
  */
 package com.github.naoghuman.pm.dialog.itemmenupopup;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.pm.configuration.INavigationOverviewConfiguration;
 import com.github.naoghuman.pm.dialog.DialogProvider;
 import com.github.naoghuman.pm.model.ProjectModel;
+import com.github.naoghuman.pm.sql.ProjectSqlProvider;
+import com.github.naoghuman.pm.sql.api.SqlFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -57,14 +60,6 @@ public class ItemMenuPopupPresenter implements Initializable, INavigationOvervie
     
     public void onActionEditProject() {
         LoggerFacade.INSTANCE.debug(this.getClass(), "On action edit Project"); // NOI18N
-        /*
-         - Show EditProjectDialog
-         - Save to database
-            - ProjectModel
-            - DailyModel
-         - Update Overview
-         - Update Daily
-        */
         
         popup.hide();
         
@@ -72,6 +67,17 @@ public class ItemMenuPopupPresenter implements Initializable, INavigationOvervie
         if (changedModel == null) {
             return; // no changes
         }
+        
+        // Update database
+        model.setColorAsStyle(changedModel.getColorAsStyle());
+        model.setTitle(changedModel.getTitle());
+        SqlFacade.INSTANCE.getProjectSqlProvider().createOrUpdate(model);
+        
+        // Update navigation
+        ActionFacade.INSTANCE.handle(ON_ACTION__UPDATE_PROJECTS);
+        
+        // Update DailySection area
+        LoggerFacade.INSTANCE.debug(this.getClass(), "TODO Update DailySection area"); // NOI18N
     }
     
     public void onActionRemoveFromDaily() {
