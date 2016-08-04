@@ -111,24 +111,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     private void initializeProjectsNavigation() {
         LoggerFacade.INSTANCE.info(this.getClass(), "Initialize ProjectNavigation"); // NOI18N
         
-        lvProjectsNavigation.getItems().clear();
-        lvProjectsNavigation.setCellFactory(value -> new ProjectItemCell());
-        
-        final ObservableList<ProjectModel> models = SqlFacade.INSTANCE.getProjectSqlProvider().findAll();
-        if (models.isEmpty()) {
-            return;
-        }
-        
-        final List<ProjectItemPresenter> presenters = models.stream()
-                .map((ProjectModel model) -> {
-                    final ProjectItemView view = new ProjectItemView();
-                    final ProjectItemPresenter presenter = view.getRealPresenter();
-                    presenter.configure(view.getView(), model);
-                    
-                    return presenter;
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
-        lvProjectsNavigation.getItems().addAll(presenters);
+        this.onActionUpdateProjects();
     }
     
     public void onActionNewDailySection() {
@@ -174,6 +157,8 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
     }
     
     private void onActionShowNewDailySectionDialog() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action show NewDailySectionDialog"); // NOI18N
+        
         tpNavigationOverview.getSelectionModel().select(SELECTED_INDEX__DAILY_SECTIONS);
         
         final DailySectionModel model = DialogProvider.showNewDailySectionDialog();
@@ -204,6 +189,30 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
         transferData.setActionId(ON_ACTION__CREATE_NEW_DAILY_SECTION);
         transferData.setObject(model);
         ActionFacade.INSTANCE.handle(transferData);
+    }
+    
+    public void onActionUpdateProjects() {
+        LoggerFacade.INSTANCE.debug(this.getClass(), "On action update Projects"); // NOI18N
+        
+        lvProjectsNavigation.getItems().clear();
+        lvProjectsNavigation.setCellFactory(null);
+        lvProjectsNavigation.setCellFactory(value -> new ProjectItemCell());
+        
+        final ObservableList<ProjectModel> models = SqlFacade.INSTANCE.getProjectSqlProvider().findAll();
+        if (models.isEmpty()) {
+            return;
+        }
+        
+        final List<ProjectItemPresenter> presenters = models.stream()
+                .map((ProjectModel model) -> {
+                    final ProjectItemView view = new ProjectItemView();
+                    final ProjectItemPresenter presenter = view.getRealPresenter();
+                    presenter.configure(view.getView(), model);
+                    
+                    return presenter;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+        lvProjectsNavigation.getItems().addAll(presenters);
     }
 
     @Override
@@ -326,7 +335,7 @@ public class NavigationOverviewPresenter implements Initializable, INavigationOv
                 (ActionEvent event) -> {
                     LoggerFacade.INSTANCE.debug(this.getClass(), "On action update Projects"); // NOI18N
 
-                    this.initializeProjectsNavigation();
+                    this.onActionUpdateProjects();
                 }
         );
     }
