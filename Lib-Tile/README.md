@@ -16,8 +16,9 @@ background-color or -image with the help of repetitions from the image in a laye
 
 The current `version` is `0.1.0` from MM.dd.2016.
 
-![different-tile-images.png][different-tile-images]
+<br />
 _Image:_ Crimson Night &#040;Dark / Landscape&#041; with different tile images
+![different-tile-images.png][different-tile-images]
 
 > __Hint__  
 > This image is from the webpage https://wall.alphacoders.com. The image haven't 
@@ -55,8 +56,9 @@ Demo<a name="Demo" />
 The application [Lib-Tile-Demo] shows a `demonstration` how to use and handle 
 the features from the libraries in the project `Lib-Tile`. 
 
-![demo-application-default.png][demo-application-default]
+<br />
 _Image:_ Default demo application
+![demo-application-default.png][demo-application-default]
 
 <br />
 Momentary the developer have following features during the demo application:
