@@ -103,6 +103,7 @@ as a [Background] or an [Image] with a concrete implementation from an
 [AbstractTileLoader].
 
 <br />
+Interface [AbstractTileLoader]
 ```java
 /**
  * This interface defines the minimal functionalities which should be supported 
@@ -208,6 +209,7 @@ library `Lib-Tile-TransparentTextures-Images` into your project which size is
 momenatry `13MB`.
 
 <br />
+Enum [TransparentTexturesTile]
 ```java
 /**
  * The <code>enum</code> TransparentTexturesTile is a collection from 
@@ -274,6 +276,7 @@ which allowed the developer to load a [Tile] image from the enum
 [TransparentTexturesTile].
 
 <br />
+Class [TransparentTexturesTileLoader]
 ```java
 /**
  * The singleton <code>TransparentTexturesTileLoader</code> is a concrete 
