@@ -58,6 +58,7 @@ the features from the libraries in the project `Lib-Tile`.
 ![demo-application-default.png][demo-application-default]
 _Image:_ Default demo application
 
+<br />
 Momentary the developer have following features during the demo application:
 * Choose your own background image.
     * Currently only images from the internet &#040;http or https&#041; with 
@@ -70,6 +71,7 @@ Momentary the developer have following features during the demo application:
       through `css` &#040;[JavaFX CSS Reference Guide]&#041;.
 * Browse through all [Tile]s from the tileset `Transparent Textures`.
 
+<br />
 For more informations and examples plz see the [ReadMe from Lib-Tile-Demo].
 
 
