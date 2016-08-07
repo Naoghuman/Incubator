@@ -131,11 +131,6 @@ public class ImageLoader implements IOverlayConfiguration {
         final Image overlay = overlayImages.computeIfAbsent(
                 imageName,
                 image -> {
-                    
-                    System.out.println("image==null: " + (image==null));
-                    System.out.println("width: " + width);
-                    System.out.println("height: " + width);
-                    
                     return this.load(OverlayLoader.class, image, width, height);
                 });
         
