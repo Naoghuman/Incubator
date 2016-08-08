@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane id="GridPane" fx:id="gpGameArea" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.sbs.view.gamearea.GameAreaPresenter">
+    <columnConstraints>
+        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="150.0" prefWidth="300.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="200.0" />
+        <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="150.0" prefWidth="300.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <VBox fx:id="vbLeftMenu" alignment="TOP_LEFT" GridPane.columnIndex="0" />
+        <StackPane GridPane.columnIndex="1">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="Button" />
+            </children>
+        </StackPane>
+        <VBox fx:id="vbRightMenu" alignment="TOP_RIGHT" GridPane.columnIndex="2">
+            <children>
+                <Button fx:id="bShowRightMenu" mnemonicParsing="false" onAction="#onActionShowRightMenu" text="Menu" />
+            </children>
+        </VBox>
+    </children>
+</GridPane>

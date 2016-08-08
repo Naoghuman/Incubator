@@ -17,8 +17,8 @@
 package com.github.naoghuman.sbs.debug;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.sbs.view.testcomponents.TestComponentsPresenter;
-import com.github.naoghuman.sbs.view.testcomponents.TestComponentsView;
+import com.github.naoghuman.sbs.view.debugcomponents.DebugComponentsPresenter;
+import com.github.naoghuman.sbs.view.debugcomponents.DebugComponentsView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -43,6 +43,7 @@ public final class DebugConsole {
     
     private boolean shouldDebugInfoPrinted = true;
     
+    private DebugComponentsPresenter presenter;
     private TextArea taDebugConsole;
     private VBox vbDebugOptions;
     
@@ -56,8 +57,8 @@ public final class DebugConsole {
     }
     
     public void configureTestComponents() {
-        final TestComponentsView view = new TestComponentsView();
-        final TestComponentsPresenter presenter = view.getRealPresenter();
+        final DebugComponentsView view = new DebugComponentsView();
+        presenter = view.getRealPresenter();
         taDebugConsole = presenter.getDebugConsole();
         vbDebugOptions = presenter.getDebugOptions();
         
@@ -120,10 +121,16 @@ public final class DebugConsole {
         taDebugConsole.appendText(formattedMessage);
     }
     
+    public void onActionResetDebugConsole() {
+        presenter.onActionResetDebugConsole();
+    }
+    
     /*
     TODO Flag should 
      a) activate logging in the TextArea and (Development-Mode)
      b) Remove the TextArea when deactivated (Release-Mode)
+    
+     - let it - user can look if he want.
     */
     public void setShouldDebugInfoPrinted(boolean shouldDebugInfoPrinted) {
         this.shouldDebugInfoPrinted = shouldDebugInfoPrinted;

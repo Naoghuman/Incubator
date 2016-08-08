@@ -22,6 +22,8 @@ import com.github.naoghuman.sbs.debug.DebugConsole;
 import com.github.naoghuman.sbs.gameengine.EGameMode;
 import com.github.naoghuman.sbs.gameengine.GameEngine;
 import com.github.naoghuman.sbs.view.backgroundimages.BackgroundImagesView;
+import com.github.naoghuman.sbs.view.gamearea.GameAreaPresenter;
+import com.github.naoghuman.sbs.view.gamearea.GameAreaView;
 import com.github.naoghuman.sbs.view.gamecomponents.GameComponentsView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -55,8 +57,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         this.initializeBackgroundImages();
         this.initializeGameComponents();
-        
-        
+        this.initializeGameArea();
         this.initializeLevelInfo();
         
         this.registerActions();
@@ -71,6 +72,16 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         final BackgroundImagesView view = new BackgroundImagesView();
         stackPane.getChildren().add(0, view.getView());
+    }
+    
+    private void initializeGameArea() {
+        DebugConsole.getDefault().info(this.getClass(), "Initialize GameArea"); // NOI18N
+        
+        final GameAreaView view = new GameAreaView();
+        final GameAreaPresenter presenter = view.getRealPresenter();
+        presenter.registerActions();
+        
+        stackPane.getChildren().add(view.getView());
     }
     
     private void initializeGameComponents() {

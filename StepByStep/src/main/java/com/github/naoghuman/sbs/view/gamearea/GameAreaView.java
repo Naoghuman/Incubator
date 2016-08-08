@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.sbs.view.testcomponents;
+package com.github.naoghuman.sbs.view.gamearea;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class TestComponentsView extends FXMLView {
+public class GameAreaView extends FXMLView {
     
-    public TestComponentsPresenter getRealPresenter() {
-        return (TestComponentsPresenter) super.getPresenter();
+    public GameAreaPresenter getRealPresenter() {
+        return (GameAreaPresenter) super.getPresenter();
     }
     
 }

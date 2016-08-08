@@ -14,36 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.sbs.view.testcomponents;
+package com.github.naoghuman.sbs.configuration;
 
 /**
  *
  * @author Naoghuman
  */
-enum EGameLevel {
+public interface IActionConfiguration {
     
-    LEVEL_1(1, "Level 1"), // NOI18N
-    LEVEL_2(2, "Level 2"), // NOI18N
-    LEVEL_3(3, "Level 3"), // NOI18N
-    LEVEL_4(4, "Level 4"), // NOI18N
-    LEVEL_5(5, "Level 5"); // NOI18N
-    
-    private final int level;
-    
-    private final String name;
-    
-    EGameLevel(int level, String name) {
-        this.level = level;
-        this.name = name;
-    }
-    
-    public int getLevel() {
-        return level;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
+    public static final String ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE = "ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE"; // NOI18N
     
 }

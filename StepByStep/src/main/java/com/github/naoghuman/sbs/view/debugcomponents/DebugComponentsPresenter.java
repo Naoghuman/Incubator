@@ -14,13 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.sbs.view.testcomponents;
+package com.github.naoghuman.sbs.view.debugcomponents;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
+import com.github.naoghuman.lib.action.api.TransferData;
+import com.github.naoghuman.sbs.configuration.IActionConfiguration;
 import com.github.naoghuman.sbs.debug.DebugConsole;
 import com.github.naoghuman.sbs.gameengine.EGameMode;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -37,17 +41,20 @@ import javafx.util.Callback;
  *
  * @author Naoghuman
  */
-public class TestComponentsPresenter implements Initializable {
+public class DebugComponentsPresenter implements Initializable {
     
     @FXML private Button bSimulate;
+    @FXML private CheckBox cbShowHideDebugConsole;
     @FXML private ComboBox<EGameLevel> cbSimulateGameLevel;
     @FXML private ComboBox<EGameMode> cbSimulateGameMode;
     @FXML private TextArea taDebugConsole;
     @FXML private VBox vbDebugOptions;
     
+    private EventHandler<ActionEvent> ehShowHideDebugConsole;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DebugConsole.getDefault().info(this.getClass(), "Initialize TestComponentsPresenter"); // NOI18N
+        DebugConsole.getDefault().info(this.getClass(), "Initialize DebugComponentsPresenter"); // NOI18N
         
         this.initializeDebugConsole();
         this.initializeDebugOptions();
@@ -60,6 +67,23 @@ public class TestComponentsPresenter implements Initializable {
         
         taDebugConsole.setFont(new Font("SansSerief", 10.0d));
         taDebugConsole.setPrefSize(600.0d, 1052.0d);
+        
+        ehShowHideDebugConsole = event -> {
+            DebugConsole.getDefault().debug(this.getClass(), "On action show/hide DebugConsole(ActionEvent)"); // NOI18N
+        
+            final Object source = event.getSource();
+            if(source instanceof CheckBox) {
+                final CheckBox checkBox = (CheckBox) source;
+                final boolean showDebugConsole = checkBox.isSelected();
+
+                final TransferData data = new TransferData();
+                data.setActionId(IActionConfiguration.ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE);
+                data.setBoolean(showDebugConsole);
+
+                ActionFacade.INSTANCE.handle(data);
+            }
+        };
+        cbShowHideDebugConsole.setOnAction(ehShowHideDebugConsole);
     }
 
     private void initializeDebugOptions() {
@@ -125,55 +149,21 @@ public class TestComponentsPresenter implements Initializable {
         return vbDebugOptions;
     }
     
-    private void onActionHideTestComponents() {
-        DebugConsole.getDefault().debug(this.getClass(), "On action hide TestComponents"); // NOI18N
-        
-        // TextArea
-        taDebugConsole.setVisible(false);
-        
-        // VBox
-        vbDebugOptions.setStyle(null); // NOI18N
-        
-        cbSimulateGameLevel.setDisable(true);
-        cbSimulateGameMode.setDisable(true);
-        
-        bSimulate.setDisable(true);
-    }
-    
-    private void onActionShowTestComponents() {
-        DebugConsole.getDefault().debug(this.getClass(), "On action show TestComponents"); // NOI18N
-        
-        // TextArea
-        taDebugConsole.setVisible(true);
-        
-        // VBox
-        vbDebugOptions.setStyle("-fx-background-color: rgba(255, 255, 255, 0.7)"); // NOI18N
-        
-        cbSimulateGameLevel.setDisable(false);
-        cbSimulateGameMode.setDisable(false);
-        
-        bSimulate.setDisable(false);
-    }
-    
-    public void onActionShowTestComponents(ActionEvent event) {
-        DebugConsole.getDefault().debug(this.getClass(), "On action show TestComponents(ActionEvent)"); // NOI18N
-        
-        final Object source = event.getSource();
-        if(source instanceof CheckBox) {
-            final CheckBox checkBox = (CheckBox) source;
-            final boolean isSelected = checkBox.isSelected();
-            if (isSelected) {
-                this.onActionShowTestComponents();
-            }
-            else {
-                this.onActionHideTestComponents();
-            }
-        }
-    }
-    
     public void onActionSimulate() {
         DebugConsole.getDefault().debug(this.getClass(), "On action Simulate"); // NOI18N
         
+    }
+    
+    public void onActionResetDebugConsole() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action reset DebugConsole"); // NOI18N
+        
+        if (!cbShowHideDebugConsole.isSelected()) {
+            return;
+        }
+        
+        cbShowHideDebugConsole.setOnAction(null);
+        cbShowHideDebugConsole.setSelected(false);
+        cbShowHideDebugConsole.setOnAction(ehShowHideDebugConsole);
     }
     
 }
