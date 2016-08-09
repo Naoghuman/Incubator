@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane id="GridPane" fx:id="gpGameArea" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.sbs.view.gamearea.GameAreaPresenter">
+<GridPane id="GridPane" fx:id="gpGameArea" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.sbs.view.gamearea.GameAreaPresenter">
     <columnConstraints>
-        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="150.0" prefWidth="300.0" />
+        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="150.0" prefWidth="600.0" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="200.0" />
-        <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="150.0" prefWidth="300.0" />
+        <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="150.0" prefWidth="600.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -30,7 +30,11 @@
         </StackPane>
         <VBox fx:id="vbRightMenu" alignment="TOP_RIGHT" GridPane.columnIndex="2">
             <children>
-                <Button fx:id="bShowRightMenu" mnemonicParsing="false" onAction="#onActionShowRightMenu" text="Menu" />
+                <Button fx:id="bShowRightMenu" focusTraversable="false" mnemonicParsing="false" onAction="#onActionShowHideRightMenu" prefWidth="64.0" text="Menu">
+                    <VBox.margin>
+                        <Insets right="14.0" top="14.0" />
+                    </VBox.margin>
+                </Button>
             </children>
         </VBox>
     </children>

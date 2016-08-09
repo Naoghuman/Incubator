@@ -89,7 +89,6 @@ public class DebugComponentsPresenter implements Initializable {
     private void initializeDebugOptions() {
         DebugConsole.getDefault().info(this.getClass(), "Initialize DebugOptions"); // NOI18N
         
-        vbDebugOptions.setStyle("-fx-background-color: rgba(255, 255, 255, 0.7)"); // NOI18N
         vbDebugOptions.setPrefSize(600.0d, 1052.0d);
     }
 
@@ -147,6 +146,12 @@ public class DebugComponentsPresenter implements Initializable {
     
     public VBox getDebugOptions() {
         return vbDebugOptions;
+    }
+    
+    public void onActionHideRightMenu() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action hide RightMenu"); // NOI18N
+
+        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__HIDE_RIGHT_MENU);
     }
     
     public void onActionSimulate() {

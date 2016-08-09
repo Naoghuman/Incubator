@@ -37,12 +37,14 @@ import javafx.stage.Screen;
  *
  * @author Naoghuman
  */
-public class GameAreaPresenter implements Initializable, IRegisterActions {
+public class GameAreaPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
     @FXML private Button bShowRightMenu;
     @FXML private GridPane gpGameArea;
     @FXML private VBox vbLeftMenu;
     @FXML private VBox vbRightMenu;
+    
+    private boolean rightMenuIsShown = Boolean.FALSE;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,13 +57,9 @@ public class GameAreaPresenter implements Initializable, IRegisterActions {
         DebugConsole.getDefault().info(this.getClass(), "Initialize ScreenSize"); // NOI18N
         
         final Rectangle2D screenSize = Screen.getPrimary().getBounds();
-        gpGameArea.setPrefSize(
-                screenSize.getWidth() - 28.0d,
-                screenSize.getHeight() - 28.0d);
-    }
-    
-    private boolean isRigthMenuAdded() {
-        return vbRightMenu.getChildren().size() > 1;
+        final double width = screenSize.getWidth() - 28.0d;
+        final double height = screenSize.getHeight() - 28.0d;
+        gpGameArea.setPrefSize(width, height);
     }
     
     private void onActionShowHideLeftMenu(boolean showDebugConsole) {
@@ -74,23 +72,36 @@ public class GameAreaPresenter implements Initializable, IRegisterActions {
             return;
         }
         
+        if (vbLeftMenu.getChildren().isEmpty()) {
+            return;
+        }
+        
         vbLeftMenu.getChildren().remove(0);
         DebugConsole.getDefault().onActionResetDebugConsole();
     }
     
-    public void onActionShowRightMenu() {
-        DebugConsole.getDefault().debug(this.getClass(), "On action show RightMenu"); // NOI18N
+    public void onActionShowHideRightMenu() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action show/hide RightMenu"); // NOI18N
 
-        final boolean isRightMenuAdded = this.isRigthMenuAdded();
-        if (isRightMenuAdded) {
-            vbRightMenu.getChildren().remove(1);
-            this.onActionShowHideLeftMenu(false);
-            return;
-        }
-        
         final VBox vbDebugOptions = DebugConsole.getDefault().getDebugOptions();
-        vbRightMenu.getChildren().add(vbDebugOptions);
-        VBox.setVgrow(vbDebugOptions, Priority.ALWAYS);
+        if (!rightMenuIsShown) {
+            // Show DebugOptions
+            rightMenuIsShown = Boolean.TRUE;
+            bShowRightMenu.setVisible(Boolean.FALSE);
+            bShowRightMenu.setManaged(Boolean.FALSE);
+            
+            vbRightMenu.getChildren().add(vbDebugOptions);
+            VBox.setVgrow(vbDebugOptions, Priority.ALWAYS);
+        }
+        else {
+            // Hide DebugOptions
+            rightMenuIsShown = Boolean.FALSE;
+            vbRightMenu.getChildren().remove(vbDebugOptions);
+            this.onActionShowHideLeftMenu(false);
+
+            bShowRightMenu.setVisible(Boolean.TRUE);
+            bShowRightMenu.setManaged(Boolean.TRUE);
+        }
     }
 
     @Override
@@ -98,17 +109,28 @@ public class GameAreaPresenter implements Initializable, IRegisterActions {
         DebugConsole.getDefault().debug(this.getClass(), "Register actions in GameAreaPresenter"); // NOI18N
         
         this.registerOnActionShowHideDebugConsole();
+        this.registerOnActionShowRightMenu();
     }
 
     private void registerOnActionShowHideDebugConsole() {
         DebugConsole.getDefault().debug(this.getClass(), "Register on action show/hide GameAreaPresenter"); // NOI18N
         
         ActionFacade.INSTANCE.register(
-                IActionConfiguration.ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE,
+                ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE,
                 event -> {
                     final TransferData data = (TransferData) event.getSource();
                     final boolean showDebugConsole = data.getBoolean();
                     this.onActionShowHideLeftMenu(showDebugConsole);
+                });
+    }
+
+    private void registerOnActionShowRightMenu() {
+        DebugConsole.getDefault().debug(this.getClass(), "Register on action show RightMenu"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                ON_ACTION__HIDE_RIGHT_MENU,
+                event -> {
+                    this.onActionShowHideRightMenu();
                 });
     }
     

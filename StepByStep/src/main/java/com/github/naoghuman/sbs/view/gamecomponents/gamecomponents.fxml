@@ -31,11 +31,4 @@
             </children>
         </VBox>
     </center>
-   <right>
-      <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
-         <children>
-            <Button focusTraversable="false" mnemonicParsing="false" text="Menu" />
-         </children>
-      </HBox>
-   </right>
 </BorderPane>

@@ -10,14 +10,20 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="253.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.sbs.view.debugcomponents.DebugComponentsPresenter">
     <children>
-        <TextArea fx:id="taDebugConsole" editable="false" focusTraversable="false" prefHeight="50.0" prefWidth="50.0">
+        <TextArea fx:id="taDebugConsole" editable="false" focusTraversable="false">
             <padding>
                 <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
             </padding>
         </TextArea>
-        <VBox fx:id="vbDebugOptions" layoutX="69.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="14.0">
+        <VBox fx:id="vbDebugOptions" layoutX="69.0" maxWidth="-Infinity" minWidth="-Infinity" spacing="14.0" style="-fx-background-color: rgba(255, 255, 255, 0.7);">
             <children>
-                <CheckBox fx:id="cbShowHideDebugConsole" focusTraversable="false" mnemonicParsing="false" selected="false" text="Show debug console" />
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <CheckBox fx:id="cbShowHideDebugConsole" focusTraversable="false" mnemonicParsing="false" selected="false" text="Show debug console" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onActionHideRightMenu" prefWidth="64.0" text="Menu" />
+                    </children>
+                </HBox>
                 <VBox>
                     <children>
                         <Label text="Which GameLevel should be simulated?" />
