@@ -17,6 +17,7 @@
 package com.github.naoghuman.sbs.gameengine;
 
 import com.github.naoghuman.sbs.debug.DebugConsole;
+import com.github.naoghuman.sbs.view.gameinformations.GameInformationsManager;
 import java.util.Optional;
 import java.util.Random;
 import javafx.animation.FadeTransition;
@@ -29,7 +30,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
@@ -82,9 +82,6 @@ public final class GameEngine {
     private Button bGameElement3;
     private Button bGameElement4;
     private Button bGameElement5;
-    private Text tLevel;
-    private Text tLevelInfo;
-    private Text tPrepareYourSelf;
     
     private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
     
@@ -93,7 +90,7 @@ public final class GameEngine {
     }
     
     private void initialize() {
-        DebugConsole.getDefault().info(this.getClass(), "Initialize Engine"); // NOI18N
+        DebugConsole.getDefault().info(this.getClass(), "Initialize GameEngine"); // NOI18N
         
     }
 
@@ -101,12 +98,12 @@ public final class GameEngine {
         DebugConsole.getDefault().info(this.getClass(), "Initialize precalculated Elements"); // NOI18N
         
         precalculatedElements.clear();
-        this.add100PrcalculatedElements();
+        this.add100PrecalculatedElements();
         
         DebugConsole.getDefault().debug(this.getClass(), "Precalculated Elements: " + precalculatedElements.toString()); // NOI18N
     }
     
-    private void add100PrcalculatedElements() {
+    private void add100PrecalculatedElements() {
         final Random random = new Random();
         for (int i = 0; i < 100; i++) {
             final int nextInt = random.nextInt(5) + 1;
@@ -152,52 +149,52 @@ public final class GameEngine {
 //        return false;
 //    }
     
-    public SequentialTransition createCounterAnimation() {
-        DebugConsole.getDefault().debug(this.getClass(), "Create Counter animation"); // NOI18N
-        
-        final SequentialTransition sequentialTransition = new SequentialTransition();
-        
-        // 3
-        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
-        fadeTransition.setDelay(Duration.millis(500.0d));
-        sequentialTransition.getChildren().add(fadeTransition);
-        
-        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
-        fadeTransition.setOnFinished(event -> {
-            tLevel.setText("2"); // NOI18N
-        });
-        sequentialTransition.getChildren().add(fadeTransition);
-        
-        // 2
-        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
-        sequentialTransition.getChildren().add(fadeTransition);
-        
-        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
-        fadeTransition.setOnFinished(event -> {
-            tLevel.setText("1"); // NOI18N
-        });
-        sequentialTransition.getChildren().add(fadeTransition);
-        
-        // 1
-        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
-        sequentialTransition.getChildren().add(fadeTransition);
-        
-        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
-        fadeTransition.setOnFinished(event -> {
-            tLevel.setText("Level"); // NOI18N
-            tLevel.setFont(FONT_SIZE_56);
-            
-            tLevelInfo.setManaged(true);
-            tLevelInfo.setVisible(true);
-        });
-        sequentialTransition.getChildren().add(fadeTransition);
-        
-        // Level info
-        final ParallelTransition parallelTransition = this.createLevelInfoAnimation();
-        sequentialTransition.getChildren().add(parallelTransition);
-        
-        return sequentialTransition;
-    }
+//    public SequentialTransition createCounterAnimation() {
+//        DebugConsole.getDefault().debug(this.getClass(), "Create Counter animation"); // NOI18N
+//        
+//        final SequentialTransition sequentialTransition = new SequentialTransition();
+//        
+//        // 3
+//        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+//        fadeTransition.setDelay(Duration.millis(500.0d));
+//        sequentialTransition.getChildren().add(fadeTransition);
+//        
+//        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
+//        fadeTransition.setOnFinished(event -> {
+//            tLevel.setText("2"); // NOI18N
+//        });
+//        sequentialTransition.getChildren().add(fadeTransition);
+//        
+//        // 2
+//        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+//        sequentialTransition.getChildren().add(fadeTransition);
+//        
+//        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
+//        fadeTransition.setOnFinished(event -> {
+//            tLevel.setText("1"); // NOI18N
+//        });
+//        sequentialTransition.getChildren().add(fadeTransition);
+//        
+//        // 1
+//        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+//        sequentialTransition.getChildren().add(fadeTransition);
+//        
+//        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tLevel);
+//        fadeTransition.setOnFinished(event -> {
+//            tLevel.setText("Level"); // NOI18N
+//            tLevel.setFont(FONT_SIZE_56);
+//            
+//            tLevelInfo.setManaged(true);
+//            tLevelInfo.setVisible(true);
+//        });
+//        sequentialTransition.getChildren().add(fadeTransition);
+//        
+//        // Level info
+//        final ParallelTransition parallelTransition = this.createLevelInfoAnimation();
+//        sequentialTransition.getChildren().add(parallelTransition);
+//        
+//        return sequentialTransition;
+//    }
     
     private FadeTransition createFadeAnimation(double fromValue, double toValue, Node node) {
         final FadeTransition fadeTransition = new FadeTransition();
@@ -209,85 +206,91 @@ public final class GameEngine {
         return fadeTransition;
     }
 
-    public SequentialTransition createGameButtonsAnimation() {
-        DebugConsole.getDefault().debug(this.getClass(), "Create GameButtons animation"); // NOI18N
-        
-        final SequentialTransition sequentialTransition = new SequentialTransition();
-        
-        /*
-        TODO
-         - später wird abhängig vom level die dauer des aktiven buttons, 
-           sowie die dauer zwischen den aktivierungen dem level angepasst.
-            - je mehr levels, desto schneller wird das spiel bis max geschwindigkeit
-              ~level 50?
-        */
-        this.resetIndex();
-        
-        for (int i = 1; i <= this.getLevel(); i++) {
-            final int currentIndex = this.getIndex();
-            final int randomElement = this.getRandomElement(currentIndex);
-            
-            final PauseTransition ptShowColor = new PauseTransition();
-            ptShowColor.setDuration(Duration.millis(750.0d));
-            ptShowColor.setOnFinished(event -> {
-                final Button btn = this.getGameButton(randomElement);
-                btn.setStyle(null);
-                btn.setStyle(this.getGameButtonColorNotClickable(randomElement));
-                
-                tLevelInfo.setText(this.getLevel() + " / " + (currentIndex + 1)); // NOI18N
-                DebugConsole.getDefault().debug(this.getClass(), "Create for current index=" // NOI18N
-                        + (currentIndex + 1) + " the RandomElement=" + randomElement); // NOI18N
-            });
-            sequentialTransition.getChildren().add(ptShowColor);
-            
-            final PauseTransition ptHideColor = new PauseTransition();
-            ptHideColor.setDuration(Duration.millis(1250.0d));
-            ptHideColor.setOnFinished(event -> {
-                final Button btn = this.getGameButton(randomElement);
-                btn.setStyle(null);
-                btn.setStyle(NOT_CLICKABLE_COLOR_BASE);
-            });
-            sequentialTransition.getChildren().add(ptHideColor);
-            
-            this.increaseIndex();
-        }
-        
-        return sequentialTransition;
-    }
+//    public SequentialTransition createGameButtonsAnimation() {
+//        DebugConsole.getDefault().debug(this.getClass(), "Create GameButtons animation"); // NOI18N
+//        
+//        final SequentialTransition sequentialTransition = new SequentialTransition();
+//        
+//        /*
+//        TODO
+//         - später wird abhängig vom level die dauer des aktiven buttons, 
+//           sowie die dauer zwischen den aktivierungen dem level angepasst.
+//            - je mehr levels, desto schneller wird das spiel bis max geschwindigkeit
+//              ~level 50?
+//        */
+//        this.resetIndex();
+//        
+//        for (int i = 1; i <= this.getLevel(); i++) {
+//            final int currentIndex = this.getIndex();
+//            final int randomElement = this.getRandomElement(currentIndex);
+//            
+//            final PauseTransition ptShowColor = new PauseTransition();
+//            ptShowColor.setDuration(Duration.millis(750.0d));
+//            ptShowColor.setOnFinished(event -> {
+//                final Button btn = this.getGameButton(randomElement);
+//                btn.setStyle(null);
+//                btn.setStyle(this.getGameButtonColorNotClickable(randomElement));
+//                
+//                tLevelInfo.setText(this.getLevel() + " / " + (currentIndex + 1)); // NOI18N
+//                DebugConsole.getDefault().debug(this.getClass(), "Create for current index=" // NOI18N
+//                        + (currentIndex + 1) + " the RandomElement=" + randomElement); // NOI18N
+//            });
+//            sequentialTransition.getChildren().add(ptShowColor);
+//            
+//            final PauseTransition ptHideColor = new PauseTransition();
+//            ptHideColor.setDuration(Duration.millis(1250.0d));
+//            ptHideColor.setOnFinished(event -> {
+//                final Button btn = this.getGameButton(randomElement);
+//                btn.setStyle(null);
+//                btn.setStyle(NOT_CLICKABLE_COLOR_BASE);
+//            });
+//            sequentialTransition.getChildren().add(ptHideColor);
+//            
+//            this.increaseIndex();
+//        }
+//        
+//        return sequentialTransition;
+//    }
 
-    public SequentialTransition createGameModeInformationAnimation(EGameMode gameMode) {
-        DebugConsole.getDefault().debug(this.getClass(), "Create GameModeInformation for: " + gameMode.toString()); // NOI18N
-        
-        final SequentialTransition sequentialTransition = new SequentialTransition();
-        
-        tPrepareYourSelf.setText(gameMode.toString());
-        tPrepareYourSelf.setManaged(true);
-        tPrepareYourSelf.setVisible(true);
-        
-        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tPrepareYourSelf);
-        fadeTransition.setDelay(Duration.millis(250.0d));
-        
-        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tPrepareYourSelf);
-        fadeTransition.setDelay(Duration.millis(1000.0d));
-        fadeTransition.setOnFinished(event -> {
-            tPrepareYourSelf.setManaged(false);
-            tPrepareYourSelf.setVisible(false);
-        });
-        sequentialTransition.getChildren().add(fadeTransition);
-        
-        return sequentialTransition;
-    }
+//    public SequentialTransition createGameModeInformationAnimation(EGameMode gameMode) {
+//        DebugConsole.getDefault().debug(this.getClass(), "Create GameModeInformation for: " + gameMode.toString()); // NOI18N
+//        
+//        final SequentialTransition sequentialTransition = new SequentialTransition();
+//        
+//        tPrepareYourSelf.setText(gameMode.toString());
+//        tPrepareYourSelf.setManaged(true);
+//        tPrepareYourSelf.setVisible(true);
+//        
+//        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tPrepareYourSelf);
+//        fadeTransition.setDelay(Duration.millis(250.0d));
+//        
+//        fadeTransition = this.createFadeAnimation(1.0d, 0.0d, tPrepareYourSelf);
+//        fadeTransition.setDelay(Duration.millis(1000.0d));
+//        fadeTransition.setOnFinished(event -> {
+//            tPrepareYourSelf.setManaged(false);
+//            tPrepareYourSelf.setVisible(false);
+//        });
+//        sequentialTransition.getChildren().add(fadeTransition);
+//        
+//        return sequentialTransition;
+//    }
     
-    private ParallelTransition createLevelInfoAnimation() {
-        final ParallelTransition parallelTransition = new ParallelTransition();
+//    private ParallelTransition createLevelInfoAnimation() {
+//        final ParallelTransition parallelTransition = new ParallelTransition();
+//        
+//        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
+//        parallelTransition.getChildren().add(fadeTransition);
+//        
+//        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevelInfo);
+//        parallelTransition.getChildren().add(fadeTransition);
+//        
+//        return parallelTransition;
+//    }
+    
+    public void configure() {
+        DebugConsole.getDefault().debug(this.getClass(), "configure"); // NOI18N
         
-        FadeTransition fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevel);
-        parallelTransition.getChildren().add(fadeTransition);
-        
-        fadeTransition = this.createFadeAnimation(0.0d, 1.0d, tLevelInfo);
-        parallelTransition.getChildren().add(fadeTransition);
-        
-        return parallelTransition;
+        GameInformationsManager.getDefault().configure();
     }
     
     private int getIndex() {
@@ -343,7 +346,7 @@ public final class GameEngine {
     
     private int getRandomElement(int index) {
         if (index >= precalculatedElements.size()) {
-            this.add100PrcalculatedElements();
+            this.add100PrecalculatedElements();
         }
         
         return precalculatedElements.get(index);
@@ -398,11 +401,11 @@ public final class GameEngine {
         this.bGameElement5.setLayoutY(centerY - 64.0634765625 - halfButtonHeight);
     }
     
-    public void registerLevelInfo(Text tPrepareYourSelf, Text tLevel, Text tLevelInfo) {
-        this.tPrepareYourSelf = tPrepareYourSelf;
-        this.tLevel = tLevel;
-        this.tLevelInfo = tLevelInfo;
-    }
+//    public void registerLevelInfo(Text tPrepareYourSelf, Text tLevel, Text tLevelInfo) {
+//        this.tPrepareYourSelf = tPrepareYourSelf;
+//        this.tLevel = tLevel;
+//        this.tLevelInfo = tLevelInfo;
+//    }
     
     private void resetIndex() {
         index = 0;

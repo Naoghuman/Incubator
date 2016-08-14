@@ -22,7 +22,6 @@ package com.github.naoghuman.sbs.configuration;
  */
 public interface IActionConfiguration {
     
-    public static final String ON_ACTION__HIDE_RIGHT_MENU = "ON_ACTION__HIDE_RIGHT_MENU"; // NOI18N
     public static final String ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE = "ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE"; // NOI18N
     
 }

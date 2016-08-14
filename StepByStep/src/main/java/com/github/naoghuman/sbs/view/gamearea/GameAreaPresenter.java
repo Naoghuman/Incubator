@@ -27,6 +27,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -62,6 +64,21 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
         gpGameArea.setPrefSize(width, height);
     }
     
+    private TabPane onActionCreateRigthMenu() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action create RigthMenu"); // NOI18N
+        
+        final TabPane tp = new TabPane();
+        tp.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        
+        final Tab tDebugOptions = new Tab();
+        tDebugOptions.setClosable(Boolean.FALSE);
+        tDebugOptions.setContent(DebugConsole.getDefault().getDebugOptions());
+        tDebugOptions.setText("Debug Options"); // NOI18N
+        tp.getTabs().add(tDebugOptions);
+        
+        return tp;
+    }
+    
     private void onActionShowHideLeftMenu(boolean showDebugConsole) {
         DebugConsole.getDefault().debug(this.getClass(), "On action show LeftMenu: " + showDebugConsole); // NOI18N
         
@@ -83,24 +100,23 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
     public void onActionShowHideRightMenu() {
         DebugConsole.getDefault().debug(this.getClass(), "On action show/hide RightMenu"); // NOI18N
 
-        final VBox vbDebugOptions = DebugConsole.getDefault().getDebugOptions();
         if (!rightMenuIsShown) {
             // Show DebugOptions
             rightMenuIsShown = Boolean.TRUE;
-            bShowRightMenu.setVisible(Boolean.FALSE);
-            bShowRightMenu.setManaged(Boolean.FALSE);
             
-            vbRightMenu.getChildren().add(vbDebugOptions);
-            VBox.setVgrow(vbDebugOptions, Priority.ALWAYS);
+            final TabPane tpRightMenu = this.onActionCreateRigthMenu();
+            vbRightMenu.getChildren().add(tpRightMenu);
+            vbRightMenu.setStyle("-fx-background-color: rgba(255, 255, 255, 0.7);"); // NOI18N
+            VBox.setVgrow(tpRightMenu, Priority.ALWAYS);
         }
         else {
             // Hide DebugOptions
             rightMenuIsShown = Boolean.FALSE;
-            vbRightMenu.getChildren().remove(vbDebugOptions);
+            
+            vbRightMenu.getChildren().remove(1);
+            vbRightMenu.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);"); // NOI18N
+            
             this.onActionShowHideLeftMenu(false);
-
-            bShowRightMenu.setVisible(Boolean.TRUE);
-            bShowRightMenu.setManaged(Boolean.TRUE);
         }
     }
 
@@ -109,7 +125,6 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
         DebugConsole.getDefault().debug(this.getClass(), "Register actions in GameAreaPresenter"); // NOI18N
         
         this.registerOnActionShowHideDebugConsole();
-        this.registerOnActionShowRightMenu();
     }
 
     private void registerOnActionShowHideDebugConsole() {
@@ -121,16 +136,6 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
                     final TransferData data = (TransferData) event.getSource();
                     final boolean showDebugConsole = data.getBoolean();
                     this.onActionShowHideLeftMenu(showDebugConsole);
-                });
-    }
-
-    private void registerOnActionShowRightMenu() {
-        DebugConsole.getDefault().debug(this.getClass(), "Register on action show RightMenu"); // NOI18N
-        
-        ActionFacade.INSTANCE.register(
-                ON_ACTION__HIDE_RIGHT_MENU,
-                event -> {
-                    this.onActionShowHideRightMenu();
                 });
     }
     

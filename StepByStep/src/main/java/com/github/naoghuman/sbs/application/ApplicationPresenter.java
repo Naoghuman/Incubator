@@ -19,19 +19,15 @@ package com.github.naoghuman.sbs.application;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.sbs.debug.DebugConsole;
-import com.github.naoghuman.sbs.gameengine.EGameMode;
 import com.github.naoghuman.sbs.gameengine.GameEngine;
 import com.github.naoghuman.sbs.view.backgroundimages.BackgroundImagesView;
 import com.github.naoghuman.sbs.view.gamearea.GameAreaPresenter;
 import com.github.naoghuman.sbs.view.gamearea.GameAreaView;
-import com.github.naoghuman.sbs.view.gamecomponents.GameComponentsView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  *
@@ -39,12 +35,7 @@ import javafx.scene.text.Text;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
-    private static final Font FONT_SIZE_128 = new Font(128.0d);
-    
     @FXML private StackPane stackPane;
-    @FXML private Text tLevel;
-    @FXML private Text tLevelInfo;
-    @FXML private Text tPrepareYourSelf;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,12 +44,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        GameEngine.getDefault().registerLevelInfo(tPrepareYourSelf, tLevel, tLevelInfo);
+        GameEngine.getDefault().configure();
         
         this.initializeBackgroundImages();
-        this.initializeGameComponents();
         this.initializeGameArea();
-        this.initializeLevelInfo();
         
         this.registerActions();
     }
@@ -84,60 +73,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         stackPane.getChildren().add(view.getView());
     }
     
-    private void initializeGameComponents() {
-        DebugConsole.getDefault().info(this.getClass(), "Initialize GameComponents"); // NOI18N
-        
-        final GameComponentsView view = new GameComponentsView();
-        stackPane.getChildren().add(view.getView());
-    }
-    
-    private void initializeLevelInfo() {
-        DebugConsole.getDefault().info(this.getClass(), "Initialize LevelInfo"); // NOI18N
-        
-        final boolean showLevelInfo = false;
-        this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__PREVIEW, showLevelInfo);
-    }
-    
     @Override
     public void registerActions() {
         DebugConsole.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
-    }
-    
-    private void switchLevelInfoToGameMode(EGameMode gameMode, boolean showLevelInfo) {
-        if (gameMode.equals(EGameMode.GAME_MODE__ATTENTION)) {
-            tLevel.setText("3"); // NOI18N
-            tLevel.setFont(FONT_SIZE_128);
-            tLevel.setOpacity(0.0d);
-            tLevel.setManaged(showLevelInfo);
-            tLevel.setVisible(showLevelInfo);
-            
-            tLevelInfo.setText(GameEngine.getDefault().getLevel() + " / 0"); // NOI18N
-            tLevelInfo.setOpacity(0.0d);
-            tLevelInfo.setManaged(!showLevelInfo);
-            tLevelInfo.setVisible(!showLevelInfo);
-        }
-        
-        if (gameMode.equals(EGameMode.GAME_MODE__PREVIEW)) {
-            tPrepareYourSelf.setText("Attention"); // NOI18N
-            tPrepareYourSelf.setOpacity(0.0d);
-            tPrepareYourSelf.setManaged(false);
-            tPrepareYourSelf.setVisible(false);
-            
-            tLevel.setText("Level"); // NOI18N
-            tLevel.setManaged(showLevelInfo);
-            tLevel.setVisible(showLevelInfo);
-            
-            GameEngine.getDefault().resetLevel();
-//            GameEngine.getDefault().increaseLevel();
-//            GameEngine.getDefault().increaseLevel();
-//            GameEngine.getDefault().increaseLevel();
-//            GameEngine.getDefault().increaseLevel();
-//            GameEngine.getDefault().increaseLevel();
-//            GameEngine.getDefault().increaseLevel();
-            tLevelInfo.setText(GameEngine.getDefault().getLevel() + " / 0"); // NOI18N
-            tLevelInfo.setManaged(showLevelInfo);
-            tLevelInfo.setVisible(showLevelInfo);
-        }
     }
     
 }

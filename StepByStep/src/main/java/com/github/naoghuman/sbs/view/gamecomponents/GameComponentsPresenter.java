@@ -24,8 +24,12 @@ import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Line;
+import javafx.scene.transform.Rotate;
 
 /**
  *
@@ -51,7 +55,8 @@ public class GameComponentsPresenter implements Initializable {
         this.initializeGameElements();
         this.initializeButtonPlayGame();
         
-        this.configureTestComponents();
+//        this.configureTestComponents();
+        
     }
     
     private void initializeButtonPlayGame() {
@@ -70,8 +75,8 @@ public class GameComponentsPresenter implements Initializable {
     public void configureTestComponents() {
         DebugConsole.getDefault().debug(this.getClass(), "Configure TestComponents"); // NOI18N
         
-        bpGameComponents.setLeft(DebugConsole.getDefault().getDebugConsole());
-        bpGameComponents.setRight(DebugConsole.getDefault().getDebugOptions());
+//        bpGameComponents.setLeft(DebugConsole.getDefault().getDebugConsole());
+//        bpGameComponents.setRight(DebugConsole.getDefault().getDebugOptions());
     }
     
     public void onActionClickGameElement1() {
@@ -159,53 +164,53 @@ public class GameComponentsPresenter implements Initializable {
                  can prepare himself when the level is ready.
          - change to GameMode.REMEMBER
         */
-        if (GameEngine.getDefault().isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
-            GameEngine.getDefault().switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
-            
-            final boolean showLevelInfo = true;
-//            this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__ATTENTION, showLevelInfo);
-            
-            final boolean showPlayButton = false;
-            this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
-        }
-        
-        // EGameMode.GAME_MODE__ATTENTION
-        final SequentialTransition stGameModeAttention = new SequentialTransition();
-        
-        final SequentialTransition stGameModeInformationAttention = GameEngine.getDefault()
-                .createGameModeInformationAnimation(EGameMode.GAME_MODE__ATTENTION);
-        stGameModeAttention.getChildren().add(stGameModeInformationAttention);
-        
-        final SequentialTransition stCounterAnimation = GameEngine.getDefault().createCounterAnimation();
-        stGameModeAttention.getChildren().add(stCounterAnimation);
-        
-        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
-        stGameModeAttention.getChildren().add(stGameButtonsAnimation);
-        
-        stGameModeAttention.setOnFinished(event -> {
-            /*
-            TODO
-              - Remove the LevelInfo
-              - Show the UserInfo
-              - Show the LevelInfo (resetet)
-              - Activate UserInput
-                 - If wrong show EGameMode.GAME_MODE__ERROR
-                    - User have more life? NEW FEATURE
-                       - If no then show EGameMode.GAME_MODE__HIGHSCORE
-                       - If yes then REPEAT the round EGameMode.GAME_MODE__ATTENTION
-                 - If right show NEXT round EGameMode.GAME_MODE__ATTENTION
-            */
-            // EGameMode.GAME_MODE__REMEMBER
-            final SequentialTransition stGameModeRemember = new SequentialTransition();
-            
-            final SequentialTransition stGameModeInformationRemember = GameEngine.getDefault().
-                    createGameModeInformationAnimation(EGameMode.GAME_MODE__REMEMBER);
-            stGameModeRemember.getChildren().add(stGameModeInformationRemember);
-        
-            stGameModeRemember.playFromStart();
-        });
-        
-        stGameModeAttention.playFromStart();
+//        if (GameEngine.getDefault().isGameMode(EGameMode.GAME_MODE__PREVIEW)) {
+//            GameEngine.getDefault().switchToGameMode(EGameMode.GAME_MODE__ATTENTION);
+//            
+//            final boolean showLevelInfo = true;
+////            this.switchLevelInfoToGameMode(EGameMode.GAME_MODE__ATTENTION, showLevelInfo);
+//            
+//            final boolean showPlayButton = false;
+//            this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__ATTENTION, showPlayButton);
+//        }
+//        
+//        // EGameMode.GAME_MODE__ATTENTION
+//        final SequentialTransition stGameModeAttention = new SequentialTransition();
+//        
+//        final SequentialTransition stGameModeInformationAttention = GameEngine.getDefault()
+//                .createGameModeInformationAnimation(EGameMode.GAME_MODE__ATTENTION);
+//        stGameModeAttention.getChildren().add(stGameModeInformationAttention);
+//        
+//        final SequentialTransition stCounterAnimation = GameEngine.getDefault().createCounterAnimation();
+//        stGameModeAttention.getChildren().add(stCounterAnimation);
+//        
+//        final SequentialTransition stGameButtonsAnimation = GameEngine.getDefault().createGameButtonsAnimation();
+//        stGameModeAttention.getChildren().add(stGameButtonsAnimation);
+//        
+//        stGameModeAttention.setOnFinished(event -> {
+//            /*
+//            TODO
+//              - Remove the LevelInfo
+//              - Show the UserInfo
+//              - Show the LevelInfo (resetet)
+//              - Activate UserInput
+//                 - If wrong show EGameMode.GAME_MODE__ERROR
+//                    - User have more life? NEW FEATURE
+//                       - If no then show EGameMode.GAME_MODE__HIGHSCORE
+//                       - If yes then REPEAT the round EGameMode.GAME_MODE__ATTENTION
+//                 - If right show NEXT round EGameMode.GAME_MODE__ATTENTION
+//            */
+//            // EGameMode.GAME_MODE__REMEMBER
+//            final SequentialTransition stGameModeRemember = new SequentialTransition();
+//            
+//            final SequentialTransition stGameModeInformationRemember = GameEngine.getDefault().
+//                    createGameModeInformationAnimation(EGameMode.GAME_MODE__REMEMBER);
+//            stGameModeRemember.getChildren().add(stGameModeInformationRemember);
+//        
+//            stGameModeRemember.playFromStart();
+//        });
+//        
+//        stGameModeAttention.playFromStart();
     }
     
     private void switchPlayButtonToGameMode(EGameMode gameMode, boolean showPlayButton) {

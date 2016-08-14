@@ -148,12 +148,6 @@ public class DebugComponentsPresenter implements Initializable {
         return vbDebugOptions;
     }
     
-    public void onActionHideRightMenu() {
-        DebugConsole.getDefault().debug(this.getClass(), "On action hide RightMenu"); // NOI18N
-
-        ActionFacade.INSTANCE.handle(IActionConfiguration.ON_ACTION__HIDE_RIGHT_MENU);
-    }
-    
     public void onActionSimulate() {
         DebugConsole.getDefault().debug(this.getClass(), "On action Simulate"); // NOI18N
         

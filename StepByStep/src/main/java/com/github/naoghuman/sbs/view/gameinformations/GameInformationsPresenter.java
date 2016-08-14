@@ -19,13 +19,19 @@ package com.github.naoghuman.sbs.view.gameinformations;
 import com.github.naoghuman.sbs.debug.DebugConsole;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.text.Text;
 
 /**
  *
  * @author Naoghuman
  */
 public class GameInformationsPresenter implements Initializable {
+    
+    @FXML private Text tGameModeInformation;
+    @FXML private Text tLevelDetailInformation;
+    @FXML private Text tLevelInformation;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {

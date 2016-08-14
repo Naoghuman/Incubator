@@ -32,7 +32,7 @@
             <children>
                 <Button fx:id="bShowRightMenu" focusTraversable="false" mnemonicParsing="false" onAction="#onActionShowHideRightMenu" prefWidth="64.0" text="Menu">
                     <VBox.margin>
-                        <Insets right="14.0" top="14.0" />
+                        <Insets right="14.0" top="14.0" bottom="14.0" />
                     </VBox.margin>
                 </Button>
             </children>
