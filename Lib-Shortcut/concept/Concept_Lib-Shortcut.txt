@@ -1,5 +1,31 @@
 --------------------------------------------------------------------------------
 CONCEPT Lib-Shortcut
 --------------------------------------------------------------------------------
+INTENTION
+With the libary Lib-Shortcut-Xy the developer have the options a) create own 
+shortcuts during development and b) let the user create his own shortcuts in 
+the application.
+
+A shortcut is shortly said a little icon which can be moved on the desktop 
+(application background layer). This icon can be assoziated which different 
+actions. Open a folder, start a search, open a dialog, show a popup... .
+
+So the developer have the option to define general shortcuts with fixed actions. 
+But its also possible that the enduser in the application define his own shortcuts.
+
+--------------------------------------------------------------------------------
+SHORTCUT
+ - A little pane with an one or more images.
+ - The developer/user can define the image, text, action, size from the 
+   shortcut during the api from Lib-Shortcut-Core.
+ - The shortcut can added to a layer for example an AnchorPane.
+
+ - Later it should also be possible to add a 'Shortcut' in the SceneBuilder to 
+   a layer.
+
+--------------------------------------------------------------------------------
+COMPONENTS
+ - That are special components which can be assoziated with a shortcut. For 
+   example open a dialog which shows a search result in a table.
 
 --------------------------------------------------------------------------------
