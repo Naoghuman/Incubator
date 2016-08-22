@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.sbs.view.gamecomponents;
+package com.github.naoghuman.sbs.view.gamearea;
 
 import com.github.naoghuman.sbs.debug.DebugConsole;
 import com.github.naoghuman.sbs.gameengine.EGameMode;
@@ -215,12 +215,12 @@ public class GameComponentsPresenter implements Initializable {
     
     private void switchPlayButtonToGameMode(EGameMode gameMode, boolean showPlayButton) {
         if (gameMode.equals(EGameMode.GAME_MODE__ATTENTION)) {
-            bPlayGame.setText("Start new game"); // NOI18N
+            bPlayGame.setText("Play"); // NOI18N
             bPlayGame.setVisible(showPlayButton);
         }
         
         if (gameMode.equals(EGameMode.GAME_MODE__PREVIEW)) {
-            bPlayGame.setText("Play"); // NOI18N
+            bPlayGame.setText("Start new game"); // NOI18N
             bPlayGame.setVisible(showPlayButton);
         }
     }

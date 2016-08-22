@@ -21,6 +21,8 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.sbs.configuration.IActionConfiguration;
 import com.github.naoghuman.sbs.debug.DebugConsole;
+import com.github.naoghuman.sbs.gameengine.EGameMode;
+import com.github.naoghuman.sbs.gameengine.GameEngine;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -41,6 +43,12 @@ import javafx.stage.Screen;
  */
 public class GameAreaPresenter implements Initializable, IActionConfiguration, IRegisterActions {
     
+    @FXML private Button bGameElement1;
+    @FXML private Button bGameElement2;
+    @FXML private Button bGameElement3;
+    @FXML private Button bGameElement4;
+    @FXML private Button bGameElement5;
+    @FXML private Button bPlayGame;
     @FXML private Button bShowRightMenu;
     @FXML private GridPane gpGameArea;
     @FXML private VBox vbLeftMenu;
@@ -52,7 +60,25 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
     public void initialize(URL location, ResourceBundle resources) {
         DebugConsole.getDefault().info(this.getClass(), "Initialize GameAreaPresenter"); // NOI18N
         
+        GameEngine.getDefault().registerGameButtons(bGameElement1, bGameElement2, 
+                bGameElement3, bGameElement4, bGameElement5);
+        
+        this.initializeButtonPlayGame();
+        this.initializeGameElements();
         this.initializeScreenSize();
+    }
+    
+    private void initializeButtonPlayGame() {
+        DebugConsole.getDefault().info(this.getClass(), "Initialize Button PlayGame"); // NOI18N
+        
+        final boolean showPlayButton = true;
+        this.switchPlayButtonToGameMode(EGameMode.GAME_MODE__PREVIEW, showPlayButton);
+    }
+    
+    private void initializeGameElements() {
+        DebugConsole.getDefault().info(this.getClass(), "Initialize GameElements"); // NOI18N
+        
+        GameEngine.getDefault().setGameElementsColorBaseNotClickable();
     }
     
     private void initializeScreenSize() {
@@ -62,6 +88,71 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
         final double width = screenSize.getWidth() - 28.0d;
         final double height = screenSize.getHeight() - 28.0d;
         gpGameArea.setPrefSize(width, height);
+    }
+    
+    public void onActionClickGameElement1() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action click GameElement1"); // NOI18N
+        
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            DebugConsole.getDefault().debug(this.getClass(), "GameElement1 can't clicked in " // NOI18N
+                    + GameEngine.getDefault().getGameMode().name());
+            return;
+        }
+        
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 1"); // NOI18N
+    }
+    
+    public void onActionClickGameElement2() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action click GameElement2"); // NOI18N
+        
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            DebugConsole.getDefault().debug(this.getClass(), "GameElement2 can't clicked in " // NOI18N
+                    + GameEngine.getDefault().getGameMode().name());
+            return;
+        }
+        
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 2"); // NOI18N
+    }
+    
+    public void onActionClickGameElement3() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action click GameElement3"); // NOI18N
+        
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            DebugConsole.getDefault().debug(this.getClass(), "GameElement3 can't clicked in " // NOI18N
+                    + GameEngine.getDefault().getGameMode().name());
+            return;
+        }
+        
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 3"); // NOI18N
+    }
+    
+    public void onActionClickGameElement4() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action click GameElement4"); // NOI18N
+        
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            DebugConsole.getDefault().debug(this.getClass(), "GameElement4 can't clicked in " // NOI18N
+                    + GameEngine.getDefault().getGameMode().name());
+            return;
+        }
+        
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 4"); // NOI18N
+    }
+    
+    public void onActionClickGameElement5() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action click GameElement5"); // NOI18N
+        
+        final boolean canUserClickGameButtons = GameEngine.getDefault().checkUserCanClickGameButtons();
+        if (!canUserClickGameButtons) {
+            DebugConsole.getDefault().debug(this.getClass(), "GameElement5 can't clicked in " // NOI18N
+                    + GameEngine.getDefault().getGameMode().name());
+            return;
+        }
+        
+        DebugConsole.getDefault().debug(this.getClass(), "On action click Index 5"); // NOI18N
     }
     
     private TabPane onActionCreateRigthMenu() {
@@ -77,6 +168,11 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
         tp.getTabs().add(tDebugOptions);
         
         return tp;
+    }
+    
+    public void onActionPlayGame() {
+        DebugConsole.getDefault().debug(this.getClass(), "On action PlayGame"); // NOI18N
+        
     }
     
     private void onActionShowHideLeftMenu(boolean showDebugConsole) {
@@ -137,6 +233,18 @@ public class GameAreaPresenter implements Initializable, IActionConfiguration, I
                     final boolean showDebugConsole = data.getBoolean();
                     this.onActionShowHideLeftMenu(showDebugConsole);
                 });
+    }
+    
+    private void switchPlayButtonToGameMode(EGameMode gameMode, boolean showPlayButton) {
+        if (gameMode.equals(EGameMode.GAME_MODE__ATTENTION)) {
+            bPlayGame.setText("Play"); // NOI18N
+            bPlayGame.setVisible(showPlayButton);
+        }
+        
+        if (gameMode.equals(EGameMode.GAME_MODE__PREVIEW)) {
+            bPlayGame.setText("Start new game"); // NOI18N
+            bPlayGame.setVisible(showPlayButton);
+        }
     }
     
 }
