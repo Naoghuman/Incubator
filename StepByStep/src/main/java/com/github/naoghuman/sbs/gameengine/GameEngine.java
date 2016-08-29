@@ -364,20 +364,87 @@ public final class GameEngine implements IRegisterActions {
         return this.currentGameMode.equals(gameMode);
     }
 
+    private FadeTransition onActionHideGameInformations() {
+        DebugConsole.getDefault().debug(this.getClass(), "On Action hide GameInformations"); // NOI18N
+        /*
+        What means hide GameInformations?
+         - Stop any animations.
+         - FadeOut GameInformations.
+         - Reset GameInformations.
+         - Reset relevant parameters.
+        */
+        
+        return null;
+    }
+
+    private FadeTransition onActionShowGameInformations(EGameMode gameMode) {
+        DebugConsole.getDefault().debug(this.getClass(), "On Action show GameInformations for " + gameMode.toString()); // NOI18N
+        /*
+        What means show GameInformations?
+         - Add little delay.
+         - Change GameInformations depends to gameMode
+         - FadeIn GameInformations
+        */
+        
+        return null;
+    }
+
     private void onActionSimulateGameMode(EGameMode gameMode) {
         DebugConsole.getDefault().debug(this.getClass(), "On Action simulate GameMode: " + gameMode.toString()); // NOI18N
+
+        final SequentialTransition st = new SequentialTransition();
+        st.setDelay(Duration.millis(125.0d));
         
+        final PauseTransition ptStopGameMode = this.onActionStopGameMode();
+        st.getChildren().add(ptStopGameMode);
+        
+        final FadeTransition ftHideGameInformations = this.onActionHideGameInformations();
+        st.getChildren().add(ftHideGameInformations);
+        
+        final FadeTransition ftShowGameInformations = this.onActionShowGameInformations(gameMode);
+        st.getChildren().add(ftShowGameInformations);
+        
+        final PauseTransition ptStartGameMode = this.onActionStartGameMode(gameMode);
+        st.getChildren().add(ptStartGameMode);
+        
+        st.playFromStart();
+    }
+
+    private PauseTransition onActionStartGameMode(EGameMode gameMode) {
+        DebugConsole.getDefault().debug(this.getClass(), "On Action start GameMode: " + gameMode.toString()); // NOI18N
         /*
-        TODO
-         what mean simulate gamemode?
-         - reset actual gamemode
-            - remove the old game-information if shown
-            - stop animations
-            - stop timeers.
-            - ...
-         - show new game-informations
-         - start in dependency from the new gamemode with animations
+        What meand start GameMode (depends on the gameMode)
+         - GAME_MODE__PREVIEW
+            - 
+         - GAME_MODE__ATTENTION
+            - 
+         - GAME_MODE__REMEMBER
+            - 
+         - GAME_MODE__SUCCESS
+            - 
+         - GAME_MODE__ERROR
+            - 
+         - GAME_MODE__HIGHSCORE
+            - 
+         - GAME_MODE__HELP
+            - 
         */
+        
+        return null;
+    }
+
+    private PauseTransition onActionStopGameMode() {
+        DebugConsole.getDefault().debug(this.getClass(), "On Action stop GameMode"); // NOI18N
+        /*
+        What means stop GameMode?
+         - Stop any animations.
+         - Reset GameButtons
+            - Default color, no input avaiable
+         - Reset Play-Button
+         - Reset relevant parameters 
+        */
+        
+        return null;
     }
     
     public void registerDebugConsole(TextArea taDebugConsole) {
