@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.sbs.view.gameinformations;
 
+import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.sbs.debug.DebugConsole;
 import java.util.Optional;
 import javafx.scene.text.Font;
@@ -24,7 +25,7 @@ import javafx.scene.text.Font;
  *
  * @author Naoghuman
  */
-public class GameInformationsManager {
+public class GameInformationsManager implements IRegisterActions {
     
     private static final Font FONT_SIZE_128 = new Font(128.0d);
     private static final Optional<GameInformationsManager> instance = Optional.of(new GameInformationsManager());
@@ -52,8 +53,9 @@ public class GameInformationsManager {
         presenter = view.getRealPresenter();
     }
     
-    public void configure() {
-        DebugConsole.getDefault().debug(this.getClass(), "configure"); // NOI18N
+    @Override
+    public void registerActions() {
+        DebugConsole.getDefault().debug(this.getClass(), "Register actions in GameInformationsManager"); // NOI18N
         
     }
     

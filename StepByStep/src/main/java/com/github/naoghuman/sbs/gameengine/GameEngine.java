@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.sbs.gameengine;
 
+import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.sbs.debug.DebugConsole;
 import com.github.naoghuman.sbs.view.gameinformations.GameInformationsManager;
 import java.util.Optional;
@@ -36,7 +37,7 @@ import javafx.util.Duration;
  *
  * @author Naoghuman
  */
-public final class GameEngine {
+public final class GameEngine implements IRegisterActions {
     
     private static final int INDEX_1 = 1;
     private static final int INDEX_2 = 2;
@@ -287,12 +288,6 @@ public final class GameEngine {
 //        return parallelTransition;
 //    }
     
-    public void configure() {
-        DebugConsole.getDefault().debug(this.getClass(), "configure"); // NOI18N
-        
-        GameInformationsManager.getDefault().configure();
-    }
-    
     private int getIndex() {
         return index;
     }
@@ -399,6 +394,13 @@ public final class GameEngine {
         
         this.bGameElement5.setLayoutX(centerX - 192.47137451171875 - halfButtonWidth);
         this.bGameElement5.setLayoutY(centerY - 64.0634765625 - halfButtonHeight);
+    }
+
+    @Override
+    public void registerActions() {
+        DebugConsole.getDefault().debug(this.getClass(), "Register actions in GameEngine"); // NOI18N
+        
+        GameInformationsManager.getDefault().registerActions();
     }
     
 //    public void registerLevelInfo(Text tPrepareYourSelf, Text tLevel, Text tLevelInfo) {

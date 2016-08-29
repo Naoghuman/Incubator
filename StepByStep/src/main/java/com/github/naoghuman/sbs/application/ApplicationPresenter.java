@@ -44,8 +44,6 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        GameEngine.getDefault().configure();
-        
         this.initializeBackgroundImages();
         this.initializeGameArea();
         
@@ -76,6 +74,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @Override
     public void registerActions() {
         DebugConsole.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+        
+        GameEngine.getDefault().registerActions();
     }
     
 }

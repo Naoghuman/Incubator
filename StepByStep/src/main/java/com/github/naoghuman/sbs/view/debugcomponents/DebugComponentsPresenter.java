@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.sbs.view.debugcomponents;
 
+import com.github.naoghuman.sbs.gameengine.EGameLevel;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.sbs.configuration.IActionConfiguration;
