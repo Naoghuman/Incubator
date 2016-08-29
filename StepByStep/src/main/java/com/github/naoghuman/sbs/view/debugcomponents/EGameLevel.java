@@ -26,7 +26,11 @@ enum EGameLevel {
     LEVEL_2(2, "Level 2"), // NOI18N
     LEVEL_3(3, "Level 3"), // NOI18N
     LEVEL_4(4, "Level 4"), // NOI18N
-    LEVEL_5(5, "Level 5"); // NOI18N
+    LEVEL_5(5, "Level 5"), // NOI18N
+    LEVEL_6(6, "Level 6"), // NOI18N
+    LEVEL_7(7, "Level 7"), // NOI18N
+    LEVEL_8(8, "Level 8"), // NOI18N
+    LEVEL_9(9, "Level 9"); // NOI18N
     
     private final int level;
     
