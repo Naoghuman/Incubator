@@ -16,7 +16,11 @@
  */
 package com.github.naoghuman.sbs.gameengine;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
+import com.github.naoghuman.lib.action.api.TransferData;
+import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.sbs.configuration.IActionConfiguration;
 import com.github.naoghuman.sbs.debug.DebugConsole;
 import com.github.naoghuman.sbs.view.gameinformations.GameInformationsManager;
 import java.util.Optional;
@@ -27,6 +31,7 @@ import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -84,7 +89,7 @@ public final class GameEngine implements IRegisterActions {
     private Button bGameElement4;
     private Button bGameElement5;
     
-    private EGameMode gameMode = EGameMode.GAME_MODE__PREVIEW;
+    private EGameMode currentGameMode = EGameMode.GAME_MODE__PREVIEW;
     
     private GameEngine() {
         this.initialize();
@@ -122,7 +127,7 @@ public final class GameEngine implements IRegisterActions {
         GAME_MODE__SUCCESS   = false
     */
     public boolean checkUserCanClickGameButtons() {
-        if (gameMode.equals(EGameMode.GAME_MODE__REMEMBER)) {
+        if (currentGameMode.equals(EGameMode.GAME_MODE__REMEMBER)) {
             return true;
         }
         
@@ -140,9 +145,9 @@ public final class GameEngine implements IRegisterActions {
     */
 //    public boolean checkUserCanClickPlayButton() {
 //        if (
-//                gameMode.equals(EGameMode.GAME_MODE__PREVIEW)
-//                || gameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
-//                || gameMode.equals(EGameMode.GAME_MODE__SUCCESS)
+//                currentGameMode.equals(EGameMode.GAME_MODE__PREVIEW)
+//                || currentGameMode.equals(EGameMode.GAME_MODE__HIGHSCORE)
+//                || currentGameMode.equals(EGameMode.GAME_MODE__SUCCESS)
 //        ) {
 //            return true;
 //        }
@@ -253,12 +258,12 @@ public final class GameEngine implements IRegisterActions {
 //        return sequentialTransition;
 //    }
 
-//    public SequentialTransition createGameModeInformationAnimation(EGameMode gameMode) {
-//        DebugConsole.getDefault().debug(this.getClass(), "Create GameModeInformation for: " + gameMode.toString()); // NOI18N
+//    public SequentialTransition createGameModeInformationAnimation(EGameMode currentGameMode) {
+//        DebugConsole.getDefault().debug(this.getClass(), "Create GameModeInformation for: " + currentGameMode.toString()); // NOI18N
 //        
 //        final SequentialTransition sequentialTransition = new SequentialTransition();
 //        
-//        tPrepareYourSelf.setText(gameMode.toString());
+//        tPrepareYourSelf.setText(currentGameMode.toString());
 //        tPrepareYourSelf.setManaged(true);
 //        tPrepareYourSelf.setVisible(true);
 //        
@@ -332,7 +337,7 @@ public final class GameEngine implements IRegisterActions {
     }
     
     public EGameMode getGameMode() {
-        return gameMode;
+        return currentGameMode;
     }
     
     public int getLevel() {
@@ -356,7 +361,23 @@ public final class GameEngine implements IRegisterActions {
     }
     
     public boolean isGameMode(EGameMode gameMode) {
-        return this.gameMode.equals(gameMode);
+        return this.currentGameMode.equals(gameMode);
+    }
+
+    private void onActionSimulateGameMode(EGameMode gameMode) {
+        DebugConsole.getDefault().debug(this.getClass(), "On Action simulate GameMode: " + gameMode.toString()); // NOI18N
+        
+        /*
+        TODO
+         what mean simulate gamemode?
+         - reset actual gamemode
+            - remove the old game-information if shown
+            - stop animations
+            - stop timeers.
+            - ...
+         - show new game-informations
+         - start in dependency from the new gamemode with animations
+        */
     }
     
     public void registerDebugConsole(TextArea taDebugConsole) {
@@ -401,6 +422,22 @@ public final class GameEngine implements IRegisterActions {
         DebugConsole.getDefault().debug(this.getClass(), "Register actions in GameEngine"); // NOI18N
         
         GameInformationsManager.getDefault().registerActions();
+        
+        this.registerOnActionSimulateGameMode();
+    }
+    
+    private void registerOnActionSimulateGameMode() {
+        DebugConsole.getDefault().debug(this.getClass(), "Register on Action simulate GameMode"); // NOI18N
+        
+        ActionFacade.INSTANCE.register(
+                IActionConfiguration.ON_ACTION__SIMULATE_GAME_MODE,
+                (ActionEvent event) -> {
+                    DebugConsole.getDefault().debug(this.getClass(), "On Action simulate GameMode"); // NOI18N
+                    
+                    final TransferData data = (TransferData) event.getSource();
+                    final EGameMode newGameMode = (EGameMode) data.getObject();
+                    this.onActionSimulateGameMode(newGameMode);
+                });
     }
     
 //    public void registerLevelInfo(Text tPrepareYourSelf, Text tLevel, Text tLevelInfo) {
@@ -452,7 +489,7 @@ public final class GameEngine implements IRegisterActions {
     }
     
     public void switchToGameMode(EGameMode gameMode) {
-        this.gameMode = gameMode;
+        this.currentGameMode = gameMode;
     }
     
 }

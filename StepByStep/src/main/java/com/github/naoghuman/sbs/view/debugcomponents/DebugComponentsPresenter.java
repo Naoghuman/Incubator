@@ -152,6 +152,13 @@ public class DebugComponentsPresenter implements Initializable {
     public void onActionSimulate() {
         DebugConsole.getDefault().debug(this.getClass(), "On action Simulate"); // NOI18N
         
+        final TransferData data = new TransferData();
+        data.setActionId(IActionConfiguration.ON_ACTION__SIMULATE_GAME_MODE);
+        
+        final EGameMode newGameMode = cbSimulateGameMode.getSelectionModel().getSelectedItem();
+        data.setObject(newGameMode);
+        
+        ActionFacade.INSTANCE.handle(data);
     }
     
     public void onActionResetDebugConsole() {

@@ -23,5 +23,6 @@ package com.github.naoghuman.sbs.configuration;
 public interface IActionConfiguration {
     
     public static final String ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE = "ON_ACTION__SHOW_HIDE_DEBUG_CONSOLE"; // NOI18N
+    public static final String ON_ACTION__SIMULATE_GAME_MODE = "ON_ACTION__SIMULATE_GAME_MODE"; // NOI18N
     
 }
