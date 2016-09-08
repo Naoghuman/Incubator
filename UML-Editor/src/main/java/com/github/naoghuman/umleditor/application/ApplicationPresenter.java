@@ -18,23 +18,39 @@ package com.github.naoghuman.umleditor.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.umleditor.view.menu.MenuView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.StackPane;
 
 /**
  *
  * @author Naoghuman
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
+    
+    @FXML private StackPane spMenu;
+    @FXML private TabPane tpDiagrams;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
         
-//        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
+        assert (spMenu != null) : "fx:id=\"spMenu\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
+        
+        this.initializeMenuLayer();
         
         this.registerActions();
+    }
+    
+    private void initializeMenuLayer() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize Menu layer"); // NOI18N
+        
+        final MenuView view = new MenuView();
+        spMenu.getChildren().add(view.getView());
     }
     
     public void initializeAfterWindowIsShowing() {

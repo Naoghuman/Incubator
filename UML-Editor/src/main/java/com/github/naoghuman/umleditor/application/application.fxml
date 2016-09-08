@@ -6,7 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.umleditor.application.ApplicationPresenter">
-
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.umleditor.application.ApplicationPresenter">
+   <children>
+      <SplitPane dividerPositions="0.75" layoutX="162.0" layoutY="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <items>
+            <TabPane fx:id="tpDiagrams" tabClosingPolicy="ALL_TABS" />
+            <StackPane fx:id="spMenu" prefHeight="150.0" prefWidth="200.0" />
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>
