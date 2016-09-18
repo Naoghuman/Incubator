@@ -19,6 +19,7 @@ package com.github.naoghuman.stepbystep.application;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.stepbystep.background.BackgroundView;
+import com.github.naoghuman.stepbystep.gameengine.GameEngineFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -40,6 +41,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
         this.initializeBackground();
+        
+        GameEngineFacade.getDefault().initialize();
         
         this.registerActions();
     }
