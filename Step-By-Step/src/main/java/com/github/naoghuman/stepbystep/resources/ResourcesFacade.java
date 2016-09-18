@@ -14,18 +14,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.stepbystep.application;
+package com.github.naoghuman.stepbystep.resources;
 
-import com.airhacks.afterburner.views.FXMLView;
+import com.github.naoghuman.stepbystep.resources.image.ImageLoader;
+import java.util.Optional;
 
 /**
  *
  * @author Naoghuman
  */
-public class ApplicationView extends FXMLView {
+public final class ResourcesFacade {
     
-    public ApplicationPresenter getRealPresenter() {
-        return (ApplicationPresenter) super.getPresenter();
+    private static final Optional<ResourcesFacade> instance = Optional.of(new ResourcesFacade());
+    
+    public static final ResourcesFacade getDefault() {
+        return instance.get();
+    }
+    
+    private ImageLoader imageLoader = null;
+    
+    private ResourcesFacade() {
+        this.init();
+    }
+    
+    private void init() {
+        imageLoader = new ImageLoader();
+    }
+    
+    public ImageLoader getImageLoader() {
+        return imageLoader;
     }
     
 }

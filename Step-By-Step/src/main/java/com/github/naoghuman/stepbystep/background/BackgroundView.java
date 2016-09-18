@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.stepbystep.application;
+package com.github.naoghuman.stepbystep.background;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class ApplicationView extends FXMLView {
+public class BackgroundView extends FXMLView {
     
-    public ApplicationPresenter getRealPresenter() {
-        return (ApplicationPresenter) super.getPresenter();
+    public BackgroundPresenter getRealPresenter() {
+        return (BackgroundPresenter) super.getPresenter();
     }
     
 }

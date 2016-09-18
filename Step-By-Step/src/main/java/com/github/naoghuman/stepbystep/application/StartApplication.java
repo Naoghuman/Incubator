@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Name
+ * Copyright (C) 2016 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.preferences.api.PreferencesFacade;
 import com.github.naoghuman.lib.properties.api.PropertiesFacade;
+import com.github.naoghuman.stepbystep.configuration.IBackgroundConfiguration;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,7 +35,7 @@ import javafx.stage.WindowEvent;
 
 /**
  *
- * @author Name
+ * @author Naoghuman
  */
 public class StartApplication extends Application implements IApplicationConfiguration {
 
@@ -47,6 +48,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         super.init();
         
         PropertiesFacade.getDefault().register(KEY__APPLICATION__RESOURCE_BUNDLE);
+        PropertiesFacade.getDefault().register(IBackgroundConfiguration.KEY__BACKGROUND_IMAGE__RESOURCE_BUNDLE);
         
         final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(KEY__APPLICATION__MESSAGE_START);
@@ -61,10 +63,10 @@ public class StartApplication extends Application implements IApplicationConfigu
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final ApplicationView applicationView = new ApplicationView();
-        final ApplicationPresenter applicationPresenter = applicationView.getRealPresenter();
+        final ApplicationView view = new ApplicationView();
+        final ApplicationPresenter presenter = view.getRealPresenter();
         
-        final Scene scene = new Scene(applicationView.getView(), 1280, 720);
+        final Scene scene = new Scene(view.getView(), 1280, 720);
         primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
@@ -74,7 +76,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         });
         
         primaryStage.show();
-        applicationPresenter.initializeAfterWindowIsShowing();
+        presenter.initializeAfterWindowIsShowing();
     }
 
     @Override

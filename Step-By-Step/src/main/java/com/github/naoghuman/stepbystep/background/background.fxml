@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane id="StackPane" prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.stepbystep.background.BackgroundPresenter">
+    <children>
+        <ImageView fx:id="ivBackgroundImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
+        <AnchorPane fx:id="apBackgroundTile" StackPane.alignment="CENTER" />
+        <ImageView fx:id="ivBackgroundClip" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
+        <Circle fx:id="cBackgroundClipBorder" fill="TRANSPARENT" radius="100.0" stroke="#6495ED" strokeWidth="2.0" StackPane.alignment="CENTER" />
+    </children>
+</StackPane>

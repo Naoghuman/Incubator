@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Name
+ * Copyright (C) 2016 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,23 +18,37 @@ package com.github.naoghuman.stepbystep.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.stepbystep.background.BackgroundView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.StackPane;
 
 /**
  *
- * @author Name
+ * @author Naoghuman
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
 
+    @FXML private StackPane spApplication;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
+        this.initializeBackground();
+        
         this.registerActions();
+    }
+    
+    public void initializeBackground() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize Background"); // NOI18N
+        
+        final BackgroundView view = new BackgroundView();
+        spApplication.getChildren().add(0, view.getView());
     }
     
     public void initializeAfterWindowIsShowing() {

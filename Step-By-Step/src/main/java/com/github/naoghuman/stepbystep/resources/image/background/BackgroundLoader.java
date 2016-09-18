@@ -14,18 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.stepbystep.application;
-
-import com.airhacks.afterburner.views.FXMLView;
+package com.github.naoghuman.stepbystep.resources.image.background;
 
 /**
  *
  * @author Naoghuman
  */
-public class ApplicationView extends FXMLView {
-    
-    public ApplicationPresenter getRealPresenter() {
-        return (ApplicationPresenter) super.getPresenter();
-    }
+public class BackgroundLoader {
     
 }
