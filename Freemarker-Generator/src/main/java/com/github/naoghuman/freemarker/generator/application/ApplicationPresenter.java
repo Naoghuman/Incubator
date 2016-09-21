@@ -20,7 +20,9 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -28,6 +30,9 @@ import javafx.fxml.Initializable;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
 
+    @FXML private AnchorPane apEditorArea;
+    @FXML private AnchorPane apSourceCodeArea;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter"); // NOI18N
@@ -39,6 +44,18 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
+    }
+    
+    public void onActionExportSourceCode() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action export SourceCode"); // NOI18N
+    }
+    
+    public void onActionGenerateSourceCode() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action generate SourceCode"); // NOI18N
+    }
+    
+    public void onActionShowHelpForApplication() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Help for application"); // NOI18N
     }
     
     @Override
