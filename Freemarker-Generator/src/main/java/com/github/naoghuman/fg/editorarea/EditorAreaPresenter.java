@@ -14,18 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.freemarker.generator.application;
+package com.github.naoghuman.fg.editorarea;
 
-import com.airhacks.afterburner.views.FXMLView;
+import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author Naoghuman
  */
-public class ApplicationView extends FXMLView {
+public class EditorAreaPresenter implements Initializable {
+
+    @FXML private AnchorPane apTemplateArea;
     
-    public ApplicationPresenter getRealPresenter() {
-        return (ApplicationPresenter) super.getPresenter();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize EditorAreaPresenter"); // NOI18N
+        
     }
     
 }

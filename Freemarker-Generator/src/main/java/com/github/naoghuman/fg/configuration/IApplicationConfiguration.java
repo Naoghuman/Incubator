@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.freemarker.generator.configuration;
+package com.github.naoghuman.fg.configuration;
 
 import javafx.util.Duration;
 
@@ -31,7 +31,7 @@ public interface IApplicationConfiguration {
     public static final String KEY__APPLICATION__DATABASE = "application.database"; // NOI18N
     public static final String KEY__APPLICATION__MESSAGE_START = "application.message.start"; // NOI18N
     public static final String KEY__APPLICATION__MESSAGE_STOP = "application.message.stop"; // NOI18N
-    public static final String KEY__APPLICATION__RESOURCE_BUNDLE = "/com/github/naoghuman/freemarker/generator/application/application.properties"; // NOI18N
+    public static final String KEY__APPLICATION__RESOURCE_BUNDLE = "/com/github/naoghuman/fg/application/application.properties"; // NOI18N
     public static final String KEY__APPLICATION__TITLE = "application.title"; // NOI18N
     public static final String KEY__APPLICATION__VERSION = "application.version"; // NOI18N
     

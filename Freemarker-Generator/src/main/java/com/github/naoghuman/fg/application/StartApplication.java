@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.freemarker.generator.application;
+package com.github.naoghuman.fg.application;
 
 import static javafx.application.Application.launch;
 
 import com.airhacks.afterburner.injection.Injector;
-import com.github.naoghuman.freemarker.generator.configuration.IApplicationConfiguration;
+import com.github.naoghuman.fg.configuration.IApplicationConfiguration;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import com.github.naoghuman.lib.preferences.api.PreferencesFacade;

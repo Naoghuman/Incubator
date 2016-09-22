@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.freemarker.generator.editorarea;
+package com.github.naoghuman.fg.sourcecodearea;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class EditorAreaView extends FXMLView {
+public class SourceCodeAreaView extends FXMLView {
     
-    public EditorAreaPresenter getRealPresenter() {
-        return (EditorAreaPresenter) super.getPresenter();
+    public SourceCodeAreaPresenter getRealPresenter() {
+        return (SourceCodeAreaPresenter) super.getPresenter();
     }
     
 }
