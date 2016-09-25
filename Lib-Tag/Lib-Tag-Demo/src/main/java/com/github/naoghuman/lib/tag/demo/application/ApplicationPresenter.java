@@ -27,6 +27,7 @@ import com.github.naoghuman.lib.tag.demo.view.description.DescriptionView;
 import com.github.naoghuman.lib.tag.demo.view.libtag.LibTagView;
 import com.github.naoghuman.lib.tag.demo.view.libtagcomponents.LibTagComponentsView;
 import com.github.naoghuman.lib.tag.demo.view.libtagcore.LibTagCoreView;
+import com.github.naoghuman.lib.tag.demo.view.libtagfontawesomefx.LibTagFontAwesomeFXView;
 import com.github.naoghuman.lib.tag.demo.view.libtagikonli.LibTagIkonliView;
 import java.net.URL;
 import java.util.ResourceBundle;
