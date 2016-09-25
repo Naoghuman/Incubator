@@ -16,19 +16,56 @@
  */
 package com.github.naoghuman.lib.tag.demo.view.description;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
+import com.github.naoghuman.lib.action.api.IRegisterActions;
+import com.github.naoghuman.lib.action.api.TransferData;
+import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.lib.tag.demo.configuration.IActionConfiguration;
+import com.github.naoghuman.lib.tag.demo.view.ELibTagType;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 /**
  *
  * @author Naoghuman
  */
-public class DescriptionPresenter implements Initializable {
+public class DescriptionPresenter implements Initializable, IRegisterActions {
 
+    @FXML private Label lDescription;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize LibTagIkonliPresenter"); // NOI18N
         
+    }
+    
+    private void onActionShowDescription(ELibTagType libTagType) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Description: " + libTagType); // NOI18N
+        
+        lDescription.setText(libTagType.name());
+    }
+
+    @Override
+    public void registerActions() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in DescriptionPresenter"); // NOI18N
+    
+        this.registerOnActionShowDescription();
+    }
+
+    private void registerOnActionShowDescription() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action show Description"); // NOI18N
+        
+        ActionFacade.getDefault().register(
+                IActionConfiguration.ON_ACTION__SHOW_DESCRIPTION,
+                (event) -> {
+                    final TransferData data = (TransferData) event.getSource();
+                    final ELibTagType libTagType = (ELibTagType) data.getObject();
+                    
+                    this.onActionShowDescription(libTagType);
+                });
     }
     
 }

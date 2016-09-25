@@ -1,49 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.tag.demo.application.ApplicationPresenter">
     <children>
-        <SplitPane dividerPositions="0.5" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <SplitPane dividerPositions="0.64" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <items>
-                <TabPane tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tpLibTag" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab closable="false" text="Lib-Tag">
+                        <Tab fx:id="tLibTag" closable="false" text="Lib-Tag">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <VBox fx:id="vbLibTag" spacing="7.0">
+                           <padding>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </padding></VBox>
                             </content>
                         </Tab>
-                        <Tab closable="false" text="Lib-Tag-Core">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
+                        <Tab fx:id="tLibTagCore" closable="false" text="Lib-Tag-Core">
+                     <content>
+                        <VBox fx:id="vbLibTagCore" spacing="7.0">
+                           <padding>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </padding>
+                        </VBox>
+                     </content>
                         </Tab>
-                        <Tab closable="false" text="Lib-Tag-Components">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
+                        <Tab fx:id="tLibTagComponents" closable="false" text="Lib-Tag-Components">
+                     <content>
+                        <VBox fx:id="vbLibTagComponents" spacing="7.0">
+                           <padding>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </padding>
+                        </VBox>
+                     </content>
                         </Tab>
-                        <Tab closable="false" text="Lib-Tag-FontAwesomeFX">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
+                        <Tab fx:id="tLibTagFontAwesomeFX" closable="false" text="Lib-Tag-FontAwesomeFX">
+                     <content>
+                        <VBox fx:id="vbLibTagFontAwesomeFX" spacing="7.0">
+                           <padding>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </padding>
+                        </VBox>
+                     </content>
                         </Tab>
-                        <Tab closable="false" text="Lib-Tag-Ikonli">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
+                        <Tab fx:id="tLibTagIkonli" closable="false" text="Lib-Tag-Ikonli">
+                     <content>
+                        <VBox fx:id="vbLibTagIkonli" spacing="7.0">
+                           <padding>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </padding>
+                        </VBox>
+                     </content>
                         </Tab>
                     </tabs>
                 </TabPane>
                 <TabPane tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab closable="false" text="Description">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
+                     <content>
+                        <VBox fx:id="vbDescription" spacing="7.0">
+                           <padding>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </padding>
+                        </VBox>
+                     </content>
                         </Tab>
                     </tabs>
                 </TabPane>

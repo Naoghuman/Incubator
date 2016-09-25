@@ -30,18 +30,20 @@ import javafx.scene.web.WebView;
  */
 public class LibTagPresenter implements Initializable {
     
-    @FXML private WebView wvLibTag;
+//    @FXML private WebView wvLibTag;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize LibTagPresenter"); // NOI18N
         
-        this.initializeWebView();
+//        this.initializeWebView();
     }
 
-    private void initializeWebView() {
-        final WebEngine webEngine = wvLibTag.getEngine();
-        webEngine.load("http://mySite.com");
-    }
+//    private void initializeWebView() {
+//        LoggerFacade.getDefault().info(this.getClass(), "Initialize WebView"); // NOI18N
+//        
+//        final WebEngine webEngine = wvLibTag.getEngine();
+//        webEngine.load("https://github.com/Naoghuman/Incubator/blob/master/Lib-Tag/README.md"); // NOI18N
+//    }
     
 }
