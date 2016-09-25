@@ -16,7 +16,9 @@
  */
 package com.github.naoghuman.umleditor.view.menu;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.umleditor.configuration.IActionConfiguration;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -25,7 +27,7 @@ import javafx.fxml.Initializable;
  *
  * @author Naoghuman
  */
-public class MenuPresenter implements Initializable {
+public class MenuPresenter implements Initializable, IActionConfiguration {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,6 +38,7 @@ public class MenuPresenter implements Initializable {
     public void onActionNewClassDiagram() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action new Class diagram"); // NOI18N
     
+        ActionFacade.getDefault().handle(ON_ACTION__NEW_CLASS_DIAGRAM);
     }
     
 }

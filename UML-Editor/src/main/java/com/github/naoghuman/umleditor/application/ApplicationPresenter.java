@@ -16,13 +16,17 @@
  */
 package com.github.naoghuman.umleditor.application;
 
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import com.github.naoghuman.umleditor.classdiagram.ClassDiagramProvider;
+import com.github.naoghuman.umleditor.configuration.IActionConfiguration;
 import com.github.naoghuman.umleditor.view.menu.MenuView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
 
@@ -57,9 +61,34 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
+    private void onActionNewClassDiagram() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action new ClassDiagram"); // NOI18N
+    
+        // TODO changed diagram have * in header
+        // TODO close changed tab shows save-question-dialog
+        final Tab tab = ClassDiagramProvider.getDefault().createNewTabForClassDiagram();
+        tpDiagrams.getTabs().add(tab);
+        
+        if (!tab.isSelected()) {
+            tpDiagrams.getSelectionModel().select(tab);
+        }
+    }
+    
     @Override
     public void registerActions() {
         LoggerFacade.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+    
+        this.registerOnActionNewClassDiagram();
+    }
+    
+    private void registerOnActionNewClassDiagram() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action new ClassDiagram"); // NOI18N
+    
+        ActionFacade.getDefault().register(
+                IActionConfiguration.ON_ACTION__NEW_CLASS_DIAGRAM,
+                (event) -> {
+                    this.onActionNewClassDiagram();
+                });
     }
     
 }
