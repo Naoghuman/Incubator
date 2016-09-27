@@ -14,10 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.stepbystep.resources.image;
+package com.github.naoghuman.stepbystep.resources.background;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import com.github.naoghuman.stepbystep.resources.image.background.BackgroundLoader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javafx.collections.FXCollections;
@@ -28,11 +27,11 @@ import javafx.scene.image.Image;
  *
  * @author Naoghuman
  */
-public class ImageLoader {
+public class BackgroundLoader {
     
     private ObservableMap<String, Image> backgroundImages;
     
-    public ImageLoader() {
+    public BackgroundLoader() {
         this.init();
     }
     
@@ -77,5 +76,4 @@ public class ImageLoader {
         
         return background;
     }
-    
 }

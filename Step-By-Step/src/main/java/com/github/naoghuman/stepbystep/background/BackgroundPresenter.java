@@ -57,7 +57,7 @@ public class BackgroundPresenter implements Initializable, IBackgroundConfigurat
         final String imageName = this.getPropertyBackground(KEY__BACKGROUND_IMAGE__1920x1080_IMAGE);
         final String widthAsString = this.getPropertyBackground(KEY__BACKGROUND_IMAGE__1920x1080_WIDTH);
         final String heigthAsString = this.getPropertyBackground(KEY__BACKGROUND_IMAGE__1920x1080_HEIGHT);
-        final Image iBackgroundImage = ResourcesFacade.getDefault().getImageLoader().loadBackground(
+        final Image iBackgroundImage = ResourcesFacade.getDefault().getBackgroundLoader().loadBackground(
                 imageName, widthAsString, heigthAsString);
         ivBackgroundImage.setImage(iBackgroundImage);
     }

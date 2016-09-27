@@ -34,6 +34,6 @@ public interface IBackgroundConfiguration {
     public static final String KEY__BACKGROUND_IMAGE__3840x2160_IMAGE = "background.146664_3840x2160.image"; // NOI18N
     public static final String KEY__BACKGROUND_IMAGE__3840x2160_WIDTH = "background.146664_3840x2160.width"; // NOI18N
     
-    public static final String KEY__BACKGROUND_IMAGE__RESOURCE_BUNDLE = "/com/github/naoghuman/stepbystep/resources/image/background/background.properties"; // NOI18N
+    public static final String KEY__BACKGROUND_IMAGE__RESOURCE_BUNDLE = "/com/github/naoghuman/stepbystep/resources/background/background.properties"; // NOI18N
     
 }

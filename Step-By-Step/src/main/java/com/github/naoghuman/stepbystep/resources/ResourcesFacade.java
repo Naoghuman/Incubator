@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.stepbystep.resources;
 
-import com.github.naoghuman.stepbystep.resources.image.ImageLoader;
+import com.github.naoghuman.stepbystep.resources.background.BackgroundLoader;
 import java.util.Optional;
 
 /**
@@ -31,18 +31,18 @@ public final class ResourcesFacade {
         return instance.get();
     }
     
-    private ImageLoader imageLoader = null;
+    private BackgroundLoader backgroundLoader = null;
     
     private ResourcesFacade() {
         this.init();
     }
     
     private void init() {
-        imageLoader = new ImageLoader();
+        backgroundLoader = new BackgroundLoader();
     }
     
-    public ImageLoader getImageLoader() {
-        return imageLoader;
+    public BackgroundLoader getBackgroundLoader() {
+        return backgroundLoader;
     }
     
 }
