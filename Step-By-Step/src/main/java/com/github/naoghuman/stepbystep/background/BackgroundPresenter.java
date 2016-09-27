@@ -27,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.shape.Circle;
 
 /**
@@ -60,6 +61,10 @@ public class BackgroundPresenter implements Initializable, IBackgroundConfigurat
         final Image iBackgroundImage = ResourcesFacade.getDefault().getBackgroundLoader().loadBackground(
                 imageName, widthAsString, heigthAsString);
         ivBackgroundImage.setImage(iBackgroundImage);
+        
+        // Tile
+        final Background background = ResourcesFacade.getDefault().getRandomTile();
+        apBackgroundTile.setBackground(background);
     }
     
     private String getPropertyBackground(String propertyKey) {

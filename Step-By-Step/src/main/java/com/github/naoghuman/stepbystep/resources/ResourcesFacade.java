@@ -17,7 +17,9 @@
 package com.github.naoghuman.stepbystep.resources;
 
 import com.github.naoghuman.stepbystep.resources.background.BackgroundLoader;
+import com.github.naoghuman.stepbystep.resources.tile.CustomizedStepByStepTileLoader;
 import java.util.Optional;
+import javafx.scene.layout.Background;
 
 /**
  *
@@ -43,6 +45,10 @@ public final class ResourcesFacade {
     
     public BackgroundLoader getBackgroundLoader() {
         return backgroundLoader;
+    }
+    
+    public Background getRandomTile() {
+        return CustomizedStepByStepTileLoader.getDefault().getRandomTile();
     }
     
 }
