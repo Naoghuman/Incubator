@@ -9,7 +9,7 @@
     <name>Lib-Tag</name>
     <inceptionYear>2016</inceptionYear>
     
-    <description>TODO</description>
+    <description>Lib-Tag is a multi Maven library written in JavaFX and NetBeans IDE 8 and provides functionalities to use and handle easily Tags in your JavaFX application.</description>
 
     <developers>
         <developer>

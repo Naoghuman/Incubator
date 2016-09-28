@@ -1,8 +1,18 @@
 Welcome to `Lib-Tag` with the new release `v0.1.0`.
 
-Lib-Tag ...
- - TODO add project description
- - TODO add list with sub-libraries
+Lib-Tag is a multi [Maven] library written in [JavaFX] and [NetBeans IDE] 8 and 
+provides functionalities to use and handle easily [Tag]s in your [JavaFX] 
+application.
+
+TODO add definition
+
+The project `Lib-Tag` contains following `subprojects` which are included into 
+this release:
+* Lib-Tag-Components
+* Lib-Tag-Core
+* Lib-Tag-Demo
+* Lib-Tag-FontAwesomeFX
+* Lib-Tag-Ikonli
 
 
 
@@ -46,3 +56,7 @@ Naoghuman
 
 
 [//]: # (Links)
+[JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
+[Maven]:http://maven.apache.org/
+[NetBeans IDE]:https://netbeans.org/
+[Tag]:https://github.com/Naoghuman/lib-tag/blob/master/Lib-Tag-Core/src/main/java/com/github/naoghuman/lib/tag/core/Tag.java
