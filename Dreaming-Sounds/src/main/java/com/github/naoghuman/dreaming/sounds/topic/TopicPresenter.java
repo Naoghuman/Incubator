@@ -16,6 +16,9 @@
  */
 package com.github.naoghuman.dreaming.sounds.topic;
 
+import com.github.naoghuman.dreaming.sounds.soundbox.SoundBox;
+import com.github.naoghuman.dreaming.sounds.soundbox.SoundBoxPresenter;
+import com.github.naoghuman.dreaming.sounds.soundbox.SoundBoxView;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +52,26 @@ public class TopicPresenter implements Initializable {
         this.topic = topic;
         
         lTitle.setText(this.topic.getTitle());
+    }
+    
+    public void onActionAddSoundBox() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action add SoundBox"); // NOI18N
+
+        final SoundBoxView soundBoxView = new SoundBoxView();
+        final SoundBoxPresenter soundBoxViewPresenter = soundBoxView.getRealPresenter();
+        
+        final SoundBox soundBox = new SoundBox();
+        soundBox.setTitle("" + System.currentTimeMillis()); // NOI18N
+        soundBoxViewPresenter.configure(soundBox);
+        
+        hbSoundBoxes.getChildren().add(soundBoxView.getView());
+        
+        final int size = hbSoundBoxes.getChildren().size();
+        double width = size * 300.0d;
+        if (size > 1) {
+            width += (size - 1) * 14.0d;
+        }
+        hbSoundBoxes.setPrefWidth(width);
     }
     
 }
