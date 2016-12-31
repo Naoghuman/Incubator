@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="VBox" maxHeight="200.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="300.0" spacing="14.0" style="-fx-background-color: CORNSILK;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.dreaming.sounds.topic.TopicPresenter">
+   <children>
+      <Label fx:id="lTitle" maxWidth="1.7976931348623157E308" style="-fx-background-color: CADETBLUE;" text="Label" />
+      <ScrollPane fx:id="spSoundBoxes" fitToWidth="true" VBox.vgrow="ALWAYS">
+         <content>
+            <HBox fx:id="hbSoundBoxes" spacing="14.0" style="-fx-background-color: CADETBLUE;" />
+         </content>
+      </ScrollPane>
+   </children>
+   <padding>
+      <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+   </padding>
+</VBox>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Name
+ * Copyright (C) 2016 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,17 +16,21 @@
  */
 package com.github.naoghuman.dreaming.sounds.application;
 
+import com.github.naoghuman.dreaming.sounds.topic.Topic;
+import com.github.naoghuman.dreaming.sounds.topic.TopicPresenter;
+import com.github.naoghuman.dreaming.sounds.topic.TopicView;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Name
+ * @author Naoghuman
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
@@ -53,6 +57,21 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     public void onActionAddTopic() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action add Topic"); // NOI18N
         
+        final TopicView topicView = new TopicView();
+        final TopicPresenter topicPresenter = topicView.getRealPresenter();
+        
+        final Topic topic = new Topic();
+        topic.setTitle("" + System.currentTimeMillis()); // NOI18N
+        topicPresenter.configure(topic);
+        
+        vbTopics.getChildren().add(topicView.getView());
+        
+        final int size = vbTopics.getChildren().size();
+        double height = size * 200.0d;
+        if (size > 1) {
+            height += (size - 1) * 14.0d;
+        }
+        vbTopics.setPrefHeight(height);
     }
     
 }
