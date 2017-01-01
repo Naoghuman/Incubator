@@ -18,10 +18,13 @@ package com.github.naoghuman.dreaming.sounds.soundbox;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
+import javafx.stage.Modality;
 
 /**
  *
@@ -45,6 +48,32 @@ public class SoundBoxPresenter implements Initializable {
         this.soundBox = soundBox;
         
         lTitle.setText(this.soundBox.getTitle());
+        
+        lTitle.setText(this.soundBox.getTitle());
+        if (true) { // TODO vm-option == DEBUG
+            lTitle.setOnMouseClicked(value -> {
+                if (value.getClickCount() == 2) {
+                    this.onMouseClickedChangeTitle();
+                }
+            });
+        }
+    }
+    
+    private void onMouseClickedChangeTitle() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On mouse clicked change Title"); // NOI18N
+
+        final TextInputDialog dialog = new TextInputDialog(lTitle.getText());
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setHeaderText("Change title"); // NOI18N
+        dialog.setResizable(Boolean.FALSE);
+        dialog.setTitle("AudioClip"); // NOI18N
+        
+        final Optional<String> result = dialog.showAndWait();
+        if (result.isPresent() && !result.get().isEmpty()) {
+            lTitle.setText(result.get());
+        }
+        
+        // TODO save to db
     }
     
 }
