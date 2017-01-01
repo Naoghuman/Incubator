@@ -1,0 +1,17 @@
+--------------------------------------------------------------------------------
+TODO
+--------------------------------------------------------------------------------
+OPTION Debug-/ReleaseMode
+ - Add vm-parameter to default-config and release-config (see ComboBox in 
+   NetBeans IDE ToolBar.
+ - The option define its ReleaseMode or not.
+ - If the option is DebugMode, then additional components will be shown, so that
+   I can add new Themes and SoundBoxes (which then are saved to the db).
+ - In the ReleaseMode the additional components aren't shown.
+
+--------------------------------------------------------------------------------
+INFO New
+ - For every release after the first all new sounds have a extra info 'New'.
+
+--------------------------------------------------------------------------------
+

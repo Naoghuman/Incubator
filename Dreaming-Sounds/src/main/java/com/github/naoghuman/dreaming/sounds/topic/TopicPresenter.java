@@ -21,12 +21,15 @@ import com.github.naoghuman.dreaming.sounds.soundbox.SoundBoxPresenter;
 import com.github.naoghuman.dreaming.sounds.soundbox.SoundBoxView;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 
 /**
  *
@@ -52,6 +55,13 @@ public class TopicPresenter implements Initializable {
         this.topic = topic;
         
         lTitle.setText(this.topic.getTitle());
+        if (true) { // TODO vm-option == DEBUG
+            lTitle.setOnMouseClicked(value -> {
+                if (value.getClickCount() == 2) {
+                    this.onMouseClickedChangeTitle();
+                }
+            });
+        }
     }
     
     public void onActionAddSoundBox() {
@@ -72,6 +82,23 @@ public class TopicPresenter implements Initializable {
             width += (size - 1) * 14.0d;
         }
         hbSoundBoxes.setPrefWidth(width);
+    }
+    
+    private void onMouseClickedChangeTitle() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On mouse clicked change Title"); // NOI18N
+
+        final TextInputDialog dialog = new TextInputDialog(lTitle.getText());
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setHeaderText("Change title"); // NOI18N
+        dialog.setResizable(Boolean.FALSE);
+        dialog.setTitle("Topic"); // NOI18N
+        
+        final Optional<String> result = dialog.showAndWait();
+        if (result.isPresent() && !result.get().isEmpty()) {
+            lTitle.setText(result.get());
+        }
+        
+        // TODO save to db
     }
     
 }
