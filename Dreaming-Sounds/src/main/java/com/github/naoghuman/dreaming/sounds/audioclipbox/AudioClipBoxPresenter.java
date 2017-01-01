@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.dreaming.sounds.soundbox;
+package com.github.naoghuman.dreaming.sounds.audioclipbox;
 
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
@@ -30,26 +30,26 @@ import javafx.stage.Modality;
  *
  * @author Naoghuman
  */
-public class SoundBoxPresenter implements Initializable {
+public class AudioClipBoxPresenter implements Initializable {
     
     @FXML private Label lTitle;
     
-    private SoundBox soundBox;
+    private AudioClipBox audioClipBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize SoundBoxPresenter"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize AudioClipBoxPresenter"); // NOI18N
         
     }
     
-    public void configure(SoundBox soundBox) {
+    public void configure(AudioClipBox audioClipBox) {
         LoggerFacade.getDefault().debug(this.getClass(), "configure"); // NOI18N
         
-        this.soundBox = soundBox;
+        this.audioClipBox = audioClipBox;
         
-        lTitle.setText(this.soundBox.getTitle());
+        lTitle.setText(this.audioClipBox.getTitle());
         
-        lTitle.setText(this.soundBox.getTitle());
+        lTitle.setText(this.audioClipBox.getTitle());
         if (true) { // TODO vm-option == DEBUG
             lTitle.setOnMouseClicked(value -> {
                 if (value.getClickCount() == 2) {

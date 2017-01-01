@@ -20,15 +20,15 @@ package com.github.naoghuman.dreaming.sounds.configuration;
  *
  * @author Naoghuman
  */
-public interface ISoundBoxConfiguration {
+public interface IAudioClipBoxConfiguration {
     
-    public static final String ENTITY__TABLE_NAME__SOUNDBOX = "SoundBox"; // NOI18N
+    public static final String ENTITY__TABLE_NAME__SOUNDBOX = "AudioClipBox"; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__FIND_ALL_IN_TOPIC = "SoundBox.findAllInTopic"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL_IN_TOPIC = "SELECT sb FROM SoundBox sb"; // NOI18N
+    public static final String NAMED_QUERY__NAME__FIND_ALL_IN_TOPIC = "AudioClipBox.findAllInTopic"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL_IN_TOPIC = "SELECT acb FROM AudioClipBox acb"; // NOI18N
     
-    public static final String SOUNDBOX__COLUMN_NAME__ID = "id"; // NOI18N
-    public static final String SOUNDBOX__COLUMN_NAME__SOUND = "sound"; // NOI18N
-    public static final String SOUNDBOX__COLUMN_NAME__TITLE = "title"; // NOI18N
+    public static final String AUDIOCLIPBOX__COLUMN_NAME__ID = "id"; // NOI18N
+    public static final String AUDIOCLIPBOX__COLUMN_NAME__SOUND = "sound"; // NOI18N
+    public static final String AUDIOCLIPBOX__COLUMN_NAME__TITLE = "title"; // NOI18N
     
 }

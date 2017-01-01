@@ -16,9 +16,9 @@
  */
 package com.github.naoghuman.dreaming.sounds.topic;
 
-import com.github.naoghuman.dreaming.sounds.soundbox.SoundBox;
-import com.github.naoghuman.dreaming.sounds.soundbox.SoundBoxPresenter;
-import com.github.naoghuman.dreaming.sounds.soundbox.SoundBoxView;
+import com.github.naoghuman.dreaming.sounds.audioclipbox.AudioClipBox;
+import com.github.naoghuman.dreaming.sounds.audioclipbox.AudioClipBoxPresenter;
+import com.github.naoghuman.dreaming.sounds.audioclipbox.AudioClipBoxView;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.Optional;
@@ -37,9 +37,9 @@ import javafx.stage.Modality;
  */
 public class TopicPresenter implements Initializable {
     
-    @FXML private HBox hbSoundBoxes;
+    @FXML private HBox hbAudioClipBoxes;
     @FXML private Label lTitle;
-    @FXML private ScrollPane spSoundBoxes;
+    @FXML private ScrollPane sbAudioClipBoxes;
     
     private Topic topic;
 
@@ -64,24 +64,24 @@ public class TopicPresenter implements Initializable {
         }
     }
     
-    public void onActionAddSoundBox() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action add SoundBox"); // NOI18N
+    public void onActionAddAudioClipBox() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action add AudioClipBox"); // NOI18N
 
-        final SoundBoxView soundBoxView = new SoundBoxView();
-        final SoundBoxPresenter soundBoxViewPresenter = soundBoxView.getRealPresenter();
+        final AudioClipBoxView audioClipBoxView = new AudioClipBoxView();
+        final AudioClipBoxPresenter audioClipBoxViewPresenter = audioClipBoxView.getRealPresenter();
         
-        final SoundBox soundBox = new SoundBox();
-        soundBox.setTitle("" + System.currentTimeMillis()); // NOI18N
-        soundBoxViewPresenter.configure(soundBox);
+        final AudioClipBox audioClipBox = new AudioClipBox();
+        audioClipBox.setTitle("" + System.currentTimeMillis()); // NOI18N
+        audioClipBoxViewPresenter.configure(audioClipBox);
         
-        hbSoundBoxes.getChildren().add(soundBoxView.getView());
+        hbAudioClipBoxes.getChildren().add(audioClipBoxView.getView());
         
-        final int size = hbSoundBoxes.getChildren().size();
+        final int size = hbAudioClipBoxes.getChildren().size();
         double width = size * 300.0d;
         if (size > 1) {
             width += (size - 1) * 14.0d;
         }
-        hbSoundBoxes.setPrefWidth(width);
+        hbAudioClipBoxes.setPrefWidth(width);
     }
     
     private void onMouseClickedChangeTitle() {

@@ -11,13 +11,13 @@
     <children>
         <HBox spacing="14.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#onActionAddSoundBox" text="+" />
+                <Button mnemonicParsing="false" onAction="#onActionAddAudioClipBox" text="+" />
                 <Label fx:id="lTitle" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: CADETBLUE;" text="Label" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
-        <ScrollPane fx:id="spSoundBoxes" fitToWidth="true" VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id="sbAudioClipBoxes" fitToWidth="true" VBox.vgrow="ALWAYS">
             <content>
-                <HBox fx:id="hbSoundBoxes" spacing="14.0" style="-fx-background-color: CADETBLUE;" />
+                <HBox fx:id="hbAudioClipBoxes" spacing="14.0" style="-fx-background-color: CADETBLUE;" />
             </content>
         </ScrollPane>
     </children>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="250.0" style="-fx-background-color: GAINSBORO;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.dreaming.sounds.audioclipbox.AudioClipBoxPresenter">
+   <children>
+      <Label fx:id="lTitle" layoutX="14.0" layoutY="14.0" text="Label" />
+   </children>
+</AnchorPane>

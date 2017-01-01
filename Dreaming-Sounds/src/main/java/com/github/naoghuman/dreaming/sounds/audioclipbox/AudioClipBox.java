@@ -14,10 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.dreaming.sounds.soundbox;
+package com.github.naoghuman.dreaming.sounds.audioclipbox;
 
 import com.github.naoghuman.dreaming.sounds.configuration.IDefaultConfiguration;
-import com.github.naoghuman.dreaming.sounds.configuration.ISoundBoxConfiguration;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -37,6 +36,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import com.github.naoghuman.dreaming.sounds.configuration.IAudioClipBoxConfiguration;
 
 /**
  *
@@ -44,13 +44,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name = ISoundBoxConfiguration.ENTITY__TABLE_NAME__SOUNDBOX)
+@Table(name = IAudioClipBoxConfiguration.ENTITY__TABLE_NAME__SOUNDBOX)
 @NamedQueries({
     @NamedQuery(
-            name = ISoundBoxConfiguration.NAMED_QUERY__NAME__FIND_ALL_IN_TOPIC,
-            query = ISoundBoxConfiguration.NAMED_QUERY__QUERY__FIND_ALL_IN_TOPIC)
+            name = IAudioClipBoxConfiguration.NAMED_QUERY__NAME__FIND_ALL_IN_TOPIC,
+            query = IAudioClipBoxConfiguration.NAMED_QUERY__QUERY__FIND_ALL_IN_TOPIC)
 })
-public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultConfiguration, ISoundBoxConfiguration {
+public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, IDefaultConfiguration, IAudioClipBoxConfiguration {
     
     // START  ID ---------------------------------------------------------------
     private LongProperty idProperty;
@@ -58,7 +58,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = SOUNDBOX__COLUMN_NAME__ID)
+    @Column(name = AUDIOCLIPBOX__COLUMN_NAME__ID)
     public long getId() {
         if (this.idProperty == null) {
             return _id;
@@ -77,7 +77,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
 
     public LongProperty idProperty() {
         if (idProperty == null) {
-            idProperty = new SimpleLongProperty(this, SOUNDBOX__COLUMN_NAME__ID, _id);
+            idProperty = new SimpleLongProperty(this, AUDIOCLIPBOX__COLUMN_NAME__ID, _id);
         }
         
         return idProperty;
@@ -88,7 +88,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
     private StringProperty soundProperty = null;
     private String _sound = SIGN__EMPTY;
     
-    @Column(name = SOUNDBOX__COLUMN_NAME__SOUND)
+    @Column(name = AUDIOCLIPBOX__COLUMN_NAME__SOUND)
     public String getSound() {
         if (this.soundProperty == null) {
             return _sound;
@@ -107,7 +107,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
     
     public StringProperty soundProperty() {
         if (soundProperty == null) {
-            soundProperty = new SimpleStringProperty(this, SOUNDBOX__COLUMN_NAME__SOUND, _sound);
+            soundProperty = new SimpleStringProperty(this, AUDIOCLIPBOX__COLUMN_NAME__SOUND, _sound);
         }
         
         return soundProperty;
@@ -118,7 +118,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
     private StringProperty titleProperty = null;
     private String _title = SIGN__EMPTY;
     
-    @Column(name = SOUNDBOX__COLUMN_NAME__TITLE)
+    @Column(name = AUDIOCLIPBOX__COLUMN_NAME__TITLE)
     public String getTitle() {
         if (this.titleProperty == null) {
             return _title;
@@ -137,7 +137,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
     
     public StringProperty titleProperty() {
         if (titleProperty == null) {
-            titleProperty = new SimpleStringProperty(this, SOUNDBOX__COLUMN_NAME__TITLE, _title);
+            titleProperty = new SimpleStringProperty(this, AUDIOCLIPBOX__COLUMN_NAME__TITLE, _title);
         }
         
         return titleProperty;
@@ -145,7 +145,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
     // END  TITLE --------------------------------------------------------------
     
     @Override
-    public int compareTo(SoundBox other) {
+    public int compareTo(AudioClipBox other) {
         int compareTo = Long.compare(this.getId(), other.getId());
         if (compareTo == 0) {
             return compareTo;
@@ -170,7 +170,7 @@ public class SoundBox implements Comparable<SoundBox>, Externalizable, IDefaultC
             return false;
         }
         
-        final SoundBox other = (SoundBox) obj;
+        final AudioClipBox other = (AudioClipBox) obj;
         if (this.getId() != other.getId()) {
             return false;
         }

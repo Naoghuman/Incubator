@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.dreaming.sounds.soundbox;
+package com.github.naoghuman.dreaming.sounds.audioclipbox;
 
 import com.airhacks.afterburner.views.FXMLView;
 
@@ -22,10 +22,10 @@ import com.airhacks.afterburner.views.FXMLView;
  *
  * @author Naoghuman
  */
-public class SoundBoxView extends FXMLView {
+public class AudioClipBoxView extends FXMLView {
     
-    public SoundBoxPresenter getRealPresenter() {
-        return (SoundBoxPresenter) super.getPresenter();
+    public AudioClipBoxPresenter getRealPresenter() {
+        return (AudioClipBoxPresenter) super.getPresenter();
     }
     
 }
