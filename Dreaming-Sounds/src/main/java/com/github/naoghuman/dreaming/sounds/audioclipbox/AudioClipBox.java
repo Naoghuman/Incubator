@@ -60,7 +60,7 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = AUDIOCLIPBOX__COLUMN_NAME__ID)
     public long getId() {
-        if (this.idProperty == null) {
+        if (idProperty == null) {
             return _id;
         } else {
             return idProperty.get();
@@ -68,10 +68,10 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     }
 
     public final void setId(long id) {
-        if (this.idProperty == null) {
+        if (idProperty == null) {
             _id = id;
         } else {
-            this.idProperty.set(id);
+            idProperty.set(id);
         }
     }
 
@@ -84,13 +84,45 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     }
     // END  ID -----------------------------------------------------------------
     
+    // START  PARENT-ID --------------------------------------------------------
+    private LongProperty parentIdProperty;
+    private long _parentId = System.currentTimeMillis();
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = AUDIOCLIPBOX__COLUMN_NAME__PARENT_ID)
+    public long getParentId() {
+        if (parentIdProperty == null) {
+            return _parentId;
+        } else {
+            return parentIdProperty.get();
+        }
+    }
+
+    public final void setParentId(long parentId) {
+        if (parentIdProperty == null) {
+            _parentId = parentId;
+        } else {
+            parentIdProperty.set(parentId);
+        }
+    }
+
+    public LongProperty parentIdProperty() {
+        if (parentIdProperty == null) {
+            parentIdProperty = new SimpleLongProperty(this, AUDIOCLIPBOX__COLUMN_NAME__PARENT_ID, _parentId);
+        }
+        
+        return parentIdProperty;
+    }
+    // END  PARENT-ID ----------------------------------------------------------
+    
     // START  SOUND ------------------------------------------------------------
     private StringProperty soundProperty = null;
     private String _sound = SIGN__EMPTY;
     
     @Column(name = AUDIOCLIPBOX__COLUMN_NAME__SOUND)
     public String getSound() {
-        if (this.soundProperty == null) {
+        if (soundProperty == null) {
             return _sound;
         } else {
             return soundProperty.get();
@@ -98,10 +130,10 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     }
     
     public void setSound(String sound) {
-        if (this.soundProperty == null) {
+        if (soundProperty == null) {
             _sound = sound;
         } else {
-            this.soundProperty.set(sound);
+            soundProperty.set(sound);
         }
     }
     
@@ -120,7 +152,7 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     
     @Column(name = AUDIOCLIPBOX__COLUMN_NAME__TITLE)
     public String getTitle() {
-        if (this.titleProperty == null) {
+        if (titleProperty == null) {
             return _title;
         } else {
             return titleProperty.get();
@@ -128,10 +160,10 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     }
     
     public void setTitle(String title) {
-        if (this.titleProperty == null) {
+        if (titleProperty == null) {
             _title = title;
         } else {
-            this.titleProperty.set(title);
+            titleProperty.set(title);
         }
     }
     
@@ -147,6 +179,11 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     @Override
     public int compareTo(AudioClipBox other) {
         int compareTo = Long.compare(this.getId(), other.getId());
+        if (compareTo == 0) {
+            return compareTo;
+        }
+        
+        compareTo = Long.compare(this.getParentId(), other.getParentId());
         if (compareTo == 0) {
             return compareTo;
         }
@@ -175,6 +212,10 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
             return false;
         }
         
+        if (this.getParentId() != other.getParentId()) {
+            return false;
+        }
+        
         if (!Objects.equals(this.getTitle(), other.getTitle())) {
             return false;
         }
@@ -186,6 +227,7 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     public int hashCode() {
         int hash = 5;
         hash = 79 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 79 * hash + (int) (this.getParentId() ^ (this.getParentId() >>> 32));
         hash = 79 * hash + Objects.hashCode(this.getTitle());
         
         return hash;
@@ -194,6 +236,7 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
+        out.writeLong(this.getParentId());
         out.writeObject(this.getSound());
         out.writeObject(this.getTitle());
     }
@@ -201,6 +244,7 @@ public class AudioClipBox implements Comparable<AudioClipBox>, Externalizable, I
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
+        this.setParentId(in.readLong());
         this.setSound(String.valueOf(in.readObject()));
         this.setTitle(String.valueOf(in.readObject()));
     }
