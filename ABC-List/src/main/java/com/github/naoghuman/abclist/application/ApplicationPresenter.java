@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Name
+ * Copyright (C) 2016 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,13 +20,21 @@ import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Name
+ * @author Naoghuman
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
+    
+    @FXML private SplitPane spApplication;
+    @FXML private TreeView tvTopics;
+    @FXML private VBox vbExercises;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,7 +46,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void initializeAfterWindowIsShowing() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
     @Override

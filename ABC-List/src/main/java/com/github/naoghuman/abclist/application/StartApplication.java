@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Name
+ * Copyright (C) 2016 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ import javafx.stage.WindowEvent;
 
 /**
  *
- * @author Name
+ * @author Naoghuman
  */
 public class StartApplication extends Application implements IApplicationConfiguration {
 
