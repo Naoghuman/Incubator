@@ -34,6 +34,18 @@ public class ModelProvider {
         
     }
     
+    public Exercise getDefaultExercise(long parentId) {
+        return new Exercise(parentId);
+    }
+    
+    public Exercise getDefaultExercise(long id, long parentId) {
+        return new Exercise(id, parentId);
+    }
+    
+    public Exercise getDefaultExercise(long id, long parentId, long generationTime) {
+        return new Exercise(id, parentId, generationTime);
+    }
+    
     public Topic getDefaultTopic(long id, String title) {
         return new Topic(id, title);
     }

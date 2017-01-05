@@ -17,11 +17,14 @@
 package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
+import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.configuration.ITopicConfiguration;
+import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javafx.collections.FXCollections;
@@ -43,6 +46,16 @@ public class SqlProvider {
         
     }
     
+    public void createOrUpdate(Exercise exercise) {
+        if (Objects.equals(exercise.getId(), IDefaultConfiguration.DEFAULT_ID)) {
+            exercise.setId(System.currentTimeMillis());
+            DatabaseFacade.getDefault().getCrudService().create(exercise);
+        }
+        else {
+            DatabaseFacade.getDefault().getCrudService().update(exercise);
+        }
+    }
+    
     public void createOrUpdate(Topic topic) {
         if (Objects.equals(topic.getId(), IDefaultConfiguration.DEFAULT_ID)) {
             topic.setId(System.currentTimeMillis());
@@ -53,12 +66,26 @@ public class SqlProvider {
         }
     }
     
+    public ObservableList<Exercise> findAllExercisesWithParentId(long parentId) {
+        final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
+        
+        final Map<String, Object> parameters = FXCollections.observableHashMap();
+        parameters.put(IExerciseConfiguration.EXERCISE__COLUMN_NAME__PARENT_ID, parentId);
+        final List<Exercise> allExercises = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(Exercise.class, IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_PARENT_ID, parameters);
+
+        exercises.addAll(allExercises);
+        Collections.sort(exercises);
+
+        return exercises;
+    }
+    
     public ObservableList<Topic> findAllTopics() {
         final ObservableList<Topic> topics = FXCollections.observableArrayList();
         final List<Topic> allTopics = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Topic.class, ITopicConfiguration.NAMED_QUERY__NAME__FIND_ALL);
-        topics.addAll(allTopics);
         
+        topics.addAll(allTopics);
         Collections.sort(topics);
 
         return topics;

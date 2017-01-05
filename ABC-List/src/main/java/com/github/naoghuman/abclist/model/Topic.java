@@ -22,7 +22,6 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.Objects;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,6 +36,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  *
@@ -57,7 +59,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     }
 
     public Topic(String title) {
-        this.init(DEFAULT_ID, title);
+        this(DEFAULT_ID, title);
     }
 
     public Topic(long id, String title) {
@@ -77,7 +79,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = TOPIC__COLUMN_NAME__ID)
     public long getId() {
-        if (this.idProperty == null) {
+        if (idProperty == null) {
             return _id;
         } else {
             return idProperty.get();
@@ -85,10 +87,10 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     }
 
     public final void setId(long id) {
-        if (this.idProperty == null) {
+        if (idProperty == null) {
             _id = id;
         } else {
-            this.idProperty.set(id);
+            idProperty.set(id);
         }
     }
 
@@ -107,7 +109,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     
     @Column(name = TOPIC__COLUMN_NAME__TITLE)
     public String getTitle() {
-        if (this.titleProperty == null) {
+        if (titleProperty == null) {
             return _title;
         } else {
             return titleProperty.get();
@@ -115,10 +117,10 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     }
     
     public void setTitle(String title) {
-        if (this.titleProperty == null) {
+        if (titleProperty == null) {
             _title = title;
         } else {
-            this.titleProperty.set(title);
+            titleProperty.set(title);
         }
     }
     
@@ -133,14 +135,10 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     
     @Override
     public int compareTo(Topic other) {
-        int compareTo = Long.compare(this.getId(), other.getId());
-        if (compareTo == 0) {
-            return compareTo;
-        }
-        
-        compareTo = this.getTitle().compareTo(other.getTitle());
-        
-        return compareTo;
+        return new CompareToBuilder()
+                .append(other.getId(), this.getId())
+                .append(other.getTitle(), this.getTitle())
+                .toComparison();
     }
 
     @Override
@@ -149,33 +147,26 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
             return true;
         }
         
-        if (obj == null) {
-            return false;
-        }
-        
-        if (getClass() != obj.getClass()) {
+        if (
+                obj == null
+                || this.getClass() != obj.getClass()
+	) {
             return false;
         }
         
         final Topic other = (Topic) obj;
-        if (this.getId() != other.getId()) {
-            return false;
-        }
-        
-        if (!Objects.equals(this.getTitle(), other.getTitle())) {
-            return false;
-        }
-        
-        return true;
+        return new EqualsBuilder()
+                .append(this.getId(), other.getId())
+                .append(this.getTitle(), other.getTitle())
+                .isEquals();
     }
     
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
-        hash = 79 * hash + Objects.hashCode(this.getTitle());
-        
-        return hash;
+        return new HashCodeBuilder(17, 37)
+                .append(this.getId())
+                .append(this.getTitle())
+                .toHashCode();
     }
     
     @Override

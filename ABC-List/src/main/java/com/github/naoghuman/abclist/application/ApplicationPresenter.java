@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.abclist.application;
 
+import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
@@ -44,7 +45,7 @@ import javafx.stage.Modality;
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
     @FXML private SplitPane spApplication;
-    @FXML private TreeView<Object> tvTopics;
+    @FXML private TreeView<Object> tvAbcList;
     @FXML private VBox vbExercises;
     
     private final TreeItem<Object> rootItem = new TreeItem<> ();
@@ -65,7 +66,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void initializeTreeView() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize TreeView"); // NOI18N
         
-        tvTopics.setCellFactory((TreeView<Object> p) -> new AbcListTreeCell());
+        tvAbcList.setCellFactory((TreeView<Object> p) -> new AbcListTreeCell());
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -76,6 +77,27 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     @Override
     public void registerActions() {
         LoggerFacade.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+    }
+    
+    private void onActionCreateNewExercise(Topic topic) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action create new Exercise"); // NOI18N
+        
+        // Create a new Exercise
+        final Exercise exercise = ModelProvider.getDefault().getDefaultExercise(topic.getId());
+        SqlProvider.getDefault().createOrUpdate(exercise);
+        
+        // Open the exercise TODO
+        
+        // Show it
+        this.onActionRefreshTreeView();
+        
+        // Expand the TreeItem
+        final Optional<TreeItem<Object>> ti = rootItem.getChildren().stream()
+                .filter(treeItem -> ((Topic) treeItem.getValue()).equals(topic))
+                .findFirst();
+        if (ti.isPresent()) {
+            ti.get().setExpanded(Boolean.TRUE);
+        }
     }
     
     public void onActionCreateNewTopic() {
@@ -96,9 +118,14 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             final Topic topic = ModelProvider.getDefault().getDefaultTopic(result.get());
             SqlProvider.getDefault().createOrUpdate(topic);
             
-            // Show it - refresh tvTopics
+            // Show it
             this.onActionRefreshTreeView();
         }
+    }
+
+    private void onActionOpenExercise(Exercise exercise) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action open Exercise"); // NOI18N
+        
     }
 
     private void onActionRefreshTreeView() {
@@ -107,55 +134,67 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         rootItem.getChildren().clear();
         
         final ObservableList<Topic> topics = SqlProvider.getDefault().findAllTopics();
-        TreeItem<Object> item;
-        for (Topic topic : topics) {
-            item = new TreeItem<>(topic);
-            rootItem.getChildren().add(item);
-        }
+        topics.forEach(topic -> {
+            final TreeItem<Object> tiTopic = new TreeItem<>(topic);
+            final ObservableList<Exercise> exercises = SqlProvider.getDefault().findAllExercisesWithParentId(topic.getId());
+            exercises.forEach(exercise -> {
+                final TreeItem<Object> tiExercise = new TreeItem<>(exercise);
+                tiTopic.getChildren().add(tiExercise);
+            });
+            
+            rootItem.getChildren().add(tiTopic);
+        });
         
-        tvTopics.setRoot(rootItem);
+        tvAbcList.setRoot(rootItem);
     }
     
     private final class AbcListTreeCell extends TreeCell<Object> {
         
-        private final ContextMenu addMenu = new ContextMenu();
-        private final MenuItem addMenuItem = new MenuItem();
+        private final ContextMenu contextMenu = new ContextMenu();
+        private final MenuItem menuItem = new MenuItem();
         
         public AbcListTreeCell() {
-            addMenu.getItems().add(addMenuItem);
+            contextMenu.getItems().add(menuItem);
         }
         
         @Override
         public void updateItem(Object item, boolean empty) {
             super.updateItem(item, empty);
 
-            if (!empty) {
-                this.setText(this.getDisplayText(item));
-                
-                addMenuItem.setText(this.getContextMenuText(item));
-                this.setContextMenu(addMenu);
-            }
-            else {
-                this.setText(null);
-            }
-            
+            this.configureMenuItem(item);
+            this.setContextMenu(!empty ? contextMenu : null);
             this.setGraphic(null);
+            this.setText(!empty ? this.getDisplayText(item) : null);
         }
         
         private String getDisplayText(Object item) {
-            if ( item instanceof Topic ) {
-                return ((Topic) item).getTitle();
+            if (item instanceof Exercise) {
+                final Exercise exercise = (Exercise) item;
+                return exercise.toString(); // TODO
+            }
+            
+            if (item instanceof Topic) {
+                final Topic topic = (Topic) item;
+                return topic.getTitle();
             }
             
             return null;
         }
         
-        private String getContextMenuText(Object item) {
-            if (item instanceof Topic) {
-                return "This is a Country";
+        private void configureMenuItem(Object item) {
+            if (item instanceof Exercise) {
+                final Exercise exercise = (Exercise) item;
+                menuItem.setText("Open exercise"); // NOI18N
+                ApplicationPresenter.this.onActionOpenExercise(exercise);
             }
             
-            return null;
+            if (item instanceof Topic) {
+                final Topic topic = (Topic) item;
+                menuItem.setText("New exercise"); // NOI18N
+                menuItem.setOnAction(value -> {
+                    ApplicationPresenter.this.onActionCreateNewExercise(topic);
+                });
+            }
         }
         
     }

@@ -18,7 +18,7 @@
                       <Button mnemonicParsing="false" onAction="#onActionCreateNewTopic" text="+" />
                     </items>
                   </ToolBar>
-                  <TreeView fx:id="tvTopics" showRoot="false" VBox.vgrow="ALWAYS" />
+                  <TreeView fx:id="tvAbcList" showRoot="false" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox spacing="14.0">
