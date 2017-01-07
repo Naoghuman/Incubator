@@ -16,6 +16,8 @@
  */
 package com.github.naoghuman.abclist.application;
 
+import com.github.naoghuman.abclist.exercise.ExercisePresenter;
+import com.github.naoghuman.abclist.exercise.ExerciseView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Topic;
@@ -28,6 +30,7 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -35,6 +38,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
@@ -86,9 +90,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         final Exercise exercise = ModelProvider.getDefault().getDefaultExercise(topic.getId());
         SqlProvider.getDefault().createOrUpdate(exercise);
         
-        // Open the exercise TODO
+        // Open the new exercise
+        this.onActionOpenExercise(exercise);
         
-        // Show it
+        // Show the new exercise in the TreeView
         this.onActionRefreshTreeView();
         
         // Expand the TreeItem
@@ -126,6 +131,15 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void onActionOpenExercise(Exercise exercise) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action open Exercise"); // NOI18N
         
+        vbExercises.getChildren().clear();
+        
+        final ExerciseView exerciseView = new ExerciseView();
+        final ExercisePresenter exercisePresenter = exerciseView.getRealPresenter();
+        exercisePresenter.configure(exercise);
+        
+        final Parent parent = exerciseView.getView();
+        VBox.setVgrow(parent, Priority.ALWAYS);
+        vbExercises.getChildren().add(exerciseView.getView());
     }
 
     private void onActionRefreshTreeView() {
@@ -185,7 +199,9 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             if (item instanceof Exercise) {
                 final Exercise exercise = (Exercise) item;
                 menuItem.setText("Open exercise"); // NOI18N
-                ApplicationPresenter.this.onActionOpenExercise(exercise);
+                menuItem.setOnAction(value -> {
+                    ApplicationPresenter.this.onActionOpenExercise(exercise);
+                });
             }
             
             if (item instanceof Topic) {

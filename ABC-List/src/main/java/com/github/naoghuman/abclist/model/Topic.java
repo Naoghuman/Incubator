@@ -136,8 +136,8 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     @Override
     public int compareTo(Topic other) {
         return new CompareToBuilder()
-                .append(other.getId(), this.getId())
-                .append(other.getTitle(), this.getTitle())
+                .append(this.getTitle(), other.getTitle())
+                .append(this.getId(), this.getId())
                 .toComparison();
     }
 

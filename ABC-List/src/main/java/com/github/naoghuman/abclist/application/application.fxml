@@ -21,16 +21,7 @@
                   <TreeView fx:id="tvAbcList" showRoot="false" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <VBox spacing="14.0">
-               <children>
-                  <ToolBar minHeight="-Infinity" prefHeight="40.0">
-                    <items>
-                      <Button mnemonicParsing="false" text="Button" />
-                    </items>
-                  </ToolBar>
-                  <VBox fx:id="vbExercises" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
-               </children>
-            </VBox>
+            <VBox fx:id="vbExercises" spacing="14.0" />
          </items>
       </SplitPane>
    </children>
