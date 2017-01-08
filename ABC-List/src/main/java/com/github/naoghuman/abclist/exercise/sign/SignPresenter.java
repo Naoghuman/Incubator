@@ -16,12 +16,18 @@
  */
 package com.github.naoghuman.abclist.exercise.sign;
 
+import com.github.naoghuman.abclist.exercise.ESign;
+import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -32,9 +38,13 @@ import javafx.scene.layout.HBox;
  */
 public class SignPresenter implements Initializable {
     
+    private final ObservableList<Term> flowPaneTerms = FXCollections.observableArrayList();
+    
     @FXML private FlowPane fpWords;
     @FXML private HBox hbSign;
     @FXML private Label lSign;
+    
+    private ESign sign;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,12 +53,56 @@ public class SignPresenter implements Initializable {
         // TODO only [Sign]s with [Word]s are visible
 //        hbSign.managedProperty().bind(Bindings.isNotEmpty(fpWords.getChildren()));
 //        hbSign.visibleProperty().bind(Bindings.isNotEmpty(fpWords.getChildren()));
+
+        this.initializeFlowPane();
     }
     
-    public void configure(String sign) {
-        LoggerFacade.getDefault().debug(this.getClass(), "Configure sign [" + sign + "]"); // NOI18N
+    private void initializeFlowPane() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize FlowPane"); // NOI18N
+    }
+
+    public void addTerm(Term term) {
+        LoggerFacade.getDefault().debug(this.getClass(), "Add Term [" + term.getTerm() + "]"); // NOI18N
+
+        // Check if the [Term] isn't always added
+        boolean isTermAdded = false;
+        for (Term flowPaneTerm : flowPaneTerms) {
+            if (flowPaneTerm.getTerm().equals(term.getTerm())) {
+                isTermAdded = true;
+                break;
+            }
+        }
+        
+        // Add and sort it
+        if (!isTermAdded) {
+            flowPaneTerms.add(term);
+            FXCollections.sort(flowPaneTerms);
+            
+            fpWords.getChildren().clear();
+            flowPaneTerms.forEach(flowPaneTerm -> {
+                fpWords.getChildren().add(this.getLabel(flowPaneTerm));
+            });
+        }
+    }
+    
+    public void configure(ESign sign) {
+        LoggerFacade.getDefault().debug(this.getClass(), "Configure sign [" + sign.name() + "]"); // NOI18N
+        
+        this.sign = sign;
         
         lSign.setText(sign + ":"); // NOI18N
+    }
+    
+    public Label getLabel(Term term) {
+        final Label label = new Label(term.getTerm());
+        label.setUserData(term);
+        label.setStyle("-fx-background-color:LIGHTGREEN;");
+        
+        return label;
+    }
+    
+    public boolean isSign(char sign) {
+        return this.sign.isSign(sign);
     }
     
 }

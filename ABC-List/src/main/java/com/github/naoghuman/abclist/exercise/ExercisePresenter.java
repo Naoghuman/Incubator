@@ -22,6 +22,7 @@ import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogView;
 import com.github.naoghuman.abclist.exercise.sign.SignPresenter;
 import com.github.naoghuman.abclist.exercise.sign.SignView;
 import com.github.naoghuman.abclist.model.Exercise;
+import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -31,6 +32,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -89,24 +91,39 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         dialog.initStyle(StageStyle.TRANSPARENT);
         dialog.setAlwaysOnTop(true);
         dialog.setTitle("Exercise");
-//        dialog.setHeaderText("TODO add info");
         dialog.setResizable(false);
-//        dialog.getDialogPane().getButtonTypes().clear();
     }
     
     private void initializeSigns() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Signs"); // NOI18N
         
         vbSigns.getChildren().clear();
-        for (ESigns sign : ESigns.values()) {
+        for (ESign sign : ESign.values()) {
             final SignView signView = new SignView();
             final SignPresenter signPresenter = signView.getRealPresenter();
-            signPresenter.configure(sign.name());
+            signPresenter.configure(sign);
             
             final Parent view = signView.getView();
-            view.setId(sign.name());
+            view.setUserData(signPresenter);
             vbSigns.getChildren().add(view);
         }
+    }
+    
+    private char computeFirstChar(String term) {
+        char firstSign = term.charAt(0);
+        if (firstSign == 'ä') {
+            firstSign = 'a';
+        }
+        
+        if (firstSign == 'ö') {
+            firstSign = 'o';
+        }
+        
+        if (firstSign == 'ü') {
+            firstSign = 'u';
+        }
+        
+        return firstSign;
     }
     
     public void configure(Exercise exercise) {
@@ -127,25 +144,49 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         final Scene scene = new Scene(v.getView());
         dialog.setScene(scene);
-//        dialog.getDialogPane().setContent(v.getView());
         dialog.show();
+    }
+    
+    private void onActionUserStopExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action User stop Exercise"); // NOI18N
+        
+        dialog.close();
+    }
+    
+    private void onActionUserTypedTerm(Term term) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action User typed [Term]"); // NOI18N
+        
+        /*
+        - Check if the Term always exists
+        - if not -> save it to db
+        - wordCounter++;
+        - (v) show word in flowpane
+           - (v) Sort words in flowpane
+           - (v) If first char ä, ö, ü -> then put it to a, o, ü
+        */
+        final char firstChar = this.computeFirstChar(term.getTerm().toLowerCase());
+        vbSigns.getChildren().stream()
+                .filter((node) -> (node.getUserData() instanceof SignPresenter))
+                .forEach((node) -> {
+                    final SignPresenter presenter = (SignPresenter) node.getUserData();
+                    if (presenter.isSign(firstChar)) {
+                        presenter.addTerm(term);
+                    }
+                });
+        
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent event) {
         final String propertyName = event.getPropertyName();
-        if (propertyName.equals(PROP__EXERCISE_DIALOG__USER_CLICK_STOP)) {
-            System.out.println("---------------");
-            dialog.close();
+        if (propertyName.equals(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE)) {
+            this.onActionUserStopExercise();
         }
-    }
-    
-    private enum ESigns {
         
-        A, B, C, D, E, F, G, H, I, J,
-        K, L, M, N, O, P, Q, R, S, T,
-        U, V, W, X, Y, Z;
-        
+        if (propertyName.equals(PROP__EXERCISE_DIALOG__USER_TYPED_TERM)) {
+            final Term term = (Term) event.getNewValue();
+            this.onActionUserTypedTerm(term);
+        }
     }
     
 }

@@ -18,14 +18,14 @@ package com.github.naoghuman.abclist.exercise.exercisedialog;
 
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.exercise.ETime;
-import com.github.naoghuman.abclist.exercise.ExercisePresenter;
+import com.github.naoghuman.abclist.model.ModelProvider;
+import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -79,14 +79,26 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
     public void onActionPressEnter() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action press Enter"); // NOI18N
         
-        LoggerFacade.getDefault().debug(this.getClass(), "User typed: " + tfUserInput.getText()); // NOI18N
+        final String userInput = tfUserInput.getText().trim();
+        if (userInput.isEmpty()) {
+            LoggerFacade.getDefault().warn(this.getClass(), "Empty User input - not a valid [Term]"); // NOI18N
+            return;
+        }
+        
+        LoggerFacade.getDefault().debug(this.getClass(), "User typed: " + userInput); // NOI18N
+        final Term term = ModelProvider.getDefault().getDefaultTerm(userInput);
+        propertyChangeSupport.firePropertyChange(PROP__EXERCISE_DIALOG__USER_TYPED_TERM, null, term);
+        
         tfUserInput.setText(null);
+        Platform.runLater(() -> {
+            tfUserInput.requestFocus();
+        });
     }
     
     public void onActionStopExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action stop Exercise"); // NOI18N
         
-        propertyChangeSupport.firePropertyChange(PROP__EXERCISE_DIALOG__USER_CLICK_STOP, null, null);
+        propertyChangeSupport.firePropertyChange(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE, null, null);
     }
     
 }

@@ -42,6 +42,14 @@ public class ModelProvider {
         return new Exercise(id, parentId);
     }
     
+    public Term getDefaultTerm(String term) {
+        return new Term(term);
+    }
+    
+    public Term getDefaultTerm(long id, String term) {
+        return new Term(id, term);
+    }
+    
     public Exercise getDefaultExercise(long id, long parentId, long generationTime) {
         return new Exercise(id, parentId, generationTime);
     }
@@ -53,4 +61,5 @@ public class ModelProvider {
     public Topic getDefaultTopic(String title) {
         return new Topic(title);
     }
+    
 }
