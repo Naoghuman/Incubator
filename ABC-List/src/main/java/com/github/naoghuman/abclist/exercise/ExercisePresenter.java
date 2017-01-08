@@ -16,10 +16,15 @@
  */
 package com.github.naoghuman.abclist.exercise;
 
+import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
+import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogPresenter;
+import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogView;
 import com.github.naoghuman.abclist.exercise.sign.SignPresenter;
 import com.github.naoghuman.abclist.exercise.sign.SignView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -27,29 +32,36 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
  * @author Naoghuman
  */
-public class ExercisePresenter implements Initializable {
+public class ExercisePresenter implements Initializable, IExerciseConfiguration, PropertyChangeListener {
     
+//    final Dialog<Void> dialog = new Dialog<>();
+    final Stage dialog = new Stage();
+        
     @FXML private Button bStartExercise;
     @FXML private ComboBox<ETime> cbTime;
     @FXML private VBox vbSigns;
     
     private Exercise exercise;
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ExercisePresenter"); // NOI18N
         
         this.initializeComboBoxTime();
+        this.initializeDialog();
         this.initializeSigns();
     }
     
@@ -69,7 +81,17 @@ public class ExercisePresenter implements Initializable {
         olTimes.addAll(ETime.values());
         cbTime.getItems().addAll(olTimes);
         cbTime.getSelectionModel().selectFirst();
+    }
+    
+    private void initializeDialog() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize Dialog"); // NOI18N
         
+        dialog.initStyle(StageStyle.TRANSPARENT);
+        dialog.setAlwaysOnTop(true);
+        dialog.setTitle("Exercise");
+//        dialog.setHeaderText("TODO add info");
+        dialog.setResizable(false);
+//        dialog.getDialogPane().getButtonTypes().clear();
     }
     
     private void initializeSigns() {
@@ -97,13 +119,25 @@ public class ExercisePresenter implements Initializable {
     public void onActionStartExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action start Exercise"); // NOI18N
         
-        /*
-        TODO
-         - extract [Exercise] time (show it)
-        */
-        final ETime time = cbTime.getSelectionModel().getSelectedItem();
-        LoggerFacade.getDefault().debug(this.getClass(), "Start Exercise with Time [" + time.toString() + "]"); // NOI18N
+        final ExerciseDialogView v = new ExerciseDialogView();
+        final ExerciseDialogPresenter p = v.getRealPresenter();
         
+        final ETime time = cbTime.getSelectionModel().getSelectedItem();
+        p.configure(time, this);
+        
+        final Scene scene = new Scene(v.getView());
+        dialog.setScene(scene);
+//        dialog.getDialogPane().setContent(v.getView());
+        dialog.show();
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+        final String propertyName = event.getPropertyName();
+        if (propertyName.equals(PROP__EXERCISE_DIALOG__USER_CLICK_STOP)) {
+            System.out.println("---------------");
+            dialog.close();
+        }
     }
     
     private enum ESigns {
@@ -111,34 +145,6 @@ public class ExercisePresenter implements Initializable {
         A, B, C, D, E, F, G, H, I, J,
         K, L, M, N, O, P, Q, R, S, T,
         U, V, W, X, Y, Z;
-        
-    }
-    
-    private enum ETime {
-        
-        MIN_01_00(60 , "01:00"), // NOI18N
-        MIN_02_00(120, "02:00"), // NOI18N
-        MIN_03_00(180, "03:00"), // NOI18N
-        MIN_05_00(300, "05:00"), // NOI18N
-        MIN_10_00(600, "10:00"); // NOI18N
-        
-        private final int seconds;
-        
-        private final String presentation;
-        
-        ETime(int seconds, String presentation) {
-            this.seconds = seconds;
-            this.presentation = presentation;
-        }
-        
-        public int getSeconds() {
-            return seconds;
-        }
-
-        @Override
-        public String toString() {
-            return presentation;
-        }
         
     }
     
