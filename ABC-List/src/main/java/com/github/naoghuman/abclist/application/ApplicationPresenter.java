@@ -87,7 +87,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().debug(this.getClass(), "On action create new Exercise"); // NOI18N
         
         // Create a new Exercise
-        final Exercise exercise = ModelProvider.getDefault().getDefaultExercise(topic.getId());
+        final Exercise exercise = ModelProvider.getDefault().getExercise(topic.getId());
         SqlProvider.getDefault().createOrUpdate(exercise);
         
         // Open the new exercise
@@ -97,21 +97,22 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         this.onActionRefreshTreeView();
         
         // Expand the TreeItem
-        final Optional<TreeItem<Object>> ti = rootItem.getChildren().stream()
+        final Optional<TreeItem<Object>> optionalTreeItem = rootItem.getChildren().stream()
                 .filter(treeItem -> ((Topic) treeItem.getValue()).equals(topic))
                 .findFirst();
-        if (ti.isPresent()) {
-            ti.get().setExpanded(Boolean.TRUE);
+        if (optionalTreeItem.isPresent()) {
+            optionalTreeItem.get().setExpanded(true);
         }
     }
     
     public void onActionCreateNewTopic() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action create new Topic"); // NOI18N
         
+        // TODO replace it with AnchorPane
         final TextInputDialog dialog = new TextInputDialog(); // NOI18N
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setHeaderText("Create Topic"); // NOI18N
-        dialog.setResizable(Boolean.FALSE);
+        dialog.setResizable(false);
         dialog.setTitle("Topic Wizard"); // NOI18N
         
         final Optional<String> result = dialog.showAndWait();
@@ -120,7 +121,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                 && !result.get().isEmpty()
         ) {
             // Create a new Topic
-            final Topic topic = ModelProvider.getDefault().getDefaultTopic(result.get());
+            final Topic topic = ModelProvider.getDefault().getTopic(result.get());
             SqlProvider.getDefault().createOrUpdate(topic);
             
             // Show it
@@ -147,16 +148,16 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         rootItem.getChildren().clear();
         
-        final ObservableList<Topic> topics = SqlProvider.getDefault().findAllTopics();
-        topics.forEach(topic -> {
-            final TreeItem<Object> tiTopic = new TreeItem<>(topic);
-            final ObservableList<Exercise> exercises = SqlProvider.getDefault().findAllExercisesWithParentId(topic.getId());
-            exercises.forEach(exercise -> {
-                final TreeItem<Object> tiExercise = new TreeItem<>(exercise);
-                tiTopic.getChildren().add(tiExercise);
+        final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
+        observableListTopics.forEach(topic -> {
+            final ObservableList<Exercise> observableListExercises = SqlProvider.getDefault().findAllExercisesWithParentId(topic.getId());
+            final TreeItem<Object> treeItemTopic = new TreeItem<>(topic);
+            observableListExercises.forEach(exercise -> {
+                final TreeItem<Object> treeItemExercise = new TreeItem<>(exercise);
+                treeItemTopic.getChildren().add(treeItemExercise);
             });
             
-            rootItem.getChildren().add(tiTopic);
+            rootItem.getChildren().add(treeItemTopic);
         });
         
         tvAbcList.setRoot(rootItem);

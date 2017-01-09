@@ -18,8 +18,10 @@ package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
+import com.github.naoghuman.abclist.configuration.ITermConfiguration;
 import com.github.naoghuman.abclist.configuration.ITopicConfiguration;
 import com.github.naoghuman.abclist.model.Exercise;
+import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import java.util.Collections;
@@ -56,6 +58,16 @@ public class SqlProvider {
         }
     }
     
+    public void createOrUpdate(Term term) {
+        if (Objects.equals(term.getId(), IDefaultConfiguration.DEFAULT_ID)) {
+            term.setId(System.currentTimeMillis());
+            DatabaseFacade.getDefault().getCrudService().create(term);
+        }
+        else {
+            DatabaseFacade.getDefault().getCrudService().update(term);
+        }
+    }
+    
     public void createOrUpdate(Topic topic) {
         if (Objects.equals(topic.getId(), IDefaultConfiguration.DEFAULT_ID)) {
             topic.setId(System.currentTimeMillis());
@@ -67,28 +79,40 @@ public class SqlProvider {
     }
     
     public ObservableList<Exercise> findAllExercisesWithParentId(long parentId) {
-        final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
-        
+        final ObservableList<Exercise> allExercisesWithParentId = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
         parameters.put(IExerciseConfiguration.EXERCISE__COLUMN_NAME__PARENT_ID, parentId);
-        final List<Exercise> allExercises = DatabaseFacade.getDefault().getCrudService()
+        final List<Exercise> exercises = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Exercise.class, IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_PARENT_ID, parameters);
 
-        exercises.addAll(allExercises);
-        Collections.sort(exercises);
+        allExercisesWithParentId.addAll(exercises);
+        Collections.sort(allExercisesWithParentId);
 
-        return exercises;
+        return allExercisesWithParentId;
     }
     
     public ObservableList<Topic> findAllTopics() {
-        final ObservableList<Topic> topics = FXCollections.observableArrayList();
-        final List<Topic> allTopics = DatabaseFacade.getDefault().getCrudService()
+        final ObservableList<Topic> allTopics = FXCollections.observableArrayList();
+        final List<Topic> topics = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Topic.class, ITopicConfiguration.NAMED_QUERY__NAME__FIND_ALL);
         
-        topics.addAll(allTopics);
-        Collections.sort(topics);
+        allTopics.addAll(topics);
+        Collections.sort(allTopics);
 
-        return topics;
+        return allTopics;
+    }
+	
+    public ObservableList<Term> findAllTermsWithTitle(String title) {
+        final ObservableList<Term> allTermsWithTitle = FXCollections.observableArrayList();
+        final Map<String, Object> parameters = FXCollections.observableHashMap();
+        parameters.put(ITermConfiguration.TERM__COLUMN_NAME__TITLE, title);
+        final List<Term> terms = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(Term.class, ITermConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_TITLE, parameters);
+        
+        allTermsWithTitle.addAll(terms);
+        Collections.sort(allTermsWithTitle);
+
+        return allTermsWithTitle;
     }
     
 }

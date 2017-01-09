@@ -17,7 +17,6 @@
 package com.github.naoghuman.abclist.model;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
-import static com.github.naoghuman.abclist.configuration.IDefaultConfiguration.DEFAULT_ID;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import java.io.Externalizable;
 import java.io.IOException;

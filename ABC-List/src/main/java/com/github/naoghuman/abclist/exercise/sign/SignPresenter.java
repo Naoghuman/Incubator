@@ -20,14 +20,11 @@ import com.github.naoghuman.abclist.exercise.ESign;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -62,12 +59,12 @@ public class SignPresenter implements Initializable {
     }
 
     public void addTerm(Term term) {
-        LoggerFacade.getDefault().debug(this.getClass(), "Add Term [" + term.getTerm() + "]"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "Add Term [" + term.getTitle() + "]"); // NOI18N
 
         // Check if the [Term] isn't always added
         boolean isTermAdded = false;
         for (Term flowPaneTerm : flowPaneTerms) {
-            if (flowPaneTerm.getTerm().equals(term.getTerm())) {
+            if (flowPaneTerm.getTitle().equals(term.getTitle())) {
                 isTermAdded = true;
                 break;
             }
@@ -94,9 +91,10 @@ public class SignPresenter implements Initializable {
     }
     
     public Label getLabel(Term term) {
-        final Label label = new Label(term.getTerm());
+        final Label label = new Label(term.getTitle());
         label.setUserData(term);
-        label.setStyle("-fx-background-color:LIGHTGREEN;");
+		// TODO tweak it
+        label.setStyle("-fx-background-color:LIGHTGREEN;"); // NOI18N
         
         return label;
     }

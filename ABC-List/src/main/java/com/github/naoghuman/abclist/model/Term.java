@@ -17,7 +17,7 @@
 package com.github.naoghuman.abclist.model;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
-import com.github.naoghuman.abclist.configuration.IWordConfiguration;
+import com.github.naoghuman.abclist.configuration.ITermConfiguration;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -26,35 +26,58 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  *
  * @author Naoghuman
  */
-public class Term implements Comparable<Term>, Externalizable, IDefaultConfiguration, IWordConfiguration {
+@Entity
+@Access(AccessType.PROPERTY)
+@Table(name = ITermConfiguration.ENTITY__TABLE_NAME__TERM)
+@NamedQueries({
+    @NamedQuery(
+            name = ITermConfiguration.NAMED_QUERY__NAME__FIND_ALL,
+            query = ITermConfiguration.NAMED_QUERY__QUERY__FIND_ALL),
+    @NamedQuery(
+            name = ITermConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_TITLE,
+            query = ITermConfiguration.NAMED_QUERY__QUERY__FIND_ALL_WITH_TITLE)
+})
+public class Term implements Comparable<Term>, Externalizable, IDefaultConfiguration, ITermConfiguration {
     
     public Term() {
         this(SIGN__EMPTY);
     }
 
-    public Term(String term) {
-        this(DEFAULT_ID, term);
+    public Term(String title) {
+        this(DEFAULT_ID, System.currentTimeMillis(), title);
     }
 
-    public Term(long id, String term) {
-        this.init(id, term);
+    public Term(long id, String title) {
+        this(id, System.currentTimeMillis(), title);
+    }
+
+    public Term(long id, long generationTime, String title) {
+        this.init(id, generationTime, title);
     }
     
-    private void init(long id, String term) {
+    private void init(long id, long generationTime, String title) {
         this.setId(id);
-        this.setTerm(term);
+        this.setGenerationTime(generationTime);
+        this.setTitle(title);
     }
        
     // START  ID ---------------------------------------------------------------
@@ -63,7 +86,7 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = WORD__COLUMN_NAME__ID)
+    @Column(name = TERM__COLUMN_NAME__ID)
     public long getId() {
         if (idProperty == null) {
             return _id;
@@ -82,48 +105,108 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
 
     public LongProperty idProperty() {
         if (idProperty == null) {
-            idProperty = new SimpleLongProperty(this, WORD__COLUMN_NAME__ID, _id);
+            idProperty = new SimpleLongProperty(this, TERM__COLUMN_NAME__ID, _id);
         }
         
         return idProperty;
     }
     // END  ID -----------------------------------------------------------------
-    
-    // START  TERM -------------------------------------------------------------
-    private StringProperty termProperty = null;
-    private String _term = SIGN__EMPTY;
-    
-    @Column(name = WORD__COLUMN_NAME__TERM)
-    public String getTerm() {
-        if (termProperty == null) {
-            return _term;
+	
+    // START  GENERATIONTIME ---------------------------------------------------
+    private LongProperty generationTimeProperty;
+    private long _generationTime = System.currentTimeMillis();
+
+    @Column(name = TERM__COLUMN_NAME__GENERATION_TIME)
+    public long getGenerationTime() {
+        if (generationTimeProperty == null) {
+            return _generationTime;
         } else {
-            return termProperty.get();
+            return generationTimeProperty.get();
+        }
+    }
+
+    public final void setGenerationTime(long generationTime) {
+        if (generationTimeProperty == null) {
+            _generationTime = generationTime;
+        } else {
+            generationTimeProperty.set(generationTime);
+        }
+    }
+
+    public LongProperty generationTimeProperty() {
+        if (generationTimeProperty == null) {
+            generationTimeProperty = new SimpleLongProperty(this, TERM__COLUMN_NAME__GENERATION_TIME, _generationTime);
+        }
+        return generationTimeProperty;
+    }
+    // END  GENERATIONTIME -----------------------------------------------------
+    
+    // START  DESCRIPTION ------------------------------------------------------
+    private StringProperty descriptionProperty = null;
+    private String _description = SIGN__EMPTY;
+    
+    @Column(name = TERM__COLUMN_NAME__DESCRIPTION)
+    public String getDescription() {
+        if (descriptionProperty == null) {
+            return _description;
+        } else {
+            return descriptionProperty.get();
         }
     }
     
-    public void setTerm(String term) {
-        if (termProperty == null) {
-            _term = term;
+    public void setDescription(String description) {
+        if (descriptionProperty == null) {
+            _description = description;
         } else {
-            termProperty.set(term);
+            descriptionProperty.set(description);
         }
     }
     
-    public StringProperty termProperty() {
-        if (termProperty == null) {
-            termProperty = new SimpleStringProperty(this, WORD__COLUMN_NAME__TERM, _term);
+    public StringProperty descriptionProperty() {
+        if (descriptionProperty == null) {
+            descriptionProperty = new SimpleStringProperty(this, TERM__COLUMN_NAME__DESCRIPTION, _description);
         }
         
-        return termProperty;
+        return descriptionProperty;
     }
-    // END  TERM ---------------------------------------------------------------
+    // END  DESCRIPTION --------------------------------------------------------
+    
+    // START  TITLE ------------------------------------------------------------
+    private StringProperty titleProperty = null;
+    private String _title = SIGN__EMPTY;
+    
+    @Column(name = TERM__COLUMN_NAME__TITLE)
+    public String getTitle() {
+        if (titleProperty == null) {
+            return _title;
+        } else {
+            return titleProperty.get();
+        }
+    }
+    
+    public void setTitle(String title) {
+        if (titleProperty == null) {
+            _title = title;
+        } else {
+            titleProperty.set(title);
+        }
+    }
+    
+    public StringProperty titleProperty() {
+        if (titleProperty == null) {
+            titleProperty = new SimpleStringProperty(this, TERM__COLUMN_NAME__TITLE, _title);
+        }
+        
+        return titleProperty;
+    }
+    // END  TITLE --------------------------------------------------------------
     
     @Override
     public int compareTo(Term other) {
         return new CompareToBuilder()
-                .append(this.getTerm(), other.getTerm())
-                .append(this.getId(), this.getId())
+                .append(other.getGenerationTime(), this.getGenerationTime())
+                .append(other.getTitle(), this.getTitle())
+                .append(other.getId(), this.getId())
                 .toComparison();
     }
 
@@ -143,7 +226,8 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
         final Term other = (Term) obj;
         return new EqualsBuilder()
                 .append(this.getId(), other.getId())
-                .append(this.getTerm(), other.getTerm())
+                .append(this.getTitle(), other.getTitle())
+                .append(this.getGenerationTime(), other.getGenerationTime())
                 .isEquals();
     }
     
@@ -151,20 +235,35 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(this.getId())
-                .append(this.getTerm())
+                .append(this.getTitle())
+                .append(this.getGenerationTime())
                 .toHashCode();
+    }
+	
+	@Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(TERM__COLUMN_NAME__ID, this.getId())
+                .append(TERM__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
+                .append(TERM__COLUMN_NAME__TITLE, this.getTitle())
+                .append(TERM__COLUMN_NAME__DESCRIPTION, this.getDescription())
+                .toString();
     }
     
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
-        out.writeObject(this.getTerm());
+        out.writeLong(this.getGenerationTime());
+        out.writeObject(this.getDescription());
+        out.writeObject(this.getTitle());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
-        this.setTerm(String.valueOf(in.readObject()));
+        this.setGenerationTime(in.readLong());
+        this.setDescription(String.valueOf(in.readObject()));
+        this.setTitle(String.valueOf(in.readObject()));
     }
     
 }

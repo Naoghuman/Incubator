@@ -23,6 +23,7 @@ import com.github.naoghuman.abclist.exercise.sign.SignPresenter;
 import com.github.naoghuman.abclist.exercise.sign.SignView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.Term;
+import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -32,7 +33,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -79,18 +79,19 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
             }
         });
         
-        final ObservableList<ETime> olTimes = FXCollections.observableArrayList();
-        olTimes.addAll(ETime.values());
-        cbTime.getItems().addAll(olTimes);
+        final ObservableList<ETime> observableListTimes = FXCollections.observableArrayList();
+        observableListTimes.addAll(ETime.values());
+        cbTime.getItems().addAll(observableListTimes);
         cbTime.getSelectionModel().selectFirst();
     }
     
     private void initializeDialog() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Dialog"); // NOI18N
         
+        // TODO add AnchorPane
         dialog.initStyle(StageStyle.TRANSPARENT);
         dialog.setAlwaysOnTop(true);
-        dialog.setTitle("Exercise");
+        dialog.setTitle("Exercise"); // NOI18N
         dialog.setResizable(false);
     }
     
@@ -111,16 +112,16 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     
     private char computeFirstChar(String term) {
         char firstSign = term.charAt(0);
-        if (firstSign == 'ä') {
-            firstSign = 'a';
+        if (firstSign == 'ä') { // NOI18N
+            firstSign = 'a'; // NOI18N
         }
         
-        if (firstSign == 'ö') {
-            firstSign = 'o';
+        if (firstSign == 'ö') { // NOI18N
+            firstSign = 'o'; // NOI18N
         }
         
-        if (firstSign == 'ü') {
-            firstSign = 'u';
+        if (firstSign == 'ü') { // NOI18N
+            firstSign = 'u'; // NOI18N
         }
         
         return firstSign;
@@ -130,7 +131,6 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         LoggerFacade.getDefault().debug(this.getClass(), "Configure"); // NOI18N
         
         this.exercise = exercise;
-        
     }
     
     public void onActionStartExercise() {
@@ -157,14 +157,31 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         LoggerFacade.getDefault().debug(this.getClass(), "On action User typed [Term]"); // NOI18N
         
         /*
-        - Check if the Term always exists
-        - if not -> save it to db
-        - wordCounter++;
-        - (v) show word in flowpane
-           - (v) Sort words in flowpane
-           - (v) If first char ä, ö, ü -> then put it to a, o, ü
+        - Check in db if the Term exists
+           - if not -> save it to db
+        - Check if in flowpane the Term exists
+           - if not do 
+           - wordCounter++;
+           - (v) show word in flowpane
+              - (v) Sort words in flowpane
+              - (v) If first char ä, ö, ü -> then put it to a, o, ü
         */
-        final char firstChar = this.computeFirstChar(term.getTerm().toLowerCase());
+        // Check if the [Term] in the [Database] exists
+        final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(term.getTitle());
+        boolean isTermExists = false;
+        for (Term observableListTerm : observableListTerms) {
+            if (observableListTerm.getTitle().equals(term.getTitle())) {
+                isTermExists = true;
+                break;
+            }
+        }
+        
+        if (!isTermExists) {
+            SqlProvider.getDefault().createOrUpdate(term);
+        }
+        
+        // Show the [Term] in the [FlowPane]
+        final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
         vbSigns.getChildren().stream()
                 .filter((node) -> (node.getUserData() instanceof SignPresenter))
                 .forEach((node) -> {

@@ -34,31 +34,35 @@ public class ModelProvider {
         
     }
     
-    public Exercise getDefaultExercise(long parentId) {
+    public Exercise getExercise(long parentId) {
         return new Exercise(parentId);
     }
     
-    public Exercise getDefaultExercise(long id, long parentId) {
+    public Exercise getExercise(long id, long parentId) {
         return new Exercise(id, parentId);
     }
     
-    public Term getDefaultTerm(String term) {
-        return new Term(term);
-    }
-    
-    public Term getDefaultTerm(long id, String term) {
-        return new Term(id, term);
-    }
-    
-    public Exercise getDefaultExercise(long id, long parentId, long generationTime) {
+    public Exercise getExercise(long id, long parentId, long generationTime) {
         return new Exercise(id, parentId, generationTime);
     }
     
-    public Topic getDefaultTopic(long id, String title) {
+    public Term getTerm(String term) {
+        return new Term(term);
+    }
+    
+    public Term getTerm(long id, String term) {
+        return new Term(id, term);
+    }
+    
+    public Term getTerm(long id, long generationTime, String term) {
+        return new Term(id, generationTime, term);
+    }
+    
+    public Topic getTopic(long id, String title) {
         return new Topic(id, title);
     }
     
-    public Topic getDefaultTopic(String title) {
+    public Topic getTopic(String title) {
         return new Topic(title);
     }
     

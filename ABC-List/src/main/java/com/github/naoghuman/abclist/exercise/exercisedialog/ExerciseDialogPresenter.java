@@ -86,7 +86,7 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         }
         
         LoggerFacade.getDefault().debug(this.getClass(), "User typed: " + userInput); // NOI18N
-        final Term term = ModelProvider.getDefault().getDefaultTerm(userInput);
+        final Term term = ModelProvider.getDefault().getTerm(userInput);
         propertyChangeSupport.firePropertyChange(PROP__EXERCISE_DIALOG__USER_TYPED_TERM, null, term);
         
         tfUserInput.setText(null);
