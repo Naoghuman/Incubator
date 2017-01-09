@@ -22,6 +22,7 @@ import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
+import com.github.naoghuman.abclist.welcome.WelcomeView;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
@@ -61,6 +62,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
         this.initializeTreeView();
+        this.initializeWelcomeView();
 
         this.registerActions();
         
@@ -71,6 +73,16 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize TreeView"); // NOI18N
         
         tvAbcList.setCellFactory((TreeView<Object> p) -> new AbcListTreeCell());
+    }
+    
+    private void initializeWelcomeView() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize WelcomeView"); // NOI18N
+        
+        final WelcomeView welcomeView = new WelcomeView();
+        
+        final Parent parent = welcomeView.getView();
+        VBox.setVgrow(parent, Priority.ALWAYS);
+        vbExercises.getChildren().add(parent);
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -140,7 +152,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         final Parent parent = exerciseView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
-        vbExercises.getChildren().add(exerciseView.getView());
+        vbExercises.getChildren().add(parent);
     }
 
     private void onActionRefreshTreeView() {
