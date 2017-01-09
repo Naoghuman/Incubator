@@ -143,7 +143,7 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
     }
     
     private void onActionShowTime(int _exerciseTime) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action show Time: " + _exerciseTime); // NOI18N
+//        LoggerFacade.getDefault().debug(this.getClass(), "On action show Time: " + _exerciseTime); // NOI18N
         
         final SimpleDateFormat df = new SimpleDateFormat("mm:ss"); // NOI18N
         final String formattedTime = df.format(_exerciseTime * 1000);

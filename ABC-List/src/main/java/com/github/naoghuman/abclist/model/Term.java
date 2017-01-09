@@ -204,9 +204,9 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
     @Override
     public int compareTo(Term other) {
         return new CompareToBuilder()
-                .append(other.getGenerationTime(), this.getGenerationTime())
-                .append(other.getTitle(), this.getTitle())
-                .append(other.getId(), this.getId())
+                .append(this.getTitle(), other.getTitle())
+                .append(this.getId(), other.getId())
+                .append(this.getGenerationTime(), other.getGenerationTime())
                 .toComparison();
     }
 
