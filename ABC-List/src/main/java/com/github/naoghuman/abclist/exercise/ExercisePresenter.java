@@ -156,16 +156,6 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     private void onActionUserTypedTerm(Term term) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action User typed [Term]"); // NOI18N
         
-        /*
-        - Check in db if the Term exists
-           - if not -> save it to db
-        - Check if in flowpane the Term exists
-           - if not do 
-           - wordCounter++;
-           - (v) show word in flowpane
-              - (v) Sort words in flowpane
-              - (v) If first char ä, ö, ü -> then put it to a, o, ü
-        */
         // Check if the [Term] in the [Database] exists
         final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(term.getTitle());
         boolean isTermExists = false;

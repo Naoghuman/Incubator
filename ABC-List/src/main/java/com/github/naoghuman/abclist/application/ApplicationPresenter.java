@@ -177,6 +177,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             super.updateItem(item, empty);
 
             this.configureMenuItem(item);
+            this.configureMouseClick(item);
             this.setContextMenu(!empty ? contextMenu : null);
             this.setGraphic(null);
             this.setText(!empty ? this.getDisplayText(item) : null);
@@ -198,18 +199,30 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         private void configureMenuItem(Object item) {
             if (item instanceof Exercise) {
-                final Exercise exercise = (Exercise) item;
                 menuItem.setText("Open exercise"); // NOI18N
                 menuItem.setOnAction(value -> {
+                    final Exercise exercise = (Exercise) item;
                     ApplicationPresenter.this.onActionOpenExercise(exercise);
                 });
             }
             
             if (item instanceof Topic) {
-                final Topic topic = (Topic) item;
                 menuItem.setText("New exercise"); // NOI18N
                 menuItem.setOnAction(value -> {
+                    final Topic topic = (Topic) item;
                     ApplicationPresenter.this.onActionCreateNewExercise(topic);
+                });
+            }
+        }
+        
+        private void configureMouseClick(Object item) {
+            if (item instanceof Exercise) {
+                this.setOnMouseClicked(value -> {
+                    final int mouseClickCount = value.getClickCount();
+                    if (mouseClickCount >= 2) {
+                        final Exercise exercise = (Exercise) item;
+                        ApplicationPresenter.this.onActionOpenExercise(exercise);
+                    }
                 });
             }
         }
