@@ -24,14 +24,19 @@ import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 /**
  *
@@ -39,10 +44,14 @@ import javafx.scene.input.KeyEvent;
  */
 public class ExerciseDialogPresenter implements Initializable, IExerciseConfiguration {
     
+    private final PauseTransition pauseTransition = new PauseTransition();
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     
+    @FXML private Button bPauseOrPlay;
     @FXML private Label lTimeCounter;
     @FXML private TextField tfUserInput;
+    
+    private int exerciseTime = 60;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,10 +79,48 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         
         lTimeCounter.setText(time.toString());
         propertyChangeSupport.addPropertyChangeListener(propertyChangeListener);
+        
+        exerciseTime = time.getSeconds();
+        
+        pauseTransition.setAutoReverse(false);
+        pauseTransition.setDelay(Duration.millis(125.0d));
+        pauseTransition.setDuration(Duration.seconds(1.0d));
+        pauseTransition.setOnFinished(value -> {
+            --exerciseTime;
+            
+            this.onActionShowTime(exerciseTime);
+            
+            if (exerciseTime > 0) {
+                pauseTransition.playFromStart();
+            }
+            else {
+                this.onActionStopExercise();
+            }
+        });
+        
+        pauseTransition.playFromStart();
     }
     
-    public void onActionPauseExrcise() {
+    public void onActionPauseExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action pause Exercise"); // NOI18N
+        
+        if (
+                pauseTransition.getStatus().equals(Animation.Status.RUNNING)
+                && bPauseOrPlay.getText().equals("Pause") // NOI18N
+        ) {
+            pauseTransition.pause();
+            bPauseOrPlay.setText("Play"); // NOI18N
+            
+            return;
+        }
+        
+        if (
+                pauseTransition.getStatus().equals(Animation.Status.PAUSED)
+                && bPauseOrPlay.getText().equals("Play") // NOI18N
+        ) {
+            pauseTransition.play();
+            bPauseOrPlay.setText("Pause"); // NOI18N
+        }
     }
     
     public void onActionPressEnter() {
@@ -95,8 +142,20 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         });
     }
     
+    private void onActionShowTime(int _exerciseTime) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show Time: " + _exerciseTime); // NOI18N
+        
+        final SimpleDateFormat df = new SimpleDateFormat("mm:ss"); // NOI18N
+        final String formattedTime = df.format(_exerciseTime * 1000);
+        lTimeCounter.setText(formattedTime);
+    }
+    
     public void onActionStopExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action stop Exercise"); // NOI18N
+        
+        if (pauseTransition.getStatus().equals(Animation.Status.RUNNING)) {
+            pauseTransition.stop();
+        }
         
         propertyChangeSupport.firePropertyChange(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE, null, null);
     }
