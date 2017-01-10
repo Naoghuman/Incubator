@@ -46,6 +46,14 @@ public class ModelProvider {
         return new Exercise(id, parentId, generationTime);
     }
     
+    public ExerciseTerm getExerciseTerm() {
+        return new ExerciseTerm();
+    }
+    
+    public ExerciseTerm getExerciseTerm(long exerciseId, long termId) {
+        return new ExerciseTerm(exerciseId, termId);
+    }
+    
     public Term getTerm(String term) {
         return new Term(term);
     }

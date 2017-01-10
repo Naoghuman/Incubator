@@ -18,9 +18,11 @@ package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
+import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
 import com.github.naoghuman.abclist.configuration.ITermConfiguration;
 import com.github.naoghuman.abclist.configuration.ITopicConfiguration;
 import com.github.naoghuman.abclist.model.Exercise;
+import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
@@ -58,6 +60,10 @@ public class SqlProvider {
         }
     }
     
+    public void create(ExerciseTerm exerciseTerm) {
+        DatabaseFacade.getDefault().getCrudService().create(exerciseTerm);
+    }
+    
     public void createOrUpdate(Term term) {
         if (Objects.equals(term.getId(), IDefaultConfiguration.DEFAULT_ID)) {
             term.setId(System.currentTimeMillis());
@@ -82,6 +88,7 @@ public class SqlProvider {
         final ObservableList<Exercise> allExercisesWithParentId = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
         parameters.put(IExerciseConfiguration.EXERCISE__COLUMN_NAME__PARENT_ID, parentId);
+        
         final List<Exercise> exercises = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Exercise.class, IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_PARENT_ID, parameters);
 
@@ -101,11 +108,26 @@ public class SqlProvider {
 
         return allTopics;
     }
+    
+    public ObservableList<ExerciseTerm> findAllWithTermsWithExerciseId(long exerciseId) {
+        final ObservableList<ExerciseTerm> allTermsWithExerciseId = FXCollections.observableArrayList();
+        final Map<String, Object> parameters = FXCollections.observableHashMap();
+        parameters.put(IExerciseTermConfiguration.EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
+        
+        final List<ExerciseTerm> exerciseTerms = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(ExerciseTerm.class, IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_TERMS_WITH_EXERCISE_ID, parameters);
+        
+        allTermsWithExerciseId.addAll(exerciseTerms);
+        Collections.sort(allTermsWithExerciseId);
+
+        return allTermsWithExerciseId;
+    }
 	
     public ObservableList<Term> findAllTermsWithTitle(String title) {
         final ObservableList<Term> allTermsWithTitle = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
         parameters.put(ITermConfiguration.TERM__COLUMN_NAME__TITLE, title);
+        
         final List<Term> terms = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Term.class, ITermConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_TITLE, parameters);
         

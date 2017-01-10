@@ -22,12 +22,15 @@ import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogView;
 import com.github.naoghuman.abclist.exercise.sign.SignPresenter;
 import com.github.naoghuman.abclist.exercise.sign.SignView;
 import com.github.naoghuman.abclist.model.Exercise;
+import com.github.naoghuman.abclist.model.ExerciseTerm;
+import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -168,6 +171,24 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         if (!isTermExists) {
             SqlProvider.getDefault().createOrUpdate(term);
+        }
+        
+        // Check if the [Term] is associated with the [Exercise]
+        final ObservableList<ExerciseTerm> observableListExerciseTerms = SqlProvider.getDefault().findAllWithTermsWithExerciseId(exercise.getId());
+        boolean isExerciseTermExists = false;
+        for (ExerciseTerm observableListExerciseTerm : observableListExerciseTerms) {
+            if (
+                    Objects.equals(observableListExerciseTerm.getExerciseId(), exercise.getId())
+                    && Objects.equals(observableListExerciseTerm.getTermId(), term.getId())
+            ) {
+                isExerciseTermExists = true;
+                break;
+            }
+        }
+        
+        if (!isExerciseTermExists) {
+            final ExerciseTerm exerciseTerm = ModelProvider.getDefault().getExerciseTerm(exercise.getId(), term.getId());
+            SqlProvider.getDefault().create(exerciseTerm);
         }
         
         // Show the [Term] in the [FlowPane]
