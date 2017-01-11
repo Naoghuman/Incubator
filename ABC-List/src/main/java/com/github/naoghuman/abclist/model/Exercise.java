@@ -22,7 +22,9 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -58,7 +60,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     
     public Exercise(long parentId) {
-        this(DEFAULT_ID, parentId, System.currentTimeMillis());
+        this(DEFAULT_ID, parentId);
     }
     
     public Exercise(long id, long parentId) {
@@ -66,13 +68,18 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     
     public Exercise(long id, long parentId, long generationTime) {
-        this.init(id, parentId, generationTime);
+        this.init(id, parentId, generationTime, false);
     }
     
-    private void init(long id, long parentId, long generationTime) {
+    public Exercise(long id, long parentId, long generationTime, boolean ready) {
+        this.init(id, parentId, generationTime, ready);
+    }
+    
+    private void init(long id, long parentId, long generationTime, boolean ready) {
         this.setId(id);
         this.setParentId(parentId);
         this.setGenerationTime(generationTime);
+        this.setReady(ready);
     }
     
     // START  ID ---------------------------------------------------------------
@@ -168,6 +175,35 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     // END  GENERATIONTIME -----------------------------------------------------
     
+    // START  READY ------------------------------------------------------------
+    private BooleanProperty readyProperty = null;
+    private boolean _ready = false;
+    
+    @Column(name = EXERCISE__COLUMN_NAME__READY)
+    public boolean isReady() {
+        if (this.readyProperty == null) {
+            return _ready;
+        } else {
+            return readyProperty.get();
+        }
+    }
+    
+    public void setReady(boolean ready) {
+        if (readyProperty == null) {
+            _ready = ready;
+        } else {
+            readyProperty.set(ready);
+        }
+    }
+    
+    public BooleanProperty readyProperty() {
+        if (readyProperty == null) {
+            readyProperty = new SimpleBooleanProperty(this, EXERCISE__COLUMN_NAME__READY, _ready);
+        }
+        return readyProperty;
+    }
+    // END  READY --------------------------------------------------------------
+
     @Override
     public int compareTo(Exercise other) {
         return new CompareToBuilder()
@@ -213,6 +249,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
                 .append(EXERCISE__COLUMN_NAME__ID, this.getId())
                 .append(EXERCISE__COLUMN_NAME__PARENT_ID, this.getParentId())
                 .append(EXERCISE__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
+                .append(EXERCISE__COLUMN_NAME__READY, this.isReady())
                 .toString();
     }
     
@@ -221,6 +258,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         out.writeLong(this.getId());
         out.writeLong(this.getParentId());
         out.writeLong(this.getGenerationTime());
+        out.writeBoolean(this.isReady());
     }
 
     @Override
@@ -228,6 +266,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         this.setId(in.readLong());
         this.setParentId(in.readLong());
         this.setGenerationTime(in.readLong());
+        this.setReady(in.readBoolean());
     }
     
 }

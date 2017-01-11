@@ -87,40 +87,17 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         pauseTransition.setDuration(Duration.seconds(1.0d));
         pauseTransition.setOnFinished(value -> {
             --exerciseTime;
-            
             this.onActionShowTime(exerciseTime);
             
             if (exerciseTime > 0) {
                 pauseTransition.playFromStart();
             }
             else {
-                this.onActionStopExercise();
+                this.onActionStopExercise(PROP__EXERCISE_DIALOG__EXERCISE_IS_READY);
             }
         });
         
         pauseTransition.playFromStart();
-    }
-    
-    public void onActionPauseExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action pause Exercise"); // NOI18N
-        
-        if (
-                pauseTransition.getStatus().equals(Animation.Status.RUNNING)
-                && bPauseOrPlay.getText().equals("Pause") // NOI18N
-        ) {
-            pauseTransition.pause();
-            bPauseOrPlay.setText("Play"); // NOI18N
-            
-            return;
-        }
-        
-        if (
-                pauseTransition.getStatus().equals(Animation.Status.PAUSED)
-                && bPauseOrPlay.getText().equals("Play") // NOI18N
-        ) {
-            pauseTransition.play();
-            bPauseOrPlay.setText("Pause"); // NOI18N
-        }
     }
     
     public void onActionPressEnter() {
@@ -150,14 +127,42 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         lTimeCounter.setText(formattedTime);
     }
     
-    public void onActionStopExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action stop Exercise"); // NOI18N
+    private void onActionStopExercise(String property) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action stop Exercise: " + property); // NOI18N
         
         if (pauseTransition.getStatus().equals(Animation.Status.RUNNING)) {
             pauseTransition.stop();
         }
         
-        propertyChangeSupport.firePropertyChange(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE, null, null);
+        propertyChangeSupport.firePropertyChange(property, null, null);
+    }
+    
+    public void onActionUserPauseExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action User pause Exercise"); // NOI18N
+        
+        if (
+                pauseTransition.getStatus().equals(Animation.Status.RUNNING)
+                && bPauseOrPlay.getText().equals("Pause") // NOI18N
+        ) {
+            pauseTransition.pause();
+            bPauseOrPlay.setText("Play"); // NOI18N
+            
+            return;
+        }
+        
+        if (
+                pauseTransition.getStatus().equals(Animation.Status.PAUSED)
+                && bPauseOrPlay.getText().equals("Play") // NOI18N
+        ) {
+            pauseTransition.play();
+            bPauseOrPlay.setText("Pause"); // NOI18N
+        }
+    }
+    
+    public void onActionUserStopExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action User stop Exercise"); // NOI18N
+        
+        this.onActionStopExercise(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE);
     }
     
 }

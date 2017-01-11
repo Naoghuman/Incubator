@@ -52,7 +52,6 @@ import javafx.stage.StageStyle;
  */
 public class ExercisePresenter implements Initializable, IExerciseConfiguration, PropertyChangeListener {
     
-//    final Dialog<Void> dialog = new Dialog<>();
     final Stage dialog = new Stage();
         
     @FXML private Button bStartExercise;
@@ -134,10 +133,38 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         LoggerFacade.getDefault().debug(this.getClass(), "Configure"); // NOI18N
         
         this.exercise = exercise;
+        
+        if (exercise.isReady()) {
+            this.onActionDisableComponents();
+            /*
+            TODO show all [Term]s for every [ExerciseTerm]
+            */
+        }
+    }
+    
+    private void onActionDisableComponents() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action disable [Component]s"); // NOI18N
+        
+        bStartExercise.setDisable(true);
+        cbTime.setDisable(true);
+    }
+    
+    private void onActionExerciseIsReady() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [Exercise] is ready"); // NOI18N
+
+        // Save new state
+        exercise.setReady(true);
+        SqlProvider.getDefault().createOrUpdate(exercise);
+        
+        // Reflect the new state in the gui
+        this.onActionDisableComponents();
+        
+        // Close dialog
+        dialog.close();
     }
     
     public void onActionStartExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action start Exercise"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action start [Exercise]"); // NOI18N
         
         final ExerciseDialogView v = new ExerciseDialogView();
         final ExerciseDialogPresenter p = v.getRealPresenter();
@@ -151,13 +178,19 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     }
     
     private void onActionUserStopExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action User stop Exercise"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [User] stop [Exercise]"); // NOI18N
         
+        /*
+        TODO
+         - all added [Term]s form this [Exercise] have to be deleted in the [Database]
+        */
+        
+        // Close dialog
         dialog.close();
     }
     
     private void onActionUserTypedTerm(Term term) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action User typed [Term]"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [User] typed [Term]"); // NOI18N
         
         // Check if the [Term] in the [Database] exists
         final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(term.getTitle());
@@ -207,6 +240,10 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     @Override
     public void propertyChange(PropertyChangeEvent event) {
         final String propertyName = event.getPropertyName();
+        if (propertyName.equals(PROP__EXERCISE_DIALOG__EXERCISE_IS_READY)) {
+            this.onActionExerciseIsReady();
+        }
+        
         if (propertyName.equals(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE)) {
             this.onActionUserStopExercise();
         }

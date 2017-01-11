@@ -18,8 +18,8 @@
             </padding>
             <children>
                 <Label fx:id="lTimeCounter" text="00:00" />
-                <Button fx:id="bPauseOrPlay" mnemonicParsing="false" onAction="#onActionPauseExercise" text="Pause" />
-                <Button mnemonicParsing="false" onAction="#onActionStopExercise" text="Stop" />
+                <Button fx:id="bPauseOrPlay" mnemonicParsing="false" onAction="#onActionUserPauseExercise" text="Pause" />
+                <Button mnemonicParsing="false" onAction="#onActionUserStopExercise" text="Stop" />
             </children>
         </HBox>
         <TextField fx:id="tfUserInput" />

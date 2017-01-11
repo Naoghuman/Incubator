@@ -30,7 +30,9 @@ public interface IExerciseConfiguration {
     public static final String EXERCISE__COLUMN_NAME__ID = "id"; // NOI18N
     public static final String EXERCISE__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
     public static final String EXERCISE__COLUMN_NAME__PARENT_ID = "parentId"; // NOI18N
+    public static final String EXERCISE__COLUMN_NAME__READY = "ready"; // NOI18N
     
+    public static final String PROP__EXERCISE_DIALOG__EXERCISE_IS_READY = "PROP__EXERCISE_DIALOG__EXERCISE_IS_READY"; // NOI18N
     public static final String PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE = "PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE"; // NOI18N
     public static final String PROP__EXERCISE_DIALOG__USER_TYPED_TERM = "PROP__EXERCISE_DIALOG__USER_TYPED_TERM"; // NOI18N
     
