@@ -196,11 +196,12 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     
     private void onActionUserStopExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] stop [Exercise]"); // NOI18N
+
+        // Delete all existing [ExerciseTerm]s
+        SqlProvider.getDefault().deleteAllTermsFromExercise(exercise.getId());
         
-        /*
-        TODO
-         - all added [Term]s form this [Exercise] have to be deleted in the [Database]
-        */
+        // Reset the gui
+        this.initializeSigns();
         
         // Close dialog
         dialog.close();

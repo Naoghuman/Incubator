@@ -83,6 +83,17 @@ public class SqlProvider {
             DatabaseFacade.getDefault().getCrudService().update(topic);
         }
     }
+
+    public void deleteAllTermsFromExercise(long exerciseId) {
+        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllTermsWithExerciseId(exerciseId);
+        
+        DatabaseFacade.getDefault().getCrudService().beginTransaction();
+        exerciseTerms.stream()
+                .forEach(exerciseTerm -> {
+                    DatabaseFacade.getDefault().getCrudService().getEntityManager().remove(exerciseTerm);
+                });
+        DatabaseFacade.getDefault().getCrudService().commitTransaction();
+    }
     
     public ObservableList<Exercise> findAllExercisesWithParentId(long parentId) {
         final ObservableList<Exercise> allExercisesWithParentId = FXCollections.observableArrayList();
