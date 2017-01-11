@@ -136,9 +136,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         if (exercise.isReady()) {
             this.onActionDisableComponents();
-            /*
-            TODO show all [Term]s for every [ExerciseTerm]
-            */
+            this.onActionLoadAllTerms();
         }
     }
     
@@ -161,6 +159,25 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         // Close dialog
         dialog.close();
+    }
+    
+    private void onActionLoadAllTerms() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action load all [Term]s"); // NOI18N
+
+        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllTermsWithExerciseId(exercise.getId());
+        final ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsInExerciseTerms(exerciseTerms);
+        terms.stream()
+                .forEach(term -> {
+                    vbSigns.getChildren().stream()
+                        .filter((node) -> (node.getUserData() instanceof SignPresenter))
+                        .forEach((node) -> {
+                            final SignPresenter presenter = (SignPresenter) node.getUserData();
+                            final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
+                            if (presenter.isSign(firstChar)) {
+                                presenter.addTerm(term);
+                            }
+                        });
+                });
     }
     
     public void onActionStartExercise() {
@@ -207,12 +224,12 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         }
         
         // Check if the [Term] is associated with the [Exercise]
-        final ObservableList<ExerciseTerm> observableListExerciseTerms = SqlProvider.getDefault().findAllWithTermsWithExerciseId(exercise.getId());
+        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllTermsWithExerciseId(exercise.getId());
         boolean isExerciseTermExists = false;
-        for (ExerciseTerm observableListExerciseTerm : observableListExerciseTerms) {
+        for (ExerciseTerm exerciseTerm : exerciseTerms) {
             if (
-                    Objects.equals(observableListExerciseTerm.getExerciseId(), exercise.getId())
-                    && Objects.equals(observableListExerciseTerm.getTermId(), term.getId())
+                    Objects.equals(exerciseTerm.getExerciseId(), exercise.getId())
+                    && Objects.equals(exerciseTerm.getTermId(), term.getId())
             ) {
                 isExerciseTermExists = true;
                 break;
@@ -225,11 +242,11 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         }
         
         // Show the [Term] in the [FlowPane]
-        final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
         vbSigns.getChildren().stream()
                 .filter((node) -> (node.getUserData() instanceof SignPresenter))
                 .forEach((node) -> {
                     final SignPresenter presenter = (SignPresenter) node.getUserData();
+                    final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
                     if (presenter.isSign(firstChar)) {
                         presenter.addTerm(term);
                     }

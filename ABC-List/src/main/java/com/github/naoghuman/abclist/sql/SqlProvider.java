@@ -109,7 +109,20 @@ public class SqlProvider {
         return allTopics;
     }
     
-    public ObservableList<ExerciseTerm> findAllWithTermsWithExerciseId(long exerciseId) {
+    public ObservableList<Term> findAllTermsInExerciseTerms(ObservableList<ExerciseTerm> exerciseTerms) {
+        final ObservableList<Term> allTermsInExerciseTerms = FXCollections.observableArrayList();
+        exerciseTerms.stream()
+                .map((exerciseTerm) -> DatabaseFacade.getDefault().getCrudService().findById(Term.class, exerciseTerm.getTermId()))
+                .forEach((term) -> {
+                    allTermsInExerciseTerms.add(term);
+                });
+        
+        Collections.sort(allTermsInExerciseTerms);
+        
+        return allTermsInExerciseTerms;
+    }
+    
+    public ObservableList<ExerciseTerm> findAllTermsWithExerciseId(long exerciseId) {
         final ObservableList<ExerciseTerm> allTermsWithExerciseId = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
         parameters.put(IExerciseTermConfiguration.EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
