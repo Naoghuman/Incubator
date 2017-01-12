@@ -26,14 +26,16 @@ import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.sql.SqlProvider;
+import com.github.naoghuman.lib.action.api.ActionFacade;
+import com.github.naoghuman.lib.action.api.TransferData;
+import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -50,7 +52,7 @@ import javafx.stage.StageStyle;
  *
  * @author Naoghuman
  */
-public class ExercisePresenter implements Initializable, IExerciseConfiguration, PropertyChangeListener {
+public class ExercisePresenter implements Initializable, IExerciseConfiguration, IRegisterActions {
     
     final Stage dialog = new Stage();
         
@@ -67,6 +69,8 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         this.initializeComboBoxTime();
         this.initializeDialog();
         this.initializeSigns();
+		
+        this.registerActions();
     }
     
     private void initializeComboBoxTime() {
@@ -183,13 +187,13 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     public void onActionStartExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action start [Exercise]"); // NOI18N
         
-        final ExerciseDialogView v = new ExerciseDialogView();
-        final ExerciseDialogPresenter p = v.getRealPresenter();
+        final ExerciseDialogView exerciseDialogView = new ExerciseDialogView();
+        final ExerciseDialogPresenter exerciseDialogPresenter = exerciseDialogView.getRealPresenter();
         
         final ETime time = cbTime.getSelectionModel().getSelectedItem();
-        p.configure(time, this);
+        exerciseDialogPresenter.configure(time);
         
-        final Scene scene = new Scene(v.getView());
+        final Scene scene = new Scene(exerciseDialogView.getView());
         dialog.setScene(scene);
         dialog.show();
     }
@@ -254,22 +258,46 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
                 });
         
     }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent event) {
-        final String propertyName = event.getPropertyName();
-        if (propertyName.equals(PROP__EXERCISE_DIALOG__EXERCISE_IS_READY)) {
-            this.onActionExerciseIsReady();
-        }
-        
-        if (propertyName.equals(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE)) {
-            this.onActionUserStopExercise();
-        }
-        
-        if (propertyName.equals(PROP__EXERCISE_DIALOG__USER_TYPED_TERM)) {
-            final Term term = (Term) event.getNewValue();
-            this.onActionUserTypedTerm(term);
-        }
-    }
     
+    @Override
+    public void registerActions() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in [ExercisePresenter]"); // NOI18N
+		
+        this.registerOnActionExerciseIsReady();
+        this.registerOnActionUserStopExercise();
+        this.registerOnActionUserTypedTerm();
+    }
+	
+    private void registerOnActionExerciseIsReady() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action [Exercise] is ready"); // NOI18N
+
+        ActionFacade.getDefault().register(
+                ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY,
+                (ActionEvent ae) -> {
+                    this.onActionExerciseIsReady();
+                });
+    }
+	
+    private void registerOnActionUserStopExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action [User] stop [Exercise]"); // NOI18N
+
+        ActionFacade.getDefault().register(
+                ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE,
+                (ActionEvent ae) -> {
+                    this.onActionUserStopExercise();
+                });
+    }
+	
+    private void registerOnActionUserTypedTerm() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action [User] typed [Term]"); // NOI18N
+
+        ActionFacade.getDefault().register(
+                ACTION__EXERCISE_DIALOG__USER_TYPED_TERM,
+                (ActionEvent ae) -> {
+                    final TransferData transferData = (TransferData) ae.getSource();
+                    final Term term = (Term) transferData.getObject();
+                    this.onActionUserTypedTerm(term);
+                });
+    }
+
 }

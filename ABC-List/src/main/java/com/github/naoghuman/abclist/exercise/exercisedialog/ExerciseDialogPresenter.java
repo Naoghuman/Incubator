@@ -20,9 +20,9 @@ import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.exercise.ETime;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Term;
+import com.github.naoghuman.lib.action.api.ActionFacade;
+import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
@@ -45,7 +45,6 @@ import javafx.util.Duration;
 public class ExerciseDialogPresenter implements Initializable, IExerciseConfiguration {
     
     private final PauseTransition pauseTransition = new PauseTransition();
-    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     
     @FXML private Button bPauseOrPlay;
     @FXML private Label lTimeCounter;
@@ -55,13 +54,13 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize ExerciseDialogPresenter"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [ExerciseDialogPresenter]"); // NOI18N
         
         this.initializeTextFieldUserInput();
     }
     
     private void initializeTextFieldUserInput() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize TextField UserInput"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [TextField] [UserInput]"); // NOI18N
         
         tfUserInput.setOnKeyPressed((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -74,11 +73,10 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         });
     }
     
-    public void configure(ETime time, PropertyChangeListener propertyChangeListener) {
+    public void configure(ETime time) {
         LoggerFacade.getDefault().debug(this.getClass(), "Configure"); // NOI18N
         
         lTimeCounter.setText(time.toString());
-        propertyChangeSupport.addPropertyChangeListener(propertyChangeListener);
         
         exerciseTime = time.getSeconds();
         
@@ -93,7 +91,7 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
                 pauseTransition.playFromStart();
             }
             else {
-                this.onActionStopExercise(PROP__EXERCISE_DIALOG__EXERCISE_IS_READY);
+                this.onActionStopExercise(ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY);
             }
         });
         
@@ -101,17 +99,21 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
     }
     
     public void onActionPressEnter() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action press Enter"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action press [Enter]"); // NOI18N
         
         final String userInput = tfUserInput.getText().trim();
+        LoggerFacade.getDefault().debug(this.getClass(), "User typed: " + userInput); // NOI18N
         if (userInput.isEmpty()) {
             LoggerFacade.getDefault().warn(this.getClass(), "Empty User input - not a valid [Term]"); // NOI18N
             return;
         }
-        
-        LoggerFacade.getDefault().debug(this.getClass(), "User typed: " + userInput); // NOI18N
+	
+        final TransferData transferModel = new TransferData();
+        transferModel.setActionId(ACTION__EXERCISE_DIALOG__USER_TYPED_TERM);
+		
         final Term term = ModelProvider.getDefault().getTerm(userInput);
-        propertyChangeSupport.firePropertyChange(PROP__EXERCISE_DIALOG__USER_TYPED_TERM, null, term);
+        transferModel.setObject(term);
+        ActionFacade.getDefault().handle(transferModel);
         
         tfUserInput.setText(null);
         Platform.runLater(() -> {
@@ -127,18 +129,18 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         lTimeCounter.setText(formattedTime);
     }
     
-    private void onActionStopExercise(String property) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action stop Exercise: " + property); // NOI18N
+    private void onActionStopExercise(String actionId) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action stop [Exercise]: [" + actionId + "]"); // NOI18N
         
         if (pauseTransition.getStatus().equals(Animation.Status.RUNNING)) {
             pauseTransition.stop();
         }
         
-        propertyChangeSupport.firePropertyChange(property, null, null);
+        ActionFacade.getDefault().handle(actionId);
     }
     
     public void onActionUserPauseExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action User pause Exercise"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action User pause [Exercise]"); // NOI18N
         
         if (
                 pauseTransition.getStatus().equals(Animation.Status.RUNNING)
@@ -160,9 +162,9 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
     }
     
     public void onActionUserStopExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action User stop Exercise"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action User stop [Exercise]"); // NOI18N
         
-        this.onActionStopExercise(PROP__EXERCISE_DIALOG__USER_STOP_EXERCISE);
+        this.onActionStopExercise(ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE);
     }
     
 }
