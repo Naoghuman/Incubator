@@ -8,21 +8,25 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.abclist.application.ApplicationPresenter">
-   <children>
-      <SplitPane fx:id="spApplication" dividerPositions="0.33" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-         <items>
-            <VBox spacing="14.0">
-               <children>
-                  <ToolBar minHeight="-Infinity" prefHeight="40.0">
-                    <items>
-                      <Button mnemonicParsing="false" onAction="#onActionCreateNewTopic" text="+" />
-                    </items>
-                  </ToolBar>
-                  <TreeView fx:id="tvAbcList" showRoot="false" VBox.vgrow="ALWAYS" />
-               </children>
-            </VBox>
-            <VBox fx:id="vbExercises" spacing="14.0" />
-         </items>
-      </SplitPane>
-   </children>
+    <children>
+        <SplitPane fx:id="spApplication" dividerPositions="0.33" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <items>
+                <VBox spacing="14.0">
+                    <children>
+                        <ToolBar minHeight="-Infinity" prefHeight="40.0">
+                            <items>
+                                <Button mnemonicParsing="false" onAction="#onActionCreateNewTopic" text="+" />
+                                <Button fx:id="bNavigationToHome" disable="true" mnemonicParsing="false" onAction="#onActionNavigationToHome" text="H" />
+                                <Button fx:id="bNavigationToPrevious" disable="true" mnemonicParsing="false" onAction="#onActionNavigationToPrevious" text="&lt;" />
+                                <Button fx:id="bNavigationToNext" disable="true" mnemonicParsing="false" onAction="#onActionNavigationToNext" text="&gt;" />
+                                <Button fx:id="bNavigationShowAll" disable="true" mnemonicParsing="false" onAction="#onActionNavigationShowAll" text="_" />
+                            </items>
+                        </ToolBar>
+                        <TreeView fx:id="tvAbcList" showRoot="false" VBox.vgrow="ALWAYS" />
+                    </children>
+                </VBox>
+                <VBox fx:id="vbExercises" spacing="14.0" />
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>

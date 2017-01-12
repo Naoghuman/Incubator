@@ -144,6 +144,10 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         }
     }
     
+    public long getId() {
+        return exercise.getId();
+    }
+    
     private void onActionDisableComponents() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action disable [Component]s"); // NOI18N
         

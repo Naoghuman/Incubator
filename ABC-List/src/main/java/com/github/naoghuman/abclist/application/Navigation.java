@@ -14,15 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.configuration;
+package com.github.naoghuman.abclist.application;
 
 /**
  *
  * @author Naoghuman
+ * @param <T>
  */
-public interface INavigationConfiguration {
+public class Navigation<T> {
     
-    public static final String TYPE__EXERCISE_VIEW = "NAVI__EXERCISE_VIEW";
-    public static final String TYPE__WELCOME_VIEW = "NAVI__WELCOME_VIEW";
+    private T view;
+    
+    public void setView(T view) {
+        this.view = view;
+    }
+    
+    public T getView() {
+        return view;
+    }
     
 }

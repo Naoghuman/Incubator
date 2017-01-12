@@ -26,12 +26,15 @@ import com.github.naoghuman.abclist.welcome.WelcomeView;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -49,11 +52,18 @@ import javafx.stage.Modality;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
+    @FXML private Button bNavigationToHome;
+    @FXML private Button bNavigationToNext;
+    @FXML private Button bNavigationToPrevious;
+    @FXML private Button bNavigationShowAll;
     @FXML private SplitPane spApplication;
     @FXML private TreeView<Object> tvAbcList;
     @FXML private VBox vbExercises;
     
+    private final ObservableList<Navigation> navigationViews = FXCollections.observableArrayList();
     private final TreeItem<Object> rootItem = new TreeItem<> ();
+    
+    private int indexShownNavigationView = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,7 +88,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void initializeWelcomeView() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize WelcomeView"); // NOI18N
         
+        final Navigation<WelcomeView> navigation = new Navigation<>();
         final WelcomeView welcomeView = new WelcomeView();
+        navigation.setView(welcomeView);
+        navigationViews.add(navigation);
+        indexShownNavigationView = 0;
+        LoggerFacade.getDefault().debug(this.getClass(), "Add [WelcomeView (index=" + indexShownNavigationView + ")]"); // NOI18N
         
         final Parent parent = welcomeView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
@@ -140,15 +155,113 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             this.onActionRefreshTreeView();
         }
     }
+    
+    /*
+    TODO Navigation handling
+    
+    @FXML private Button bNavigationToHome;
+    @FXML private Button bNavigationToNext;
+    @FXML private Button bNavigationToPrevious;
+    @FXML private Button bNavigationShowAll;
+    
+    bNavigationToHome
+     - If [indexShownNavigationView] != 0
+        -> activate button bNavigationToHome
+        - else disable the button.
+    
+    bNavigationToNext
+     - If [navigationViews.size()] > 0 && [indexShownNavigationView] < [navigationViews.size() - 1] 
+        -> activate button bNavigationToNext
+        - else disable the button.
+    
+    bNavigationToPrevious
+     - If [navigationViews.size()] > 0 && [indexShownNavigationView] > 0
+        -> activate button bNavigationToPrevious
+        - else disable the button.
+    
+    bNavigationShowAll
+     - If the size from [navigationViews] > 1
+        -> activate button bNavigationShowAll
+    */
+    
+    public void onActionNavigationToHome() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [Navigation] to [Home]"); // NOI18N
+        
+        /*
+        TODO
+         - show the [WelcomeView] (index == 0)
+         - set [indexShownNavigationView] to 0
+        */
+    }
+    
+    public void onActionNavigationToNext() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [Navigation] to [Next]"); // NOI18N
+        /*
+        TODO
+         - show the [XyView] ([indexShownNavigationView] + 1)
+            - if ([indexShownNavigationView] + 1) >= [navigationViews.size()] throw error
+         - set [indexShownNavigationView] to ([indexShownNavigationView] + 1)
+        */
+    }
+    
+    public void onActionNavigationToPrevious() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [Navigation] to [Previous]"); // NOI18N
+        /*
+        TODO
+         - show the [XyView] ([indexShownNavigationView] - 1)
+            - if ([indexShownNavigationView] - 1) < [0] throw error
+         - set [indexShownNavigationView] to ([indexShownNavigationView] - 1)
+        */
+    }
+    
+    public void onActionNavigationShowAll() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [Navigation] show all"); // NOI18N
+        
+        /*
+        TODO
+         - show little popup with all [NameFromView] in the order they was added.
+            - use [navigationViews]
+         - User click on one open the [XyView]
+         - set [indexShownNavigationView] to user click index
+        */
+    }
 
     private void onActionOpenExercise(Exercise exercise) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action open Exercise"); // NOI18N
         
         vbExercises.getChildren().clear();
         
+        // Was the [Exercise] previously open?
+        int index = 0;
+        for (Navigation navigation : navigationViews) {
+            final Object object = navigation.getView();
+            if (object instanceof ExerciseView) {
+                final ExerciseView exerciseView = (ExerciseView) object;
+                final ExercisePresenter exercisePresenter = exerciseView.getRealPresenter();
+                if (Objects.equals(exercisePresenter.getId(), exercise.getId())) {
+                    indexShownNavigationView = index;
+                    LoggerFacade.getDefault().debug(this.getClass(), "Show [ExerciseView (index=" + indexShownNavigationView + ")]"); // NOI18N
+        
+                    
+                    final Parent parent = exerciseView.getView();
+                    VBox.setVgrow(parent, Priority.ALWAYS);
+                    vbExercises.getChildren().add(parent);
+                    return;
+                }
+            }
+            
+            ++index;
+        }
+        
+        // Generate new ExerciseView
+        final Navigation<ExerciseView> navigation = new Navigation<>();
         final ExerciseView exerciseView = new ExerciseView();
         final ExercisePresenter exercisePresenter = exerciseView.getRealPresenter();
         exercisePresenter.configure(exercise);
+        navigation.setView(exerciseView);
+        navigationViews.add(navigation);
+        indexShownNavigationView = navigationViews.size() - 1;
+        LoggerFacade.getDefault().debug(this.getClass(), "Add [ExerciseView (index=" + indexShownNavigationView + ")]"); // NOI18N
         
         final Parent parent = exerciseView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
