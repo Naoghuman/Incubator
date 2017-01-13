@@ -77,7 +77,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     
     private void init(long id, long parentId, long generationTime, boolean ready) {
         this.setId(id);
-        this.setParentId(parentId);
+        this.setTopicId(parentId);
         this.setGenerationTime(generationTime);
         this.setReady(ready);
     }
@@ -114,37 +114,37 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     // END  ID -----------------------------------------------------------------
     
-    // START  PARENT-ID --------------------------------------------------------
-    private LongProperty parentIdProperty;
-    private long _parentId = DEFAULT_ID;
+    // START  TOPIC-ID ---------------------------------------------------------
+    private LongProperty topicIdProperty;
+    private long _topicId = DEFAULT_ID;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = EXERCISE__COLUMN_NAME__PARENT_ID)
-    public long getParentId() {
-        if (parentIdProperty == null) {
-            return _parentId;
+    @Column(name = EXERCISE__COLUMN_NAME__TOPIC_ID)
+    public long getTopicId() {
+        if (topicIdProperty == null) {
+            return _topicId;
         } else {
-            return parentIdProperty.get();
+            return topicIdProperty.get();
         }
     }
 
-    public final void setParentId(long parentId) {
-        if (parentIdProperty == null) {
-            _parentId = parentId;
+    public final void setTopicId(long topicId) {
+        if (topicIdProperty == null) {
+            _topicId = topicId;
         } else {
-            parentIdProperty.set(parentId);
+            topicIdProperty.set(topicId);
         }
     }
 
-    public LongProperty parentIdProperty() {
-        if (parentIdProperty == null) {
-            parentIdProperty = new SimpleLongProperty(this, EXERCISE__COLUMN_NAME__PARENT_ID, _parentId);
+    public LongProperty topicIdProperty() {
+        if (topicIdProperty == null) {
+            topicIdProperty = new SimpleLongProperty(this, EXERCISE__COLUMN_NAME__TOPIC_ID, _topicId);
         }
         
-        return parentIdProperty;
+        return topicIdProperty;
     }
-    // END  PARENT-ID ----------------------------------------------------------
+    // END  TOPIC-ID -----------------------------------------------------------
 	
     // START  GENERATIONTIME ---------------------------------------------------
     private LongProperty generationTimeProperty;
@@ -209,7 +209,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         return new CompareToBuilder()
                 .append(other.getGenerationTime(), this.getGenerationTime())
                 .append(other.getId(), this.getId())
-                .append(other.getParentId(), this.getParentId())
+                .append(other.getTopicId(), this.getTopicId())
                 .toComparison();
     }
 
@@ -229,7 +229,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         final Exercise other = (Exercise) obj;
         return new EqualsBuilder()
                 .append(this.getId(), other.getId())
-                .append(this.getParentId(), other.getParentId())
+                .append(this.getTopicId(), other.getTopicId())
                 .append(this.getGenerationTime(), other.getGenerationTime())
                 .isEquals();
     }
@@ -238,7 +238,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(this.getId())
-                .append(this.getParentId())
+                .append(this.getTopicId())
                 .append(this.getGenerationTime())
                 .toHashCode();
     }
@@ -247,7 +247,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     public String toString() {
         return new ToStringBuilder(this)
                 .append(EXERCISE__COLUMN_NAME__ID, this.getId())
-                .append(EXERCISE__COLUMN_NAME__PARENT_ID, this.getParentId())
+                .append(EXERCISE__COLUMN_NAME__TOPIC_ID, this.getTopicId())
                 .append(EXERCISE__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
                 .append(EXERCISE__COLUMN_NAME__READY, this.isReady())
                 .toString();
@@ -256,7 +256,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
-        out.writeLong(this.getParentId());
+        out.writeLong(this.getTopicId());
         out.writeLong(this.getGenerationTime());
         out.writeBoolean(this.isReady());
     }
@@ -264,7 +264,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
-        this.setParentId(in.readLong());
+        this.setTopicId(in.readLong());
         this.setGenerationTime(in.readLong());
         this.setReady(in.readBoolean());
     }
