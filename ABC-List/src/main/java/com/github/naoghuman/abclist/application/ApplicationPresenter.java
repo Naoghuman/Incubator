@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.abclist.application;
 
+import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
 import com.github.naoghuman.abclist.exercise.ExercisePresenter;
 import com.github.naoghuman.abclist.exercise.ExerciseView;
 import com.github.naoghuman.abclist.model.Exercise;
@@ -35,34 +36,41 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.util.Callback;
 
 /**
  *
  * @author Naoghuman
  */
-public class ApplicationPresenter implements Initializable, IRegisterActions {
+public class ApplicationPresenter implements Initializable, IApplicationConfiguration, IRegisterActions {
     
     @FXML private Button bNavigationCreateNewTopic;
-    @FXML private Button bNavigationCreateNewWord;
+    @FXML private Button bNavigationCreateNewTerm;
     @FXML private Button bNavigationToHome;
     @FXML private Button bNavigationToNext;
     @FXML private Button bNavigationToPrevious;
     @FXML private Button bNavigationShowAll;
+    @FXML private ComboBox<Topic> cbNavigationTopics;
+    @FXML private ListView lvNavigationTerms;
     @FXML private SplitPane spApplication;
     @FXML private TabPane tpNavigation;
-    @FXML private TreeView<Object> tvAbcList;
-    @FXML private VBox vbExercises;
+    @FXML private TreeView<Object> tvNavigationTopics;
+    @FXML private VBox vbEditorArea;
     
     private final ObservableList<Navigation> navigationViews = FXCollections.observableArrayList();
     private final TreeItem<Object> rootItem = new TreeItem<> ();
@@ -75,27 +83,62 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        // TODO init Navigation (tabpane, buttons) - hide bcreatenewword - if switch tab then
         this.initializeNavigation();
+        this.initializeNavigationTabTopics();
+        this.initializeNavigationTabTerms();
         this.initializeWelcomeView();
 
         this.registerActions();
-        
-        this.onActionRefreshTreeView();
+            
+        // Update gui
+        final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
+        this.onActionRefreshNavigationTabTopics(observableListTopics);
+        this.onActionRefreshNavigationTabTerms(observableListTopics);
     }
     
     private void initializeNavigation() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation]"); // NOI18N
 
         // Buttons
-        bNavigationCreateNewTopic.managedProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(0));
-        bNavigationCreateNewTopic.visibleProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(0));
+        bNavigationCreateNewTopic.managedProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(TAB_INDEX__TOPICS));
+        bNavigationCreateNewTopic.visibleProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(TAB_INDEX__TOPICS));
         
-        bNavigationCreateNewWord.managedProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isNotEqualTo(0));
-        bNavigationCreateNewWord.visibleProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isNotEqualTo(0));
-
+        bNavigationCreateNewTerm.managedProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(TAB_INDEX__TERMS));
+        bNavigationCreateNewTerm.visibleProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(TAB_INDEX__TERMS));
+    }
+    
+    private void initializeNavigationTabTopics() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation] [Topic]s"); // NOI18N
+        
         // TreeView
-        tvAbcList.setCellFactory((TreeView<Object> p) -> new AbcListTreeCell());
+        tvNavigationTopics.setCellFactory((TreeView<Object> p) -> new AbcListTreeCell());
+    }
+    
+    private void initializeNavigationTabTerms() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation] [Term]s"); // NOI18N
+
+        // ComboBox
+        final Tooltip tooltip = new Tooltip("Show all Terms from the selected Topic"); // NOI18N
+        cbNavigationTopics.setTooltip(tooltip);
+        
+        final Callback cellFactory = (Callback<ListView<Topic>, ListCell<Topic>>) (ListView<Topic> listView) -> new ListCell<Topic>() {
+            @Override
+            protected void updateItem(Topic topic, boolean empty) {
+                super.updateItem(topic, empty);
+                if (topic == null || empty) {
+                    this.setGraphic(null);
+                    this.setText(null);
+                } else {
+                    this.setText(topic.getTitle());
+                }
+            }
+        };
+
+        cbNavigationTopics.setButtonCell((ListCell) cellFactory.call(null));
+        cbNavigationTopics.setCellFactory(cellFactory);
+        
+        // ListView
+        
     }
     
     private void initializeWelcomeView() {
@@ -110,7 +153,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         final Parent parent = welcomeView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
-        vbExercises.getChildren().add(parent);
+        vbEditorArea.getChildren().add(parent);
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -132,9 +175,10 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         // Open the new exercise
         this.onActionOpenExercise(exercise);
-        
-        // Show the new exercise in the TreeView
-        this.onActionRefreshTreeView();
+            
+        // Update gui
+        final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
+        this.onActionRefreshNavigationTabTopics(observableListTopics);
         
         // Expand the TreeItem
         final Optional<TreeItem<Object>> optionalTreeItem = rootItem.getChildren().stream()
@@ -164,15 +208,25 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             final Topic topic = ModelProvider.getDefault().getTopic(result.get());
             SqlProvider.getDefault().createOrUpdate(topic);
             
-            // Show it
-            this.onActionRefreshTreeView();
+            // Update gui
+            final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
+            this.onActionRefreshNavigationTabTopics(observableListTopics);
+            this.onActionRefreshNavigationTabTerms(observableListTopics);
         }
     }
     
-    public void onActionCreateNewWord() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Word]"); // NOI18N
+    public void onActionCreateNewTerm() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Term]"); // NOI18N
         
-        
+        /*
+        TODO
+         - show dialog
+         - load all terms 
+            - if title from term exists -> warning
+         - user can type title
+         - user can type description...
+         - user can choose topic or empty
+        */
     }
     
     /*
@@ -248,7 +302,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void onActionOpenExercise(Exercise exercise) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action open Exercise"); // NOI18N
         
-        vbExercises.getChildren().clear();
+        vbEditorArea.getChildren().clear();
         
         // Was the [Exercise] previously open?
         int index = 0;
@@ -264,7 +318,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                     
                     final Parent parent = exerciseView.getView();
                     VBox.setVgrow(parent, Priority.ALWAYS);
-                    vbExercises.getChildren().add(parent);
+                    vbEditorArea.getChildren().add(parent);
                     return;
                 }
             }
@@ -284,15 +338,34 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
         final Parent parent = exerciseView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
-        vbExercises.getChildren().add(parent);
+        vbEditorArea.getChildren().add(parent);
+    }
+    
+    private void onActionRefreshNavigationTabTerms(ObservableList<Topic> observableListTopics) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] [Term]s"); // NOI18N
+
+        // Reload the [ComboBox]
+        // TODO need selected object / have a look if always exists
+//        final boolean isAnyIndexSelected = !cbNavigationTopics.getSelectionModel().isEmpty();
+//        final int selectedIndex = cbNavigationTopics.getSelectionModel().getSelectedIndex();
+        cbNavigationTopics.getItems().clear();
+        
+        final Topic topic = ModelProvider.getDefault().getTopic("-- Show all existing Terms --"); // NOI18N
+        observableListTopics.add(0, topic);
+        
+        cbNavigationTopics.getItems().addAll(observableListTopics);
+        
+//        if (isAnyIndexSelected) {
+//            // How to avoid the [Selection Event]?
+//            cbNavigationTopics.getSelectionModel().select(selectedIndex);
+//        }
     }
 
-    private void onActionRefreshTreeView() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh TreeView"); // NOI18N
+    private void onActionRefreshNavigationTabTopics(ObservableList<Topic> observableListTopics) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] [Topic]s"); // NOI18N
         
         rootItem.getChildren().clear();
         
-        final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
         observableListTopics.forEach(topic -> {
             final ObservableList<Exercise> observableListExercises = SqlProvider.getDefault().findAllExercisesWithParentId(topic.getId());
             final TreeItem<Object> treeItemTopic = new TreeItem<>(topic);
@@ -304,7 +377,24 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             rootItem.getChildren().add(treeItemTopic);
         });
         
-        tvAbcList.setRoot(rootItem);
+        tvNavigationTopics.setRoot(rootItem);
+    }
+    
+    public void onActionShowTermsFromSelectedTopic() {
+        // If any [Topic] in the [ComboBox] selected?
+        if (cbNavigationTopics.getSelectionModel().isEmpty()) {
+            return;
+        }
+        
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show [Terms]s from selected [Topic]"); // NOI18N
+        
+        /*
+        TODO
+         - Catch selected [Topic] from the [ComboBox]
+         - Load all [Word]s from the [Topic]
+         - Show the loaded [Word]s in the [ListView]
+         - Double click on a [Term] opens the [TermView] for information/editing
+        */
     }
     
     private final class AbcListTreeCell extends TreeCell<Object> {
