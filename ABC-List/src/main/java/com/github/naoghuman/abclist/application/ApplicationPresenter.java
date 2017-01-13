@@ -38,6 +38,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -52,11 +53,14 @@ import javafx.stage.Modality;
  */
 public class ApplicationPresenter implements Initializable, IRegisterActions {
     
+    @FXML private Button bNavigationCreateNewTopic;
+    @FXML private Button bNavigationCreateNewWord;
     @FXML private Button bNavigationToHome;
     @FXML private Button bNavigationToNext;
     @FXML private Button bNavigationToPrevious;
     @FXML private Button bNavigationShowAll;
     @FXML private SplitPane spApplication;
+    @FXML private TabPane tpNavigation;
     @FXML private TreeView<Object> tvAbcList;
     @FXML private VBox vbExercises;
     
@@ -71,7 +75,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'Application.fxml'."; // NOI18N
         
-        this.initializeTreeView();
+        // TODO init Navigation (tabpane, buttons) - hide bcreatenewword - if switch tab then
+        this.initializeNavigation();
         this.initializeWelcomeView();
 
         this.registerActions();
@@ -79,14 +84,22 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         this.onActionRefreshTreeView();
     }
     
-    private void initializeTreeView() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize TreeView"); // NOI18N
+    private void initializeNavigation() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation]"); // NOI18N
+
+        // Buttons
+        bNavigationCreateNewTopic.managedProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(0));
+        bNavigationCreateNewTopic.visibleProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isEqualTo(0));
         
+        bNavigationCreateNewWord.managedProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isNotEqualTo(0));
+        bNavigationCreateNewWord.visibleProperty().bind(tpNavigation.getSelectionModel().selectedIndexProperty().isNotEqualTo(0));
+
+        // TreeView
         tvAbcList.setCellFactory((TreeView<Object> p) -> new AbcListTreeCell());
     }
     
     private void initializeWelcomeView() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize WelcomeView"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [WelcomeView]"); // NOI18N
         
         final Navigation<WelcomeView> navigation = new Navigation<>();
         final WelcomeView welcomeView = new WelcomeView();
@@ -101,17 +114,17 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void initializeAfterWindowIsShowing() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [ApplicationPresenter] after window is showing"); // NOI18N
     
     }
     
     @Override
     public void registerActions() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in [ApplicationPresenter]"); // NOI18N
     }
     
     private void onActionCreateNewExercise(Topic topic) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action create new Exercise"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Exercise]"); // NOI18N
         
         // Create a new Exercise
         final Exercise exercise = ModelProvider.getDefault().getExercise(topic.getId());
@@ -133,7 +146,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     }
     
     public void onActionCreateNewTopic() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action create new Topic"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Topic]"); // NOI18N
         
         // TODO replace it with AnchorPane
         final TextInputDialog dialog = new TextInputDialog(); // NOI18N
@@ -154,6 +167,12 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
             // Show it
             this.onActionRefreshTreeView();
         }
+    }
+    
+    public void onActionCreateNewWord() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Word]"); // NOI18N
+        
+        
     }
     
     /*
