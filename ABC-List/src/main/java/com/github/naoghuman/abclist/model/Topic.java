@@ -39,6 +39,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  *
@@ -167,6 +168,14 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
                 .append(this.getId())
                 .append(this.getTitle())
                 .toHashCode();
+    }
+	
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(TOPIC__COLUMN_NAME__ID, this.getId())
+                .append(TOPIC__COLUMN_NAME__TITLE, this.getTitle())
+                .toString();
     }
     
     @Override
