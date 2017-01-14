@@ -31,7 +31,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -59,7 +58,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     
     public Exercise(long id) {
-        this(id, DEFAULT_ID__TOPIC);
+        this(id, DEFAULT_ID);
     }
     
     public Exercise(long id, long topicId) {

@@ -101,28 +101,45 @@ public class SqlProviderTest implements IDefaultConfiguration {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdateExercise()"); // NOI18N
         
         // ---------------------------------------------------------------------
-        Exercise exercise = DatabaseFacade.getDefault()
+        Exercise exercise1 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateExercise()")
                 .create(ModelProvider.getDefault().getExercise(System.currentTimeMillis()));
         
-        Exercise exerciseFromDatabase = DatabaseFacade.getDefault()
+        Exercise exerciseFromDatabase1 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateExercise()")
-                .findById(Exercise.class, exercise.getId());
+                .findById(Exercise.class, exercise1.getId());
         
-        assertNotNull(exerciseFromDatabase);
-        assertEquals(exercise.getId(), exerciseFromDatabase.getId());
+        assertNotNull(exerciseFromDatabase1);
+        assertEquals(exercise1.getId(), exerciseFromDatabase1.getId());
         
         // ---------------------------------------------------------------------
-        exercise = ModelProvider.getDefault().getExercise();
-        SqlProvider.getDefault().createOrUpdateExercise(exercise);
+        Exercise exercise2 = ModelProvider.getDefault().getExercise();
+        SqlProvider.getDefault().createOrUpdateExercise(exercise2);
         
-        exerciseFromDatabase = DatabaseFacade.getDefault()
+        Exercise exerciseFromDatabase2 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateExercise()")
-                .findById(Exercise.class, exercise.getId());
+                .findById(Exercise.class, exercise2.getId());
         
-        assertNotNull(exerciseFromDatabase);
-        assertNotEquals(DEFAULT_ID, exerciseFromDatabase.getId());
-        assertEquals(exercise.getId(), exerciseFromDatabase.getId());
+        assertNotNull(exerciseFromDatabase2);
+        assertNotEquals(DEFAULT_ID, exerciseFromDatabase2.getId());
+        assertEquals(exercise2.getId(), exerciseFromDatabase2.getId());
+        
+        // ---------------------------------------------------------------------
+        Exercise exercise3 = ModelProvider.getDefault().getExercise();
+        SqlProvider.getDefault().createOrUpdateExercise(exercise3);
+        
+        exercise3.setReady(true);
+        SqlProvider.getDefault().createOrUpdateExercise(exercise3);
+        
+        Exercise exerciseFromDatabase3 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateExercise()")
+                .findById(Exercise.class, exercise3.getId());
+        
+        assertNotNull(exerciseFromDatabase3);
+        assertNotEquals(DEFAULT_ID, exerciseFromDatabase3.getId());
+        assertEquals(exercise3.getId(), exerciseFromDatabase3.getId());
+        assertEquals(true, exerciseFromDatabase3.isReady());
+        assertEquals(exercise3.isReady(), exerciseFromDatabase3.isReady());
     }
     
     @Test
