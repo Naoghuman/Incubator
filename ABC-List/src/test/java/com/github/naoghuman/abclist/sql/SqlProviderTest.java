@@ -275,6 +275,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         
         Term term1 = ModelProvider.getDefault().getTerm("Term1");
         SqlProvider.getDefault().createOrUpdateTerm(term1);
+        
         terms.clear();
         terms.addAll(SqlProvider.getDefault().findAllTerms());
         assertFalse(terms.isEmpty());
@@ -282,10 +283,32 @@ public class SqlProviderTest implements IDefaultConfiguration {
         
         Term term2 = ModelProvider.getDefault().getTerm("Term2");
         SqlProvider.getDefault().createOrUpdateTerm(term2);
+        
         terms.clear();
         terms.addAll(SqlProvider.getDefault().findAllTerms());
         assertFalse(terms.isEmpty());
         assertTrue(terms.size() == 2);
+    }
+    
+    @Test
+    public void testFindAllTermsWithTitle() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTermsWithTitle()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ObservableList<Term> terms = FXCollections.observableArrayList();
+        Term term3 = ModelProvider.getDefault().getTerm("Term3");
+        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        
+        terms.clear();
+        terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("hello?"));
+        assertTrue(terms.isEmpty());
+        
+        terms.clear();
+        terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("Term3"));
+        assertFalse(terms.isEmpty());
+        assertTrue(terms.size() == 1);
     }
     
 }

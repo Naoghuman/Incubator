@@ -222,8 +222,8 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
         
         final Term other = (Term) obj;
         return new EqualsBuilder()
-                .append(this.getId(), other.getId())
                 .append(this.getTitle(), other.getTitle())
+                .append(this.getId(), other.getId())
                 .append(this.getGenerationTime(), other.getGenerationTime())
                 .isEquals();
     }
@@ -231,8 +231,8 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(this.getId())
                 .append(this.getTitle())
+                .append(this.getId())
                 .append(this.getGenerationTime())
                 .toHashCode();
     }
