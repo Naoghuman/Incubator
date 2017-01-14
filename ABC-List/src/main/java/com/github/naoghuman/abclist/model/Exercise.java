@@ -30,9 +30,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -56,11 +55,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultConfiguration, IExerciseConfiguration {
     
     public Exercise() {
-        this(DEFAULT_ID, DEFAULT_ID);
+        this(DEFAULT_ID);
     }
     
-    public Exercise(long topicId) {
-        this(DEFAULT_ID, topicId);
+    public Exercise(long id) {
+        this(id, DEFAULT_ID__TOPIC);
     }
     
     public Exercise(long id, long topicId) {
@@ -68,7 +67,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     
     public Exercise(long id, long topicId, long generationTime) {
-        this.init(id, topicId, generationTime, false);
+        this(id, topicId, generationTime, false);
     }
     
     public Exercise(long id, long topicId, long generationTime, boolean ready) {
@@ -87,7 +86,6 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     private long _id = DEFAULT_ID;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = EXERCISE__COLUMN_NAME__ID)
     public long getId() {
         if (idProperty == null) {
@@ -118,8 +116,6 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     private LongProperty topicIdProperty;
     private long _topicId = DEFAULT_ID;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = EXERCISE__COLUMN_NAME__TOPIC_ID)
     public long getTopicId() {
         if (topicIdProperty == null) {

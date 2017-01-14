@@ -27,10 +27,12 @@ import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -85,7 +87,7 @@ public class SqlProvider {
     }
 
     public void deleteAllTermsFromExercise(long exerciseId) {
-        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllTermsWithExerciseId(exerciseId);
+        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
         
         DatabaseFacade.getDefault().getCrudService().beginTransaction();
         exerciseTerms.stream()
@@ -95,29 +97,43 @@ public class SqlProvider {
         DatabaseFacade.getDefault().getCrudService().commitTransaction();
     }
     
-    public ObservableList<Exercise> findAllExercisesWithParentId(long parentId) {
-        final ObservableList<Exercise> allExercisesWithParentId = FXCollections.observableArrayList();
+    public ObservableList<ExerciseTerm> findAllExerciseTermsWithExerciseId(long exerciseId) {
+        final ObservableList<ExerciseTerm> allTermsWithExerciseId = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
-        parameters.put(IExerciseConfiguration.EXERCISE__COLUMN_NAME__PARENT_ID, parentId);
+        parameters.put(IExerciseTermConfiguration.EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
         
-        final List<Exercise> exercises = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Exercise.class, IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_PARENT_ID, parameters);
+        final List<ExerciseTerm> exerciseTerms = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(ExerciseTerm.class, IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID, parameters);
+        
+        allTermsWithExerciseId.addAll(exerciseTerms);
+        Collections.sort(allTermsWithExerciseId);
 
-        allExercisesWithParentId.addAll(exercises);
-        Collections.sort(allExercisesWithParentId);
-
-        return allExercisesWithParentId;
+        return allTermsWithExerciseId;
     }
     
-    public ObservableList<Topic> findAllTopics() {
-        final ObservableList<Topic> allTopics = FXCollections.observableArrayList();
-        final List<Topic> topics = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Topic.class, ITopicConfiguration.NAMED_QUERY__NAME__FIND_ALL);
+    public ObservableList<Exercise> findAllExercisesWithTopicId(long topicId) {
+        final ObservableList<Exercise> allExercisesWithTopicId = FXCollections.observableArrayList();
+        final Map<String, Object> parameters = FXCollections.observableHashMap();
+        parameters.put(IExerciseConfiguration.EXERCISE__COLUMN_NAME__TOPIC_ID, topicId);
         
-        allTopics.addAll(topics);
-        Collections.sort(allTopics);
+        final List<Exercise> exercises = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(Exercise.class, IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_TOPIC_ID, parameters);
 
-        return allTopics;
+        allExercisesWithTopicId.addAll(exercises);
+        Collections.sort(allExercisesWithTopicId);
+
+        return allExercisesWithTopicId;
+    }
+    
+    public ObservableList<Term> findAllTerms() {
+        final ObservableList<Term> allTerms = FXCollections.observableArrayList();
+        final List<Term> terms = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(Term.class, ITermConfiguration.NAMED_QUERY__NAME__FIND_ALL);
+        
+        allTerms.addAll(terms);
+        Collections.sort(allTerms);
+
+        return allTerms;
     }
     
     public ObservableList<Term> findAllTermsInExerciseTerms(ObservableList<ExerciseTerm> exerciseTerms) {
@@ -132,20 +148,6 @@ public class SqlProvider {
         
         return allTermsInExerciseTerms;
     }
-    
-    public ObservableList<ExerciseTerm> findAllTermsWithExerciseId(long exerciseId) {
-        final ObservableList<ExerciseTerm> allTermsWithExerciseId = FXCollections.observableArrayList();
-        final Map<String, Object> parameters = FXCollections.observableHashMap();
-        parameters.put(IExerciseTermConfiguration.EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
-        
-        final List<ExerciseTerm> exerciseTerms = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(ExerciseTerm.class, IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_TERMS_WITH_EXERCISE_ID, parameters);
-        
-        allTermsWithExerciseId.addAll(exerciseTerms);
-        Collections.sort(allTermsWithExerciseId);
-
-        return allTermsWithExerciseId;
-    }
 	
     public ObservableList<Term> findAllTermsWithTitle(String title) {
         final ObservableList<Term> allTermsWithTitle = FXCollections.observableArrayList();
@@ -159,6 +161,40 @@ public class SqlProvider {
         Collections.sort(allTermsWithTitle);
 
         return allTermsWithTitle;
+    }
+
+    public ObservableList<Term> findAllTermsWithTopicId(long topicId) {
+        final ObservableList<Term> allTermsWithTopicId = FXCollections.observableArrayList();
+        
+        final ObservableList<Exercise> observableListExercises = this.findAllExercisesWithTopicId(topicId);
+        final Set<Long> uniqueTermIds = new LinkedHashSet<>();
+        observableListExercises.stream()
+                .forEach(exercise -> {
+                    final ObservableList<ExerciseTerm> exerciseTerms = this.findAllExerciseTermsWithExerciseId(exercise.getId());
+                    exerciseTerms.stream()
+                            .forEach(exerciseTerm -> {
+                                uniqueTermIds.add(exerciseTerm.getTermId());
+                            });
+                });
+        
+        uniqueTermIds.stream()
+                .forEach(termId -> {
+                    allTermsWithTopicId.add(DatabaseFacade.getDefault().getCrudService().findById(Term.class, termId));
+                });
+        Collections.sort(allTermsWithTopicId);
+
+        return allTermsWithTopicId;
+    }
+    
+    public ObservableList<Topic> findAllTopics() {
+        final ObservableList<Topic> allTopics = FXCollections.observableArrayList();
+        final List<Topic> topics = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(Topic.class, ITopicConfiguration.NAMED_QUERY__NAME__FIND_ALL);
+        
+        allTopics.addAll(topics);
+        Collections.sort(allTopics);
+
+        return allTopics;
     }
     
 }

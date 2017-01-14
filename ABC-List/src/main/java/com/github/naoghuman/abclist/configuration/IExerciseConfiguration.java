@@ -28,12 +28,12 @@ public interface IExerciseConfiguration {
     
     public static final String ENTITY__TABLE_NAME__EXERCISE = "Exercise"; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__FIND_ALL_WITH_PARENT_ID = "Exercise.findAllWithParentId"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL_WITH_PARENT_ID = "SELECT e FROM Exercise e WHERE e.parentId == :parentId"; // NOI18N
+    public static final String NAMED_QUERY__NAME__FIND_ALL_WITH_TOPIC_ID = "Exercise.findAllWithTopicId"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL_WITH_TOPIC_ID = "SELECT e FROM Exercise e WHERE e.topicId == :topicId"; // NOI18N
     
     public static final String EXERCISE__COLUMN_NAME__ID = "id"; // NOI18N
     public static final String EXERCISE__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
-    public static final String EXERCISE__COLUMN_NAME__TOPIC_ID = "topicd"; // NOI18N
+    public static final String EXERCISE__COLUMN_NAME__TOPIC_ID = "topicId"; // NOI18N
     public static final String EXERCISE__COLUMN_NAME__READY = "ready"; // NOI18N
     
 }

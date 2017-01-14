@@ -38,8 +38,8 @@ public class ModelProvider {
         return new Exercise();
     }
     
-    public Exercise getExercise(long topicId) {
-        return new Exercise(topicId);
+    public Exercise getExercise(long id) {
+        return new Exercise(id);
     }
     
     public Exercise getExercise(long id, long topicId) {
