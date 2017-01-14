@@ -21,6 +21,7 @@ import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Term;
+import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import org.junit.AfterClass;
@@ -170,6 +171,54 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(term3.getId(), termFromDatabase3.getId());
         assertEquals("Test3 aaaaaaaa", termFromDatabase3.getTitle());
         assertEquals(term3.getTitle(), termFromDatabase3.getTitle());
+    }
+    
+    @Test
+    public void testCreateOrUpdateTopic() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdateTopic()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        Topic topic1 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTopic()")
+                .create(ModelProvider.getDefault().getTopic("Topic1"));
+        
+        Topic topicFromDatabase1 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTopic()")
+                .findById(Topic.class, topic1.getId());
+        
+        assertNotNull(topicFromDatabase1);
+        assertEquals(topic1.getId(), topicFromDatabase1.getId());
+        assertEquals(topic1.getTitle(), topicFromDatabase1.getTitle());
+        
+        // ---------------------------------------------------------------------
+        Topic topic2 = ModelProvider.getDefault().getTopic("Topic2");
+        SqlProvider.getDefault().createOrUpdateTopic(topic2);
+        
+        Topic topicFromDatabase2 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTopic()")
+                .findById(Topic.class, topic2.getId());
+        
+        assertNotNull(topicFromDatabase2);
+        assertNotEquals(DEFAULT_ID, topicFromDatabase2.getId());
+        assertEquals(topic2.getId(), topicFromDatabase2.getId());
+        assertEquals(topic2.getTitle(), topicFromDatabase2.getTitle());
+        
+        // ---------------------------------------------------------------------
+        Topic topic3 = ModelProvider.getDefault().getTopic("Topic3");
+        SqlProvider.getDefault().createOrUpdateTopic(topic3);
+        
+        topic3.setTitle("Topic3 aaaaaaaa");
+        SqlProvider.getDefault().createOrUpdateTopic(topic3);
+        
+        Topic topicFromDatabase3 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTopic()")
+                .findById(Topic.class, topic3.getId());
+        
+        assertNotNull(topicFromDatabase3);
+        assertNotEquals(DEFAULT_ID, topicFromDatabase3.getId());
+        assertEquals(topic3.getId(), topicFromDatabase3.getId());
+        assertEquals("Topic3 aaaaaaaa", topicFromDatabase3.getTitle());
+        assertEquals(topic3.getTitle(), topicFromDatabase3.getTitle());
     }
     
 }
