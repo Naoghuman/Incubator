@@ -307,6 +307,40 @@ public class SqlProviderTest implements IDefaultConfiguration {
     }
     
     @Test
+    public void testDeleteAllExerciseTermsWithExerciseId() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testDeleteAllExerciseTermsWithExerciseId()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm et1 = ModelProvider.getDefault().getExerciseTerm(123L, 1L);
+        SqlProvider.getDefault().createExerciseTerm(et1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm et2 = ModelProvider.getDefault().getExerciseTerm(123L, 2L);
+        SqlProvider.getDefault().createExerciseTerm(et2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(123L);
+        
+        assertFalse(exerciseTerms.isEmpty());
+        assertTrue(exerciseTerms.size() == 2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        SqlProvider.getDefault().deleteAllExerciseTermsWithExerciseId(123L);
+        
+        exerciseTerms.clear();
+        exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(123L);
+        assertTrue(exerciseTerms.isEmpty());
+    }
+    
+    @Test
     public void testFindAllTerms() {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTerms()"); // NOI18N
         

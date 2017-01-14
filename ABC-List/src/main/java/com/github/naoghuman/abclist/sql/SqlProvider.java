@@ -87,7 +87,7 @@ public class SqlProvider {
         }
     }
 
-    public void deleteAllTermsFromExercise(long exerciseId) {
+    public void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
         final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
         
         DatabaseFacade.getDefault().getCrudService().beginTransaction();
