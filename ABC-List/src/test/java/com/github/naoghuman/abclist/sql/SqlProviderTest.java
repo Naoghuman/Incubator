@@ -341,6 +341,36 @@ public class SqlProviderTest implements IDefaultConfiguration {
     }
     
     @Test
+    public void testFindAllExerciseTermsWithExerciseId() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllExerciseTermsWithExerciseId()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm et1 = ModelProvider.getDefault().getExerciseTerm(1234L, 11L);
+        SqlProvider.getDefault().createExerciseTerm(et1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm et2 = ModelProvider.getDefault().getExerciseTerm(1234L, 21L);
+        SqlProvider.getDefault().createExerciseTerm(et2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(1234L);
+        
+        assertFalse(exerciseTerms.isEmpty());
+        assertTrue(exerciseTerms.size() == 2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        SqlProvider.getDefault().deleteAllExerciseTermsWithExerciseId(123L);
+    }
+    
+    @Test
     public void testFindAllTerms() {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTerms()"); // NOI18N
         
