@@ -24,6 +24,8 @@ import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -68,6 +70,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateExerciseTerm()"); // NOI18N
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         ExerciseTerm exerciseTerm = DatabaseFacade.getDefault()
                 .getCrudService("testCreateExerciseTerm()")
                 .create(ModelProvider.getDefault().getExerciseTerm());
@@ -82,6 +86,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(DEFAULT_ID, exerciseTerm.getTermId());
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         exerciseTerm = ModelProvider.getDefault().getExerciseTerm();
         SqlProvider.getDefault().createExerciseTerm(exerciseTerm);
         
@@ -101,6 +107,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdateExercise()"); // NOI18N
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Exercise exercise1 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateExercise()")
                 .create(ModelProvider.getDefault().getExercise(System.currentTimeMillis()));
@@ -113,6 +121,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(exercise1.getId(), exerciseFromDatabase1.getId());
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Exercise exercise2 = ModelProvider.getDefault().getExercise();
         SqlProvider.getDefault().createOrUpdateExercise(exercise2);
         
@@ -125,6 +135,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(exercise2.getId(), exerciseFromDatabase2.getId());
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Exercise exercise3 = ModelProvider.getDefault().getExercise();
         SqlProvider.getDefault().createOrUpdateExercise(exercise3);
         
@@ -147,6 +159,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdateTerm()"); // NOI18N
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Term term1 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateTerm()")
                 .create(ModelProvider.getDefault().getTerm("Test1"));
@@ -160,6 +174,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(term1.getTitle(), termFromDatabase1.getTitle());
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Term term2 = ModelProvider.getDefault().getTerm("Test2");
         SqlProvider.getDefault().createOrUpdateTerm(term2);
         
@@ -173,6 +189,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(term2.getTitle(), termFromDatabase2.getTitle());
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Term term3 = ModelProvider.getDefault().getTerm("Test3");
         SqlProvider.getDefault().createOrUpdateTerm(term3);
         
@@ -195,6 +213,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdateTopic()"); // NOI18N
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Topic topic1 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateTopic()")
                 .create(ModelProvider.getDefault().getTopic("Topic1"));
@@ -208,6 +228,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(topic1.getTitle(), topicFromDatabase1.getTitle());
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Topic topic2 = ModelProvider.getDefault().getTopic("Topic2");
         SqlProvider.getDefault().createOrUpdateTopic(topic2);
         
@@ -221,6 +243,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(topic2.getTitle(), topicFromDatabase2.getTitle());
         
         // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Topic topic3 = ModelProvider.getDefault().getTopic("Topic3");
         SqlProvider.getDefault().createOrUpdateTopic(topic3);
         
@@ -236,6 +260,32 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(topic3.getId(), topicFromDatabase3.getId());
         assertEquals("Topic3 aaaaaaaa", topicFromDatabase3.getTitle());
         assertEquals(topic3.getTitle(), topicFromDatabase3.getTitle());
+    }
+    
+    @Test
+    public void testFindAllTerms() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTerms()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ObservableList<Term> terms = FXCollections.observableArrayList();
+        terms.addAll(SqlProvider.getDefault().findAllTerms());
+        assertTrue(terms.isEmpty());
+        
+        Term term1 = ModelProvider.getDefault().getTerm("Term1");
+        SqlProvider.getDefault().createOrUpdateTerm(term1);
+        terms.clear();
+        terms.addAll(SqlProvider.getDefault().findAllTerms());
+        assertFalse(terms.isEmpty());
+        assertTrue(terms.size() == 1);
+        
+        Term term2 = ModelProvider.getDefault().getTerm("Term2");
+        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        terms.clear();
+        terms.addAll(SqlProvider.getDefault().findAllTerms());
+        assertFalse(terms.isEmpty());
+        assertTrue(terms.size() == 2);
     }
     
 }
