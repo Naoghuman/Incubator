@@ -50,8 +50,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @Table(name = IExerciseConfiguration.ENTITY__TABLE_NAME__EXERCISE)
 @NamedQueries({
     @NamedQuery(
-            name = IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_PARENT_ID,
-            query = IExerciseConfiguration.NAMED_QUERY__QUERY__FIND_ALL_WITH_PARENT_ID)
+            name = IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_TOPIC_ID,
+            query = IExerciseConfiguration.NAMED_QUERY__QUERY__FIND_ALL_WITH_TOPIC_ID)
 })
 public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultConfiguration, IExerciseConfiguration {
     
@@ -59,25 +59,25 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         this(DEFAULT_ID, DEFAULT_ID);
     }
     
-    public Exercise(long parentId) {
-        this(DEFAULT_ID, parentId);
+    public Exercise(long topicId) {
+        this(DEFAULT_ID, topicId);
     }
     
-    public Exercise(long id, long parentId) {
-        this(id, parentId, System.currentTimeMillis());
+    public Exercise(long id, long topicId) {
+        this(id, topicId, System.currentTimeMillis());
     }
     
-    public Exercise(long id, long parentId, long generationTime) {
-        this.init(id, parentId, generationTime, false);
+    public Exercise(long id, long topicId, long generationTime) {
+        this.init(id, topicId, generationTime, false);
     }
     
-    public Exercise(long id, long parentId, long generationTime, boolean ready) {
-        this.init(id, parentId, generationTime, ready);
+    public Exercise(long id, long topicId, long generationTime, boolean ready) {
+        this.init(id, topicId, generationTime, ready);
     }
     
-    private void init(long id, long parentId, long generationTime, boolean ready) {
+    private void init(long id, long topicId, long generationTime, boolean ready) {
         this.setId(id);
-        this.setTopicId(parentId);
+        this.setTopicId(topicId);
         this.setGenerationTime(generationTime);
         this.setReady(ready);
     }
