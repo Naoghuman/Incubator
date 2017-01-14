@@ -34,16 +34,20 @@ public class ModelProvider {
         
     }
     
-    public Exercise getExercise(long parentId) {
-        return new Exercise(parentId);
+    public Exercise getExercise() {
+        return new Exercise();
     }
     
-    public Exercise getExercise(long id, long parentId) {
-        return new Exercise(id, parentId);
+    public Exercise getExercise(long topicId) {
+        return new Exercise(topicId);
     }
     
-    public Exercise getExercise(long id, long parentId, long generationTime) {
-        return new Exercise(id, parentId, generationTime);
+    public Exercise getExercise(long id, long topicId) {
+        return new Exercise(id, topicId);
+    }
+    
+    public Exercise getExercise(long id, long topicId, long generationTime) {
+        return new Exercise(id, topicId, generationTime);
     }
     
     public ExerciseTerm getExerciseTerm() {
