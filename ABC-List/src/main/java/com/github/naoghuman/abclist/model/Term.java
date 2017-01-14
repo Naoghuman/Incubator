@@ -30,8 +30,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -85,7 +83,6 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
     private long _id = DEFAULT_ID;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = TERM__COLUMN_NAME__ID)
     public long getId() {
         if (idProperty == null) {
@@ -240,7 +237,7 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
                 .toHashCode();
     }
 	
-	@Override
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append(TERM__COLUMN_NAME__ID, this.getId())

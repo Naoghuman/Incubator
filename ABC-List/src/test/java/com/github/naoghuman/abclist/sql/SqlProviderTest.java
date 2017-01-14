@@ -20,6 +20,7 @@ import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;
+import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import org.junit.AfterClass;
@@ -115,12 +116,60 @@ public class SqlProviderTest implements IDefaultConfiguration {
         SqlProvider.getDefault().createOrUpdateExercise(exercise);
         
         exerciseFromDatabase = DatabaseFacade.getDefault()
-                .getCrudService("testCreateOrUpdate_Exercise()")
+                .getCrudService("testCreateOrUpdateExercise()")
                 .findById(Exercise.class, exercise.getId());
         
         assertNotNull(exerciseFromDatabase);
         assertNotEquals(DEFAULT_ID, exerciseFromDatabase.getId());
         assertEquals(exercise.getId(), exerciseFromDatabase.getId());
+    }
+    
+    @Test
+    public void testCreateOrUpdateTerm() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdateTerm()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        Term term1 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTerm()")
+                .create(ModelProvider.getDefault().getTerm("Test1"));
+        
+        Term termFromDatabase1 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTerm()")
+                .findById(Term.class, term1.getId());
+        
+        assertNotNull(termFromDatabase1);
+        assertEquals(term1.getId(), termFromDatabase1.getId());
+        assertEquals(term1.getTitle(), termFromDatabase1.getTitle());
+        
+        // ---------------------------------------------------------------------
+        Term term2 = ModelProvider.getDefault().getTerm("Test2");
+        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        
+        Term termFromDatabase2 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTerm()")
+                .findById(Term.class, term2.getId());
+        
+        assertNotNull(termFromDatabase2);
+        assertNotEquals(DEFAULT_ID, termFromDatabase2.getId());
+        assertEquals(term2.getId(), termFromDatabase2.getId());
+        assertEquals(term2.getTitle(), termFromDatabase2.getTitle());
+        
+        // ---------------------------------------------------------------------
+        Term term3 = ModelProvider.getDefault().getTerm("Test3");
+        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        
+        term3.setTitle("Test3 aaaaaaaa");
+        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        
+        Term termFromDatabase3 = DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTerm()")
+                .findById(Term.class, term3.getId());
+        
+        assertNotNull(termFromDatabase3);
+        assertNotEquals(DEFAULT_ID, termFromDatabase3.getId());
+        assertEquals(term3.getId(), termFromDatabase3.getId());
+        assertEquals("Test3 aaaaaaaa", termFromDatabase3.getTitle());
+        assertEquals(term3.getTitle(), termFromDatabase3.getTitle());
     }
     
 }
