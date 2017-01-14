@@ -24,9 +24,10 @@ public interface IExerciseTermConfiguration {
     
     public static final String ENTITY__TABLE_NAME__EXERCISE_TERM = "ExerciseTerm"; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__FIND_ALL_TERMS_WITH_EXERCISE_ID = "ExerciseTerm.findAllTermsWithExerciseId"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL_TERMS_WITH_EXERCISE_ID = "SELECT et FROM ExerciseTerm et WHERE et.exerciseId == :exerciseId"; // NOI18N
+    public static final String NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID = "ExerciseTerm.findAllExerciseTermsWithExerciseId"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID = "SELECT et FROM ExerciseTerm et WHERE et.exerciseId == :exerciseId"; // NOI18N
     
+    public static final String EXERCISE_TERM__COLUMN_NAME__ID = "id"; // NOI18N
     public static final String EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID = "exerciseId"; // NOI18N
     public static final String EXERCISE_TERM__COLUMN_NAME__TERM_ID = "termId"; // NOI18N
 

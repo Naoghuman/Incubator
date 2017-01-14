@@ -52,7 +52,12 @@ public class SqlProvider {
         
     }
     
-    public void createOrUpdate(Exercise exercise) {
+    public void createExerciseTerm(ExerciseTerm exerciseTerm) {
+        exerciseTerm.setId(System.currentTimeMillis());
+        DatabaseFacade.getDefault().getCrudService().create(exerciseTerm);
+    }
+    
+    public void createOrUpdateExercise(Exercise exercise) {
         if (Objects.equals(exercise.getId(), IDefaultConfiguration.DEFAULT_ID)) {
             exercise.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(exercise);
@@ -62,11 +67,7 @@ public class SqlProvider {
         }
     }
     
-    public void create(ExerciseTerm exerciseTerm) {
-        DatabaseFacade.getDefault().getCrudService().create(exerciseTerm);
-    }
-    
-    public void createOrUpdate(Term term) {
+    public void createOrUpdateTerm(Term term) {
         if (Objects.equals(term.getId(), IDefaultConfiguration.DEFAULT_ID)) {
             term.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(term);
@@ -76,7 +77,7 @@ public class SqlProvider {
         }
     }
     
-    public void createOrUpdate(Topic topic) {
+    public void createOrUpdateTopic(Topic topic) {
         if (Objects.equals(topic.getId(), IDefaultConfiguration.DEFAULT_ID)) {
             topic.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(topic);

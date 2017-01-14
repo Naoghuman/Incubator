@@ -18,6 +18,7 @@ package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.model.Exercise;
+import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
@@ -30,7 +31,7 @@ import static org.junit.Assert.*;
  *
  * @author PRo
  */
-public class SqlProviderTest {
+public class SqlProviderTest implements IDefaultConfiguration {
     
     private final static String TABLE_WITH_SUFFIX = "SqlProviderTestTable.odb"; // NOI18N
     private final static String TABLE = "SqlProviderTestTable"; // NOI18N
@@ -59,18 +60,51 @@ public class SqlProviderTest {
         SqlProvider result = SqlProvider.getDefault();
         assertNotNull(result);
     }
+    
+    @Test
+    public void testCreateExerciseTerm() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateExerciseTerm()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        ExerciseTerm exerciseTerm = DatabaseFacade.getDefault()
+                .getCrudService("testCreateExerciseTerm()")
+                .create(ModelProvider.getDefault().getExerciseTerm());
+        
+        ExerciseTerm exerciseTermFromDatabase = DatabaseFacade.getDefault()
+                .getCrudService("testCreateExerciseTerm()")
+                .findById(ExerciseTerm.class, exerciseTerm.getId());
+        
+        assertNotNull(exerciseTermFromDatabase);
+        assertEquals(DEFAULT_ID, exerciseTerm.getId());
+        assertEquals(DEFAULT_ID, exerciseTerm.getExerciseId());
+        assertEquals(DEFAULT_ID, exerciseTerm.getTermId());
+        
+        // ---------------------------------------------------------------------
+        exerciseTerm = ModelProvider.getDefault().getExerciseTerm();
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm);
+        
+        exerciseTermFromDatabase = DatabaseFacade.getDefault()
+                .getCrudService("testCreateExerciseTerm()")
+                .findById(ExerciseTerm.class, exerciseTerm.getId());
+        
+        assertNotNull(exerciseTermFromDatabase);
+        assertNotEquals(DEFAULT_ID, exerciseTermFromDatabase.getId());
+        assertEquals(exerciseTerm.getId(), exerciseTermFromDatabase.getId());
+        assertEquals(DEFAULT_ID, exerciseTerm.getExerciseId());
+        assertEquals(DEFAULT_ID, exerciseTerm.getTermId());
+    }
 
     @Test
-    public void testCreateOrUpdate_Exercise() {
-        LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdate_Exercise()"); // NOI18N
+    public void testCreateOrUpdateExercise() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testCreateOrUpdateExercise()"); // NOI18N
         
         // ---------------------------------------------------------------------
         Exercise exercise = DatabaseFacade.getDefault()
-                .getCrudService("testCreateOrUpdate_Exercise()")
+                .getCrudService("testCreateOrUpdateExercise()")
                 .create(ModelProvider.getDefault().getExercise(System.currentTimeMillis()));
         
         Exercise exerciseFromDatabase = DatabaseFacade.getDefault()
-                .getCrudService("testCreateOrUpdate_Exercise()")
+                .getCrudService("testCreateOrUpdateExercise()")
                 .findById(Exercise.class, exercise.getId());
         
         assertNotNull(exerciseFromDatabase);
@@ -78,14 +112,14 @@ public class SqlProviderTest {
         
         // ---------------------------------------------------------------------
         exercise = ModelProvider.getDefault().getExercise();
-        SqlProvider.getDefault().createOrUpdate(exercise);
+        SqlProvider.getDefault().createOrUpdateExercise(exercise);
         
         exerciseFromDatabase = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdate_Exercise()")
                 .findById(Exercise.class, exercise.getId());
         
         assertNotNull(exerciseFromDatabase);
-        assertNotEquals(IDefaultConfiguration.DEFAULT_ID, exerciseFromDatabase.getId());
+        assertNotEquals(DEFAULT_ID, exerciseFromDatabase.getId());
         assertEquals(exercise.getId(), exerciseFromDatabase.getId());
     }
     

@@ -23,7 +23,6 @@ package com.github.naoghuman.abclist.configuration;
 public interface IDefaultConfiguration {
     
     public static final long DEFAULT_ID = -1L;
-    public static final long DEFAULT_ID__TOPIC = -2L;
     public static final long DEFAULT_ID__TOPIC__SHOW_ALL_TERMS = -2L;
     
 //    public static final String SIGN__DOUBLE_POINT = ":"; // NOI18N

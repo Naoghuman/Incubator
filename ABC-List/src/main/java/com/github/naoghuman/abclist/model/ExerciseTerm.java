@@ -27,8 +27,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -48,30 +46,68 @@ import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
 @Table(name = IExerciseTermConfiguration.ENTITY__TABLE_NAME__EXERCISE_TERM)
 @NamedQueries({
     @NamedQuery(
-            name = IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_TERMS_WITH_EXERCISE_ID,
-            query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__FIND_ALL_TERMS_WITH_EXERCISE_ID)
+            name = IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID,
+            query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID)
 })
 public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, IDefaultConfiguration, IExerciseTermConfiguration {
     
     public ExerciseTerm() {
-        this(DEFAULT_ID, DEFAULT_ID);
+        this(DEFAULT_ID);
+    }
+    
+    public ExerciseTerm(long id) {
+        this(id, DEFAULT_ID, DEFAULT_ID);
     }
     
     public ExerciseTerm(long exerciseId, long termId) {
-        this.init(exerciseId, termId);
+        this(DEFAULT_ID, exerciseId, termId);
     }
     
-    private void init(long exerciseId, long termId) {
+    public ExerciseTerm(long id, long exerciseId, long termId) {
+        this.init(id, exerciseId, termId);
+    }
+    
+    private void init(long id, long exerciseId, long termId) {
+        this.setId(id);
         this.setExerciseId(exerciseId);
         this.setTermId(termId);
     }
+    
+    // START  ID ---------------------------------------------------------------
+    private LongProperty idProperty;
+    private long _id = DEFAULT_ID;
+
+    @Id
+    @Column(name = EXERCISE_TERM__COLUMN_NAME__ID)
+    public long getId() {
+        if (idProperty == null) {
+            return _id;
+        } else {
+            return idProperty.get();
+        }
+    }
+
+    public final void setId(long id) {
+        if (idProperty == null) {
+            _id = id;
+        } else {
+            idProperty.set(id);
+        }
+    }
+
+    public LongProperty idProperty() {
+        if (idProperty == null) {
+            idProperty = new SimpleLongProperty(this, EXERCISE_TERM__COLUMN_NAME__ID, _id);
+        }
+        
+        return idProperty;
+    }
+    // END  ID -----------------------------------------------------------------
     
     // START  EXERCISE-ID ------------------------------------------------------
     private LongProperty exerciseIdProperty;
     private long _exerciseId = DEFAULT_ID;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID)
     public long getExerciseId() {
         if (exerciseIdProperty == null) {
@@ -102,8 +138,6 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
     private LongProperty termIdProperty;
     private long _termId = DEFAULT_ID;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = EXERCISE_TERM__COLUMN_NAME__TERM_ID)
     public long getTermId() {
         if (termIdProperty == null) {
@@ -135,6 +169,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
         return new CompareToBuilder()
                 .append(this.getExerciseId(), other.getExerciseId())
                 .append(this.getTermId(), other.getTermId())
+                .append(this.getId(), other.getId())
                 .toComparison();
     }
 
@@ -153,6 +188,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
         
         final ExerciseTerm other = (ExerciseTerm) obj;
         return new EqualsBuilder()
+                .append(this.getId(), other.getId())
                 .append(this.getExerciseId(), other.getExerciseId())
                 .append(this.getTermId(), other.getTermId())
                 .isEquals();
@@ -161,6 +197,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
+                .append(this.getId())
                 .append(this.getExerciseId())
                 .append(this.getTermId())
                 .toHashCode();
@@ -169,6 +206,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
 	@Override
     public String toString() {
         return new ToStringBuilder(this)
+                .append(EXERCISE_TERM__COLUMN_NAME__ID, this.getId())
                 .append(EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, this.getExerciseId())
                 .append(EXERCISE_TERM__COLUMN_NAME__TERM_ID, this.getTermId())
                 .toString();
@@ -176,12 +214,14 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
     
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeLong(this.getId());
         out.writeLong(this.getExerciseId());
         out.writeLong(this.getTermId());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        this.setId(in.readLong());
         this.setExerciseId(in.readLong());
         this.setTermId(in.readLong());
     }
