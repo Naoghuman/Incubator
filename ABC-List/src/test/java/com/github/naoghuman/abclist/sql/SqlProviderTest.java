@@ -85,6 +85,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(DEFAULT_ID, exerciseTerm.getExerciseId());
         assertEquals(DEFAULT_ID, exerciseTerm.getTermId());
         
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateExerciseTerm()")
+                .delete(ExerciseTerm.class, exerciseTerm.getId());
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
@@ -100,6 +104,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(exerciseTerm.getId(), exerciseTermFromDatabase.getId());
         assertEquals(DEFAULT_ID, exerciseTerm.getExerciseId());
         assertEquals(DEFAULT_ID, exerciseTerm.getTermId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateExerciseTerm()")
+                .delete(ExerciseTerm.class, exerciseTerm.getId());
     }
 
     @Test
@@ -120,6 +128,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertNotNull(exerciseFromDatabase1);
         assertEquals(exercise1.getId(), exerciseFromDatabase1.getId());
         
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateExercise()")
+                .delete(Exercise.class, exercise1.getId());
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
@@ -133,6 +145,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertNotNull(exerciseFromDatabase2);
         assertNotEquals(DEFAULT_ID, exerciseFromDatabase2.getId());
         assertEquals(exercise2.getId(), exerciseFromDatabase2.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateExercise()")
+                .delete(Exercise.class, exercise2.getId());
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
@@ -152,6 +168,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(exercise3.getId(), exerciseFromDatabase3.getId());
         assertEquals(true, exerciseFromDatabase3.isReady());
         assertEquals(exercise3.isReady(), exerciseFromDatabase3.isReady());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateExercise()")
+                .delete(Exercise.class, exercise3.getId());
     }
     
     @Test
@@ -173,6 +193,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(term1.getId(), termFromDatabase1.getId());
         assertEquals(term1.getTitle(), termFromDatabase1.getTitle());
         
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTerm()")
+                .delete(Term.class, term1.getId());
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
@@ -187,6 +211,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertNotEquals(DEFAULT_ID, termFromDatabase2.getId());
         assertEquals(term2.getId(), termFromDatabase2.getId());
         assertEquals(term2.getTitle(), termFromDatabase2.getTitle());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTerm()")
+                .delete(Term.class, term2.getId());
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
@@ -206,6 +234,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(term3.getId(), termFromDatabase3.getId());
         assertEquals("Test3 aaaaaaaa", termFromDatabase3.getTitle());
         assertEquals(term3.getTitle(), termFromDatabase3.getTitle());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTerm()")
+                .delete(Term.class, term3.getId());
     }
     
     @Test
@@ -227,6 +259,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(topic1.getId(), topicFromDatabase1.getId());
         assertEquals(topic1.getTitle(), topicFromDatabase1.getTitle());
         
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTopic()")
+                .delete(Topic.class, topic1.getId());
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
@@ -241,6 +277,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertNotEquals(DEFAULT_ID, topicFromDatabase2.getId());
         assertEquals(topic2.getId(), topicFromDatabase2.getId());
         assertEquals(topic2.getTitle(), topicFromDatabase2.getTitle());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTopic()")
+                .delete(Topic.class, topic2.getId());
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
@@ -260,6 +300,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals(topic3.getId(), topicFromDatabase3.getId());
         assertEquals("Topic3 aaaaaaaa", topicFromDatabase3.getTitle());
         assertEquals(topic3.getTitle(), topicFromDatabase3.getTitle());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testCreateOrUpdateTopic()")
+                .delete(Topic.class, topic3.getId());
     }
     
     @Test
@@ -281,6 +325,9 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertFalse(terms.isEmpty());
         assertTrue(terms.size() == 1);
         
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         Term term2 = ModelProvider.getDefault().getTerm("Term2");
         SqlProvider.getDefault().createOrUpdateTerm(term2);
         
@@ -288,6 +335,14 @@ public class SqlProviderTest implements IDefaultConfiguration {
         terms.addAll(SqlProvider.getDefault().findAllTerms());
         assertFalse(terms.isEmpty());
         assertTrue(terms.size() == 2);
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTerms()")
+                .delete(Term.class, term1.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTerms()")
+                .delete(Term.class, term2.getId());
     }
     
     @Test
@@ -298,17 +353,60 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         ObservableList<Term> terms = FXCollections.observableArrayList();
-        Term term3 = ModelProvider.getDefault().getTerm("Term3");
-        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        Term term1 = ModelProvider.getDefault().getTerm("Term1");
+        SqlProvider.getDefault().createOrUpdateTerm(term1);
         
         terms.clear();
         terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("hello?"));
         assertTrue(terms.isEmpty());
         
         terms.clear();
-        terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("Term3"));
+        terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("Term1"));
         assertFalse(terms.isEmpty());
         assertTrue(terms.size() == 1);
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTerms()")
+                .delete(Term.class, term1.getId());
+    }
+    
+    @Test
+    public void testFindAllTopics() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTerms()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ObservableList<Topic> topics = FXCollections.observableArrayList();
+        topics.addAll(SqlProvider.getDefault().findAllTopics());
+        assertTrue(topics.isEmpty());
+        
+        Topic topic1 = ModelProvider.getDefault().getTopic("topic1");
+        SqlProvider.getDefault().createOrUpdateTopic(topic1);
+        
+        topics.clear();
+        topics.addAll(SqlProvider.getDefault().findAllTopics());
+        assertFalse(topics.isEmpty());
+        assertTrue(topics.size() == 1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Topic topic2 = ModelProvider.getDefault().getTopic("topic2");
+        SqlProvider.getDefault().createOrUpdateTopic(topic2);
+        
+        topics.clear();
+        topics.addAll(SqlProvider.getDefault().findAllTopics());
+        assertFalse(topics.isEmpty());
+        assertTrue(topics.size() == 2);
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTopics()")
+                .delete(Topic.class, topic1.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTopics()")
+                .delete(Topic.class, topic2.getId());
     }
     
 }
