@@ -399,6 +399,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         terms.addAll(SqlProvider.getDefault().findAllTerms());
         assertFalse(terms.isEmpty());
         assertTrue(terms.size() == 2);
+        assertEquals("Term1", terms.get(0).getTitle());
+        assertEquals("Term2", terms.get(1).getTitle());
         
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTerms()")
@@ -428,6 +430,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("Term1"));
         assertFalse(terms.isEmpty());
         assertTrue(terms.size() == 1);
+        assertEquals("Term1", terms.get(0).getTitle());
         
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTerms()")
@@ -463,6 +466,8 @@ public class SqlProviderTest implements IDefaultConfiguration {
         topics.addAll(SqlProvider.getDefault().findAllTopics());
         assertFalse(topics.isEmpty());
         assertTrue(topics.size() == 2);
+        assertEquals("topic1", topics.get(0).getTitle());
+        assertEquals("topic2", topics.get(1).getTitle());
         
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTopics()")
