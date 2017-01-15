@@ -31,6 +31,8 @@ import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -42,6 +44,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
@@ -54,10 +57,13 @@ import javafx.stage.StageStyle;
  */
 public class ExercisePresenter implements Initializable, IExerciseConfiguration, IRegisterActions {
     
-    final Stage dialog = new Stage();
+        
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
+    private final Stage dialog = new Stage();
         
     @FXML private Button bStartExercise;
     @FXML private ComboBox<ETime> cbTime;
+    @FXML private Label lGenerationTime;
     @FXML private VBox vbSigns;
     
     private Exercise exercise;
@@ -138,6 +144,8 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         this.exercise = exercise;
         
+        lGenerationTime.setText(simpleDateFormat.format(new Date(exercise.getGenerationTime())));
+        
         if (exercise.isReady()) {
             this.onActionDisableComponents();
             this.onActionLoadAllTerms();
@@ -160,7 +168,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
 
         // Save new state
         exercise.setReady(true);
-        SqlProvider.getDefault().createOrUpdate(exercise);
+        SqlProvider.getDefault().createOrUpdateExercise(exercise);
         
         // Reflect the new state in the gui
         this.onActionDisableComponents();
@@ -172,7 +180,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     private void onActionLoadAllTerms() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action load all [Term]s"); // NOI18N
 
-        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllTermsWithExerciseId(exercise.getId());
+        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exercise.getId());
         final ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsInExerciseTerms(exerciseTerms);
         terms.stream()
                 .forEach(term -> {
@@ -206,7 +214,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] stop [Exercise]"); // NOI18N
 
         // Delete all existing [ExerciseTerm]s
-        SqlProvider.getDefault().deleteAllTermsFromExercise(exercise.getId());
+        SqlProvider.getDefault().deleteAllExerciseTermsWithExerciseId(exercise.getId());
         
         // Reset the gui
         this.initializeSigns();
@@ -218,22 +226,14 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     private void onActionUserTypedTerm(Term term) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] typed [Term]"); // NOI18N
         
-        // Check if the [Term] in the [Database] exists
+        // Check if the [Term] with the [title] in the [Database] exists
         final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(term.getTitle());
-        boolean isTermExists = false;
-        for (Term observableListTerm : observableListTerms) {
-            if (observableListTerm.getTitle().equals(term.getTitle())) {
-                isTermExists = true;
-                break;
-            }
-        }
-        
-        if (!isTermExists) {
-            SqlProvider.getDefault().createOrUpdate(term);
+        if (observableListTerms.isEmpty()) {
+            SqlProvider.getDefault().createOrUpdateTerm(term);
         }
         
         // Check if the [Term] is associated with the [Exercise]
-        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllTermsWithExerciseId(exercise.getId());
+        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exercise.getId());
         boolean isExerciseTermExists = false;
         for (ExerciseTerm exerciseTerm : exerciseTerms) {
             if (
@@ -247,7 +247,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         if (!isExerciseTermExists) {
             final ExerciseTerm exerciseTerm = ModelProvider.getDefault().getExerciseTerm(exercise.getId(), term.getId());
-            SqlProvider.getDefault().create(exerciseTerm);
+            SqlProvider.getDefault().createExerciseTerm(exerciseTerm);
         }
         
         // Show the [Term] in the [FlowPane]
@@ -260,7 +260,6 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
                         presenter.addTerm(term);
                     }
                 });
-        
     }
     
     @Override
