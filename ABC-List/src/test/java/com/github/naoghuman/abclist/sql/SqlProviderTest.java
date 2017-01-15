@@ -407,7 +407,6 @@ public class SqlProviderTest implements IDefaultConfiguration {
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllExercisesWithTopicId()")
                 .delete(Exercise.class, exercise1.getId());
-        
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllExercisesWithTopicId()")
                 .delete(Exercise.class, exercise2.getId());
@@ -449,7 +448,6 @@ public class SqlProviderTest implements IDefaultConfiguration {
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTerms()")
                 .delete(Term.class, term1.getId());
-        
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTerms()")
                 .delete(Term.class, term2.getId());
@@ -498,7 +496,6 @@ public class SqlProviderTest implements IDefaultConfiguration {
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTermsInExerciseTerms()")
                 .delete(Term.class, term1.getId());
-        
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTermsInExerciseTerms()")
                 .delete(Term.class, term2.getId());
@@ -506,7 +503,6 @@ public class SqlProviderTest implements IDefaultConfiguration {
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTermsInExerciseTerms()")
                 .delete(ExerciseTerm.class, exerciseTerm1.getId());
-        
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTermsInExerciseTerms()")
                 .delete(ExerciseTerm.class, exerciseTerm2.getId());
@@ -536,6 +532,118 @@ public class SqlProviderTest implements IDefaultConfiguration {
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTerms()")
                 .delete(Term.class, term1.getId());
+    }
+
+    @Test
+    public void testFindAllTermsWithTopicId() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTermsWithTopicId()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Topic topic1 = ModelProvider.getDefault().getTopic("topic1");
+        SqlProvider.getDefault().createOrUpdateTopic(topic1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Term term1 = ModelProvider.getDefault().getTerm("Term1");
+        SqlProvider.getDefault().createOrUpdateTerm(term1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Term term2 = ModelProvider.getDefault().getTerm("Term2");
+        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Term term3 = ModelProvider.getDefault().getTerm("Term3");
+        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Exercise exercise1 = ModelProvider.getDefault().getExercise();
+        exercise1.setTopicId(topic1.getId());
+        SqlProvider.getDefault().createOrUpdateExercise(exercise1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm exerciseTerm1 = ModelProvider.getDefault().getExerciseTerm(exercise1.getId(), term1.getId());
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm exerciseTerm2 = ModelProvider.getDefault().getExerciseTerm(exercise1.getId(), term2.getId());
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Exercise exercise2 = ModelProvider.getDefault().getExercise();
+        exercise2.setTopicId(topic1.getId());
+        SqlProvider.getDefault().createOrUpdateExercise(exercise2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm exerciseTerm3 = ModelProvider.getDefault().getExerciseTerm(exercise2.getId(), term2.getId());
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm3);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm exerciseTerm4 = ModelProvider.getDefault().getExerciseTerm(exercise2.getId(), term3.getId());
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm4);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsWithTopicId(topic1.getId());
+        assertFalse(terms.isEmpty());
+        assertTrue(terms.size() == 3);
+        assertEquals("Term1", terms.get(0).getTitle());
+        assertEquals("Term2", terms.get(1).getTitle());
+        assertEquals("Term3", terms.get(2).getTitle());
+        
+        // ---------------------------------------------------------------------
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(Topic.class, topic1.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(Term.class, term1.getId());
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(Term.class, term2.getId());
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(Term.class, term3.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(Exercise.class, exercise1.getId());
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(Exercise.class, exercise2.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(ExerciseTerm.class, exerciseTerm1.getId());
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(ExerciseTerm.class, exerciseTerm2.getId());
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(ExerciseTerm.class, exerciseTerm3.getId());
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsWithTopicId()")
+                .delete(ExerciseTerm.class, exerciseTerm4.getId());
     }
     
     @Test
@@ -574,7 +682,6 @@ public class SqlProviderTest implements IDefaultConfiguration {
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTopics()")
                 .delete(Topic.class, topic1.getId());
-        
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTopics()")
                 .delete(Topic.class, topic2.getId());
