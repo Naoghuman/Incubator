@@ -17,10 +17,12 @@
 package com.github.naoghuman.abclist.application;
 
 import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
+import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.exercise.ExercisePresenter;
 import com.github.naoghuman.abclist.exercise.ExerciseView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ModelProvider;
+import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.abclist.welcome.WelcomeView;
@@ -30,6 +32,9 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableLongValue;
+import javafx.beans.value.ObservableNumberValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -120,6 +125,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         // ComboBox
         final Tooltip tooltip = new Tooltip("Show all Terms from the selected Topic"); // NOI18N
         cbNavigationTopics.setTooltip(tooltip);
+        cbNavigationTopics.setDisable(true);
         
         final Callback cellFactory = (Callback<ListView<Topic>, ListCell<Topic>>) (ListView<Topic> listView) -> new ListCell<Topic>() {
             @Override
@@ -171,7 +177,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         
         // Create a new Exercise
         final Exercise exercise = ModelProvider.getDefault().getExercise(topic.getId());
-        SqlProvider.getDefault().createOrUpdate(exercise);
+        SqlProvider.getDefault().createOrUpdateExercise(exercise);
         
         // Open the new exercise
         this.onActionOpenExercise(exercise);
@@ -204,14 +210,24 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
                 result.isPresent()
                 && !result.get().isEmpty()
         ) {
-            // Create a new Topic
-            final Topic topic = ModelProvider.getDefault().getTopic(result.get());
-            SqlProvider.getDefault().createOrUpdate(topic);
+            // Check if the [Topic] always exists
+            final ObservableList<Topic> topics = SqlProvider.getDefault().findAllTopics();
+            final String title = result.get();
+            for (Topic topic : topics) {
+                if (topic.getTitle().equals(title)) {
+                    return;
+                }
+            }
+            
+            // Create a new [Topic]
+            final Topic topic = ModelProvider.getDefault().getTopic(title);
+            SqlProvider.getDefault().createOrUpdateTopic(topic);
             
             // Update gui
-            final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
-            this.onActionRefreshNavigationTabTopics(observableListTopics);
-            this.onActionRefreshNavigationTabTerms(observableListTopics);
+            topics.clear();
+            topics.addAll(SqlProvider.getDefault().findAllTopics());
+            this.onActionRefreshNavigationTabTopics(topics);
+            this.onActionRefreshNavigationTabTerms(topics);
         }
     }
     
@@ -350,10 +366,13 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
 //        final int selectedIndex = cbNavigationTopics.getSelectionModel().getSelectedIndex();
         cbNavigationTopics.getItems().clear();
         
-        final Topic topic = ModelProvider.getDefault().getTopic("-- Show all existing Terms --"); // NOI18N
+        final Topic topic = ModelProvider.getDefault().getTopic(
+                IDefaultConfiguration.DEFAULT_ID__TOPIC__SHOW_ALL_TERMS,
+                "-- Show all existing Terms --"); // NOI18N
         observableListTopics.add(0, topic);
         
         cbNavigationTopics.getItems().addAll(observableListTopics);
+        cbNavigationTopics.setDisable(observableListTopics.size() <= 1);
         
 //        if (isAnyIndexSelected) {
 //            // How to avoid the [Selection Event]?
@@ -367,7 +386,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         rootItem.getChildren().clear();
         
         observableListTopics.forEach(topic -> {
-            final ObservableList<Exercise> observableListExercises = SqlProvider.getDefault().findAllExercisesWithParentId(topic.getId());
+            final ObservableList<Exercise> observableListExercises = SqlProvider.getDefault().findAllExercisesWithTopicId(topic.getId());
             final TreeItem<Object> treeItemTopic = new TreeItem<>(topic);
             observableListExercises.forEach(exercise -> {
                 final TreeItem<Object> treeItemExercise = new TreeItem<>(exercise);
@@ -391,10 +410,25 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         /*
         TODO
          - Catch selected [Topic] from the [ComboBox]
-         - Load all [Word]s from the [Topic]
-         - Show the loaded [Word]s in the [ListView]
+         - Load all [Term]s from the [Topic]
+         - Show the loaded [Term]s in the [ListView]
          - Double click on a [Term] opens the [TermView] for information/editing
         */
+        final ObservableList<Term> terms = FXCollections.observableArrayList();
+        final Topic topic = cbNavigationTopics.getSelectionModel().getSelectedItem();
+        final long topicId = topic.getId();
+        if (Objects.equals(topicId, IDefaultConfiguration.DEFAULT_ID__TOPIC__SHOW_ALL_TERMS)) {
+            terms.addAll(SqlProvider.getDefault().findAllTerms());
+        }
+        else {
+            terms.addAll(SqlProvider.getDefault().findAllTermsWithTopicId(topicId));
+        }
+        // XXX
+        terms.stream()
+                .forEach(term -> {
+                    System.out.println(term.toString());
+                });
+        
     }
     
     private final class AbcListTreeCell extends TreeCell<Object> {
