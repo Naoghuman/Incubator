@@ -59,7 +59,7 @@
                         </TabPane>
                     </children>
                 </VBox>
-                <VBox fx:id="vbEditorArea" spacing="14.0" />
+                <VBox fx:id="vbWorkingArea" spacing="14.0" />
             </items>
         </SplitPane>
     </children>

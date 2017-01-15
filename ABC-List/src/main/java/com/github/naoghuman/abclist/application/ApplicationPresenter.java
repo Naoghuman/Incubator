@@ -29,12 +29,11 @@ import com.github.naoghuman.abclist.welcome.WelcomeView;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ObservableLongValue;
-import javafx.beans.value.ObservableNumberValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -75,7 +74,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
     @FXML private SplitPane spApplication;
     @FXML private TabPane tpNavigation;
     @FXML private TreeView<Object> tvNavigationTopics;
-    @FXML private VBox vbEditorArea;
+    @FXML private VBox vbWorkingArea;
     
     private final ObservableList<Navigation> navigationViews = FXCollections.observableArrayList();
     private final TreeItem<Object> rootItem = new TreeItem<> ();
@@ -159,7 +158,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         
         final Parent parent = welcomeView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
-        vbEditorArea.getChildren().add(parent);
+        vbWorkingArea.getChildren().add(parent);
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -176,13 +175,13 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Exercise]"); // NOI18N
         
         // Create a new Exercise
-        final Exercise exercise = ModelProvider.getDefault().getExercise(topic.getId());
+        final Exercise exercise = ModelProvider.getDefault().getExercise(IDefaultConfiguration.DEFAULT_ID, topic.getId());
         SqlProvider.getDefault().createOrUpdateExercise(exercise);
         
         // Open the new exercise
         this.onActionOpenExercise(exercise);
             
-        // Update gui
+        // Update the gui
         final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
         this.onActionRefreshNavigationTabTopics(observableListTopics);
         
@@ -318,7 +317,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
     private void onActionOpenExercise(Exercise exercise) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action open Exercise"); // NOI18N
         
-        vbEditorArea.getChildren().clear();
+        vbWorkingArea.getChildren().clear();
         
         // Was the [Exercise] previously open?
         int index = 0;
@@ -334,7 +333,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
                     
                     final Parent parent = exerciseView.getView();
                     VBox.setVgrow(parent, Priority.ALWAYS);
-                    vbEditorArea.getChildren().add(parent);
+                    vbWorkingArea.getChildren().add(parent);
                     return;
                 }
             }
@@ -354,7 +353,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         
         final Parent parent = exerciseView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
-        vbEditorArea.getChildren().add(parent);
+        vbWorkingArea.getChildren().add(parent);
     }
     
     private void onActionRefreshNavigationTabTerms(ObservableList<Topic> observableListTopics) {
@@ -433,6 +432,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
     
     private final class AbcListTreeCell extends TreeCell<Object> {
         
+        private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
         private final ContextMenu contextMenu = new ContextMenu();
         private final MenuItem menuItem = new MenuItem();
         
@@ -454,7 +454,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         private String getDisplayText(Object item) {
             if (item instanceof Exercise) {
                 final Exercise exercise = (Exercise) item;
-                return exercise.toString(); // TODO
+                return simpleDateFormat.format(new Date(exercise.getGenerationTime()));
             }
             
             if (item instanceof Topic) {

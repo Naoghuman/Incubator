@@ -40,7 +40,7 @@ import javafx.collections.ObservableList;
  *
  * @author Naoghuman
  */
-public class SqlProvider {
+public class SqlProvider implements IDefaultConfiguration {
     
     private static final Optional<SqlProvider> instance = Optional.of(new SqlProvider());
 
@@ -58,7 +58,7 @@ public class SqlProvider {
     }
     
     public void createOrUpdateExercise(Exercise exercise) {
-        if (Objects.equals(exercise.getId(), IDefaultConfiguration.DEFAULT_ID)) {
+        if (Objects.equals(exercise.getId(), DEFAULT_ID)) {
             exercise.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(exercise);
         }
@@ -68,7 +68,7 @@ public class SqlProvider {
     }
     
     public void createOrUpdateTerm(Term term) {
-        if (Objects.equals(term.getId(), IDefaultConfiguration.DEFAULT_ID)) {
+        if (Objects.equals(term.getId(), DEFAULT_ID)) {
             term.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(term);
         }
@@ -78,7 +78,7 @@ public class SqlProvider {
     }
     
     public void createOrUpdateTopic(Topic topic) {
-        if (Objects.equals(topic.getId(), IDefaultConfiguration.DEFAULT_ID)) {
+        if (Objects.equals(topic.getId(), DEFAULT_ID)) {
             topic.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(topic);
         }
