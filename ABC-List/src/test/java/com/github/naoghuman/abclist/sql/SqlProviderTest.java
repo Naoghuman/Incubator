@@ -456,17 +456,73 @@ public class SqlProviderTest implements IDefaultConfiguration {
     }
     
     @Test
+    public void testFindAllTermsInExerciseTerms() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTermsInExerciseTerms()"); // NOI18N
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Term term1 = ModelProvider.getDefault().getTerm("Term1");
+        SqlProvider.getDefault().createOrUpdateTerm(term1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+
+        Term term2 = ModelProvider.getDefault().getTerm("Term2");
+        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm exerciseTerm1 = ModelProvider.getDefault().getExerciseTerm(1111L, term1.getId());
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm1);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm exerciseTerm2 = ModelProvider.getDefault().getExerciseTerm(1111L, term2.getId());
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm2);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(1111L);
+        ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsInExerciseTerms(exerciseTerms);
+        
+        assertFalse(terms.isEmpty());
+        assertTrue(terms.size() == 2);
+        assertEquals("Term1", terms.get(0).getTitle());
+        assertEquals("Term2", terms.get(1).getTitle());
+        
+        // ---------------------------------------------------------------------
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsInExerciseTerms()")
+                .delete(Term.class, term1.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsInExerciseTerms()")
+                .delete(Term.class, term2.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsInExerciseTerms()")
+                .delete(ExerciseTerm.class, exerciseTerm1.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllTermsInExerciseTerms()")
+                .delete(ExerciseTerm.class, exerciseTerm2.getId());
+    }
+    
+    @Test
     public void testFindAllTermsWithTitle() {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTermsWithTitle()"); // NOI18N
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
-        ObservableList<Term> terms = FXCollections.observableArrayList();
         Term term1 = ModelProvider.getDefault().getTerm("Term1");
         SqlProvider.getDefault().createOrUpdateTerm(term1);
         
-        terms.clear();
+        ObservableList<Term> terms = FXCollections.observableArrayList();
         terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("hello?"));
         assertTrue(terms.isEmpty());
         
