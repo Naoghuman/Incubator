@@ -371,6 +371,49 @@ public class SqlProviderTest implements IDefaultConfiguration {
     }
     
     @Test
+    public void testFindAllExercisesWithTopicId() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllExercisesWithTopicId()"); // NOI18N
+
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Exercise exercise1 = ModelProvider.getDefault().getExercise();
+        exercise1.setTopicId(111L);
+        SqlProvider.getDefault().createOrUpdateExercise(exercise1);
+        
+        ObservableList<Exercise> exercises = FXCollections.observableArrayList();
+        exercises.addAll(SqlProvider.getDefault().findAllExercisesWithTopicId(111L));
+        assertFalse(exercises.isEmpty());
+        assertTrue(exercises.size() == 1);
+        assertTrue(exercises.get(0).getTopicId() == 111L);
+        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Exercise exercise2 = ModelProvider.getDefault().getExercise();
+        exercise2.setTopicId(111L);
+        SqlProvider.getDefault().createOrUpdateExercise(exercise2);
+        
+        exercises.clear();
+        exercises.addAll(SqlProvider.getDefault().findAllExercisesWithTopicId(111L));
+        assertFalse(exercises.isEmpty());
+        assertTrue(exercises.size() == 2);
+        assertTrue(exercises.get(0).getId() == exercise2.getId());
+        assertTrue(exercises.get(0).getTopicId() == 111L);
+        assertTrue(exercises.get(1).getId() == exercise1.getId());
+        assertTrue(exercises.get(1).getTopicId() == 111L);
+        
+        // ---------------------------------------------------------------------
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllExercisesWithTopicId()")
+                .delete(Exercise.class, exercise1.getId());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testFindAllExercisesWithTopicId()")
+                .delete(Exercise.class, exercise2.getId());
+    }
+    
+    @Test
     public void testFindAllTerms() {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTerms()"); // NOI18N
         
@@ -402,6 +445,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals("Term1", terms.get(0).getTitle());
         assertEquals("Term2", terms.get(1).getTitle());
         
+        // ---------------------------------------------------------------------
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTerms()")
                 .delete(Term.class, term1.getId());
@@ -432,6 +476,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertTrue(terms.size() == 1);
         assertEquals("Term1", terms.get(0).getTitle());
         
+        // ---------------------------------------------------------------------
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTerms()")
                 .delete(Term.class, term1.getId());
@@ -469,6 +514,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertEquals("topic1", topics.get(0).getTitle());
         assertEquals("topic2", topics.get(1).getTitle());
         
+        // ---------------------------------------------------------------------
         DatabaseFacade.getDefault()
                 .getCrudService("testFindAllTopics()")
                 .delete(Topic.class, topic1.getId());
