@@ -161,6 +161,15 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         };
         
         lvNavigationTerms.setCellFactory(callbackTerms);
+        lvNavigationTerms.setOnMouseClicked(event -> {
+            if (
+                    event.getClickCount() == 2
+                    && !lvNavigationTerms.getSelectionModel().isEmpty()
+            ) {
+                final Term term = lvNavigationTerms.getSelectionModel().getSelectedItem();
+                this.onActionOpenTerm(term);
+            }
+        });
     }
     
     private void initializeWelcomeView() {
@@ -371,6 +380,13 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         final Parent parent = exerciseView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
         vbWorkingArea.getChildren().add(parent);
+    }
+    
+    private void onActionOpenTerm(Term term) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show [Term]"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "  # " + term.toString());
+
+        
     }
     
     private void onActionRefreshNavigationTabTerms(ObservableList<Topic> observableListTopics) {
