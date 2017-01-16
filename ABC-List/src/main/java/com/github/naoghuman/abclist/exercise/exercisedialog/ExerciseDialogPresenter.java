@@ -50,6 +50,7 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
     @FXML private Label lTimeCounter;
     @FXML private TextField tfUserInput;
     
+    private long exerciseId;
     private int exerciseTime = 60;
 
     @Override
@@ -73,11 +74,12 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         });
     }
     
-    public void configure(ETime time) {
+    public void configure(long exerciseId, ETime time) {
         LoggerFacade.getDefault().debug(this.getClass(), "Configure"); // NOI18N
         
-        lTimeCounter.setText(time.toString());
+        this.exerciseId = exerciseId;
         
+        lTimeCounter.setText(time.toString());
         exerciseTime = time.getSeconds();
         
         pauseTransition.setAutoReverse(false);
@@ -91,7 +93,7 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
                 pauseTransition.playFromStart();
             }
             else {
-                this.onActionStopExercise(ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY);
+                this.onActionStopExercise(ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY + exerciseId);
             }
         });
         
@@ -109,7 +111,7 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         }
 	
         final TransferData transferModel = new TransferData();
-        transferModel.setActionId(ACTION__EXERCISE_DIALOG__USER_TYPED_TERM);
+        transferModel.setActionId(ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exerciseId);
 		
         final Term term = ModelProvider.getDefault().getTerm(userInput);
         transferModel.setObject(term);
@@ -164,7 +166,7 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
     public void onActionUserStopExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action User stop [Exercise]"); // NOI18N
         
-        this.onActionStopExercise(ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE);
+        this.onActionStopExercise(ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE + exerciseId);
     }
     
 }

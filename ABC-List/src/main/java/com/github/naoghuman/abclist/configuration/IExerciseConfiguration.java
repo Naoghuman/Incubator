@@ -22,9 +22,9 @@ package com.github.naoghuman.abclist.configuration;
  */
 public interface IExerciseConfiguration {
     
-    public static final String ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY = "ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY"; // NOI18N
-    public static final String ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE = "ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE"; // NOI18N
-    public static final String ACTION__EXERCISE_DIALOG__USER_TYPED_TERM = "ACTION__EXERCISE_DIALOG__USER_TYPED_TERM"; // NOI18N
+    public static final String ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY = "ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY_"; // NOI18N
+    public static final String ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE = "ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE_"; // NOI18N
+    public static final String ACTION__EXERCISE_DIALOG__USER_TYPED_TERM = "ACTION__EXERCISE_DIALOG__USER_TYPED_TERM_"; // NOI18N
     
     public static final String ENTITY__TABLE_NAME__EXERCISE = "Exercise"; // NOI18N
     

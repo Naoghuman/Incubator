@@ -385,9 +385,13 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         rootItem.getChildren().clear();
         
         observableListTopics.forEach(topic -> {
+            LoggerFacade.getDefault().debug(this.getClass(), "  # " + topic.toString());
+            
             final ObservableList<Exercise> observableListExercises = SqlProvider.getDefault().findAllExercisesWithTopicId(topic.getId());
             final TreeItem<Object> treeItemTopic = new TreeItem<>(topic);
             observableListExercises.forEach(exercise -> {
+                LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
+            
                 final TreeItem<Object> treeItemExercise = new TreeItem<>(exercise);
                 treeItemTopic.getChildren().add(treeItemExercise);
             });
