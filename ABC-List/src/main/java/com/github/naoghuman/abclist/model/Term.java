@@ -198,6 +198,13 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
     }
     // END  TITLE --------------------------------------------------------------
     
+    public void copy(Term other) {
+        this.setDescription(other.getDescription());
+        this.setGenerationTime(other.getGenerationTime());
+        this.setId(other.getId());
+        this.setTitle(other.getTitle());
+    }
+    
     @Override
     public int compareTo(Term other) {
         return new CompareToBuilder()

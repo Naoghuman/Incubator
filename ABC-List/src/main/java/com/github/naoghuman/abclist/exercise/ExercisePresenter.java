@@ -223,13 +223,15 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         dialog.close();
     }
     
-    private void onActionUserTypedTerm(Term term) {
+    private void onActionUserTypedTerm(final Term term) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] typed [Term]"); // NOI18N
         
         // Check if the [Term] with the [title] in the [Database] exists
         final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(term.getTitle());
         if (observableListTerms.isEmpty()) {
             SqlProvider.getDefault().createOrUpdateTerm(term);
+        } else {
+            term.copy(observableListTerms.get(0));
         }
         
         // Check if the [Term] is associated with the [Exercise]

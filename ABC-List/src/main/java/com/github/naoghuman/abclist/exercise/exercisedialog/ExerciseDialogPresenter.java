@@ -115,8 +115,8 @@ public class ExerciseDialogPresenter implements Initializable, IExerciseConfigur
         transferModel.setObject(term);
         ActionFacade.getDefault().handle(transferModel);
         
-        tfUserInput.setText(null);
         Platform.runLater(() -> {
+            tfUserInput.setText(null);
             tfUserInput.requestFocus();
         });
     }
