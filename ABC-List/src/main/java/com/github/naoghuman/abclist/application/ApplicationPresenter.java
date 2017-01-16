@@ -25,6 +25,8 @@ import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
+import com.github.naoghuman.abclist.term.TermPresenter;
+import com.github.naoghuman.abclist.term.TermView;
 import com.github.naoghuman.abclist.welcome.WelcomeView;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
@@ -386,7 +388,43 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         LoggerFacade.getDefault().debug(this.getClass(), "On action show [Term]"); // NOI18N
         LoggerFacade.getDefault().debug(this.getClass(), "  # " + term.toString());
 
+        vbWorkingArea.getChildren().clear();
         
+        // Was the [Term] previously open?
+        int index = 0;
+        for (Navigation navigation : navigationViews) {
+            final Object object = navigation.getView();
+            if (object instanceof TermView) {
+                final TermView termView = (TermView) object;
+                final TermPresenter termPresenter = termView.getRealPresenter();
+                if (Objects.equals(termPresenter.getId(), term.getId())) {
+                    indexShownNavigationView = index;
+                    LoggerFacade.getDefault().debug(this.getClass(), "Show [TermView (index=" + indexShownNavigationView + ")]"); // NOI18N
+        
+                    
+                    final Parent parent = termView.getView();
+                    VBox.setVgrow(parent, Priority.ALWAYS);
+                    vbWorkingArea.getChildren().add(parent);
+                    return;
+                }
+            }
+            
+            ++index;
+        }
+        
+        // Generate new TermView
+        final Navigation<TermView> navigation = new Navigation<>();
+        final TermView termView = new TermView();
+        final TermPresenter termPresenter = termView.getRealPresenter();
+        termPresenter.configure(term);
+        navigation.setView(termView);
+        navigationViews.add(navigation);
+        indexShownNavigationView = navigationViews.size() - 1;
+        LoggerFacade.getDefault().debug(this.getClass(), "Add [TermView (index=" + indexShownNavigationView + ")]"); // NOI18N
+        
+        final Parent parent = termView.getView();
+        VBox.setVgrow(parent, Priority.ALWAYS);
+        vbWorkingArea.getChildren().add(parent);
     }
     
     private void onActionRefreshNavigationTabTerms(ObservableList<Topic> observableListTopics) {
