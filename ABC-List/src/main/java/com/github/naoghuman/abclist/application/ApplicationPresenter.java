@@ -70,7 +70,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
     @FXML private Button bNavigationToPrevious;
     @FXML private Button bNavigationShowAll;
     @FXML private ComboBox<Topic> cbNavigationTopics;
-    @FXML private ListView lvNavigationTerms;
+    @FXML private ListView<Term> lvNavigationTerms;
     @FXML private SplitPane spApplication;
     @FXML private TabPane tpNavigation;
     @FXML private TreeView<Object> tvNavigationTopics;
@@ -115,7 +115,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation] [Topic]s"); // NOI18N
         
         // TreeView
-        tvNavigationTopics.setCellFactory((TreeView<Object> p) -> new AbcListTreeCell());
+        tvNavigationTopics.setCellFactory((TreeView<Object> p) -> new NavigationTabTopicsListTreeCell());
     }
     
     private void initializeNavigationTabTerms() {
@@ -126,12 +126,14 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         cbNavigationTopics.setTooltip(tooltip);
         cbNavigationTopics.setDisable(true);
         
-        final Callback cellFactory = (Callback<ListView<Topic>, ListCell<Topic>>) (ListView<Topic> listView) -> new ListCell<Topic>() {
+        final Callback callbackTopics = (Callback<ListView<Topic>, ListCell<Topic>>) (ListView<Topic> listView) -> new ListCell<Topic>() {
             @Override
             protected void updateItem(Topic topic, boolean empty) {
                 super.updateItem(topic, empty);
+                
+                this.setGraphic(null);
+                
                 if (topic == null || empty) {
-                    this.setGraphic(null);
                     this.setText(null);
                 } else {
                     this.setText(topic.getTitle());
@@ -139,11 +141,26 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
             }
         };
 
-        cbNavigationTopics.setButtonCell((ListCell) cellFactory.call(null));
-        cbNavigationTopics.setCellFactory(cellFactory);
+        cbNavigationTopics.setButtonCell((ListCell) callbackTopics.call(null));
+        cbNavigationTopics.setCellFactory(callbackTopics);
         
         // ListView
+        final Callback callbackTerms = (Callback<ListView<Term>, ListCell<Term>>) (ListView<Term> listView) -> new ListCell<Term>() {
+            @Override
+            protected void updateItem(Term term, boolean empty) {
+                super.updateItem(term, empty);
+                
+                this.setGraphic(null);
+                
+                if (term == null || empty) {
+                    this.setText(null);
+                } else {
+                    this.setText(term.getTitle());
+                }
+            }
+        };
         
+        lvNavigationTerms.setCellFactory(callbackTerms);
     }
     
     private void initializeWelcomeView() {
@@ -367,7 +384,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         
         final Topic topic = ModelProvider.getDefault().getTopic(
                 IDefaultConfiguration.DEFAULT_ID__TOPIC__SHOW_ALL_TERMS,
-                "-- Show all existing Terms --"); // NOI18N
+                "=== Show all existing Terms ==="); // NOI18N
         observableListTopics.add(0, topic);
         
         cbNavigationTopics.getItems().addAll(observableListTopics);
@@ -403,20 +420,14 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
     }
     
     public void onActionShowTermsFromSelectedTopic() {
-        // If any [Topic] in the [ComboBox] selected?
+        // Is any [Topic] in the [ComboBox] selected?
         if (cbNavigationTopics.getSelectionModel().isEmpty()) {
             return;
         }
         
         LoggerFacade.getDefault().debug(this.getClass(), "On action show [Terms]s from selected [Topic]"); // NOI18N
-        
-        /*
-        TODO
-         - Catch selected [Topic] from the [ComboBox]
-         - Load all [Term]s from the [Topic]
-         - Show the loaded [Term]s in the [ListView]
-         - Double click on a [Term] opens the [TermView] for information/editing
-        */
+
+        // Catch which [Term] should be loaded
         final ObservableList<Term> terms = FXCollections.observableArrayList();
         final Topic topic = cbNavigationTopics.getSelectionModel().getSelectedItem();
         final long topicId = topic.getId();
@@ -426,21 +437,19 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         else {
             terms.addAll(SqlProvider.getDefault().findAllTermsWithTopicId(topicId));
         }
-        // XXX
-        terms.stream()
-                .forEach(term -> {
-                    System.out.println(term.toString());
-                });
         
+        // Show them in the gui
+        lvNavigationTerms.getItems().clear();
+        lvNavigationTerms.getItems().addAll(terms);
     }
     
-    private final class AbcListTreeCell extends TreeCell<Object> {
+    private final class NavigationTabTopicsListTreeCell extends TreeCell<Object> {
         
         private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
         private final ContextMenu contextMenu = new ContextMenu();
         private final MenuItem menuItem = new MenuItem();
         
-        public AbcListTreeCell() {
+        public NavigationTabTopicsListTreeCell() {
             contextMenu.getItems().add(menuItem);
         }
         
