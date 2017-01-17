@@ -22,7 +22,9 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -34,6 +36,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -76,6 +79,8 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
         this.setId(id);
         this.setGenerationTime(generationTime);
         this.setTitle(title);
+        
+        markAsChangedProperty = new SimpleBooleanProperty(Boolean.FALSE);
     }
        
     // START  ID ---------------------------------------------------------------
@@ -197,6 +202,24 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
         return titleProperty;
     }
     // END  TITLE --------------------------------------------------------------
+    
+    
+    // START  MARK-AS-CHANGED --------------------------------------------------
+    private transient BooleanProperty markAsChangedProperty = null;
+
+    @Transient
+    public boolean isMarkAsChanged() {
+        return markAsChangedProperty.getValue();
+    }
+    
+    public BooleanProperty markAsChangedProperty() {
+        return markAsChangedProperty;
+    }
+    
+    public void setMarkAsChanged(boolean isMarkAsChanged) {
+        markAsChangedProperty.setValue(isMarkAsChanged);
+    }
+    // END  MARK-AS-CHANGED ----------------------------------------------------
     
     public void copy(Term other) {
         this.setDescription(other.getDescription());
