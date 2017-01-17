@@ -19,8 +19,6 @@ package com.github.naoghuman.abclist.exercise;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogPresenter;
 import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogView;
-import com.github.naoghuman.abclist.exercise.sign.SignPresenter;
-import com.github.naoghuman.abclist.exercise.sign.SignView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;
@@ -35,19 +33,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -57,14 +56,39 @@ import javafx.stage.StageStyle;
  */
 public class ExercisePresenter implements Initializable, IExerciseConfiguration, IRegisterActions {
     
-        
+    private final ObservableList<FlowPane> flowPaneTerms = FXCollections.observableArrayList();
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
     private final Stage dialog = new Stage();
         
     @FXML private Button bStartExercise;
     @FXML private ComboBox<ETime> cbTime;
+    @FXML private FlowPane tfSignA;
+    @FXML private FlowPane tfSignB;
+    @FXML private FlowPane tfSignC;
+    @FXML private FlowPane tfSignD;
+    @FXML private FlowPane tfSignE;
+    @FXML private FlowPane tfSignF;
+    @FXML private FlowPane tfSignG;
+    @FXML private FlowPane tfSignH;
+    @FXML private FlowPane tfSignI;
+    @FXML private FlowPane tfSignJ;
+    @FXML private FlowPane tfSignK;
+    @FXML private FlowPane tfSignL;
+    @FXML private FlowPane tfSignM;
+    @FXML private FlowPane tfSignN;
+    @FXML private FlowPane tfSignO;
+    @FXML private FlowPane tfSignP;
+    @FXML private FlowPane tfSignQ;
+    @FXML private FlowPane tfSignR;
+    @FXML private FlowPane tfSignS;
+    @FXML private FlowPane tfSignT;
+    @FXML private FlowPane tfSignU;
+    @FXML private FlowPane tfSignV;
+    @FXML private FlowPane tfSignW;
+    @FXML private FlowPane tfSignX;
+    @FXML private FlowPane tfSignY;
+    @FXML private FlowPane tfSignZ;
     @FXML private Label lGenerationTime;
-    @FXML private VBox vbSigns;
     
     private Exercise exercise;
     
@@ -74,7 +98,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         this.initializeComboBoxTime();
         this.initializeDialog();
-        this.initializeSigns();
+        this.initializeFlowPaneTerms();
     }
     
     private void initializeComboBoxTime() {
@@ -105,19 +129,34 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         dialog.setResizable(false);
     }
     
-    private void initializeSigns() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize Signs"); // NOI18N
-        
-        vbSigns.getChildren().clear();
-        for (ESign sign : ESign.values()) {
-            final SignView signView = new SignView();
-            final SignPresenter signPresenter = signView.getRealPresenter();
-            signPresenter.configure(sign);
-            
-            final Parent view = signView.getView();
-            view.setUserData(signPresenter);
-            vbSigns.getChildren().add(view);
-        }
+    private void initializeFlowPaneTerms() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [FlowPane] [Term]s"); // NOI18N
+        flowPaneTerms.add(tfSignA);
+        flowPaneTerms.add(tfSignB);
+        flowPaneTerms.add(tfSignC);
+        flowPaneTerms.add(tfSignD);
+        flowPaneTerms.add(tfSignE);
+        flowPaneTerms.add(tfSignF);
+        flowPaneTerms.add(tfSignG);
+        flowPaneTerms.add(tfSignH);
+        flowPaneTerms.add(tfSignI);
+        flowPaneTerms.add(tfSignJ);
+        flowPaneTerms.add(tfSignK);
+        flowPaneTerms.add(tfSignL);
+        flowPaneTerms.add(tfSignM);
+        flowPaneTerms.add(tfSignN);
+        flowPaneTerms.add(tfSignO);
+        flowPaneTerms.add(tfSignP);
+        flowPaneTerms.add(tfSignQ);
+        flowPaneTerms.add(tfSignR);
+        flowPaneTerms.add(tfSignS);
+        flowPaneTerms.add(tfSignT);
+        flowPaneTerms.add(tfSignU);
+        flowPaneTerms.add(tfSignV);
+        flowPaneTerms.add(tfSignW);
+        flowPaneTerms.add(tfSignX);
+        flowPaneTerms.add(tfSignY);
+        flowPaneTerms.add(tfSignZ);
     }
     
     private char computeFirstChar(String term) {
@@ -157,6 +196,63 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         return exercise.getId();
     }
     
+    private FlowPane getFlowPane(char firstChar) {
+        FlowPane fl = new FlowPane();
+        for (FlowPane flowPane : flowPaneTerms) {
+            if (flowPane.getId().toLowerCase().charAt(0) == firstChar) {
+                fl = flowPane;
+            }
+        }
+        
+        return fl;
+    }
+    
+    private Label getLabel(Term term) {
+        final Label label = new Label(term.getTitle());
+        label.setUserData(term); // TODO tweak it
+        label.setStyle("-fx-background-color:LIGHTGREEN;"); // NOI18N
+        
+        return label;
+    }
+    
+    private void onActionAddTerm(Term term) {
+        final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
+        final FlowPane fp = this.getFlowPane(firstChar);
+        final AtomicBoolean isTermAdded = new AtomicBoolean(false);
+        for (Node node : fp.getChildren()) {
+            if (node instanceof Label) {
+                final Label label = (Label) node;
+                if (label.getUserData() instanceof Term) {
+                    final Term addedTerm = (Term) label.getUserData();
+                    if (addedTerm.getTitle().equals(term.getTitle())) {
+                        isTermAdded.set(true);
+                        break;
+                    }
+
+                }
+            }
+        }
+        
+        if (!isTermAdded.get()) {
+            fp.getChildren().add(this.getLabel(term));
+            FXCollections.sort(fp.getChildren(), (Node node1, Node node2) -> {
+                int compare = 0;
+                if (
+                        node1 instanceof Label
+                        && node2 instanceof Label
+                        && node1.getUserData() instanceof Term
+                        && node2.getUserData() instanceof Term
+                ) {
+                    final Term term1 = (Term) node1.getUserData();
+                    final Term term2 = (Term) node2.getUserData();
+                    compare = term1.getTitle().compareTo(term2.getTitle());
+                }
+                
+                return compare;
+            });
+        }
+    }
+    
     private void onActionDisableComponents() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action disable [Component]s"); // NOI18N
         
@@ -186,17 +282,16 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         final ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsInExerciseTerms(exerciseTerms);
         terms.stream()
                 .forEach(term -> {
-                    vbSigns.getChildren().stream()
-                        .filter((node) -> (node.getUserData() instanceof SignPresenter))
-                        .forEach((node) -> {
-                            final SignPresenter presenter = (SignPresenter) node.getUserData();
-                            final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
-                            if (presenter.isSign(firstChar)) {
-                                presenter.addTerm(term);
+                    this.onActionAddTerm(term);
+                });
+    }
+    
+    private void onActionResetFlowPanes() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action reset [FlowPane]s"); // NOI18N
         
-                                LoggerFacade.getDefault().debug(this.getClass(), "  # " + term.toString());
-                            }
-                        });
+        flowPaneTerms.stream()
+                .forEach(flowPane -> {
+                    flowPane.getChildren().clear();
                 });
     }
     
@@ -223,7 +318,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         SqlProvider.getDefault().deleteAllExerciseTermsWithExerciseId(exercise.getId());
         
         // Reset the gui
-        this.initializeSigns();
+        this.onActionResetFlowPanes();
         
         // Close dialog
         dialog.close();
@@ -264,15 +359,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         }
         
         // Show the [Term] in the [FlowPane]
-        vbSigns.getChildren().stream()
-                .filter((node) -> (node.getUserData() instanceof SignPresenter))
-                .forEach((node) -> {
-                    final SignPresenter presenter = (SignPresenter) node.getUserData();
-                    final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
-                    if (presenter.isSign(firstChar)) {
-                        presenter.addTerm(term);
-                    }
-                });
+        this.onActionAddTerm(term);
     }
     
     @Override

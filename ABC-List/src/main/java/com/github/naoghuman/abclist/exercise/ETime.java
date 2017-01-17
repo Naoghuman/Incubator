@@ -22,8 +22,8 @@ package com.github.naoghuman.abclist.exercise;
  */
 public enum ETime {
     
-    MIN_01_00(60 , "01:00"), // NOI18N
-    MIN_02_00(120, "02:00"), // NOI18N
+    MIN_00_30(30 , "00:30"), // NOI18N // XXX REMOVE 
+    MIN_01_30(90 , "01:30"), // NOI18N
     MIN_03_00(180, "03:00"), // NOI18N
     MIN_05_00(300, "05:00"), // NOI18N
     MIN_10_00(600, "10:00"); // NOI18N
