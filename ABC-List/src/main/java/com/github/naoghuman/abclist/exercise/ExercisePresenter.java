@@ -88,7 +88,10 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     @FXML private FlowPane tfSignX;
     @FXML private FlowPane tfSignY;
     @FXML private FlowPane tfSignZ;
+    @FXML private Label lCounterTerms;
     @FXML private Label lGenerationTime;
+    
+    private int counterTerms = 0;
     
     private Exercise exercise;
     
@@ -157,6 +160,8 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         flowPaneTerms.add(tfSignX);
         flowPaneTerms.add(tfSignY);
         flowPaneTerms.add(tfSignZ);
+        
+        lCounterTerms.setText("Quantity: " + counterTerms);
     }
     
     private char computeFirstChar(String term) {
@@ -253,6 +258,17 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         }
     }
     
+    private void onActionCountTerms() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action count [Term]s"); // NOI18N
+        
+        counterTerms = 0;
+        flowPaneTerms.stream()
+                .forEach(flowPane -> {
+                    counterTerms += flowPane.getChildren().size();
+                });
+        lCounterTerms.setText("Quantity: " + counterTerms);
+    }
+    
     private void onActionDisableComponents() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action disable [Component]s"); // NOI18N
         
@@ -270,6 +286,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         // Reflect the new state in the gui
         this.onActionDisableComponents();
+        this.onActionCountTerms();
         
         // Close dialog
         dialog.close();
@@ -278,11 +295,13 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
     private void onActionLoadAllTerms() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action load all [Term]s"); // NOI18N
 
+        // Compute all [Term] from this [Exercise]
         final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exercise.getId());
         final ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsInExerciseTerms(exerciseTerms);
         terms.stream()
                 .forEach(term -> {
                     this.onActionAddTerm(term);
+                    this.onActionCountTerms();
                 });
     }
     
@@ -319,6 +338,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         // Reset the gui
         this.onActionResetFlowPanes();
+        this.onActionCountTerms();
         
         // Close dialog
         dialog.close();
@@ -360,6 +380,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         
         // Show the [Term] in the [FlowPane]
         this.onActionAddTerm(term);
+        this.onActionCountTerms();
     }
     
     @Override
