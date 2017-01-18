@@ -16,8 +16,10 @@
  */
 package com.github.naoghuman.abclist.term;
 
+import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.sql.SqlProvider;
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +35,7 @@ import javafx.scene.control.TextField;
  *
  * @author Naoghuman
  */
-public class TermPresenter implements Initializable {
+public class TermPresenter implements Initializable, IApplicationConfiguration {
     
     @FXML private Button bSave;
     @FXML private TextArea taDescription;
@@ -89,8 +91,8 @@ public class TermPresenter implements Initializable {
         // Reset [MarkAsChanged]
         term.setMarkAsChanged(Boolean.FALSE);
         
-        // TODO Reload selection from the [ComboBox] [cbNavigationTopics]
-        
+        // Reload selection from the [ComboBox] [cbNavigationTopics]
+        ActionFacade.getDefault().handle(ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION);
     }
     
     private final class StringChangeListener implements ChangeListener<String> {

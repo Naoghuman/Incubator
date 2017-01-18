@@ -28,6 +28,7 @@ import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.abclist.term.TermPresenter;
 import com.github.naoghuman.abclist.term.TermView;
 import com.github.naoghuman.abclist.welcome.WelcomeView;
+import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
@@ -38,6 +39,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -192,11 +194,6 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [ApplicationPresenter] after window is showing"); // NOI18N
     
-    }
-    
-    @Override
-    public void registerActions() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in [ApplicationPresenter]"); // NOI18N
     }
     
     private void onActionCreateNewExercise(Topic topic) {
@@ -450,6 +447,18 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
 //        }
     }
 
+    private void onActionRefreshNavigationTabTermsWithSelection() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] tab [Term] selection"); // NOI18N
+        
+        final int selectedIndex = cbNavigationTopics.getSelectionModel().getSelectedIndex();
+        
+        final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
+//        this.onActionRefreshNavigationTabTopics(observableListTopics);
+        this.onActionRefreshNavigationTabTerms(observableListTopics);
+        
+        cbNavigationTopics.getSelectionModel().select(selectedIndex);
+    }
+
     private void onActionRefreshNavigationTabTopics(ObservableList<Topic> observableListTopics) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] [Topic]s"); // NOI18N
         
@@ -495,6 +504,23 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         // Show them in the gui
         lvNavigationTerms.getItems().clear();
         lvNavigationTerms.getItems().addAll(terms);
+    }
+    
+    @Override
+    public void registerActions() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in [ApplicationPresenter]"); // NOI18N
+        
+        this.registerOnActionRefreshNavigationTabTermsWithSelection();
+    }
+
+    private void registerOnActionRefreshNavigationTabTermsWithSelection() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action refresh [Navigation] tab [Term] selection"); // NOI18N
+        
+        ActionFacade.getDefault().register(
+                ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION,
+                (ActionEvent ae) -> {
+                    this.onActionRefreshNavigationTabTermsWithSelection();
+                });
     }
     
     private final class NavigationTabTopicsListTreeCell extends TreeCell<Object> {
