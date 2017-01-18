@@ -20,16 +20,13 @@ package com.github.naoghuman.abclist.configuration;
  *
  * @author Naoghuman
  */
-public interface IExerciseConfiguration {
+public interface IActionConfiguration {
     
-    public static final String ENTITY__TABLE_NAME__EXERCISE = "Exercise"; // NOI18N
+    public static final String ACTION__APPLICATION__OPEN_TERM = "ACTION__APPLICATION__OPEN_TERM"; // NOI18N
+    public static final String ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION = "ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION"; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__FIND_ALL_WITH_TOPIC_ID = "Exercise.findAllWithTopicId"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL_WITH_TOPIC_ID = "SELECT e FROM Exercise e WHERE e.topicId == :topicId"; // NOI18N
-    
-    public static final String EXERCISE__COLUMN_NAME__ID = "id"; // NOI18N
-    public static final String EXERCISE__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
-    public static final String EXERCISE__COLUMN_NAME__TOPIC_ID = "topicId"; // NOI18N
-    public static final String EXERCISE__COLUMN_NAME__READY = "ready"; // NOI18N
+    public static final String ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY = "ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY_"; // NOI18N
+    public static final String ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE = "ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE_"; // NOI18N
+    public static final String ACTION__EXERCISE_DIALOG__USER_TYPED_TERM = "ACTION__EXERCISE_DIALOG__USER_TYPED_TERM_"; // NOI18N
     
 }

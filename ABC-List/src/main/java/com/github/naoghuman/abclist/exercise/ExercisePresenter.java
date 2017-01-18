@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.abclist.exercise;
 
-import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
+import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogPresenter;
 import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogView;
@@ -55,7 +55,7 @@ import javafx.stage.StageStyle;
  *
  * @author Naoghuman
  */
-public class ExercisePresenter implements Initializable, IApplicationConfiguration, IExerciseConfiguration, IRegisterActions {
+public class ExercisePresenter implements Initializable, IActionConfiguration, IExerciseConfiguration, IRegisterActions {
     
     private final ObservableList<FlowPane> flowPaneTerms = FXCollections.observableArrayList();
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N

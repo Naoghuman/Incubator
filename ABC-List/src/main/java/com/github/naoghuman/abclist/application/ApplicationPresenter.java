@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.abclist.application;
 
+import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.exercise.ExercisePresenter;
@@ -66,7 +67,7 @@ import javafx.util.Callback;
  *
  * @author Naoghuman
  */
-public class ApplicationPresenter implements Initializable, IApplicationConfiguration, IRegisterActions {
+public class ApplicationPresenter implements Initializable, IActionConfiguration, IApplicationConfiguration, IRegisterActions {
     
     @FXML private Button bNavigationCreateNewTopic;
     @FXML private Button bNavigationCreateNewTerm;
@@ -525,7 +526,6 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
                     final Term term = (Term) transferData.getObject();
                     this.onActionOpenTerm(term);
                     // TODO select tab terms, select index from the topic in the combobox
-                    // TODO move all action events constants to IActionConfiguration
                 });
     }
 

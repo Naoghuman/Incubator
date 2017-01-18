@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.abclist.term;
 
-import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
+import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.lib.action.api.ActionFacade;
@@ -35,7 +35,7 @@ import javafx.scene.control.TextField;
  *
  * @author Naoghuman
  */
-public class TermPresenter implements Initializable, IApplicationConfiguration {
+public class TermPresenter implements Initializable, IActionConfiguration {
     
     @FXML private Button bSave;
     @FXML private TextArea taDescription;

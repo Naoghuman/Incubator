@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.abclist.exercise.exercisedialog;
 
+import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.exercise.ETime;
 import com.github.naoghuman.abclist.model.ModelProvider;
@@ -42,7 +43,7 @@ import javafx.util.Duration;
  *
  * @author Naoghuman
  */
-public class ExerciseDialogPresenter implements Initializable, IExerciseConfiguration {
+public class ExerciseDialogPresenter implements Initializable, IActionConfiguration, IExerciseConfiguration {
     
     private final PauseTransition pauseTransition = new PauseTransition();
     
