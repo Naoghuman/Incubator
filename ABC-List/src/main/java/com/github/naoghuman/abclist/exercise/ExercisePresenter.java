@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.abclist.exercise;
 
+import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogPresenter;
 import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogView;
@@ -54,7 +55,7 @@ import javafx.stage.StageStyle;
  *
  * @author Naoghuman
  */
-public class ExercisePresenter implements Initializable, IExerciseConfiguration, IRegisterActions {
+public class ExercisePresenter implements Initializable, IApplicationConfiguration, IExerciseConfiguration, IRegisterActions {
     
     private final ObservableList<FlowPane> flowPaneTerms = FXCollections.observableArrayList();
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
@@ -216,6 +217,15 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
         final Label label = new Label(term.getTitle());
         label.setUserData(term); // TODO tweak it
         label.setStyle("-fx-background-color:LIGHTGREEN;"); // NOI18N
+        label.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                final TransferData transferData = new TransferData();
+                transferData.setActionId(ACTION__APPLICATION__OPEN_TERM);
+                transferData.setObject(term);
+                
+                ActionFacade.getDefault().handle(transferData);
+            }
+        });
         
         return label;
     }
@@ -397,7 +407,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
 
         ActionFacade.getDefault().register(
                 ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY + exercise.getId(),
-                (ActionEvent ae) -> {
+                (ActionEvent event) -> {
                     this.onActionExerciseIsReady();
                 });
     }
@@ -407,7 +417,7 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
 
         ActionFacade.getDefault().register(
                 ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE + exercise.getId(),
-                (ActionEvent ae) -> {
+                (ActionEvent event) -> {
                     this.onActionUserStopExercise();
                 });
     }
@@ -417,8 +427,8 @@ public class ExercisePresenter implements Initializable, IExerciseConfiguration,
 
         ActionFacade.getDefault().register(
                 ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exercise.getId(),
-                (ActionEvent ae) -> {
-                    final TransferData transferData = (TransferData) ae.getSource();
+                (ActionEvent event) -> {
+                    final TransferData transferData = (TransferData) event.getSource();
                     final Term term = (Term) transferData.getObject();
                     this.onActionUserTypedTerm(term);
                 });

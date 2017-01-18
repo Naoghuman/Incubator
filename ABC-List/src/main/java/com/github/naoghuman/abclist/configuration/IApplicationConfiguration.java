@@ -29,6 +29,7 @@ public interface IApplicationConfiguration {
     
     public static final Duration DURATION__125 = Duration.millis(125.0d);
     
+    public static final String ACTION__APPLICATION__OPEN_TERM = "ACTION__APPLICATION__OPEN_TERM"; // NOI18N
     public static final String ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION = "ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION"; // NOI18N
     
     public static final String KEY__APPLICATION__BORDER_SIGN = "application.border.sign"; // NOI18N

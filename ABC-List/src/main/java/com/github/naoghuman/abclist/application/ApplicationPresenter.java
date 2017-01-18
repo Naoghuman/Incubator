@@ -30,6 +30,7 @@ import com.github.naoghuman.abclist.term.TermView;
 import com.github.naoghuman.abclist.welcome.WelcomeView;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
+import com.github.naoghuman.lib.action.api.TransferData;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -510,7 +511,22 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
     public void registerActions() {
         LoggerFacade.getDefault().debug(this.getClass(), "Register actions in [ApplicationPresenter]"); // NOI18N
         
+        this.registerOnActionOpenTerm();
         this.registerOnActionRefreshNavigationTabTermsWithSelection();
+    }
+    
+    private void registerOnActionOpenTerm() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action open [Term]"); // NOI18N
+        
+        ActionFacade.getDefault().register(
+                ACTION__APPLICATION__OPEN_TERM,
+                (ActionEvent event) -> {
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final Term term = (Term) transferData.getObject();
+                    this.onActionOpenTerm(term);
+                    // TODO select tab terms, select index from the topic in the combobox
+                    // TODO move all action events constants to IActionConfiguration
+                });
     }
 
     private void registerOnActionRefreshNavigationTabTermsWithSelection() {
@@ -518,7 +534,7 @@ public class ApplicationPresenter implements Initializable, IApplicationConfigur
         
         ActionFacade.getDefault().register(
                 ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION,
-                (ActionEvent ae) -> {
+                (ActionEvent event) -> {
                     this.onActionRefreshNavigationTabTermsWithSelection();
                 });
     }
