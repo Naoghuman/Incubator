@@ -62,11 +62,16 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     }
 
     public Topic(long id, String title) {
-        this.init(id, title);
+        this(id, DEFAULT_ID, title);
+    }
+
+    public Topic(long id, long parentId, String title) {
+        this.init(id, parentId, title);
     }
     
-    private void init(long id, String title) {
+    private void init(long id, long parentId, String title) {
         this.setId(id);
+        this.setParentId(parentId);
         this.setTitle(title);
     }
        
@@ -100,6 +105,38 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         return idProperty;
     }
     // END  ID -----------------------------------------------------------------
+       
+    // START  PARENT-ID --------------------------------------------------------
+    // DEFAULT_ID means this [Topic] haven't another [Topic] as parent.
+    private LongProperty parentIdProperty;
+    private long _parentId = DEFAULT_ID;
+
+    @Id
+    @Column(name = TOPIC__COLUMN_NAME__ID)
+    public long getParentId() {
+        if (parentIdProperty == null) {
+            return _parentId;
+        } else {
+            return parentIdProperty.get();
+        }
+    }
+
+    public final void setParentId(long parentId) {
+        if (parentIdProperty == null) {
+            _parentId = parentId;
+        } else {
+            parentIdProperty.set(parentId);
+        }
+    }
+
+    public LongProperty parentIdProperty() {
+        if (parentIdProperty == null) {
+            parentIdProperty = new SimpleLongProperty(this, TOPIC__COLUMN_NAME__ID, _parentId);
+        }
+        
+        return parentIdProperty;
+    }
+    // END  PARENT-ID ----------------------------------------------------------
     
     // START  TITLE ------------------------------------------------------------
     private StringProperty titleProperty = null;
@@ -135,7 +172,8 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     public int compareTo(Topic other) {
         return new CompareToBuilder()
                 .append(this.getTitle(), other.getTitle())
-                .append(this.getId(), this.getId())
+                .append(this.getId(), other.getId())
+                .append(this.getParentId(), other.getParentId())
                 .toComparison();
     }
 
@@ -155,6 +193,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         final Topic other = (Topic) obj;
         return new EqualsBuilder()
                 .append(this.getId(), other.getId())
+                .append(this.getParentId(), this.getParentId())
                 .append(this.getTitle(), other.getTitle())
                 .isEquals();
     }
@@ -163,6 +202,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(this.getId())
+                .append(this.getParentId())
                 .append(this.getTitle())
                 .toHashCode();
     }
@@ -171,6 +211,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     public String toString() {
         return new ToStringBuilder(this)
                 .append(TOPIC__COLUMN_NAME__ID, this.getId())
+                .append(TOPIC__COLUMN_NAME__PARENT_ID, this.getId())
                 .append(TOPIC__COLUMN_NAME__TITLE, this.getTitle())
                 .toString();
     }
@@ -178,12 +219,14 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
+        out.writeLong(this.getParentId());
         out.writeObject(this.getTitle());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
+        this.setParentId(in.readLong());
         this.setTitle(String.valueOf(in.readObject()));
     }
     

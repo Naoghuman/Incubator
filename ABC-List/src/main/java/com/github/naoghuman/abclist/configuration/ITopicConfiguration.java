@@ -28,6 +28,7 @@ public interface ITopicConfiguration {
     public static final String NAMED_QUERY__QUERY__FIND_ALL = "SELECT t FROM Topic t"; // NOI18N
     
     public static final String TOPIC__COLUMN_NAME__ID = "id"; // NOI18N
+    public static final String TOPIC__COLUMN_NAME__PARENT_ID = "parentId"; // NOI18N
     public static final String TOPIC__COLUMN_NAME__TITLE = "title"; // NOI18N
 
 }

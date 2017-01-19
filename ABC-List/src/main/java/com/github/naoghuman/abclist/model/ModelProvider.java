@@ -82,6 +82,10 @@ public class ModelProvider {
         return new Topic(id, title);
     }
     
+    public Topic getTopic(long id, long parentId, String title) {
+        return new Topic(id, parentId, title);
+    }
+    
     public Topic getTopic(String title) {
         return new Topic(title);
     }
