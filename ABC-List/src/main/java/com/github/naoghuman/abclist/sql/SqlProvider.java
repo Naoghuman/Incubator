@@ -182,14 +182,7 @@ public class SqlProvider implements IDefaultConfiguration {
     }
     
     public ObservableList<Topic> findAllTopics() {
-        final ObservableList<Topic> allTopics = FXCollections.observableArrayList();
-        final List<Topic> topics = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Topic.class, ITopicConfiguration.NAMED_QUERY__NAME__FIND_ALL);
-        
-        allTopics.addAll(topics);
-        Collections.sort(allTopics);
-
-        return allTopics;
+        return TopicSqlService.getDefault().findAllTopics();
     }
     
     public void updateTopic(Topic topic) {

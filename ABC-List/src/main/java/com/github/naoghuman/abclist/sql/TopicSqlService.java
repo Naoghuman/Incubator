@@ -17,11 +17,15 @@
 package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
-import static com.github.naoghuman.abclist.configuration.IDefaultConfiguration.DEFAULT_ID;
+import com.github.naoghuman.abclist.configuration.ITopicConfiguration;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -47,6 +51,17 @@ public class TopicSqlService implements IDefaultConfiguration {
         else {
             this.update(topic);
         }
+    }
+    
+    public ObservableList<Topic> findAllTopics() {
+        final ObservableList<Topic> allTopics = FXCollections.observableArrayList();
+        final List<Topic> topics = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(Topic.class, ITopicConfiguration.NAMED_QUERY__NAME__FIND_ALL);
+        
+        allTopics.addAll(topics);
+        Collections.sort(allTopics);
+
+        return allTopics;
     }
     
     public void update(Topic topic) {
