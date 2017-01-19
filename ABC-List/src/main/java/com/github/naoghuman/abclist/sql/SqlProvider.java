@@ -77,14 +77,8 @@ public class SqlProvider implements IDefaultConfiguration {
         }
     }
     
-    public void createOrUpdateTopic(Topic topic) {
-        if (Objects.equals(topic.getId(), DEFAULT_ID)) {
-            topic.setId(System.currentTimeMillis());
-            DatabaseFacade.getDefault().getCrudService().create(topic);
-        }
-        else {
-            DatabaseFacade.getDefault().getCrudService().update(topic);
-        }
+    public void createTopic(Topic topic) {
+        TopicSqlService.getDefault().create(topic);
     }
 
     public void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
@@ -196,6 +190,10 @@ public class SqlProvider implements IDefaultConfiguration {
         Collections.sort(allTopics);
 
         return allTopics;
+    }
+    
+    public void updateTopic(Topic topic) {
+        TopicSqlService.getDefault().update(topic);
     }
     
 }

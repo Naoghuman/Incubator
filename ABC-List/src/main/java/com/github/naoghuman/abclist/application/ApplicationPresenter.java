@@ -67,7 +67,9 @@ import javafx.util.Callback;
  *
  * @author Naoghuman
  */
-public class ApplicationPresenter implements Initializable, IActionConfiguration, IApplicationConfiguration, IRegisterActions {
+public class ApplicationPresenter implements Initializable, IActionConfiguration, 
+        IApplicationConfiguration, IDefaultConfiguration, IRegisterActions 
+{
     
     @FXML private Button bNavigationCreateNewTopic;
     @FXML private Button bNavigationCreateNewTerm;
@@ -247,7 +249,12 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             
             // Create a new [Topic]
             final Topic topic = ModelProvider.getDefault().getTopic(title);
-            SqlProvider.getDefault().createOrUpdateTopic(topic);
+            if (Objects.equals(topic.getId(), DEFAULT_ID)) {
+               SqlProvider.getDefault().createTopic(topic);
+            }
+            else {
+                SqlProvider.getDefault().updateTopic(topic);
+            }
             
             // Update gui
             topics.clear();

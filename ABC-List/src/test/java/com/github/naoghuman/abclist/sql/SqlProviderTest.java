@@ -17,6 +17,7 @@
 package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
+import static com.github.naoghuman.abclist.configuration.IDefaultConfiguration.DEFAULT_ID;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;
@@ -24,6 +25,7 @@ import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
+import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.AfterClass;
@@ -247,6 +249,9 @@ public class SqlProviderTest implements IDefaultConfiguration {
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
+        final Topic topic = ModelProvider.getDefault().getTopic("Topic1");
+        topic.setId(System.currentTimeMillis());
+        
         Topic topic1 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateTopic()")
                 .create(ModelProvider.getDefault().getTopic("Topic1"));
@@ -267,7 +272,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Topic topic2 = ModelProvider.getDefault().getTopic("Topic2");
-        SqlProvider.getDefault().createOrUpdateTopic(topic2);
+        SqlProvider.getDefault().createTopic(topic2);
         
         Topic topicFromDatabase2 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateTopic()")
@@ -286,10 +291,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Topic topic3 = ModelProvider.getDefault().getTopic("Topic3");
-        SqlProvider.getDefault().createOrUpdateTopic(topic3);
+        SqlProvider.getDefault().createTopic(topic3);
         
         topic3.setTitle("Topic3 aaaaaaaa");
-        SqlProvider.getDefault().createOrUpdateTopic(topic3);
+        SqlProvider.getDefault().updateTopic(topic3);
         
         Topic topicFromDatabase3 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateTopic()")
@@ -542,7 +547,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Topic topic1 = ModelProvider.getDefault().getTopic("topic1");
-        SqlProvider.getDefault().createOrUpdateTopic(topic1);
+        SqlProvider.getDefault().createTopic(topic1);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
@@ -658,7 +663,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertTrue(topics.isEmpty());
         
         Topic topic1 = ModelProvider.getDefault().getTopic("topic1");
-        SqlProvider.getDefault().createOrUpdateTopic(topic1);
+        SqlProvider.getDefault().createTopic(topic1);
         
         topics.clear();
         topics.addAll(SqlProvider.getDefault().findAllTopics());
@@ -669,7 +674,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Topic topic2 = ModelProvider.getDefault().getTopic("topic2");
-        SqlProvider.getDefault().createOrUpdateTopic(topic2);
+        SqlProvider.getDefault().createTopic(topic2);
         
         topics.clear();
         topics.addAll(SqlProvider.getDefault().findAllTopics());

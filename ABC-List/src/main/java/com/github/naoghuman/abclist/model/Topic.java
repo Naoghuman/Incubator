@@ -111,7 +111,6 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     private LongProperty parentIdProperty;
     private long _parentId = DEFAULT_ID;
 
-    @Id
     @Column(name = TOPIC__COLUMN_NAME__ID)
     public long getParentId() {
         if (parentIdProperty == null) {
