@@ -223,6 +223,41 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         }
     }
     
+    public void onActionCreateNewTerm() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Term]"); // NOI18N
+        
+        // TODO replace it with AnchorPane
+        final TextInputDialog dialog = new TextInputDialog(); // NOI18N
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setHeaderText("Create Term"); // NOI18N
+        dialog.setResizable(false);
+        dialog.setTitle("Simple Term Wizard"); // NOI18N
+        
+        final Optional<String> result = dialog.showAndWait();
+        if (
+                result.isPresent()
+                && !result.get().isEmpty()
+        ) {
+            // Check if the [Term] always exists
+            final ObservableList<Term> terms = SqlProvider.getDefault().findAllTerms();
+            final String title = result.get();
+            for (Term term : terms) {
+                if (term.getTitle().equals(title)) {
+                    return;
+                }
+            }
+            
+            // Create a new [Term]
+            final Term term = ModelProvider.getDefault().getTerm(title);
+            SqlProvider.getDefault().createOrUpdateTerm(term);
+            
+            // Update gui
+            final int selectedIndex = cbNavigationTopics.getSelectionModel().getSelectedIndex();
+            cbNavigationTopics.getSelectionModel().clearSelection();
+            cbNavigationTopics.getSelectionModel().select(selectedIndex);
+        }
+    }
+    
     public void onActionCreateNewTopic() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Topic]"); // NOI18N
         
@@ -231,7 +266,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setHeaderText("Create Topic"); // NOI18N
         dialog.setResizable(false);
-        dialog.setTitle("Topic Wizard"); // NOI18N
+        dialog.setTitle("Simple Topic Wizard"); // NOI18N
         
         final Optional<String> result = dialog.showAndWait();
         if (
@@ -249,12 +284,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             
             // Create a new [Topic]
             final Topic topic = ModelProvider.getDefault().getTopic(title);
-            if (Objects.equals(topic.getId(), DEFAULT_ID)) {
-               SqlProvider.getDefault().createTopic(topic);
-            }
-            else {
-                SqlProvider.getDefault().updateTopic(topic);
-            }
+            SqlProvider.getDefault().createTopic(topic);
             
             // Update gui
             topics.clear();
@@ -262,20 +292,6 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             this.onActionRefreshNavigationTabTopics(topics);
             this.onActionRefreshNavigationTabTerms(topics);
         }
-    }
-    
-    public void onActionCreateNewTerm() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Term]"); // NOI18N
-        
-        /*
-        TODO
-         - show dialog
-         - load all terms 
-            - if title from term exists -> warning
-         - user can type title
-         - user can type description...
-         - user can choose topic or empty
-        */
     }
     
     /*
@@ -442,10 +458,15 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
 //        final int selectedIndex = cbNavigationTopics.getSelectionModel().getSelectedIndex();
         cbNavigationTopics.getItems().clear();
         
-        final Topic topic = ModelProvider.getDefault().getTopic(
-                IDefaultConfiguration.DEFAULT_ID__TOPIC__SHOW_ALL_TERMS,
+        final Topic topicShowAllExistingTerms = ModelProvider.getDefault().getTopic(
+                DEFAULT_ID__TOPIC__SHOW_ALL_EXISTING_TERMS,
                 "=== Show all existing Terms ==="); // NOI18N
-        observableListTopics.add(0, topic);
+        observableListTopics.add(0, topicShowAllExistingTerms);
+        
+        final Topic topicShowAllTermsWithoutExercise = ModelProvider.getDefault().getTopic(
+                DEFAULT_ID__TOPIC__SHOW_ALL_TERMS_WITHOUT_PARENT,
+                "=== Show all Terms without Parent ==="); // NOI18N
+        observableListTopics.add(1, topicShowAllTermsWithoutExercise);
         
         cbNavigationTopics.getItems().addAll(observableListTopics);
         cbNavigationTopics.setDisable(observableListTopics.size() <= 1);
@@ -465,6 +486,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
 //        this.onActionRefreshNavigationTabTopics(observableListTopics);
         this.onActionRefreshNavigationTabTerms(observableListTopics);
         
+        cbNavigationTopics.getSelectionModel().clearSelection();
         cbNavigationTopics.getSelectionModel().select(selectedIndex);
     }
 
@@ -502,9 +524,13 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         // Catch which [Term] should be loaded
         final ObservableList<Term> terms = FXCollections.observableArrayList();
         final Topic topic = cbNavigationTopics.getSelectionModel().getSelectedItem();
+        
         final long topicId = topic.getId();
-        if (Objects.equals(topicId, IDefaultConfiguration.DEFAULT_ID__TOPIC__SHOW_ALL_TERMS)) {
+        if (Objects.equals(topicId, DEFAULT_ID__TOPIC__SHOW_ALL_EXISTING_TERMS)) {
             terms.addAll(SqlProvider.getDefault().findAllTerms());
+        }
+        else if (Objects.equals(topicId, DEFAULT_ID__TOPIC__SHOW_ALL_TERMS_WITHOUT_PARENT)) {
+            terms.addAll(SqlProvider.getDefault().findAllTermsWithoutParent());
         }
         else {
             terms.addAll(SqlProvider.getDefault().findAllTermsWithTopicId(topicId));

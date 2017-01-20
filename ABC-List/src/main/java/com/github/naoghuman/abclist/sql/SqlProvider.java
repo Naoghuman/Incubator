@@ -40,7 +40,7 @@ import javafx.collections.ObservableList;
  *
  * @author Naoghuman
  */
-public class SqlProvider implements IDefaultConfiguration {
+public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfiguration {
     
     private static final Optional<SqlProvider> instance = Optional.of(new SqlProvider());
 
@@ -50,6 +50,10 @@ public class SqlProvider implements IDefaultConfiguration {
     
     private SqlProvider() {
         
+    }
+    
+    public long countAllExerciseTermsWithTermId(long termId) {
+        return SqlServiceExerciseTerm.getDefault().countAllExerciseTermsWithTermId(termId);
     }
     
     public void createExerciseTerm(ExerciseTerm exerciseTerm) {
@@ -78,7 +82,7 @@ public class SqlProvider implements IDefaultConfiguration {
     }
     
     public void createTopic(Topic topic) {
-        TopicSqlService.getDefault().create(topic);
+        SqlServiceTopic.getDefault().create(topic);
     }
 
     public void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
@@ -129,6 +133,25 @@ public class SqlProvider implements IDefaultConfiguration {
         Collections.sort(allTerms);
 
         return allTerms;
+    }
+
+    public ObservableList<Term> findAllTermsWithoutParent() {
+        final ObservableList<Term> allTermsWithOutParent = FXCollections.observableArrayList();
+        final ObservableList<Term> terms = FXCollections.observableArrayList();
+        terms.addAll(this.findAllTerms());
+        
+        long counterTermInExercise = NO_TERMS_FOUND;
+        for (Term term : terms) {
+            counterTermInExercise = NO_TERMS_FOUND;
+            counterTermInExercise = SqlServiceExerciseTerm.getDefault().countAllExerciseTermsWithTermId(term.getId());
+            if (Objects.equals(counterTermInExercise, NO_TERMS_FOUND)) {
+                allTermsWithOutParent.add(term);
+            }
+        }
+        
+        Collections.sort(allTermsWithOutParent);
+
+        return allTermsWithOutParent;
     }
     
     public ObservableList<Term> findAllTermsInExerciseTerms(ObservableList<ExerciseTerm> exerciseTerms) {
@@ -182,11 +205,11 @@ public class SqlProvider implements IDefaultConfiguration {
     }
     
     public ObservableList<Topic> findAllTopics() {
-        return TopicSqlService.getDefault().findAllTopics();
+        return SqlServiceTopic.getDefault().findAllTopics();
     }
     
     public void updateTopic(Topic topic) {
-        TopicSqlService.getDefault().update(topic);
+        SqlServiceTopic.getDefault().update(topic);
     }
     
 }

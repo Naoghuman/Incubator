@@ -46,6 +46,9 @@ import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
 @Table(name = IExerciseTermConfiguration.ENTITY__TABLE_NAME__EXERCISE_TERM)
 @NamedQueries({
     @NamedQuery(
+            name = IExerciseTermConfiguration.NAMED_QUERY__NAME__COUNT_ALL_EXERCISE_TERMS_WITH_TERM_ID,
+            query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__COUNT_ALL_EXERCISE_TERMS_WITH_TERM_ID),
+    @NamedQuery(
             name = IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID,
             query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID)
 })

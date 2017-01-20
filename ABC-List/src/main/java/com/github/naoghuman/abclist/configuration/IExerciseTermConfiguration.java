@@ -22,7 +22,12 @@ package com.github.naoghuman.abclist.configuration;
  */
 public interface IExerciseTermConfiguration {
     
+    public static final long NO_TERMS_FOUND = 0L;
+    
     public static final String ENTITY__TABLE_NAME__EXERCISE_TERM = "ExerciseTerm"; // NOI18N
+    
+    public static final String NAMED_QUERY__NAME__COUNT_ALL_EXERCISE_TERMS_WITH_TERM_ID = "ExerciseTerm.countAllExerciseTermsWithTermId"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__COUNT_ALL_EXERCISE_TERMS_WITH_TERM_ID = "SELECT COUNT(et) FROM ExerciseTerm et WHERE et.termId == :termId"; // NOI18N
     
     public static final String NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID = "ExerciseTerm.findAllExerciseTermsWithExerciseId"; // NOI18N
     public static final String NAMED_QUERY__QUERY__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID = "SELECT et FROM ExerciseTerm et WHERE et.exerciseId == :exerciseId"; // NOI18N
