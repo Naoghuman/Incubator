@@ -35,15 +35,15 @@ import javax.persistence.Query;
  *
  * @author Naoghuman
  */
-public class SqlServiceExerciseTerm implements IDefaultConfiguration, IExerciseTermConfiguration {
+public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseTermConfiguration {
     
-    private static final Optional<SqlServiceExerciseTerm> instance = Optional.of(new SqlServiceExerciseTerm());
+    private static final Optional<ExerciseTermSqlService> instance = Optional.of(new ExerciseTermSqlService());
 
-    public static final SqlServiceExerciseTerm getDefault() {
+    public static final ExerciseTermSqlService getDefault() {
         return instance.get();
     }
     
-    private SqlServiceExerciseTerm() {
+    private ExerciseTermSqlService() {
         
     }
     
@@ -112,7 +112,7 @@ public class SqlServiceExerciseTerm implements IDefaultConfiguration, IExerciseT
         long counterTermInExercise = NO_TERMS_FOUND;
         for (Term term : terms) {
             counterTermInExercise = NO_TERMS_FOUND;
-            counterTermInExercise = SqlServiceExerciseTerm.getDefault().countAllExerciseTermsWithTermId(term.getId());
+            counterTermInExercise = ExerciseTermSqlService.getDefault().countAllExerciseTermsWithTermId(term.getId());
             if (Objects.equals(counterTermInExercise, NO_TERMS_FOUND)) {
                 allTermsWithOutParent.add(term);
             }

@@ -53,11 +53,11 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
     
     public long countAllExerciseTermsWithTermId(long termId) {
-        return SqlServiceExerciseTerm.getDefault().countAllExerciseTermsWithTermId(termId);
+        return ExerciseTermSqlService.getDefault().countAllExerciseTermsWithTermId(termId);
     }
     
     public void createExerciseTerm(ExerciseTerm exerciseTerm) {
-        SqlServiceExerciseTerm.getDefault().create(exerciseTerm);
+        ExerciseTermSqlService.getDefault().create(exerciseTerm);
     }
     
     public void createOrUpdateExercise(Exercise exercise) {
@@ -81,15 +81,15 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
     
     public void createTopic(Topic topic) {
-        SqlServiceTopic.getDefault().create(topic);
+        TopicSqlService.getDefault().create(topic);
     }
 
     public void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
-        SqlServiceExerciseTerm.getDefault().deleteAllExerciseTermsWithExerciseId(exerciseId);
+        ExerciseTermSqlService.getDefault().deleteAllExerciseTermsWithExerciseId(exerciseId);
     }
     
     public ObservableList<ExerciseTerm> findAllExerciseTermsWithExerciseId(long exerciseId) {
-        return SqlServiceExerciseTerm.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
+        return ExerciseTermSqlService.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
     }
     
     public ObservableList<Exercise> findAllExercisesWithTopicId(long topicId) {
@@ -118,14 +118,14 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
     
     public ObservableList<Term> findAllTermsInExerciseTerm(ObservableList<ExerciseTerm> exerciseTerms) {
-        return SqlServiceExerciseTerm.getDefault().findAllTermsInExerciseTerm(exerciseTerms);
+        return ExerciseTermSqlService.getDefault().findAllTermsInExerciseTerm(exerciseTerms);
     }
 
     public ObservableList<Term> findAllTermsInExerciseTermWithoutParent() {
         final ObservableList<Term> terms = FXCollections.observableArrayList();
         terms.addAll(this.findAllTerms());
         
-        return SqlServiceExerciseTerm.getDefault().findAllTermsInExerciseTermWithoutParent(terms);
+        return ExerciseTermSqlService.getDefault().findAllTermsInExerciseTermWithoutParent(terms);
     }
 	
     public ObservableList<Term> findAllTermsWithTitle(String title) {
@@ -166,11 +166,11 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
     
     public ObservableList<Topic> findAllTopics() {
-        return SqlServiceTopic.getDefault().findAllTopics();
+        return TopicSqlService.getDefault().findAllTopics();
     }
     
     public void updateTopic(Topic topic) {
-        SqlServiceTopic.getDefault().update(topic);
+        TopicSqlService.getDefault().update(topic);
     }
     
 }

@@ -31,15 +31,15 @@ import javafx.collections.ObservableList;
  *
  * @author Naoghuman
  */
-public class SqlServiceTopic implements IDefaultConfiguration {
+public class TopicSqlService implements IDefaultConfiguration {
     
-    private static final Optional<SqlServiceTopic> instance = Optional.of(new SqlServiceTopic());
+    private static final Optional<TopicSqlService> instance = Optional.of(new TopicSqlService());
 
-    public static final SqlServiceTopic getDefault() {
+    public static final TopicSqlService getDefault() {
         return instance.get();
     }
     
-    private SqlServiceTopic() {
+    private TopicSqlService() {
         
     }
     
