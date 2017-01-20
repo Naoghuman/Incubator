@@ -57,8 +57,7 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
     
     public void createExerciseTerm(ExerciseTerm exerciseTerm) {
-        exerciseTerm.setId(System.currentTimeMillis());
-        DatabaseFacade.getDefault().getCrudService().create(exerciseTerm);
+        SqlServiceExerciseTerm.getDefault().create(exerciseTerm);
     }
     
     public void createOrUpdateExercise(Exercise exercise) {
@@ -86,28 +85,11 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
 
     public void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
-        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
-        
-        DatabaseFacade.getDefault().getCrudService().beginTransaction();
-        exerciseTerms.stream()
-                .forEach(exerciseTerm -> {
-                    DatabaseFacade.getDefault().getCrudService().getEntityManager().remove(exerciseTerm);
-                });
-        DatabaseFacade.getDefault().getCrudService().commitTransaction();
+        SqlServiceExerciseTerm.getDefault().deleteAllExerciseTermsWithExerciseId(exerciseId);
     }
     
     public ObservableList<ExerciseTerm> findAllExerciseTermsWithExerciseId(long exerciseId) {
-        final ObservableList<ExerciseTerm> allTermsWithExerciseId = FXCollections.observableArrayList();
-        final Map<String, Object> parameters = FXCollections.observableHashMap();
-        parameters.put(IExerciseTermConfiguration.EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
-        
-        final List<ExerciseTerm> exerciseTerms = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(ExerciseTerm.class, IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID, parameters);
-        
-        allTermsWithExerciseId.addAll(exerciseTerms);
-        Collections.sort(allTermsWithExerciseId);
-
-        return allTermsWithExerciseId;
+        return SqlServiceExerciseTerm.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
     }
     
     public ObservableList<Exercise> findAllExercisesWithTopicId(long topicId) {
@@ -134,37 +116,16 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
 
         return allTerms;
     }
+    
+    public ObservableList<Term> findAllTermsInExerciseTerm(ObservableList<ExerciseTerm> exerciseTerms) {
+        return SqlServiceExerciseTerm.getDefault().findAllTermsInExerciseTerm(exerciseTerms);
+    }
 
-    public ObservableList<Term> findAllTermsWithoutParent() {
-        final ObservableList<Term> allTermsWithOutParent = FXCollections.observableArrayList();
+    public ObservableList<Term> findAllTermsInExerciseTermWithoutParent() {
         final ObservableList<Term> terms = FXCollections.observableArrayList();
         terms.addAll(this.findAllTerms());
         
-        long counterTermInExercise = NO_TERMS_FOUND;
-        for (Term term : terms) {
-            counterTermInExercise = NO_TERMS_FOUND;
-            counterTermInExercise = SqlServiceExerciseTerm.getDefault().countAllExerciseTermsWithTermId(term.getId());
-            if (Objects.equals(counterTermInExercise, NO_TERMS_FOUND)) {
-                allTermsWithOutParent.add(term);
-            }
-        }
-        
-        Collections.sort(allTermsWithOutParent);
-
-        return allTermsWithOutParent;
-    }
-    
-    public ObservableList<Term> findAllTermsInExerciseTerms(ObservableList<ExerciseTerm> exerciseTerms) {
-        final ObservableList<Term> allTermsInExerciseTerms = FXCollections.observableArrayList();
-        exerciseTerms.stream()
-                .map((exerciseTerm) -> DatabaseFacade.getDefault().getCrudService().findById(Term.class, exerciseTerm.getTermId()))
-                .forEach((term) -> {
-                    allTermsInExerciseTerms.add(term);
-                });
-        
-        Collections.sort(allTermsInExerciseTerms);
-        
-        return allTermsInExerciseTerms;
+        return SqlServiceExerciseTerm.getDefault().findAllTermsInExerciseTermWithoutParent(terms);
     }
 	
     public ObservableList<Term> findAllTermsWithTitle(String title) {

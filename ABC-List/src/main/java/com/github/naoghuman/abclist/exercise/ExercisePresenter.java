@@ -307,7 +307,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
 
         // Compute all [Term] from this [Exercise]
         final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exercise.getId());
-        final ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsInExerciseTerms(exerciseTerms);
+        final ObservableList<Term> terms = SqlProvider.getDefault().findAllTermsInExerciseTerm(exerciseTerms);
         terms.stream()
                 .forEach(term -> {
                     this.onActionAddTerm(term);

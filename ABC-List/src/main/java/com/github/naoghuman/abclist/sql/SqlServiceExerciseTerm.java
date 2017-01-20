@@ -18,8 +18,17 @@ package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
+import static com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration.NO_TERMS_FOUND;
+import com.github.naoghuman.abclist.model.ExerciseTerm;
+import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.persistence.Query;
 
 /**
@@ -52,6 +61,66 @@ public class SqlServiceExerciseTerm implements IDefaultConfiguration, IExerciseT
         }
         
         return countedTermsWithoutParent;
+    }
+    
+    public void create(ExerciseTerm exerciseTerm) {
+        exerciseTerm.setId(System.currentTimeMillis());
+        DatabaseFacade.getDefault().getCrudService().create(exerciseTerm);
+    }
+
+    public void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
+        final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
+        
+        DatabaseFacade.getDefault().getCrudService().beginTransaction();
+        exerciseTerms.stream()
+                .forEach(exerciseTerm -> {
+                    DatabaseFacade.getDefault().getCrudService().getEntityManager().remove(exerciseTerm);
+                });
+        DatabaseFacade.getDefault().getCrudService().commitTransaction();
+    }
+    
+    public ObservableList<ExerciseTerm> findAllExerciseTermsWithExerciseId(long exerciseId) {
+        final ObservableList<ExerciseTerm> allTermsWithExerciseId = FXCollections.observableArrayList();
+        final Map<String, Object> parameters = FXCollections.observableHashMap();
+        parameters.put(IExerciseTermConfiguration.EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
+        
+        final List<ExerciseTerm> exerciseTerms = DatabaseFacade.getDefault().getCrudService()
+                .findByNamedQuery(ExerciseTerm.class, IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID, parameters);
+        
+        allTermsWithExerciseId.addAll(exerciseTerms);
+        Collections.sort(allTermsWithExerciseId);
+
+        return allTermsWithExerciseId;
+    }
+    
+    public ObservableList<Term> findAllTermsInExerciseTerm(ObservableList<ExerciseTerm> exerciseTerms) {
+        final ObservableList<Term> allTermsInExerciseTerms = FXCollections.observableArrayList();
+        exerciseTerms.stream()
+                .map((exerciseTerm) -> DatabaseFacade.getDefault().getCrudService().findById(Term.class, exerciseTerm.getTermId()))
+                .forEach((term) -> {
+                    allTermsInExerciseTerms.add(term);
+                });
+        
+        Collections.sort(allTermsInExerciseTerms);
+        
+        return allTermsInExerciseTerms;
+    }
+    
+    public ObservableList<Term> findAllTermsInExerciseTermWithoutParent(ObservableList<Term> terms) {
+        final ObservableList<Term> allTermsWithOutParent = FXCollections.observableArrayList();
+        
+        long counterTermInExercise = NO_TERMS_FOUND;
+        for (Term term : terms) {
+            counterTermInExercise = NO_TERMS_FOUND;
+            counterTermInExercise = SqlServiceExerciseTerm.getDefault().countAllExerciseTermsWithTermId(term.getId());
+            if (Objects.equals(counterTermInExercise, NO_TERMS_FOUND)) {
+                allTermsWithOutParent.add(term);
+            }
+        }
+        
+        Collections.sort(allTermsWithOutParent);
+
+        return allTermsWithOutParent;
     }
     
 }
