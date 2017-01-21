@@ -207,7 +207,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         
         // Create a new Exercise
         final Exercise exercise = ModelProvider.getDefault().getExercise(IDefaultConfiguration.DEFAULT_ID, topic.getId());
-        SqlProvider.getDefault().createOrUpdateExercise(exercise);
+        SqlProvider.getDefault().createExercise(exercise);
         
         // Open the new exercise
         this.onActionOpenExercise(exercise);

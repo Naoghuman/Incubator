@@ -25,7 +25,6 @@ import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.AfterClass;
@@ -138,7 +137,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Exercise exercise2 = ModelProvider.getDefault().getExercise();
-        SqlProvider.getDefault().createOrUpdateExercise(exercise2);
+        SqlProvider.getDefault().createExercise(exercise2);
         
         Exercise exerciseFromDatabase2 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateExercise()")
@@ -156,10 +155,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Exercise exercise3 = ModelProvider.getDefault().getExercise();
-        SqlProvider.getDefault().createOrUpdateExercise(exercise3);
+        SqlProvider.getDefault().createExercise(exercise3);
         
         exercise3.setReady(true);
-        SqlProvider.getDefault().createOrUpdateExercise(exercise3);
+        SqlProvider.getDefault().updateExercise(exercise3);
         
         Exercise exerciseFromDatabase3 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateExercise()")
@@ -384,7 +383,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         
         Exercise exercise1 = ModelProvider.getDefault().getExercise();
         exercise1.setTopicId(111L);
-        SqlProvider.getDefault().createOrUpdateExercise(exercise1);
+        SqlProvider.getDefault().createExercise(exercise1);
         
         ObservableList<Exercise> exercises = FXCollections.observableArrayList();
         exercises.addAll(SqlProvider.getDefault().findAllExercisesWithTopicId(111L));
@@ -397,7 +396,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         
         Exercise exercise2 = ModelProvider.getDefault().getExercise();
         exercise2.setTopicId(111L);
-        SqlProvider.getDefault().createOrUpdateExercise(exercise2);
+        SqlProvider.getDefault().createExercise(exercise2);
         
         exercises.clear();
         exercises.addAll(SqlProvider.getDefault().findAllExercisesWithTopicId(111L));
@@ -572,7 +571,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         
         Exercise exercise1 = ModelProvider.getDefault().getExercise();
         exercise1.setTopicId(topic1.getId());
-        SqlProvider.getDefault().createOrUpdateExercise(exercise1);
+        SqlProvider.getDefault().createExercise(exercise1);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
@@ -591,7 +590,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         
         Exercise exercise2 = ModelProvider.getDefault().getExercise();
         exercise2.setTopicId(topic1.getId());
-        SqlProvider.getDefault().createOrUpdateExercise(exercise2);
+        SqlProvider.getDefault().createExercise(exercise2);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }

@@ -291,7 +291,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
 
         // Save new state
         exercise.setReady(true);
-        SqlProvider.getDefault().createOrUpdateExercise(exercise);
+        SqlProvider.getDefault().updateExercise(exercise);
         LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
         
         // Reflect the new state in the gui

@@ -20,7 +20,6 @@ import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
 import com.github.naoghuman.abclist.configuration.ITermConfiguration;
-import com.github.naoghuman.abclist.configuration.ITopicConfiguration;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.Term;
@@ -56,18 +55,12 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
         return ExerciseTermSqlService.getDefault().countAllExerciseTermsWithTermId(termId);
     }
     
-    public void createExerciseTerm(ExerciseTerm exerciseTerm) {
-        ExerciseTermSqlService.getDefault().create(exerciseTerm);
+    public void createExercise(Exercise exercise) {
+        ExerciseSqlService.getDefault().create(exercise);
     }
     
-    public void createOrUpdateExercise(Exercise exercise) {
-        if (Objects.equals(exercise.getId(), DEFAULT_ID)) {
-            exercise.setId(System.currentTimeMillis());
-            DatabaseFacade.getDefault().getCrudService().create(exercise);
-        }
-        else {
-            DatabaseFacade.getDefault().getCrudService().update(exercise);
-        }
+    public void createExerciseTerm(ExerciseTerm exerciseTerm) {
+        ExerciseTermSqlService.getDefault().create(exerciseTerm);
     }
     
     public void createOrUpdateTerm(Term term) {
@@ -93,17 +86,7 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
     
     public ObservableList<Exercise> findAllExercisesWithTopicId(long topicId) {
-        final ObservableList<Exercise> allExercisesWithTopicId = FXCollections.observableArrayList();
-        final Map<String, Object> parameters = FXCollections.observableHashMap();
-        parameters.put(IExerciseConfiguration.EXERCISE__COLUMN_NAME__TOPIC_ID, topicId);
-        
-        final List<Exercise> exercises = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Exercise.class, IExerciseConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_TOPIC_ID, parameters);
-
-        allExercisesWithTopicId.addAll(exercises);
-        Collections.sort(allExercisesWithTopicId);
-
-        return allExercisesWithTopicId;
+        return ExerciseSqlService.getDefault().findAllExercisesWithTopicId(topicId);
     }
     
     public ObservableList<Term> findAllTerms() {
@@ -167,6 +150,10 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     
     public ObservableList<Topic> findAllTopics() {
         return TopicSqlService.getDefault().findAllTopics();
+    }
+    
+    public void updateExercise(Exercise exercise) {
+        ExerciseSqlService.getDefault().update(exercise);
     }
     
     public void updateTopic(Topic topic) {
