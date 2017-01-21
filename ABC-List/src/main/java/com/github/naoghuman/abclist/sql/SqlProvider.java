@@ -17,19 +17,13 @@
 package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
-import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
-import com.github.naoghuman.abclist.configuration.ITermConfiguration;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
-import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import javafx.collections.FXCollections;
@@ -63,14 +57,8 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
         ExerciseTermSqlService.getDefault().create(exerciseTerm);
     }
     
-    public void createOrUpdateTerm(Term term) {
-        if (Objects.equals(term.getId(), DEFAULT_ID)) {
-            term.setId(System.currentTimeMillis());
-            DatabaseFacade.getDefault().getCrudService().create(term);
-        }
-        else {
-            DatabaseFacade.getDefault().getCrudService().update(term);
-        }
+    public void createTerm(Term term) {
+        TermSqlService.getDefault().create(term);
     }
     
     public void createTopic(Topic topic) {
@@ -90,14 +78,7 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
     
     public ObservableList<Term> findAllTerms() {
-        final ObservableList<Term> allTerms = FXCollections.observableArrayList();
-        final List<Term> terms = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Term.class, ITermConfiguration.NAMED_QUERY__NAME__FIND_ALL);
-        
-        allTerms.addAll(terms);
-        Collections.sort(allTerms);
-
-        return allTerms;
+        return TermSqlService.getDefault().findAllTerms();
     }
     
     public ObservableList<Term> findAllTermsInExerciseTerm(ObservableList<ExerciseTerm> exerciseTerms) {
@@ -112,17 +93,7 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     }
 	
     public ObservableList<Term> findAllTermsWithTitle(String title) {
-        final ObservableList<Term> allTermsWithTitle = FXCollections.observableArrayList();
-        final Map<String, Object> parameters = FXCollections.observableHashMap();
-        parameters.put(ITermConfiguration.TERM__COLUMN_NAME__TITLE, title);
-        
-        final List<Term> terms = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Term.class, ITermConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_TITLE, parameters);
-        
-        allTermsWithTitle.addAll(terms);
-        Collections.sort(allTermsWithTitle);
-
-        return allTermsWithTitle;
+        return TermSqlService.getDefault().findAllTermsWithTitle(title);
     }
 
     public ObservableList<Term> findAllTermsWithTopicId(long topicId) {
@@ -141,7 +112,7 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
         
         uniqueTermIds.stream()
                 .forEach(termId -> {
-                    allTermsWithTopicId.add(DatabaseFacade.getDefault().getCrudService().findById(Term.class, termId));
+                    allTermsWithTopicId.add(TermSqlService.getDefault().findById(termId));
                 });
         Collections.sort(allTermsWithTopicId);
 
@@ -154,6 +125,10 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     
     public void updateExercise(Exercise exercise) {
         ExerciseSqlService.getDefault().update(exercise);
+    }
+    
+    public void updateTerm(Term term) {
+        TermSqlService.getDefault().update(term);
     }
     
     public void updateTopic(Topic topic) {

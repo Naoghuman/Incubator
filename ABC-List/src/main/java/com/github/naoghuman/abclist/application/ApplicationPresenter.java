@@ -251,7 +251,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             
             // Create a new [Term]
             final Term term = ModelProvider.getDefault().getTerm(title);
-            SqlProvider.getDefault().createOrUpdateTerm(term);
+            SqlProvider.getDefault().createTerm(term);
             
             // Update gui
             final int selectedIndex = cbNavigationTopics.getSelectionModel().getSelectedIndex();

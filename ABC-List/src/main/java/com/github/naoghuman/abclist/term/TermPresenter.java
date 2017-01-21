@@ -86,7 +86,7 @@ public class TermPresenter implements Initializable, IActionConfiguration {
         final String description = taDescription.getText();
         term.setDescription(description);
         
-        SqlProvider.getDefault().createOrUpdateTerm(term);
+        SqlProvider.getDefault().updateTerm(term);
         
         // Reset [MarkAsChanged]
         term.setMarkAsChanged(Boolean.FALSE);

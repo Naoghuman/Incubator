@@ -362,7 +362,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         // Check if the [Term] with the [title] in the [Database] exists
         final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(term.getTitle());
         if (observableListTerms.isEmpty()) {
-            SqlProvider.getDefault().createOrUpdateTerm(term);
+            SqlProvider.getDefault().createTerm(term);
         } else {
             term.copy(observableListTerms.get(0));
         }

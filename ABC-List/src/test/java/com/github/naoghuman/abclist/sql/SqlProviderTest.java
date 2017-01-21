@@ -202,7 +202,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term2 = ModelProvider.getDefault().getTerm("Test2");
-        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        SqlProvider.getDefault().createTerm(term2);
         
         Term termFromDatabase2 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateTerm()")
@@ -221,10 +221,10 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term3 = ModelProvider.getDefault().getTerm("Test3");
-        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        SqlProvider.getDefault().createTerm(term3);
         
         term3.setTitle("Test3 aaaaaaaa");
-        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        SqlProvider.getDefault().updateTerm(term3);
         
         Term termFromDatabase3 = DatabaseFacade.getDefault()
                 .getCrudService("testCreateOrUpdateTerm()")
@@ -428,7 +428,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         assertTrue(terms.isEmpty());
         
         Term term1 = ModelProvider.getDefault().getTerm("Term1");
-        SqlProvider.getDefault().createOrUpdateTerm(term1);
+        SqlProvider.getDefault().createTerm(term1);
         
         terms.clear();
         terms.addAll(SqlProvider.getDefault().findAllTerms());
@@ -439,7 +439,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term2 = ModelProvider.getDefault().getTerm("Term2");
-        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        SqlProvider.getDefault().createTerm(term2);
         
         terms.clear();
         terms.addAll(SqlProvider.getDefault().findAllTerms());
@@ -465,13 +465,13 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term1 = ModelProvider.getDefault().getTerm("Term1");
-        SqlProvider.getDefault().createOrUpdateTerm(term1);
+        SqlProvider.getDefault().createTerm(term1);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
 
         Term term2 = ModelProvider.getDefault().getTerm("Term2");
-        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        SqlProvider.getDefault().createTerm(term2);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
@@ -520,7 +520,7 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term1 = ModelProvider.getDefault().getTerm("Term1");
-        SqlProvider.getDefault().createOrUpdateTerm(term1);
+        SqlProvider.getDefault().createTerm(term1);
         
         ObservableList<Term> terms = FXCollections.observableArrayList();
         terms.addAll(SqlProvider.getDefault().findAllTermsWithTitle("hello?"));
@@ -552,19 +552,19 @@ public class SqlProviderTest implements IDefaultConfiguration {
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term1 = ModelProvider.getDefault().getTerm("Term1");
-        SqlProvider.getDefault().createOrUpdateTerm(term1);
+        SqlProvider.getDefault().createTerm(term1);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term2 = ModelProvider.getDefault().getTerm("Term2");
-        SqlProvider.getDefault().createOrUpdateTerm(term2);
+        SqlProvider.getDefault().createTerm(term2);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
         Term term3 = ModelProvider.getDefault().getTerm("Term3");
-        SqlProvider.getDefault().createOrUpdateTerm(term3);
+        SqlProvider.getDefault().createTerm(term3);
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
