@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Naoghuman
+ * Copyright (C) 2016 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,23 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.application;
+package com.github.naoghuman.abclist.view.application;
+
+import com.airhacks.afterburner.views.FXMLView;
 
 /**
  *
  * @author Naoghuman
- * @param <T>
  */
-public class Navigation<T> {
+public class ApplicationView extends FXMLView {
     
-    private T view;
-    
-    public void setView(T view) {
-        this.view = view;
-    }
-    
-    public T getView() {
-        return view;
+    public ApplicationPresenter getRealPresenter() {
+        return (ApplicationPresenter) super.getPresenter();
     }
     
 }

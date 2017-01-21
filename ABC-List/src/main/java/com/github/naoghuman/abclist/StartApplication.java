@@ -19,8 +19,8 @@ package com.github.naoghuman.abclist;
 import static javafx.application.Application.launch;
 
 import com.airhacks.afterburner.injection.Injector;
-import com.github.naoghuman.abclist.application.ApplicationPresenter;
-import com.github.naoghuman.abclist.application.ApplicationView;
+import com.github.naoghuman.abclist.view.application.ApplicationPresenter;
+import com.github.naoghuman.abclist.view.application.ApplicationView;
 import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;

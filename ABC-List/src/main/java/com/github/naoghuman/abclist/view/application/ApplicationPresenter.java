@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.application;
+package com.github.naoghuman.abclist.view.application;
 
 import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
