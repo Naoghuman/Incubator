@@ -14,18 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.exercise;
-
-import com.airhacks.afterburner.views.FXMLView;
+package com.github.naoghuman.abclist.view.exercise;
 
 /**
  *
  * @author Naoghuman
  */
-public class ExerciseView extends FXMLView {
+public enum ETime {
     
-    public ExercisePresenter getRealPresenter() {
-        return (ExercisePresenter) super.getPresenter();
+    MIN_00_30(30 , "00:30"), // NOI18N // XXX REMOVE 
+    MIN_01_30(90 , "01:30"), // NOI18N
+    MIN_03_00(180, "03:00"), // NOI18N
+    MIN_05_00(300, "05:00"), // NOI18N
+    MIN_10_00(600, "10:00"); // NOI18N
+
+    private final int seconds;
+
+    private final String presentation;
+
+    ETime(int seconds, String presentation) {
+        this.seconds = seconds;
+        this.presentation = presentation;
     }
-    
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    @Override
+    public String toString() {
+        return presentation;
+    }
+        
 }

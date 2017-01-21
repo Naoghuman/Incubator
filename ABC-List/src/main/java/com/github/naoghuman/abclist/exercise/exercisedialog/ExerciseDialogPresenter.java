@@ -18,7 +18,7 @@ package com.github.naoghuman.abclist.exercise.exercisedialog;
 
 import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
-import com.github.naoghuman.abclist.exercise.ETime;
+import com.github.naoghuman.abclist.view.exercise.ETime;
 import com.github.naoghuman.abclist.model.ModelProvider;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.action.api.ActionFacade;
