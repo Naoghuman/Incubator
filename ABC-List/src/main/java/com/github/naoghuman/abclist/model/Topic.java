@@ -22,7 +22,9 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -74,6 +76,8 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         this.setId(id);
         this.setParentId(parentId);
         this.setTitle(title);
+        
+        markAsChangedProperty = new SimpleBooleanProperty(Boolean.FALSE);
     }
        
     // START  ID ---------------------------------------------------------------
@@ -108,7 +112,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     // END  ID -----------------------------------------------------------------
        
     // START  PARENT-ID --------------------------------------------------------
-    // DEFAULT_ID means this [Topic] haven't another [Topic] as parent.
+    // DEFAULT_ID means this [Topic] hasn't another [Topic] as parent.
     private LongProperty parentIdProperty;
     private long _parentId = DEFAULT_ID;
 
@@ -137,6 +141,36 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         return parentIdProperty;
     }
     // END  PARENT-ID ----------------------------------------------------------
+    
+    // START  DESCRIPTION ------------------------------------------------------
+    private StringProperty descriptionProperty = null;
+    private String _description = SIGN__EMPTY;
+    
+    @Column(name = TOPIC__COLUMN_NAME__DESCRIPTION)
+    public String getDescription() {
+        if (descriptionProperty == null) {
+            return _description;
+        } else {
+            return descriptionProperty.get();
+        }
+    }
+    
+    public void setDescription(String description) {
+        if (descriptionProperty == null) {
+            _description = description;
+        } else {
+            descriptionProperty.set(description);
+        }
+    }
+    
+    public StringProperty descriptionProperty() {
+        if (descriptionProperty == null) {
+            descriptionProperty = new SimpleStringProperty(this, TOPIC__COLUMN_NAME__DESCRIPTION, _description);
+        }
+        
+        return descriptionProperty;
+    }
+    // END  DESCRIPTION --------------------------------------------------------
     
     // START  TITLE ------------------------------------------------------------
     private StringProperty titleProperty = null;
@@ -180,6 +214,23 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         this.exercisesSize = exercisesSize;
     }
     // END  EXERCISES-SIZE -----------------------------------------------------
+    
+    // START  MARK-AS-CHANGED --------------------------------------------------
+    private transient BooleanProperty markAsChangedProperty = null;
+
+    @Transient
+    public boolean isMarkAsChanged() {
+        return markAsChangedProperty.getValue();
+    }
+    
+    public BooleanProperty markAsChangedProperty() {
+        return markAsChangedProperty;
+    }
+    
+    public void setMarkAsChanged(boolean isMarkAsChanged) {
+        markAsChangedProperty.setValue(isMarkAsChanged);
+    }
+    // END  MARK-AS-CHANGED ----------------------------------------------------
     
     @Override
     public int compareTo(Topic other) {
@@ -226,6 +277,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
                 .append(TOPIC__COLUMN_NAME__ID, this.getId())
                 .append(TOPIC__COLUMN_NAME__PARENT_ID, this.getId())
                 .append(TOPIC__COLUMN_NAME__TITLE, this.getTitle())
+                .append(TOPIC__COLUMN_NAME__DESCRIPTION, this.getDescription())
                 .toString();
     }
     
@@ -233,6 +285,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
         out.writeLong(this.getParentId());
+        out.writeObject(this.getDescription());
         out.writeObject(this.getTitle());
     }
 
@@ -240,6 +293,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
         this.setParentId(in.readLong());
+        this.setDescription(String.valueOf(in.readObject()));
         this.setTitle(String.valueOf(in.readObject()));
     }
     

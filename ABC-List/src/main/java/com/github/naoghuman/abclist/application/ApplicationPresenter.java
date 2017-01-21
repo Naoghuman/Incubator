@@ -28,6 +28,8 @@ import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.abclist.term.TermPresenter;
 import com.github.naoghuman.abclist.term.TermView;
+import com.github.naoghuman.abclist.view.topic.TopicPresenter;
+import com.github.naoghuman.abclist.view.topic.TopicView;
 import com.github.naoghuman.abclist.welcome.WelcomeView;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
@@ -423,7 +425,6 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                     indexShownNavigationView = index;
                     LoggerFacade.getDefault().debug(this.getClass(), "Show [TermView (index=" + indexShownNavigationView + ")]"); // NOI18N
         
-                    
                     final Parent parent = termView.getView();
                     VBox.setVgrow(parent, Priority.ALWAYS);
                     vbWorkingArea.getChildren().add(parent);
@@ -445,6 +446,48 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         LoggerFacade.getDefault().debug(this.getClass(), "Add [TermView (index=" + indexShownNavigationView + ")]"); // NOI18N
         
         final Parent parent = termView.getView();
+        VBox.setVgrow(parent, Priority.ALWAYS);
+        vbWorkingArea.getChildren().add(parent);
+    }
+    
+    private void onActionOpenTopic(Topic topic) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action open [Topic]"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "  # " + topic.toString());
+        
+        vbWorkingArea.getChildren().clear();
+        
+        // Was the [Term] previously open?
+        int index = 0;
+        for (Navigation navigation : navigationViews) {
+            final Object object = navigation.getView();
+            if (object instanceof TopicView) {
+                final TopicView topicView = (TopicView) object;
+                final TopicPresenter topicPresenter = topicView.getRealPresenter();
+                if (Objects.equals(topicPresenter.getId(), topic.getId())) {
+                    indexShownNavigationView = index;
+                    LoggerFacade.getDefault().debug(this.getClass(), "Show [TopicView (index=" + indexShownNavigationView + ")]"); // NOI18N
+        
+                    final Parent parent = topicView.getView();
+                    VBox.setVgrow(parent, Priority.ALWAYS);
+                    vbWorkingArea.getChildren().add(parent);
+                    return;
+                }
+            }
+            
+            ++index;
+        }
+        
+        // Generate new TermView
+        final Navigation<TopicView> navigation = new Navigation<>();
+        final TopicView topicView = new TopicView();
+        final TopicPresenter topicPresenter = topicView.getRealPresenter();
+        topicPresenter.configure(topic);
+        navigation.setView(topicView);
+        navigationViews.add(navigation);
+        indexShownNavigationView = navigationViews.size() - 1;
+        LoggerFacade.getDefault().debug(this.getClass(), "Add [TopicView (index=" + indexShownNavigationView + ")]"); // NOI18N
+        
+        final Parent parent = topicView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
         vbWorkingArea.getChildren().add(parent);
     }
@@ -598,6 +641,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         private final ContextMenu contextMenu = new ContextMenu();
         private final Date date = new Date();
         private final MenuItem menuItem = new MenuItem();
+        private final MenuItem menuItem2 = new MenuItem();
         
         public NavigationTabTopicsListTreeCell() {
             contextMenu.getItems().add(menuItem);
@@ -652,11 +696,11 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 final Topic topic = (Topic) item;
                 
                 final StringBuilder sb = new StringBuilder();
-                sb.append("'"); // NOI18N
+                sb.append("Topic '"); // NOI18N
                 sb.append(topic.getTitle());
                 sb.append("' contains "); // NOI18N
                 sb.append(topic.getExercises());
-                sb.append(" exercises."); // NOI18N
+                sb.append(" Exercises."); // NOI18N
                 
                 return new Tooltip(sb.toString());
             }
@@ -666,15 +710,28 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         
         private void configureMenuItem(Object item) {
             if (item instanceof Exercise) {
-                menuItem.setText("Open exercise"); // NOI18N
+                menuItem.setText("Open Exercise"); // NOI18N
                 menuItem.setOnAction(value -> {
                     final Exercise exercise = (Exercise) item;
                     ApplicationPresenter.this.onActionOpenExercise(exercise);
                 });
+                
+                if (contextMenu.getItems().contains(menuItem2)) {
+                    contextMenu.getItems().remove(menuItem2);
+                }
             }
             
             if (item instanceof Topic) {
-                menuItem.setText("New exercise"); // NOI18N
+                menuItem2.setText("Open Topic"); // NOI18N
+                menuItem2.setOnAction(value -> {
+                    final Topic topic = (Topic) item;
+                    ApplicationPresenter.this.onActionOpenTopic(topic);
+                });
+                if (!contextMenu.getItems().contains(menuItem2)) {
+                    contextMenu.getItems().add(menuItem2);
+                }
+                
+                menuItem.setText("New Exercise"); // NOI18N
                 menuItem.setOnAction(value -> {
                     final Topic topic = (Topic) item;
                     ApplicationPresenter.this.onActionCreateNewExercise(topic);
