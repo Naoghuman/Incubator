@@ -50,6 +50,11 @@
                                                         <Insets bottom="14.0" left="14.0" right="14.0" />
                                                     </VBox.margin>
                                                 </ComboBox>
+                                    <Label fx:id="lInfoFoundedTerms" text="Found 0 Terms">
+                                       <VBox.margin>
+                                          <Insets left="14.0" />
+                                       </VBox.margin>
+                                    </Label>
                                                 <ListView fx:id="lvNavigationTerms" VBox.vgrow="ALWAYS" />
                                             </children>
                                         </VBox>

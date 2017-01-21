@@ -50,6 +50,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -80,6 +81,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     @FXML private Button bNavigationToPrevious;
     @FXML private Button bNavigationShowAll;
     @FXML private ComboBox<Topic> cbNavigationTopics;
+    @FXML private Label lInfoFoundedTerms;
     @FXML private ListView<Term> lvNavigationTerms;
     @FXML private SplitPane spApplication;
     @FXML private TabPane tpNavigation;
@@ -200,6 +202,15 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [ApplicationPresenter] after window is showing"); // NOI18N
     
+    }
+    
+    private String getInfoFoundedTerms(int foundedTerms) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("Found "); // NOI18N
+        sb.append(foundedTerms);
+        sb.append(" Terms"); // NOI18N
+        
+        return sb.toString();
     }
     
     private void onActionCreateNewExercise(Topic topic) {
@@ -568,6 +579,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     public void onActionShowTermsFromSelectedTopic() {
         // Is any [Topic] in the [ComboBox] selected?
         if (cbNavigationTopics.getSelectionModel().isEmpty()) {
+            lInfoFoundedTerms.setText(this.getInfoFoundedTerms(0));
             return;
         }
         
@@ -589,6 +601,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         }
         
         // Show them in the gui
+        lInfoFoundedTerms.setText(this.getInfoFoundedTerms(terms.size()));
         lvNavigationTerms.getItems().clear();
         lvNavigationTerms.getItems().addAll(terms);
     }
