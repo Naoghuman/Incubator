@@ -18,8 +18,8 @@ package com.github.naoghuman.abclist.view.exercise;
 
 import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
-import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogPresenter;
-import com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogView;
+import com.github.naoghuman.abclist.view.exercise.exercisedialog.ExerciseDialogPresenter;
+import com.github.naoghuman.abclist.view.exercise.exercisedialog.ExerciseDialogView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;

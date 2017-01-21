@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="VBox" spacing="14.0" style="-fx-background-color: LIGHTBLUE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.abclist.exercise.exercisedialog.ExerciseDialogPresenter">
+<VBox id="VBox" spacing="14.0" style="-fx-background-color: LIGHTBLUE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.abclist.view.exercise.exercisedialog.ExerciseDialogPresenter">
     <children>
         <HBox prefHeight="100.0" spacing="14.0" style="-fx-background-color: LIGHTCYAN;">
             <VBox.margin>

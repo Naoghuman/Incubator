@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.exercise.exercisedialog;
+package com.github.naoghuman.abclist.view.exercise.exercisedialog;
 
 import com.airhacks.afterburner.views.FXMLView;
 
