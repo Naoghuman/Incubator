@@ -30,7 +30,7 @@ import com.github.naoghuman.abclist.view.term.TermPresenter;
 import com.github.naoghuman.abclist.view.term.TermView;
 import com.github.naoghuman.abclist.view.topic.TopicPresenter;
 import com.github.naoghuman.abclist.view.topic.TopicView;
-import com.github.naoghuman.abclist.welcome.WelcomeView;
+import com.github.naoghuman.abclist.view.welcome.WelcomeView;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
