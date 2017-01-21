@@ -14,11 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.application;
+package com.github.naoghuman.abclist;
 
 import static javafx.application.Application.launch;
 
 import com.airhacks.afterburner.injection.Injector;
+import com.github.naoghuman.abclist.application.ApplicationPresenter;
+import com.github.naoghuman.abclist.application.ApplicationView;
 import com.github.naoghuman.abclist.configuration.IApplicationConfiguration;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
