@@ -499,6 +499,8 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             LoggerFacade.getDefault().debug(this.getClass(), "  # " + topic.toString());
             
             final ObservableList<Exercise> observableListExercises = SqlProvider.getDefault().findAllExercisesWithTopicId(topic.getId());
+            topic.setExercises(observableListExercises.size());
+            
             final TreeItem<Object> treeItemTopic = new TreeItem<>(topic);
             observableListExercises.forEach(exercise -> {
                 LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
@@ -591,6 +593,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             this.setContextMenu(!empty ? contextMenu : null);
             this.setGraphic(null);
             this.setText(!empty ? this.getDisplayText(item) : null);
+            this.setTooltip(this.getTooltip(item));
         }
         
         private String getDisplayText(Object item) {
@@ -601,7 +604,31 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             
             if (item instanceof Topic) {
                 final Topic topic = (Topic) item;
-                return topic.getTitle();
+                
+                final StringBuilder sb = new StringBuilder();
+                sb.append(topic.getTitle());
+                sb.append(" ("); // NOI18N
+                sb.append(topic.getExercises());
+                sb.append(")"); // NOI18N
+                
+                return sb.toString();
+            }
+            
+            return null;
+        }
+        
+        private Tooltip getTooltip(Object item) {
+            if (item instanceof Topic) {
+                final Topic topic = (Topic) item;
+                
+                final StringBuilder sb = new StringBuilder();
+                sb.append("'"); // NOI18N
+                sb.append(topic.getTitle());
+                sb.append("' contains "); // NOI18N
+                sb.append(topic.getExercises());
+                sb.append(" exercises."); // NOI18N
+                
+                return new Tooltip(sb.toString());
             }
             
             return null;

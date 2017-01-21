@@ -203,7 +203,6 @@ public class Term implements Comparable<Term>, Externalizable, IDefaultConfigura
     }
     // END  TITLE --------------------------------------------------------------
     
-    
     // START  MARK-AS-CHANGED --------------------------------------------------
     private transient BooleanProperty markAsChangedProperty = null;
 

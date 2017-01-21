@@ -34,6 +34,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -166,6 +167,19 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         return titleProperty;
     }
     // END  TITLE --------------------------------------------------------------
+    
+    // START  EXERCISES-SIZE ---------------------------------------------------
+    private transient int exercisesSize = 0;
+    
+    @Transient
+    public int getExercises() {
+        return exercisesSize;
+    }
+    
+    public void setExercises(int exercisesSize) {
+        this.exercisesSize = exercisesSize;
+    }
+    // END  EXERCISES-SIZE -----------------------------------------------------
     
     @Override
     public int compareTo(Topic other) {
