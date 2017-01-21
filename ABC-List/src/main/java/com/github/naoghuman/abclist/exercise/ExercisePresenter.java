@@ -288,15 +288,16 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     
     private void onActionExerciseIsReady() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [Exercise] is ready"); // NOI18N
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
 
         // Save new state
         exercise.setReady(true);
         SqlProvider.getDefault().createOrUpdateExercise(exercise);
+        LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
         
         // Reflect the new state in the gui
         this.onActionDisableComponents();
         this.onActionCountTerms();
+        ActionFacade.getDefault().handle(ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TOPICS);
         
         // Close dialog
         dialog.close();

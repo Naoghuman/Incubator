@@ -478,7 +478,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     }
 
     private void onActionRefreshNavigationTabTermsWithSelection() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] tab [Term] selection"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] tab [Terms] with selection"); // NOI18N
         
         final int selectedIndex = cbNavigationTopics.getSelectionModel().getSelectedIndex();
         
@@ -489,9 +489,16 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         cbNavigationTopics.getSelectionModel().clearSelection();
         cbNavigationTopics.getSelectionModel().select(selectedIndex);
     }
+    
+    private void onActionRefreshNavigationTabTopics() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] [Topics]"); // NOI18N
+        
+        final ObservableList<Topic> observableListTopics = SqlProvider.getDefault().findAllTopics();
+        this.onActionRefreshNavigationTabTopics(observableListTopics);
+    }
 
     private void onActionRefreshNavigationTabTopics(ObservableList<Topic> observableListTopics) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] [Topic]s"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action refresh [Navigation] [Topics] with list"); // NOI18N
         
         rootItem.getChildren().clear();
         
@@ -549,6 +556,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         
         this.registerOnActionOpenTerm();
         this.registerOnActionRefreshNavigationTabTermsWithSelection();
+        this.registerOnActionRefreshNavigationTabTopics();
     }
     
     private void registerOnActionOpenTerm() {
@@ -565,7 +573,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     }
 
     private void registerOnActionRefreshNavigationTabTermsWithSelection() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register on action refresh [Navigation] tab [Term] selection"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action refresh [Navigation] tab [Terms] with selection"); // NOI18N
         
         ActionFacade.getDefault().register(
                 ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION,
@@ -574,10 +582,21 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 });
     }
     
+    private void registerOnActionRefreshNavigationTabTopics() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action refresh [Navigation] tab [Topics]"); // NOI18N
+        
+        ActionFacade.getDefault().register(
+                ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TOPICS,
+                (ActionEvent event) -> {
+                    this.onActionRefreshNavigationTabTopics();
+                });
+    }
+    
     private final class NavigationTabTopicsListTreeCell extends TreeCell<Object> {
         
         private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
         private final ContextMenu contextMenu = new ContextMenu();
+        private final Date date = new Date();
         private final MenuItem menuItem = new MenuItem();
         
         public NavigationTabTopicsListTreeCell() {
@@ -599,7 +618,18 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         private String getDisplayText(Object item) {
             if (item instanceof Exercise) {
                 final Exercise exercise = (Exercise) item;
-                return simpleDateFormat.format(new Date(exercise.getGenerationTime()));
+                
+                
+                final StringBuilder sb = new StringBuilder();
+                date.setTime(exercise.getGenerationTime());
+                sb.append(simpleDateFormat.format(date));
+                sb.append(" ["); // NOI18N
+                sb.append("done (");
+                sb.append(exercise.isReady() ? "v" : "-");
+                sb.append(")");
+                sb.append("]"); // NOI18N
+                
+                return sb.toString();
             }
             
             if (item instanceof Topic) {
@@ -607,9 +637,9 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 
                 final StringBuilder sb = new StringBuilder();
                 sb.append(topic.getTitle());
-                sb.append(" ("); // NOI18N
+                sb.append(" ["); // NOI18N
                 sb.append(topic.getExercises());
-                sb.append(")"); // NOI18N
+                sb.append("]"); // NOI18N
                 
                 return sb.toString();
             }
