@@ -122,5 +122,43 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
 
         return allTermsWithOutParent;
     }
+
+    public Optional<ExerciseTerm> findExerciseTerm(long exerciseId, long termId) {
+        final Query query = DatabaseFacade.getDefault().getCrudService()
+                .getEntityManager()
+                .createNamedQuery(NAMED_QUERY__NAME__FIND_EXERCISE_TERM_WITH_EXERCISE_ID_AND_TERM_ID);
+        query.setParameter(EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
+        query.setParameter(EXERCISE_TERM__COLUMN_NAME__TERM_ID, termId);
+        
+        Optional<ExerciseTerm> optional = Optional.empty();
+        try {
+            optional = Optional.ofNullable((ExerciseTerm) query.getSingleResult());
+        } catch (Exception e) {
+            
+        }
+        
+        return optional;
+    }
+
+    public boolean isExerciseTermMarkAsWrong(long exerciseId, long termId) {
+        final Query query = DatabaseFacade.getDefault().getCrudService()
+                .getEntityManager()
+                .createNamedQuery(NAMED_QUERY__NAME__IS_EXERCISE_TERM_MARK_AS_WRONG);
+        query.setParameter(EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
+        query.setParameter(EXERCISE_TERM__COLUMN_NAME__TERM_ID, termId);
+        
+        boolean isExerciseTermMarkAsWrong = false;
+        try {
+            isExerciseTermMarkAsWrong = (boolean) query.getSingleResult();
+        } catch (Exception e) {
+            
+        }
+        
+        return isExerciseTermMarkAsWrong;
+    }
+
+    public void update(ExerciseTerm exerciseTerm) {
+        DatabaseFacade.getDefault().getCrudService().update(exerciseTerm);
+    }
     
 }

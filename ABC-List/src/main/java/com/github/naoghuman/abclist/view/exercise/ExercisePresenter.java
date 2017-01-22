@@ -33,6 +33,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.collections.FXCollections;
@@ -44,10 +45,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -214,9 +219,21 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     }
     
     private Label getLabel(Term term) {
+        // Check in db if isMarkAsWrong
+        final boolean isMarkAsWrong = SqlProvider.getDefault().isExerciseTermMarkAsWrong(exercise.getId(), term.getId());
+        
+        // Create the label
         final Label label = new Label(term.getTitle());
         label.setUserData(term); // TODO tweak it
-        label.setStyle("-fx-background-color:LIGHTGREEN;"); // NOI18N
+        label.setStyle(
+                "-fx-background-color:"
+                + (isMarkAsWrong ? "ORANGERED;" : "LIGHTGREEN;")); // NOI18N
+        
+        final Font font = label.getFont();
+        label.setFont(Font.font(
+                font.getName(),
+                (isMarkAsWrong ? FontPosture.ITALIC : FontPosture.REGULAR),
+                font.getSize()));
         label.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 final TransferData transferData = new TransferData();
@@ -226,6 +243,44 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                 ActionFacade.getDefault().handle(transferData);
             }
         });
+        
+        // Create [ContextMenu]
+        final ContextMenu cm = new ContextMenu();
+        final Optional<ExerciseTerm> optional = SqlProvider.getDefault().findExerciseTerm(exercise.getId(), term.getId());
+        if (isMarkAsWrong) {
+            final MenuItem mi2 = new MenuItem("Mark as right"); // NOI18N
+            mi2.setOnAction((ActionEvent event) -> {
+                if (optional.isPresent()) {
+                    final ExerciseTerm exerciseTerm = optional.get();
+                    exerciseTerm.setMarkAsWrong(false);
+                    SqlProvider.getDefault().updateExerciseTerm(exerciseTerm);
+                    
+                    // Refresh flowpane
+                    // TODO Reload only the relevant [FlowPane]
+                    this.onActionResetFlowPanes();
+                    this.onActionLoadAllTerms();
+                }
+            });
+            cm.getItems().add(mi2);
+        }
+        else {
+            final MenuItem mi = new MenuItem("Mark as wrong"); // NOI18N
+            mi.setOnAction((ActionEvent event) -> {
+                if (optional.isPresent()) {
+                    final ExerciseTerm exerciseTerm = optional.get();
+                    exerciseTerm.setMarkAsWrong(true);
+                    SqlProvider.getDefault().updateExerciseTerm(exerciseTerm);
+                    
+                    // Refresh flowpane
+                    // TODO Reload only the relevant [FlowPane]
+                    this.onActionResetFlowPanes();
+                    this.onActionLoadAllTerms();
+                }
+            });
+            cm.getItems().add(mi);
+        }
+
+        label.setContextMenu(cm);
         
         return label;
     }
@@ -243,7 +298,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                         isTermAdded.set(true);
                         break;
                     }
-
                 }
             }
         }

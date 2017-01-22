@@ -122,9 +122,21 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     public ObservableList<Topic> findAllTopics() {
         return TopicSqlService.getDefault().findAllTopics();
     }
+
+    public Optional<ExerciseTerm> findExerciseTerm(long exerciseId, long termId) {
+        return ExerciseTermSqlService.getDefault().findExerciseTerm(exerciseId, termId);
+    }
+
+    public boolean isExerciseTermMarkAsWrong(long exerciseId, long termId) {
+        return ExerciseTermSqlService.getDefault().isExerciseTermMarkAsWrong(exerciseId, termId);
+    }
     
     public void updateExercise(Exercise exercise) {
         ExerciseSqlService.getDefault().update(exercise);
+    }
+
+    public void updateExerciseTerm(ExerciseTerm exerciseTerm) {
+        ExerciseTermSqlService.getDefault().update(exerciseTerm);
     }
     
     public void updateTerm(Term term) {

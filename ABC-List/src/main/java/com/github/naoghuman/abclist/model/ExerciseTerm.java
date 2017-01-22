@@ -52,7 +52,13 @@ import javafx.beans.property.SimpleBooleanProperty;
             query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__COUNT_ALL_EXERCISE_TERMS_WITH_TERM_ID),
     @NamedQuery(
             name = IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID,
-            query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID)
+            query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__FIND_ALL_EXERCISE_TERMS_WITH_EXERCISE_ID),
+    @NamedQuery(
+            name = IExerciseTermConfiguration.NAMED_QUERY__NAME__FIND_EXERCISE_TERM_WITH_EXERCISE_ID_AND_TERM_ID,
+            query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__FIND_EXERCISE_TERM_WITH_EXERCISE_ID_AND_TERM_ID),
+    @NamedQuery(
+            name = IExerciseTermConfiguration.NAMED_QUERY__NAME__IS_EXERCISE_TERM_MARK_AS_WRONG,
+            query = IExerciseTermConfiguration.NAMED_QUERY__QUERY__IS_EXERCISE_TERM_MARK_AS_WRONG)
 })
 public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, IDefaultConfiguration, IExerciseTermConfiguration {
     
