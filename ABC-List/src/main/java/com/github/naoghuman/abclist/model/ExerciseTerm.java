@@ -36,6 +36,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  *
@@ -166,6 +168,35 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
         return termIdProperty;
     }
     // END  TERM-ID ------------------------------------------------------------
+    
+    // START  MARK-AS-WRONG ----------------------------------------------------
+    private BooleanProperty markAsWrongProperty = null;
+    private boolean _markAsWrong = false;
+    
+    @Column(name = EXERCISE_TERM__COLUMN_NAME__MARK_AS_WRONG)
+    public boolean isMarkAsWrong() {
+        if (this.markAsWrongProperty == null) {
+            return _markAsWrong;
+        } else {
+            return markAsWrongProperty.get();
+        }
+    }
+    
+    public void setMarkAsWrong(boolean markAsWrong) {
+        if (markAsWrongProperty == null) {
+            _markAsWrong = markAsWrong;
+        } else {
+            markAsWrongProperty.set(markAsWrong);
+        }
+    }
+    
+    public BooleanProperty markAsWrongProperty() {
+        if (markAsWrongProperty == null) {
+            markAsWrongProperty = new SimpleBooleanProperty(this, EXERCISE_TERM__COLUMN_NAME__MARK_AS_WRONG, _markAsWrong);
+        }
+        return markAsWrongProperty;
+    }
+    // END  MARK-AS-WRONG ------------------------------------------------------
 	
     @Override
     public int compareTo(ExerciseTerm other) {
@@ -212,6 +243,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
                 .append(EXERCISE_TERM__COLUMN_NAME__ID, this.getId())
                 .append(EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, this.getExerciseId())
                 .append(EXERCISE_TERM__COLUMN_NAME__TERM_ID, this.getTermId())
+                .append(EXERCISE_TERM__COLUMN_NAME__MARK_AS_WRONG, this.isMarkAsWrong())
                 .toString();
     }
     
@@ -220,6 +252,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
         out.writeLong(this.getId());
         out.writeLong(this.getExerciseId());
         out.writeLong(this.getTermId());
+        out.writeBoolean(this.isMarkAsWrong());
     }
 
     @Override
@@ -227,6 +260,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
         this.setId(in.readLong());
         this.setExerciseId(in.readLong());
         this.setTermId(in.readLong());
+        this.setMarkAsWrong(in.readBoolean());
     }
     
 }
