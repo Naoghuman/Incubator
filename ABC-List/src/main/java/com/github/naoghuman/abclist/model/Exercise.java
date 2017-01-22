@@ -169,6 +169,35 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         return generationTimeProperty;
     }
     // END  GENERATIONTIME -----------------------------------------------------
+	
+    // START  FINISHEDTIME -----------------------------------------------------
+    private LongProperty finishedTimeProperty;
+    private long _finishedTime = System.currentTimeMillis();
+
+    @Column(name = EXERCISE__COLUMN_NAME__FINISHED_TIME)
+    public long getFinishedTime() {
+        if (finishedTimeProperty == null) {
+            return _finishedTime;
+        } else {
+            return finishedTimeProperty.get();
+        }
+    }
+
+    public final void setFinishedTime(long finishedTime) {
+        if (finishedTimeProperty == null) {
+            _finishedTime = finishedTime;
+        } else {
+            finishedTimeProperty.set(finishedTime);
+        }
+    }
+
+    public LongProperty finishedTimeProperty() {
+        if (finishedTimeProperty == null) {
+            finishedTimeProperty = new SimpleLongProperty(this, EXERCISE__COLUMN_NAME__FINISHED_TIME, _finishedTime);
+        }
+        return finishedTimeProperty;
+    }
+    // END  FINISHEDTIME -------------------------------------------------------
     
     // START  READY ------------------------------------------------------------
     private BooleanProperty readyProperty = null;
@@ -244,6 +273,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
                 .append(EXERCISE__COLUMN_NAME__ID, this.getId())
                 .append(EXERCISE__COLUMN_NAME__TOPIC_ID, this.getTopicId())
                 .append(EXERCISE__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
+                .append(EXERCISE__COLUMN_NAME__FINISHED_TIME, this.getFinishedTime())
                 .append(EXERCISE__COLUMN_NAME__READY, this.isReady())
                 .toString();
     }
@@ -253,6 +283,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         out.writeLong(this.getId());
         out.writeLong(this.getTopicId());
         out.writeLong(this.getGenerationTime());
+        out.writeLong(this.getFinishedTime());
         out.writeBoolean(this.isReady());
     }
 
@@ -261,6 +292,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         this.setId(in.readLong());
         this.setTopicId(in.readLong());
         this.setGenerationTime(in.readLong());
+        this.setFinishedTime(in.readLong());
         this.setReady(in.readBoolean());
     }
     

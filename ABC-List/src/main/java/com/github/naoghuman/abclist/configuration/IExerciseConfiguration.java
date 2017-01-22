@@ -28,6 +28,7 @@ public interface IExerciseConfiguration {
     public static final String NAMED_QUERY__QUERY__FIND_ALL_WITH_TOPIC_ID = "SELECT e FROM Exercise e WHERE e.topicId == :topicId"; // NOI18N
     
     public static final String EXERCISE__COLUMN_NAME__ID = "id"; // NOI18N
+    public static final String EXERCISE__COLUMN_NAME__FINISHED_TIME = "finishedTime"; // NOI18N
     public static final String EXERCISE__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
     public static final String EXERCISE__COLUMN_NAME__TOPIC_ID = "topicId"; // NOI18N
     public static final String EXERCISE__COLUMN_NAME__READY = "ready"; // NOI18N
