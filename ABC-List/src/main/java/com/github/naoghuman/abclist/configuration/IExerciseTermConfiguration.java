@@ -34,6 +34,7 @@ public interface IExerciseTermConfiguration {
     
     public static final String EXERCISE_TERM__COLUMN_NAME__ID = "id"; // NOI18N
     public static final String EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID = "exerciseId"; // NOI18N
+    public static final String EXERCISE_TERM__COLUMN_NAME__MARK_AS_WRONG = "markAsWrong"; // NOI18N
     public static final String EXERCISE_TERM__COLUMN_NAME__TERM_ID = "termId"; // NOI18N
 
 }
