@@ -127,7 +127,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation] [Topic]s"); // NOI18N
         
         // TreeView
-        tvNavigationTopics.setCellFactory((TreeView<Object> p) -> new NavigationTabTopicsListTreeCell());
+        tvNavigationTopics.setCellFactory((TreeView<Object> p) -> new NavigationTapTopicsListTreeCell());
     }
     
     private void initializeNavigationTabTerms() {
@@ -610,9 +610,38 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     public void registerActions() {
         LoggerFacade.getDefault().debug(this.getClass(), "Register actions in [ApplicationPresenter]"); // NOI18N
         
+        this.registerOnActionCreateNewExercise();
+        
+        this.registerOnActionOpenExercise();
         this.registerOnActionOpenTerm();
+        this.registerOnActionOpenTopic();
+        
         this.registerOnActionRefreshNavigationTabTermsWithSelection();
         this.registerOnActionRefreshNavigationTabTopics();
+    }
+    
+    private void registerOnActionCreateNewExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action create new [Exercise]"); // NOI18N
+        
+        ActionFacade.getDefault().register(
+                ACTION__APPLICATION__CREATE_NEW_EXERCISE,
+                (ActionEvent event) -> {
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final Topic topic = (Topic) transferData.getObject();
+                    this.onActionCreateNewExercise(topic);
+                });
+    }
+    
+    private void registerOnActionOpenExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action open [Exercise]"); // NOI18N
+        
+        ActionFacade.getDefault().register(
+                ACTION__APPLICATION__OPEN_EXERCISE,
+                (ActionEvent event) -> {
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final Exercise exercise = (Exercise) transferData.getObject();
+                    this.onActionOpenExercise(exercise);
+                });
     }
     
     private void registerOnActionOpenTerm() {
@@ -625,6 +654,18 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                     final Term term = (Term) transferData.getObject();
                     this.onActionOpenTerm(term);
                     // TODO select tab terms, select index from the topic in the combobox
+                });
+    }
+    
+    private void registerOnActionOpenTopic() {
+        LoggerFacade.getDefault().debug(this.getClass(), "Register on action open [Topic]"); // NOI18N
+        
+        ActionFacade.getDefault().register(
+                ACTION__APPLICATION__OPEN_TOPIC,
+                (ActionEvent event) -> {
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final Topic topic = (Topic) transferData.getObject();
+                    this.onActionOpenTopic(topic);
                 });
     }
 
@@ -646,124 +687,6 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 (ActionEvent event) -> {
                     this.onActionRefreshNavigationTabTopics();
                 });
-    }
-    
-    private final class NavigationTabTopicsListTreeCell extends TreeCell<Object> {
-        
-        private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
-        private final ContextMenu contextMenu = new ContextMenu();
-        private final Date date = new Date();
-        private final MenuItem menuItem = new MenuItem();
-        private final MenuItem menuItem2 = new MenuItem();
-        
-        public NavigationTabTopicsListTreeCell() {
-            contextMenu.getItems().add(menuItem);
-        }
-        
-        @Override
-        public void updateItem(Object item, boolean empty) {
-            super.updateItem(item, empty);
-
-            this.configureMenuItem(item);
-            this.configureMouseClick(item);
-            this.setContextMenu(!empty ? contextMenu : null);
-            this.setGraphic(null);
-            this.setText(!empty ? this.getDisplayText(item) : null);
-            this.setTooltip(this.getTooltip(item));
-        }
-        
-        private String getDisplayText(Object item) {
-            if (item instanceof Exercise) {
-                final Exercise exercise = (Exercise) item;
-                
-                
-                final StringBuilder sb = new StringBuilder();
-                date.setTime(exercise.getGenerationTime());
-                sb.append(simpleDateFormat.format(date));
-                sb.append(" ["); // NOI18N
-                sb.append("done (");
-                sb.append(exercise.isReady() ? "v" : "-");
-                sb.append(")");
-                sb.append("]"); // NOI18N
-                
-                return sb.toString();
-            }
-            
-            if (item instanceof Topic) {
-                final Topic topic = (Topic) item;
-                
-                final StringBuilder sb = new StringBuilder();
-                sb.append(topic.getTitle());
-                sb.append(" ["); // NOI18N
-                sb.append(topic.getExercises());
-                sb.append("]"); // NOI18N
-                
-                return sb.toString();
-            }
-            
-            return null;
-        }
-        
-        private Tooltip getTooltip(Object item) {
-            if (item instanceof Topic) {
-                final Topic topic = (Topic) item;
-                
-                final StringBuilder sb = new StringBuilder();
-                sb.append("Topic '"); // NOI18N
-                sb.append(topic.getTitle());
-                sb.append("' contains "); // NOI18N
-                sb.append(topic.getExercises());
-                sb.append(" Exercises."); // NOI18N
-                
-                return new Tooltip(sb.toString());
-            }
-            
-            return null;
-        }
-        
-        private void configureMenuItem(Object item) {
-            if (item instanceof Exercise) {
-                menuItem.setText("Open Exercise"); // NOI18N
-                menuItem.setOnAction(value -> {
-                    final Exercise exercise = (Exercise) item;
-                    ApplicationPresenter.this.onActionOpenExercise(exercise);
-                });
-                
-                if (contextMenu.getItems().contains(menuItem2)) {
-                    contextMenu.getItems().remove(menuItem2);
-                }
-            }
-            
-            if (item instanceof Topic) {
-                menuItem2.setText("Open Topic"); // NOI18N
-                menuItem2.setOnAction(value -> {
-                    final Topic topic = (Topic) item;
-                    ApplicationPresenter.this.onActionOpenTopic(topic);
-                });
-                if (!contextMenu.getItems().contains(menuItem2)) {
-                    contextMenu.getItems().add(menuItem2);
-                }
-                
-                menuItem.setText("New Exercise"); // NOI18N
-                menuItem.setOnAction(value -> {
-                    final Topic topic = (Topic) item;
-                    ApplicationPresenter.this.onActionCreateNewExercise(topic);
-                });
-            }
-        }
-        
-        private void configureMouseClick(Object item) {
-            if (item instanceof Exercise) {
-                this.setOnMouseClicked(value -> {
-                    final int mouseClickCount = value.getClickCount();
-                    if (mouseClickCount >= 2) {
-                        final Exercise exercise = (Exercise) item;
-                        ApplicationPresenter.this.onActionOpenExercise(exercise);
-                    }
-                });
-            }
-        }
-        
     }
     
 }
