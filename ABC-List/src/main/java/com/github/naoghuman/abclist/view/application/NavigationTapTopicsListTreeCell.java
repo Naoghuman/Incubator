@@ -116,9 +116,9 @@ public class NavigationTapTopicsListTreeCell extends TreeCell<Object> implements
             date.setTime(exercise.getGenerationTime());
             sb.append(simpleDateFormat.format(date));
             sb.append(" ["); // NOI18N
-            sb.append("done==");
+            sb.append("done (");
             sb.append(exercise.isReady() ? "v" : "-");
-            sb.append("");
+            sb.append(")");
             sb.append("]"); // NOI18N
 
             return sb.toString();
@@ -129,9 +129,9 @@ public class NavigationTapTopicsListTreeCell extends TreeCell<Object> implements
 
             final StringBuilder sb = new StringBuilder();
             sb.append(topic.getTitle());
-            sb.append(" ["); // NOI18N
+            sb.append(" ("); // NOI18N
             sb.append(topic.getExercises());
-            sb.append("]"); // NOI18N
+            sb.append(")"); // NOI18N
 
             return sb.toString();
         }
