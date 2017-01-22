@@ -9,6 +9,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox id="VBox" prefHeight="400.0" prefWidth="428.0" spacing="14.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.abclist.view.topic.TopicPresenter">
     <children>
@@ -17,6 +19,11 @@
                 <Button fx:id="bSave" disable="true" mnemonicParsing="false" onAction="#onActionSaveTopic" text="Save" />
             </items>
         </ToolBar>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Topic">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
         <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
             <tabs>
                 <Tab closable="false" text="Details">
