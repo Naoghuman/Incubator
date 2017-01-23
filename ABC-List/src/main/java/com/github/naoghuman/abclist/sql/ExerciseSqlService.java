@@ -44,7 +44,7 @@ public class ExerciseSqlService implements IDefaultConfiguration, IExerciseConfi
         
     }
     
-    public void create(Exercise exercise) {
+    void create(Exercise exercise) {
         if (Objects.equals(exercise.getId(), DEFAULT_ID)) {
             exercise.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(exercise);
@@ -54,7 +54,7 @@ public class ExerciseSqlService implements IDefaultConfiguration, IExerciseConfi
         }
     }
     
-    public ObservableList<Exercise> findAllExercisesWithTopicId(long topicId) {
+    ObservableList<Exercise> findAllExercisesWithTopicId(long topicId) {
         final ObservableList<Exercise> allExercisesWithTopicId = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
         parameters.put(EXERCISE__COLUMN_NAME__TOPIC_ID, topicId);
@@ -68,7 +68,7 @@ public class ExerciseSqlService implements IDefaultConfiguration, IExerciseConfi
         return allExercisesWithTopicId;
     }
     
-    public void update(Exercise exercise) {
+    void update(Exercise exercise) {
         DatabaseFacade.getDefault().getCrudService().update(exercise);
     }
     

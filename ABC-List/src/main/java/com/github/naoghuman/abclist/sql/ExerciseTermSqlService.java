@@ -18,7 +18,6 @@ package com.github.naoghuman.abclist.sql;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration;
-import static com.github.naoghuman.abclist.configuration.IExerciseTermConfiguration.NO_TERMS_FOUND;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
@@ -47,7 +46,7 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         
     }
     
-    public long countAllExerciseTermsWithTermId(long termId) {
+    long countAllExerciseTermsWithTermId(long termId) {
         final Query query = DatabaseFacade.getDefault().getCrudService()
                 .getEntityManager()
                 .createNamedQuery(NAMED_QUERY__NAME__COUNT_ALL_EXERCISE_TERMS_WITH_TERM_ID);
@@ -63,12 +62,12 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         return countedTermsWithoutParent;
     }
     
-    public void create(ExerciseTerm exerciseTerm) {
+    void create(ExerciseTerm exerciseTerm) {
         exerciseTerm.setId(System.currentTimeMillis());
         DatabaseFacade.getDefault().getCrudService().create(exerciseTerm);
     }
 
-    public void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
+    void deleteAllExerciseTermsWithExerciseId(long exerciseId) {
         final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exerciseId);
         
         DatabaseFacade.getDefault().getCrudService().beginTransaction();
@@ -79,7 +78,7 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         DatabaseFacade.getDefault().getCrudService().commitTransaction();
     }
     
-    public ObservableList<ExerciseTerm> findAllExerciseTermsWithExerciseId(long exerciseId) {
+    ObservableList<ExerciseTerm> findAllExerciseTermsWithExerciseId(long exerciseId) {
         final ObservableList<ExerciseTerm> allTermsWithExerciseId = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
         parameters.put(IExerciseTermConfiguration.EXERCISE_TERM__COLUMN_NAME__EXERCISE_ID, exerciseId);
@@ -93,7 +92,7 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         return allTermsWithExerciseId;
     }
     
-    public ObservableList<Term> findAllTermsInExerciseTerm(ObservableList<ExerciseTerm> exerciseTerms) {
+    ObservableList<Term> findAllTermsInExerciseTerm(ObservableList<ExerciseTerm> exerciseTerms) {
         final ObservableList<Term> allTermsInExerciseTerms = FXCollections.observableArrayList();
         exerciseTerms.stream()
                 .map((exerciseTerm) -> DatabaseFacade.getDefault().getCrudService().findById(Term.class, exerciseTerm.getTermId()))
@@ -106,7 +105,7 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         return allTermsInExerciseTerms;
     }
     
-    public ObservableList<Term> findAllTermsInExerciseTermWithoutParent(ObservableList<Term> terms) {
+    ObservableList<Term> findAllTermsInExerciseTermWithoutParent(ObservableList<Term> terms) {
         final ObservableList<Term> allTermsWithOutParent = FXCollections.observableArrayList();
         
         long counterTermInExercise = NO_TERMS_FOUND;
@@ -123,7 +122,7 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         return allTermsWithOutParent;
     }
 
-    public Optional<ExerciseTerm> findExerciseTerm(long exerciseId, long termId) {
+    Optional<ExerciseTerm> findExerciseTerm(long exerciseId, long termId) {
         final Query query = DatabaseFacade.getDefault().getCrudService()
                 .getEntityManager()
                 .createNamedQuery(NAMED_QUERY__NAME__FIND_EXERCISE_TERM_WITH_EXERCISE_ID_AND_TERM_ID);
@@ -140,7 +139,7 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         return optional;
     }
 
-    public boolean isExerciseTermMarkAsWrong(long exerciseId, long termId) {
+    boolean isExerciseTermMarkAsWrong(long exerciseId, long termId) {
         final Query query = DatabaseFacade.getDefault().getCrudService()
                 .getEntityManager()
                 .createNamedQuery(NAMED_QUERY__NAME__IS_EXERCISE_TERM_MARK_AS_WRONG);
@@ -157,7 +156,7 @@ public class ExerciseTermSqlService implements IDefaultConfiguration, IExerciseT
         return isExerciseTermMarkAsWrong;
     }
 
-    public void update(ExerciseTerm exerciseTerm) {
+    void update(ExerciseTerm exerciseTerm) {
         DatabaseFacade.getDefault().getCrudService().update(exerciseTerm);
     }
     

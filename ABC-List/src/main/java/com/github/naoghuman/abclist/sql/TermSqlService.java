@@ -44,7 +44,7 @@ public class TermSqlService implements IDefaultConfiguration, ITermConfiguration
         
     }
     
-    public void create(Term term) {
+    void create(Term term) {
         if (Objects.equals(term.getId(), DEFAULT_ID)) {
             term.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(term);
@@ -54,7 +54,7 @@ public class TermSqlService implements IDefaultConfiguration, ITermConfiguration
         }
     }
     
-    public ObservableList<Term> findAllTerms() {
+    ObservableList<Term> findAllTerms() {
         final ObservableList<Term> allTerms = FXCollections.observableArrayList();
         final List<Term> terms = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Term.class, NAMED_QUERY__NAME__FIND_ALL);
@@ -65,7 +65,7 @@ public class TermSqlService implements IDefaultConfiguration, ITermConfiguration
         return allTerms;
     }
 	
-    public ObservableList<Term> findAllTermsWithTitle(String title) {
+    ObservableList<Term> findAllTermsWithTitle(String title) {
         final ObservableList<Term> allTermsWithTitle = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
         parameters.put(TERM__COLUMN_NAME__TITLE, title);
@@ -79,11 +79,11 @@ public class TermSqlService implements IDefaultConfiguration, ITermConfiguration
         return allTermsWithTitle;
     }
     
-    public Term findById(long termId) {
+    Term findById(long termId) {
         return DatabaseFacade.getDefault().getCrudService().findById(Term.class, termId);
     }
     
-    public void update(Term term) {
+    void update(Term term) {
         DatabaseFacade.getDefault().getCrudService().update(term);
     }
     

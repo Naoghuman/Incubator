@@ -43,7 +43,7 @@ public class TopicSqlService implements IDefaultConfiguration {
         
     }
     
-    public void create(Topic topic) {
+    void create(Topic topic) {
         if (Objects.equals(topic.getId(), DEFAULT_ID)) {
             topic.setId(System.currentTimeMillis());
             DatabaseFacade.getDefault().getCrudService().create(topic);
@@ -53,7 +53,7 @@ public class TopicSqlService implements IDefaultConfiguration {
         }
     }
     
-    public ObservableList<Topic> findAllTopics() {
+    ObservableList<Topic> findAllTopics() {
         final ObservableList<Topic> allTopics = FXCollections.observableArrayList();
         final List<Topic> topics = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Topic.class, ITopicConfiguration.NAMED_QUERY__NAME__FIND_ALL);
@@ -64,7 +64,7 @@ public class TopicSqlService implements IDefaultConfiguration {
         return allTopics;
     }
     
-    public void update(Topic topic) {
+    void update(Topic topic) {
         DatabaseFacade.getDefault().getCrudService().update(topic);
     }
     
