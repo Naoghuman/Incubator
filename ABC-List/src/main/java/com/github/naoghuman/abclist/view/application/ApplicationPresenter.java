@@ -122,7 +122,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation] [Topic]s"); // NOI18N
         
         // TreeView
-        tvNavigationTopics.setCellFactory((TreeView<Object> p) -> new NavigationListTreeCell());
+        tvNavigationTopics.setCellFactory((TreeView<Object> p) -> new NavigationTapTopicsListTreeCell());
     }
     
     private void initializeNavigationTabTerms() {
