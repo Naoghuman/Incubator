@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.abclist.view.topic;
 
-import com.github.naoghuman.abclist.model.Term;
+import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.lib.action.api.ActionFacade;
@@ -35,7 +35,7 @@ import javafx.scene.control.TextField;
  *
  * @author Naoghuman
  */
-public class TopicPresenter implements Initializable {
+public class TopicPresenter implements Initializable, IActionConfiguration {
     
     @FXML private Button bSave;
     @FXML private TextArea taDescription;
@@ -91,9 +91,8 @@ public class TopicPresenter implements Initializable {
         // Reset [MarkAsChanged]
         topic.setMarkAsChanged(Boolean.FALSE);
         
-        // XXX refresh navigation-tab-topics
-        // Reload selection from the [ComboBox] [cbNavigationTopics]
-//        ActionFacade.getDefault().handle(ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TERMS_WITH_SELECTION);
+        // Refresh navigation-tab-topics
+        ActionFacade.getDefault().handle(ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TOPICS);
     }
     
     private final class StringChangeListener implements ChangeListener<String> {
