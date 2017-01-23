@@ -141,6 +141,35 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         return parentIdProperty;
     }
     // END  PARENT-ID ----------------------------------------------------------
+	
+    // START  GENERATIONTIME ---------------------------------------------------
+    private LongProperty generationTimeProperty;
+    private long _generationTime = System.currentTimeMillis();
+
+    @Column(name = TOPIC__COLUMN_NAME__GENERATION_TIME)
+    public long getGenerationTime() {
+        if (generationTimeProperty == null) {
+            return _generationTime;
+        } else {
+            return generationTimeProperty.get();
+        }
+    }
+
+    public final void setGenerationTime(long generationTime) {
+        if (generationTimeProperty == null) {
+            _generationTime = generationTime;
+        } else {
+            generationTimeProperty.set(generationTime);
+        }
+    }
+
+    public LongProperty generationTimeProperty() {
+        if (generationTimeProperty == null) {
+            generationTimeProperty = new SimpleLongProperty(this, TOPIC__COLUMN_NAME__GENERATION_TIME, _generationTime);
+        }
+        return generationTimeProperty;
+    }
+    // END  GENERATIONTIME -----------------------------------------------------
     
     // START  DESCRIPTION ------------------------------------------------------
     private StringProperty descriptionProperty = null;
@@ -258,6 +287,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         return new EqualsBuilder()
                 .append(this.getId(), other.getId())
                 .append(this.getParentId(), this.getParentId())
+                .append(this.getGenerationTime(), other.getGenerationTime())
                 .append(this.getTitle(), other.getTitle())
                 .isEquals();
     }
@@ -267,6 +297,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         return new HashCodeBuilder(17, 37)
                 .append(this.getId())
                 .append(this.getParentId())
+                .append(this.getGenerationTime())
                 .append(this.getTitle())
                 .toHashCode();
     }
@@ -276,6 +307,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
         return new ToStringBuilder(this)
                 .append(TOPIC__COLUMN_NAME__ID, this.getId())
                 .append(TOPIC__COLUMN_NAME__PARENT_ID, this.getId())
+                .append(TOPIC__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
                 .append(TOPIC__COLUMN_NAME__TITLE, this.getTitle())
                 .append(TOPIC__COLUMN_NAME__DESCRIPTION, this.getDescription())
                 .toString();
@@ -285,6 +317,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(this.getId());
         out.writeLong(this.getParentId());
+        out.writeLong(this.getGenerationTime());
         out.writeObject(this.getDescription());
         out.writeObject(this.getTitle());
     }
@@ -293,6 +326,7 @@ public class Topic implements Comparable<Topic>, Externalizable, IDefaultConfigu
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
         this.setParentId(in.readLong());
+        this.setGenerationTime(in.readLong());
         this.setDescription(String.valueOf(in.readObject()));
         this.setTitle(String.valueOf(in.readObject()));
     }
