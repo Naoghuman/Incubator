@@ -17,6 +17,7 @@
 package com.github.naoghuman.abclist.view.application;
 
 import com.github.naoghuman.abclist.configuration.IActionConfiguration;
+import com.github.naoghuman.abclist.converter.DateConverter;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.action.api.ActionFacade;
@@ -32,7 +33,7 @@ import javafx.scene.control.TreeCell;
  *
  * @author Naoghuman
  */
-public class NavigationTapTopicsListTreeCell extends TreeCell<Object> implements IActionConfiguration {
+public class NavigationListTreeCell extends TreeCell<Object> implements IActionConfiguration {
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
     private final ContextMenu contextMenu = new ContextMenu();
@@ -40,7 +41,7 @@ public class NavigationTapTopicsListTreeCell extends TreeCell<Object> implements
     private final MenuItem menuItem = new MenuItem();
     private final MenuItem menuItem2 = new MenuItem();
 
-    public NavigationTapTopicsListTreeCell() {
+    public NavigationListTreeCell() {
         contextMenu.getItems().add(menuItem);
     }
 
@@ -128,6 +129,9 @@ public class NavigationTapTopicsListTreeCell extends TreeCell<Object> implements
             final Topic topic = (Topic) item;
 
             final StringBuilder sb = new StringBuilder();
+            if (DateConverter.getDefault().isDateInNewRange(topic.getGenerationTime())) {
+                sb.append("New | ");
+            }
             sb.append(topic.getTitle());
             sb.append(" ("); // NOI18N
             sb.append(topic.getExercises());
