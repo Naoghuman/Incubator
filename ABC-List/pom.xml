@@ -7,7 +7,10 @@
     <packaging>jar</packaging>
     <name>ABC-List</name>
     
-    <description>TODO add description</description>
+    <description>With the application ABC-List the user can train his abilities structured thinking (about choosen topics)  and deepen knowlegde (about terms in context from the 
+respective topic).
+
+ABC-List is a JavaFX &amp; Maven application, written in NetBeans IDE.</description>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
