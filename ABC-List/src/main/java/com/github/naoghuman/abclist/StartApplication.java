@@ -31,6 +31,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -74,6 +75,7 @@ public class StartApplication extends Application implements IApplicationConfigu
            
            this.onCloseRequest();
         });
+//        primaryStage.getIcons().add(new Image("http://icons.iconarchive.com/icons/guillendesign/variations-2/256/Favourites-icon.png"));
         
         primaryStage.show();
         applicationPresenter.initializeAfterWindowIsShowing();
