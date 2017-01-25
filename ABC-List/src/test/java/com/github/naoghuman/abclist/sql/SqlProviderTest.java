@@ -24,7 +24,6 @@ import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
-import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.AfterClass;
@@ -647,21 +646,52 @@ public class SqlProviderTest implements IDefaultConfiguration {
 
     @Test
     public void testUpdateExercise() {
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
+        Exercise exercise = ModelProvider.getDefault().getExercise();
+        SqlProvider.getDefault().createExercise(exercise);
+        
+        exercise.setReady(true);
+        SqlProvider.getDefault().updateExercise(exercise);
+        
+        Exercise exerciseFromDatabase = DatabaseFacade.getDefault()
+                .getCrudService("testUpdateExercise()")
+                .findById(Exercise.class, exercise.getId());
+        
+        assertNotNull(exerciseFromDatabase);
+        assertNotEquals(DEFAULT_ID, exerciseFromDatabase.getId());
+        assertEquals(exercise.getId(), exerciseFromDatabase.getId());
+        assertEquals(true, exerciseFromDatabase.isReady());
+        assertEquals(exercise.isReady(), exerciseFromDatabase.isReady());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testUpdateExercise()")
+                .delete(Exercise.class, exercise.getId());
         
     }
 
     @Test
     public void testUpdateExerciseTerm() {
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         
     }
 
     @Test
     public void testUpdateTerm() {
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         
     }
 
     @Test
     public void testUpdateTopic() {
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        
         
     }
     
