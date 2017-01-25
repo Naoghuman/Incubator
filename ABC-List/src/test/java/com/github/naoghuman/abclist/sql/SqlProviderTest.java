@@ -452,7 +452,11 @@ public class SqlProviderTest implements IDefaultConfiguration {
 
     @Test
     public void testFindAllTermsInExerciseTermWithoutParent() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindAllTermsInExerciseTermWithoutParent()"); // NOI18N
         
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        // TODO
     }
 
     @Test
@@ -638,14 +642,18 @@ public class SqlProviderTest implements IDefaultConfiguration {
     public void testFindExerciseTerm() {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindExerciseTerm()"); // NOI18N
         
-        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        // TODO
     }
 
     @Test
     public void testIsExerciseTermMarkAsWrong() {
         LoggerFacade.getDefault().own(SqlProviderTest.class, "testIsExerciseTermMarkAsWrong()"); // NOI18N
         
-        
+        // ---------------------------------------------------------------------
+        try { Thread.sleep(15); } catch (Exception e) { }
+        // TODO
     }
 
     @Test
@@ -674,7 +682,6 @@ public class SqlProviderTest implements IDefaultConfiguration {
         DatabaseFacade.getDefault()
                 .getCrudService("testUpdateExercise()")
                 .delete(Exercise.class, exercise.getId());
-        
     }
 
     @Test
