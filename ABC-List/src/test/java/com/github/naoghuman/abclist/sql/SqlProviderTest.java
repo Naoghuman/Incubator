@@ -636,16 +636,22 @@ public class SqlProviderTest implements IDefaultConfiguration {
 
     @Test
     public void testFindExerciseTerm() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testFindExerciseTerm()"); // NOI18N
+        
         
     }
 
     @Test
     public void testIsExerciseTermMarkAsWrong() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testIsExerciseTermMarkAsWrong()"); // NOI18N
+        
         
     }
 
     @Test
     public void testUpdateExercise() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testUpdateExercise()"); // NOI18N
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
@@ -673,22 +679,44 @@ public class SqlProviderTest implements IDefaultConfiguration {
 
     @Test
     public void testUpdateExerciseTerm() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testUpdateExerciseTerm()"); // NOI18N
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
-        
-        
     }
 
     @Test
     public void testUpdateTerm() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testUpdateTerm()"); // NOI18N
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
+        Term term = ModelProvider.getDefault().getTerm("Test");
+        SqlProvider.getDefault().createTerm(term);
         
+        term.setTitle("Test aaaaaaaa");
+        SqlProvider.getDefault().updateTerm(term);
+        
+        Term termFromDatabase = DatabaseFacade.getDefault()
+                .getCrudService("testUpdateExerciseTerm()")
+                .findById(Term.class, term.getId());
+        
+        assertNotNull(termFromDatabase);
+        assertNotEquals(DEFAULT_ID, termFromDatabase.getId());
+        assertEquals(term.getId(), termFromDatabase.getId());
+        assertEquals("Test aaaaaaaa", termFromDatabase.getTitle());
+        assertEquals(term.getTitle(), termFromDatabase.getTitle());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testUpdateExerciseTerm()")
+                .delete(Term.class, term.getId());
     }
 
     @Test
     public void testUpdateTopic() {
+        LoggerFacade.getDefault().own(SqlProviderTest.class, "testUpdateTopic()"); // NOI18N
+        
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
