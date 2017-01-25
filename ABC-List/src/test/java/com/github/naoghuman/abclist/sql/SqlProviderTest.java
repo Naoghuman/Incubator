@@ -683,6 +683,28 @@ public class SqlProviderTest implements IDefaultConfiguration {
         
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
+        
+        ExerciseTerm exerciseTerm = ModelProvider.getDefault().getExerciseTerm();
+        SqlProvider.getDefault().createExerciseTerm(exerciseTerm);
+        
+        exerciseTerm.setMarkAsWrong(true);
+        SqlProvider.getDefault().updateExerciseTerm(exerciseTerm);
+        
+        ExerciseTerm exerciseTermFromDatabase = DatabaseFacade.getDefault()
+                .getCrudService("testUpdateExerciseTerm()")
+                .findById(ExerciseTerm.class, exerciseTerm.getId());
+        
+        assertNotNull(exerciseTermFromDatabase);
+        assertNotEquals(DEFAULT_ID, exerciseTermFromDatabase.getId());
+        assertEquals(exerciseTerm.getId(), exerciseTermFromDatabase.getId());
+        assertEquals(DEFAULT_ID, exerciseTerm.getExerciseId());
+        assertEquals(DEFAULT_ID, exerciseTerm.getTermId());
+        assertTrue(exerciseTermFromDatabase.isMarkAsWrong());
+        assertTrue(exerciseTerm.isMarkAsWrong() == exerciseTermFromDatabase.isMarkAsWrong());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testUpdateExerciseTerm()")
+                .delete(ExerciseTerm.class, exerciseTerm.getId());
     }
 
     @Test
