@@ -720,7 +720,25 @@ public class SqlProviderTest implements IDefaultConfiguration {
         // ---------------------------------------------------------------------
         try { Thread.sleep(15); } catch (Exception e) { }
         
+        Topic topic = ModelProvider.getDefault().getTopic("Topic");
+        SqlProvider.getDefault().createTopic(topic);
         
+        topic.setTitle("Topic aaaaaaaa");
+        SqlProvider.getDefault().updateTopic(topic);
+        
+        Topic topicFromDatabase = DatabaseFacade.getDefault()
+                .getCrudService("testUpdateTopic()")
+                .findById(Topic.class, topic.getId());
+        
+        assertNotNull(topicFromDatabase);
+        assertNotEquals(DEFAULT_ID, topicFromDatabase.getId());
+        assertEquals(topic.getId(), topicFromDatabase.getId());
+        assertEquals("Topic aaaaaaaa", topicFromDatabase.getTitle());
+        assertEquals(topic.getTitle(), topicFromDatabase.getTitle());
+        
+        DatabaseFacade.getDefault()
+                .getCrudService("testUpdateTopic()")
+                .delete(Topic.class, topic.getId());
     }
     
 }
