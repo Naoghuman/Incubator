@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.view.application;
+package com.github.naoghuman.abclist.view.application.navigation;
 
 import com.github.naoghuman.abclist.configuration.IActionConfiguration;
-import com.github.naoghuman.abclist.converter.DateConverter;
+import com.github.naoghuman.abclist.view.application.navigation.converter.DateConverter;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.lib.action.api.ActionFacade;
@@ -33,7 +33,7 @@ import javafx.scene.control.TreeCell;
  *
  * @author Naoghuman
  */
-public class NavigationListTreeCell extends TreeCell<Object> implements IActionConfiguration {
+public final class NavigationListTreeCell extends TreeCell<Object> implements IActionConfiguration {
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
     private final ContextMenu contextMenu = new ContextMenu();

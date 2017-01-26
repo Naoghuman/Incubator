@@ -14,34 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.converter;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Optional;
+package com.github.naoghuman.abclist.view.application.navigation;
 
 /**
  *
  * @author Naoghuman
  */
-public final class DateConverter {
+public final class Navigation {
     
-    private static final Optional<DateConverter> instance = Optional.of(new DateConverter());
-
-    public static final DateConverter getDefault() {
-        return instance.get();
+    private final ENavigationType navigationType;
+    
+    private final long entityId;
+    
+    public Navigation(ENavigationType navigationType, long entityId) {
+        this.navigationType = navigationType;
+        this.entityId = entityId;
     }
     
-    private DateConverter() {
-        
+    public long getEntityId() {
+        return entityId;
     }
     
-    public boolean isDateInNewRange(long generationTime) {
-        final LocalDateTime localDateTime = LocalDateTime.now().minusDays(3L);
-        final long generationTime3DaysInPast = localDateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
-        final boolean isDateInNewRange = generationTime3DaysInPast < generationTime;
-        
-        return isDateInNewRange;
+    public ENavigationType getNavigationType() {
+        return navigationType;
     }
     
 }

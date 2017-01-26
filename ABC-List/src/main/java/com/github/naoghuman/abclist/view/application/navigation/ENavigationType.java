@@ -14,23 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.abclist.view.application;
+package com.github.naoghuman.abclist.view.application.navigation;
 
 /**
  *
  * @author Naoghuman
- * @param <T>
  */
-public class Navigation<T> {
-    
-    private T view;
-    
-    public void setView(T view) {
-        this.view = view;
-    }
-    
-    public T getView() {
-        return view;
-    }
+public enum ENavigationType {
+        
+        EXERCISE,
+        TERM,
+        TOPIC,
+        WELCOME;
     
 }
