@@ -35,7 +35,6 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -177,7 +176,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         flowPaneTerms.add(tfSignY);
         flowPaneTerms.add(tfSignZ);
         
-        lCounterTerms.setText("Quantity: " + counterTerms);
+        lCounterTerms.setText("Terms: " + counterTerms); // NOI18N
     }
     
     private char computeFirstChar(String term) {
@@ -199,7 +198,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     
     public void configure(Exercise exercise) {
         LoggerFacade.getDefault().debug(this.getClass(), "Configure"); // NOI18N
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
         
         this.exercise = exercise;
         
@@ -218,17 +216,17 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     }
     
     private FlowPane getFlowPane(char firstChar) {
-        FlowPane fl = new FlowPane();
-        for (FlowPane flowPane : flowPaneTerms) {
-            if (flowPane.getId().toLowerCase().charAt(0) == firstChar) {
-                fl = flowPane;
+        FlowPane flowPane = new FlowPane();
+        for (FlowPane flowPane2 : flowPaneTerms) {
+            if (flowPane2.getId().toLowerCase().charAt(0) == firstChar) {
+                flowPane = flowPane2;
             }
         }
         
-        return fl;
+        return flowPane;
     }
     
-    private Label getLabel(Term term) {
+    private Label getLabel(Term term) { // TODO create own component
         // Check in db if isMarkAsWrong
         final boolean isMarkAsWrong = SqlProvider.getDefault().isExerciseTermMarkAsWrong(exercise.getId(), term.getId());
         
@@ -299,40 +297,43 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
         System.out.println(" #firstchar: " + firstChar); // XXX
         
-        final FlowPane fp = this.getFlowPane(firstChar);
-        final AtomicBoolean isTermAdded = new AtomicBoolean(false);
-        for (Node node : fp.getChildren()) {
+        final FlowPane flowPane = this.getFlowPane(firstChar);
+        boolean isTermAdded = false;
+        for (Node node : flowPane.getChildren()) {
             if (node instanceof Label) {
                 final Label label = (Label) node;
                 if (label.getUserData() instanceof Term) {
                     final Term addedTerm = (Term) label.getUserData();
                     if (addedTerm.getTitle().equals(term.getTitle())) {
-                        isTermAdded.set(true);
-        System.out.println(" #isTermAdded: true"); // XXX
+                        isTermAdded = true;
+                        System.out.println(" #isTermAdded: true"); // XXX
                         break;
                     }
                 }
             }
         }
         
-        if (!isTermAdded.get()) {
-        System.out.println(" #isTermAdded: false"); // XXX
-            fp.getChildren().add(this.getLabel(term));
-            FXCollections.sort(fp.getChildren(), (Node node1, Node node2) -> {
-                int compare = 0;
-                if (
-                        node1 instanceof Label
-                        && node2 instanceof Label
-                        && node1.getUserData() instanceof Term
-                        && node2.getUserData() instanceof Term
-                ) {
-                    final Term term1 = (Term) node1.getUserData();
-                    final Term term2 = (Term) node2.getUserData();
-                    compare = term1.getTitle().compareTo(term2.getTitle());
-                }
-                
-                return compare;
-            });
+        if (!isTermAdded) {
+            System.out.println(" #isTermAdded: false"); // XXX
+            
+            flowPane.getChildren().add(this.getLabel(term));
+            if (flowPane.getChildren().size() > 1) {
+                FXCollections.sort(flowPane.getChildren(), (Node node1, Node node2) -> {
+                    int compare = 0;
+                    if (
+                            node1 instanceof Label
+                            && node2 instanceof Label
+                            && node1.getUserData() instanceof Term
+                            && node2.getUserData() instanceof Term
+                    ) {
+                        final Term term1 = (Term) node1.getUserData();
+                        final Term term2 = (Term) node2.getUserData();
+                        compare = term1.getTitle().compareTo(term2.getTitle());
+                    }
+
+                    return compare;
+                });
+            }
         }
     }
     
@@ -344,7 +345,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                 .forEach(flowPane -> {
                     counterTerms += flowPane.getChildren().size();
                 });
-        lCounterTerms.setText("Quantity: " + counterTerms);
+        lCounterTerms.setText("Terms: " + counterTerms);
     }
     
     private void onActionDisableComponents() {
@@ -380,8 +381,9 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         terms.stream()
                 .forEach(term -> {
                     this.onActionAddTerm(term);
-                    this.onActionCountTerms();
                 });
+        
+        this.onActionCountTerms();
     }
     
     private void onActionResetFlowPanes() {
