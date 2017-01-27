@@ -24,6 +24,7 @@ import com.github.naoghuman.abclist.view.exercise.ExercisePresenter;
 import com.github.naoghuman.abclist.view.exercise.ExerciseView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ModelProvider;
+import com.github.naoghuman.abclist.model.NavigationEntity;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
@@ -78,7 +79,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
     @FXML private ListView<Term> lvNavigationTerms;
     @FXML private SplitPane spApplication;
     @FXML private TabPane tpNavigation;
-    @FXML private TreeView<Object> tvNavigationTopics;
+    @FXML private TreeView<NavigationEntity> tvNavigationTopics;
     @FXML private VBox vbWorkingArea;
     
     private final ObservableList<Navigation> navigationViews = FXCollections.observableArrayList();
@@ -101,7 +102,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         // Update gui
         final ObservableList<Topic> topics = SqlProvider.getDefault().findAllTopics();
         NavigationProvider.getDefault().onActionRefreshNavigationTabTopics(topics);
-        NavigationProvider.getDefault().onActionRefreshNavigationTabTerms(topics);
+//        NavigationProvider.getDefault().onActionRefreshNavigationTabTerms(topics);
     }
     
     private void initializeNavigation() {
@@ -130,8 +131,16 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         vbWorkingArea.getChildren().add(parent);
     }
     
-    private void onActionCreateNewExercise(Topic topic) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Exercise]"); // NOI18N
+    private void onActionCreateNewExerciseWithTopicId(long entityId) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action create new [Exercise] with [Topic.Id]"); // NOI18N
+        
+        // Load [Topic] from the [Database]
+        final Optional<Topic> optional = SqlProvider.getDefault().findById(Topic.class, entityId);
+        if (!optional.isPresent()) {
+            LoggerFacade.getDefault().warn(this.getClass(), "Can't find a [Topic] with [id=" + entityId + "] in [Database]"); // NOI18N
+            return;
+        }
+        final Topic topic = optional.get();
         
         // Create a new Exercise
         final Exercise exercise = ModelProvider.getDefault().getExercise(IDefaultConfiguration.DEFAULT_ID, topic.getId());
@@ -211,7 +220,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
             topics.clear();
             topics.addAll(SqlProvider.getDefault().findAllTopics());
             NavigationProvider.getDefault().onActionRefreshNavigationTabTopics(topics);
-            NavigationProvider.getDefault().onActionRefreshNavigationTabTerms(topics);
+//            NavigationProvider.getDefault().onActionRefreshNavigationTabTerms(topics);
         }
     }
     
@@ -284,35 +293,12 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
          - set [indexShownNavigationView] to user click index
         */
     }
-
+    
     private void onActionOpenExercise(Exercise exercise) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action open Exercise"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "On action open [Exercise]"); // NOI18N
         
         vbWorkingArea.getChildren().clear();
         
-        // Was the [Exercise] previously open?
-//        int index = 0;
-//        for (Navigation navigation : navigationViews) {
-//            final Object object = navigation.getView();
-//            if (object instanceof ExerciseView) {
-//                final ExerciseView exerciseView = (ExerciseView) object;
-//                final ExercisePresenter exercisePresenter = exerciseView.getRealPresenter();
-//                if (Objects.equals(exercisePresenter.getId(), exercise.getId())) {
-//                    indexShownNavigationView = index;
-//                    LoggerFacade.getDefault().debug(this.getClass(), "Show [ExerciseView (index=" + indexShownNavigationView + ")]"); // NOI18N
-//        
-//                    
-//                    final Parent parent = exerciseView.getView();
-//                    VBox.setVgrow(parent, Priority.ALWAYS);
-//                    vbWorkingArea.getChildren().add(parent);
-//                    return;
-//                }
-//            }
-//            
-//            ++index;
-//        }
-        
-        // Generate new ExerciseView
         final ExerciseView exerciseView = new ExerciseView();
         final ExercisePresenter exercisePresenter = exerciseView.getRealPresenter();
         exercisePresenter.configure(exercise);
@@ -326,12 +312,38 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         VBox.setVgrow(parent, Priority.ALWAYS);
         vbWorkingArea.getChildren().add(parent);
     }
+
+    private void onActionOpenExerciseWithId(long entityId) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action open [Exercise] with [Id]"); // NOI18N
+ 
+        // Load [Exercise] from the [Database]
+        final Optional<Exercise> optional = SqlProvider.getDefault().findById(Exercise.class, entityId);
+        if (optional.isPresent()) {
+            this.onActionOpenExercise(optional.get());
+        }
+    }
     
     private void onActionOpenTerm(Term term) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action show [Term]"); // NOI18N
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + term.toString());
 
         vbWorkingArea.getChildren().clear();
+
+        final TermView termView = new TermView();
+        final TermPresenter termPresenter = termView.getRealPresenter();
+        termPresenter.configure(term);
+        
+        final Navigation navigation = new Navigation(ENavigationType.TERM, term.getId());
+        navigationViews.add(navigation);
+        indexShownNavigationView = navigationViews.size() - 1;
+        LoggerFacade.getDefault().debug(this.getClass(), "Add [TermView (index=" + indexShownNavigationView + ")]"); // NOI18N
+        
+        final Parent parent = termView.getView();
+        VBox.setVgrow(parent, Priority.ALWAYS);
+        vbWorkingArea.getChildren().add(parent);
+    }
+    
+    private void onActionOpenTermWithId(long entityId) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action show [Term] with [Id]"); // NOI18N
         
         // Was the [Term] previously open?
 //        int index = 0;
@@ -353,50 +365,19 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
 //            
 //            ++index;
 //        }
-        
-        // Generate new TermView
-        final TermView termView = new TermView();
-        final TermPresenter termPresenter = termView.getRealPresenter();
-        termPresenter.configure(term);
-        
-        final Navigation navigation = new Navigation(ENavigationType.TERM, term.getId());
-        navigationViews.add(navigation);
-        indexShownNavigationView = navigationViews.size() - 1;
-        LoggerFacade.getDefault().debug(this.getClass(), "Add [TermView (index=" + indexShownNavigationView + ")]"); // NOI18N
-        
-        final Parent parent = termView.getView();
-        VBox.setVgrow(parent, Priority.ALWAYS);
-        vbWorkingArea.getChildren().add(parent);
+ 
+        // Load [Term] from the [Database]
+        final Optional<Term> optional = SqlProvider.getDefault().findById(Term.class, entityId);
+        if (optional.isPresent()) {
+            this.onActionOpenTerm(optional.get());
+        }
     }
     
     private void onActionOpenTopic(Topic topic) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action open [Topic]"); // NOI18N
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + topic.toString());
         
         vbWorkingArea.getChildren().clear();
-        
-        // Was the [Term] previously open?
-//        int index = 0;
-//        for (Navigation navigation : navigationViews) {
-//            final Object object = navigation.getView();
-//            if (object instanceof TopicView) {
-//                final TopicView topicView = (TopicView) object;
-//                final TopicPresenter topicPresenter = topicView.getRealPresenter();
-//                if (Objects.equals(topicPresenter.getId(), topic.getId())) {
-//                    indexShownNavigationView = index;
-//                    LoggerFacade.getDefault().debug(this.getClass(), "Show [TopicView (index=" + indexShownNavigationView + ")]"); // NOI18N
-//        
-//                    final Parent parent = topicView.getView();
-//                    VBox.setVgrow(parent, Priority.ALWAYS);
-//                    vbWorkingArea.getChildren().add(parent);
-//                    return;
-//                }
-//            }
-//            
-//            ++index;
-//        }
-        
-        // Generate new TermView
+
         final TopicView topicView = new TopicView();
         final TopicPresenter topicPresenter = topicView.getRealPresenter();
         topicPresenter.configure(topic);
@@ -409,6 +390,16 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         final Parent parent = topicView.getView();
         VBox.setVgrow(parent, Priority.ALWAYS);
         vbWorkingArea.getChildren().add(parent);
+    }
+    
+    private void onActionOpenTopicWithId(long entityId) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action open [Topic] with [Id]"); // NOI18N
+        
+        // Load [Topic] from the [Database]
+        final Optional<Topic> optional = SqlProvider.getDefault().findById(Topic.class, entityId);
+        if (optional.isPresent()) {
+            this.onActionOpenTopic(optional.get());
+        }
     }
     
     public void onActionShowTermsFromSelectedTopic() {
@@ -435,8 +426,8 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 ACTION__APPLICATION__CREATE_NEW_EXERCISE,
                 (ActionEvent event) -> {
                     final TransferData transferData = (TransferData) event.getSource();
-                    final Topic topic = (Topic) transferData.getObject();
-                    this.onActionCreateNewExercise(topic);
+                    final long entityId = transferData.getLong();
+                    this.onActionCreateNewExerciseWithTopicId(entityId);
                 });
     }
     
@@ -447,8 +438,8 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 ACTION__APPLICATION__OPEN_EXERCISE,
                 (ActionEvent event) -> {
                     final TransferData transferData = (TransferData) event.getSource();
-                    final Exercise exercise = (Exercise) transferData.getObject();
-                    this.onActionOpenExercise(exercise);
+                    final long entityId = transferData.getLong();
+                    this.onActionOpenExerciseWithId(entityId);
                 });
     }
     
@@ -459,8 +450,8 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 ACTION__APPLICATION__OPEN_TERM,
                 (ActionEvent event) -> {
                     final TransferData transferData = (TransferData) event.getSource();
-                    final Term term = (Term) transferData.getObject();
-                    this.onActionOpenTerm(term);
+                    final long entityId = transferData.getLong();
+                    this.onActionOpenTermWithId(entityId);
                     // TODO select tab terms, select index from the topic in the combobox
                 });
     }
@@ -472,8 +463,8 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
                 ACTION__APPLICATION__OPEN_TOPIC,
                 (ActionEvent event) -> {
                     final TransferData transferData = (TransferData) event.getSource();
-                    final Topic topic = (Topic) transferData.getObject();
-                    this.onActionOpenTopic(topic);
+                    final long entityId = transferData.getLong();
+                    this.onActionOpenTopicWithId(entityId);
                 });
     }
     

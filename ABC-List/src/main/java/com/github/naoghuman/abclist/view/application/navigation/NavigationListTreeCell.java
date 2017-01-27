@@ -17,13 +17,9 @@
 package com.github.naoghuman.abclist.view.application.navigation;
 
 import com.github.naoghuman.abclist.configuration.IActionConfiguration;
-import com.github.naoghuman.abclist.view.application.navigation.converter.DateConverter;
-import com.github.naoghuman.abclist.model.Exercise;
-import com.github.naoghuman.abclist.model.Topic;
+import com.github.naoghuman.abclist.model.NavigationEntity;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.TransferData;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
@@ -33,11 +29,9 @@ import javafx.scene.control.TreeCell;
  *
  * @author Naoghuman
  */
-public final class NavigationListTreeCell extends TreeCell<Object> implements IActionConfiguration {
+public final class NavigationListTreeCell extends TreeCell<NavigationEntity> implements IActionConfiguration {
 
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
     private final ContextMenu contextMenu = new ContextMenu();
-    private final Date date = new Date();
     private final MenuItem menuItem = new MenuItem();
     private final MenuItem menuItem2 = new MenuItem();
 
@@ -45,15 +39,15 @@ public final class NavigationListTreeCell extends TreeCell<Object> implements IA
         contextMenu.getItems().add(menuItem);
     }
 
-    private void configureMenuItem(Object item) {
-        if (item instanceof Exercise) {
+    private void configureMenuItem(NavigationEntity navigationEntity) {
+        if (navigationEntity.getNavigation().getNavigationType().equals(ENavigationType.EXERCISE)) {
             menuItem.setText("Open Exercise"); // NOI18N
             menuItem.setOnAction(value -> {
                 final TransferData transferData = new TransferData();
                 transferData.setActionId(ACTION__APPLICATION__OPEN_EXERCISE);
                 
-                final Exercise exercise = (Exercise) item;
-                transferData.setObject(exercise);
+                final long entityId = navigationEntity.getNavigation().getEntityId();
+                transferData.setLong(entityId);
                 
                 ActionFacade.getDefault().handle(transferData);
             });
@@ -63,14 +57,14 @@ public final class NavigationListTreeCell extends TreeCell<Object> implements IA
             }
         }
 
-        if (item instanceof Topic) {
+        if (navigationEntity.getNavigation().getNavigationType().equals(ENavigationType.TOPIC)) {
             menuItem2.setText("Open Topic"); // NOI18N
             menuItem2.setOnAction(value -> {
                 final TransferData transferData = new TransferData();
                 transferData.setActionId(ACTION__APPLICATION__OPEN_TOPIC);
                 
-                final Topic topic = (Topic) item;
-                transferData.setObject(topic);
+                final long entityId = navigationEntity.getNavigation().getEntityId();
+                transferData.setLong(entityId);
                 
                 ActionFacade.getDefault().handle(transferData);
             });
@@ -84,24 +78,24 @@ public final class NavigationListTreeCell extends TreeCell<Object> implements IA
                 final TransferData transferData = new TransferData();
                 transferData.setActionId(ACTION__APPLICATION__CREATE_NEW_EXERCISE);
                 
-                final Topic topic = (Topic) item;
-                transferData.setObject(topic);
+                final long entityId = navigationEntity.getNavigation().getEntityId();
+                transferData.setLong(entityId);
                 
                 ActionFacade.getDefault().handle(transferData);
             });
         }
     }
 
-    private void configureMouseClick(Object item) {
-        if (item instanceof Exercise) {
+    private void configureMouseClick(NavigationEntity navigationEntity) {
+        if (navigationEntity.getNavigation().getNavigationType().equals(ENavigationType.EXERCISE)) {
             this.setOnMouseClicked(value -> {
                 final int mouseClickCount = value.getClickCount();
                 if (mouseClickCount >= 2) {
                     final TransferData transferData = new TransferData();
                     transferData.setActionId(ACTION__APPLICATION__OPEN_EXERCISE);
-
-                    final Exercise exercise = (Exercise) item;
-                    transferData.setObject(exercise);
+                
+                    final long entityId = navigationEntity.getNavigation().getEntityId();
+                    transferData.setLong(entityId);
 
                     ActionFacade.getDefault().handle(transferData);
                 }
@@ -109,67 +103,29 @@ public final class NavigationListTreeCell extends TreeCell<Object> implements IA
         }
     }
 
-    private String getDisplayText(Object item) {
-        if (item instanceof Exercise) {
-            final Exercise exercise = (Exercise) item;
-
-            final StringBuilder sb = new StringBuilder();
-            date.setTime(exercise.getGenerationTime());
-            sb.append(simpleDateFormat.format(date));
-            sb.append(" ["); // NOI18N
-            sb.append("done (");
-            sb.append(exercise.isReady() ? "v" : "-");
-            sb.append(")");
-            sb.append("]"); // NOI18N
-
-            return sb.toString();
-        }
-
-        if (item instanceof Topic) {
-            final Topic topic = (Topic) item;
-
-            final StringBuilder sb = new StringBuilder();
-            if (DateConverter.getDefault().isDateInNewRange(topic.getGenerationTime())) {
-                sb.append("New | "); // NOI18N
-            }
-            sb.append(topic.getTitle());
-            sb.append(" ("); // NOI18N
-            sb.append(topic.getExercises());
-            sb.append(")"); // NOI18N
-
-            return sb.toString();
-        }
-
-        return null;
-    }
-
-    private Tooltip getTooltip(Object item) {
-        if (item instanceof Topic) {
-            final Topic topic = (Topic) item;
-
-            final StringBuilder sb = new StringBuilder();
-            sb.append("Topic '"); // NOI18N
-            sb.append(topic.getTitle());
-            sb.append("' contains "); // NOI18N
-            sb.append(topic.getExercises());
-            sb.append(" Exercises."); // NOI18N
-
-            return new Tooltip(sb.toString());
-        }
-
-        return null;
-    }
-
     @Override
-    public void updateItem(Object item, boolean empty) {
-        super.updateItem(item, empty);
+    public void updateItem(NavigationEntity navigationEntity, boolean empty) {
+        super.updateItem(navigationEntity, empty);
+        
+        // Check if ...
+        if (navigationEntity == null) {
+            this.setGraphic(null);
+            this.setText(null);
 
-        this.configureMenuItem(item);
-        this.configureMouseClick(item);
+            return;
+        }
+
+        // Tweak the [ListTreeCell]
+        this.configureMenuItem(navigationEntity);
+        this.configureMouseClick(navigationEntity);
         this.setContextMenu(!empty ? contextMenu : null);
         this.setGraphic(null);
-        this.setText(!empty ? this.getDisplayText(item) : null);
-        this.setTooltip(this.getTooltip(item));
+        this.setText(!empty ? navigationEntity.getEntityConverter().getRepresentation() : null);
+        
+        final String tooltip = navigationEntity.getEntityConverter().getTooltip();
+        if (!tooltip.isEmpty()) {
+            this.setTooltip(new Tooltip(tooltip));
+        }
     }
     
 }

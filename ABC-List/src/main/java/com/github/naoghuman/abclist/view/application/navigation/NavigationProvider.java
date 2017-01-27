@@ -20,9 +20,12 @@ import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ModelProvider;
+import com.github.naoghuman.abclist.model.NavigationEntity;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
 import com.github.naoghuman.abclist.sql.SqlProvider;
+import com.github.naoghuman.abclist.view.application.navigation.converter.ExerciseNavigationConverter;
+import com.github.naoghuman.abclist.view.application.navigation.converter.TopicNavigationConverter;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.action.api.TransferData;
@@ -57,15 +60,15 @@ public class NavigationProvider implements IActionConfiguration, IDefaultConfigu
         
     }
     
-    private final TreeItem<Object> rootItemNavigationTabTopics = new TreeItem<> ();
+    private final TreeItem<NavigationEntity> rootItemNavigationTabTopics = new TreeItem<> ();
     
     private ComboBox<Topic> cbNavigationTopics;
     private Label lInfoFoundedTerms;
     private ListView<Term> lvNavigationTerms;
-    private TreeView<Object> tvNavigationTabTopics;
+    private TreeView<NavigationEntity> tvNavigationTabTopics;
     
     public void initialize(
-            TreeView<Object> tvNavigationTabTopics, ComboBox<Topic> cbNavigationTopics,
+            TreeView<NavigationEntity> tvNavigationTabTopics, ComboBox<Topic> cbNavigationTopics,
             Label lInfoFoundedTerms, ListView<Term> lvNavigationTerms
     ) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [NavigationProvider]"); // NOI18N
@@ -143,7 +146,7 @@ public class NavigationProvider implements IActionConfiguration, IDefaultConfigu
     private void initializeNavigationTabTopics() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize [Navigation] tab [Topic]s"); // NOI18N
         
-        tvNavigationTabTopics.setCellFactory((TreeView<Object> p) -> new NavigationListTreeCell());
+        tvNavigationTabTopics.setCellFactory((TreeView<NavigationEntity> p) -> new NavigationListTreeCell());
     }
     
     private String getInfoFoundedTerms(int foundedTerms) {
@@ -158,8 +161,9 @@ public class NavigationProvider implements IActionConfiguration, IDefaultConfigu
     public void onActionExpandTopic(Topic topic) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action expand [Topic]"); // NOI18N
     
-        final Optional<TreeItem<Object>> optionalTreeItem = rootItemNavigationTabTopics.getChildren().stream()
-                .filter(treeItem -> ((Topic) treeItem.getValue()).equals(topic))
+        final Optional<TreeItem<NavigationEntity>> optionalTreeItem = rootItemNavigationTabTopics.getChildren().stream()
+                .filter(treeItem -> ((NavigationEntity) treeItem.getValue()).getNavigation().getNavigationType().equals(ENavigationType.TOPIC))
+                .filter(treeItem -> Objects.equals(((NavigationEntity) treeItem.getValue()).getNavigation().getEntityId(), topic.getId()))
                 .findFirst();
         if (optionalTreeItem.isPresent()) {
             optionalTreeItem.get().setExpanded(true);
@@ -225,11 +229,13 @@ public class NavigationProvider implements IActionConfiguration, IDefaultConfigu
             final ObservableList<Exercise> observableListExercises = SqlProvider.getDefault().findAllExercisesWithTopicId(topic.getId());
             topic.setExercises(observableListExercises.size());
             
-            final TreeItem<Object> treeItemTopic = new TreeItem<>(topic);
+            final NavigationEntity navigationEntity = ModelProvider.getDefault().getNavigationEntity(ENavigationType.TOPIC, topic.getId(), new TopicNavigationConverter(topic));
+            final TreeItem<NavigationEntity> treeItemTopic = new TreeItem<>(navigationEntity);
             observableListExercises.forEach(exercise -> {
                 LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
             
-                final TreeItem<Object> treeItemExercise = new TreeItem<>(exercise);
+                final NavigationEntity navigationEntity2 = ModelProvider.getDefault().getNavigationEntity(ENavigationType.EXERCISE, exercise.getId(), new ExerciseNavigationConverter(exercise));
+                final TreeItem<NavigationEntity> treeItemExercise = new TreeItem<>(navigationEntity2);
                 treeItemTopic.getChildren().add(treeItemExercise);
             });
             

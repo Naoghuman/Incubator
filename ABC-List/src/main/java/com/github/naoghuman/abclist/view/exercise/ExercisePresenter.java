@@ -36,7 +36,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -298,6 +297,8 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     
     private void onActionAddTerm(Term term) {
         final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
+        System.out.println(" #firstchar: " + firstChar); // XXX
+        
         final FlowPane fp = this.getFlowPane(firstChar);
         final AtomicBoolean isTermAdded = new AtomicBoolean(false);
         for (Node node : fp.getChildren()) {
@@ -307,6 +308,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                     final Term addedTerm = (Term) label.getUserData();
                     if (addedTerm.getTitle().equals(term.getTitle())) {
                         isTermAdded.set(true);
+        System.out.println(" #isTermAdded: true"); // XXX
                         break;
                     }
                 }
@@ -314,6 +316,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         }
         
         if (!isTermAdded.get()) {
+        System.out.println(" #isTermAdded: false"); // XXX
             fp.getChildren().add(this.getLabel(term));
             FXCollections.sort(fp.getChildren(), (Node node1, Node node2) -> {
                 int compare = 0;
@@ -392,7 +395,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     
     public void onActionStartExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action start [Exercise]"); // NOI18N
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
         
         final ExerciseDialogView exerciseDialogView = new ExerciseDialogView();
         final ExerciseDialogPresenter exerciseDialogPresenter = exerciseDialogView.getRealPresenter();
@@ -407,7 +409,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     
     private void onActionUserStopExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] stop [Exercise]"); // NOI18N
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
 
         // Delete all existing [ExerciseTerm]s
         SqlProvider.getDefault().deleteAllExerciseTermsWithExerciseId(exercise.getId());
@@ -420,19 +421,18 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         dialog.close();
     }
     
-    private void onActionUserTypedTerm(final Term term) {
+    private void onActionUserTypedTerm(String userInput) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] typed [Term]"); // NOI18N
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
+        System.out.println("  -> " + ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exercise.getId());// XXX
         
         // Check if the [Term] with the [title] in the [Database] exists
-        final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(term.getTitle());
+        final Term term = ModelProvider.getDefault().getTerm(userInput);
+        final ObservableList<Term> observableListTerms = SqlProvider.getDefault().findAllTermsWithTitle(userInput);
         if (observableListTerms.isEmpty()) {
             SqlProvider.getDefault().createTerm(term);
         } else {
             term.copy(observableListTerms.get(0));
         }
-        
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + term.toString());
         
         // Check if the [Term] is associated with the [Exercise]
         final ObservableList<ExerciseTerm> exerciseTerms = SqlProvider.getDefault().findAllExerciseTermsWithExerciseId(exercise.getId());
@@ -495,8 +495,8 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                 ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exercise.getId(),
                 (ActionEvent event) -> {
                     final TransferData transferData = (TransferData) event.getSource();
-                    final Term term = (Term) transferData.getObject();
-                    this.onActionUserTypedTerm(term);
+                    final String userInput = transferData.getString();
+                    this.onActionUserTypedTerm(userInput);
                 });
     }
 

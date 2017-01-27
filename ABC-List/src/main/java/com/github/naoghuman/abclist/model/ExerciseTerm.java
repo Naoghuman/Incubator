@@ -243,7 +243,7 @@ public class ExerciseTerm implements Comparable<ExerciseTerm>, Externalizable, I
                 .toHashCode();
     }
 	
-	@Override
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append(EXERCISE_TERM__COLUMN_NAME__ID, this.getId())

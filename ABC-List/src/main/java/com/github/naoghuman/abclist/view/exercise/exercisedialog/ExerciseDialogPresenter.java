@@ -113,9 +113,9 @@ public class ExerciseDialogPresenter implements Initializable, IActionConfigurat
 	
         final TransferData transferModel = new TransferData();
         transferModel.setActionId(ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exerciseId);
-		
-        final Term term = ModelProvider.getDefault().getTerm(userInput);
-        transferModel.setObject(term);
+        System.out.println("-> " + ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exerciseId);// XXX
+        
+        transferModel.setString(userInput);
         ActionFacade.getDefault().handle(transferModel);
         
         Platform.runLater(() -> {

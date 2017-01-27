@@ -22,6 +22,7 @@ import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.model.Topic;
+import com.github.naoghuman.lib.database.api.DatabaseFacade;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Optional;
@@ -121,6 +122,10 @@ public class SqlProvider implements IDefaultConfiguration, IExerciseTermConfigur
     
     public ObservableList<Topic> findAllTopics() {
         return TopicSqlService.getDefault().findAllTopics();
+    }
+
+    public <T extends Object> Optional<T> findById(Class<T> type, long entityId) {
+        return Optional.ofNullable(DatabaseFacade.getDefault().getCrudService().findById(type, entityId));
     }
 
     public Optional<ExerciseTerm> findExerciseTerm(long exerciseId, long termId) {
