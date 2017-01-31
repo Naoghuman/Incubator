@@ -18,8 +18,6 @@ package com.github.naoghuman.abclist.view.exercise;
 
 import com.github.naoghuman.abclist.configuration.IActionConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
-import com.github.naoghuman.abclist.view.exercise.exercisedialog.ExerciseDialogPresenter;
-import com.github.naoghuman.abclist.view.exercise.exercisedialog.ExerciseDialogView;
 import com.github.naoghuman.abclist.model.Exercise;
 import com.github.naoghuman.abclist.model.ExerciseTerm;
 import com.github.naoghuman.abclist.model.ModelProvider;
@@ -27,7 +25,6 @@ import com.github.naoghuman.abclist.model.Term;
 import com.github.naoghuman.abclist.sql.SqlProvider;
 import com.github.naoghuman.lib.action.api.ActionFacade;
 import com.github.naoghuman.lib.action.api.TransferData;
-import com.github.naoghuman.lib.action.api.IRegisterActions;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -35,6 +32,9 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,7 +43,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -52,24 +51,29 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
+// TODO select in combobox the choosen time (need new parameter 'choosenTime (String)' in Exercise
 /**
- *
+ * 
  * @author Naoghuman
  */
-public class ExercisePresenter implements Initializable, IActionConfiguration, IExerciseConfiguration, IRegisterActions {
+public class ExercisePresenter implements Initializable, IActionConfiguration, IExerciseConfiguration {
     
     private final ObservableList<FlowPane> flowPaneTerms = FXCollections.observableArrayList();
+    private final PauseTransition ptExerciseTimer = new PauseTransition();
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
-    private final Stage dialog = new Stage();
-        
+    
+    @FXML private Button bPauseExercise;
     @FXML private Button bStartExercise;
-    @FXML private ComboBox<ETime> cbTime;
+    @FXML private Button bStopExercise;
+    @FXML private ComboBox<ETime> cbTimeChooser;
     @FXML private FlowPane tfSignA;
     @FXML private FlowPane tfSignB;
     @FXML private FlowPane tfSignC;
@@ -97,10 +101,13 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     @FXML private FlowPane tfSignY;
     @FXML private FlowPane tfSignZ;
     @FXML private Label lCounterTerms;
+    @FXML private Label lCounterTime;
     @FXML private Label lGenerationTime;
     @FXML private ScrollPane spSigns;
+    @FXML private TextField tfUserInput;
     
     private int counterTerms = 0;
+    private int exerciseTime = 0;
     
     private Exercise exercise;
     
@@ -109,14 +116,17 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ExercisePresenter"); // NOI18N
         
         this.initializeComboBoxTime();
-        this.initializeDialog();
+        this.initializeExerciseTimer();
         this.initializeFlowPaneTerms();
+        this.initializeTextFieldUserInput();
+        
+        this.onActionPrepareForExercise();
     }
     
     private void initializeComboBoxTime() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ComboBox Time"); // NOI18N
         
-        cbTime.setCellFactory((ListView<ETime> listview) -> new ListCell<ETime>() {
+        cbTimeChooser.setCellFactory((ListView<ETime> listview) -> new ListCell<ETime>() {
             @Override
             public void updateItem(ETime item, boolean empty) {
                 super.updateItem(item, empty);
@@ -127,18 +137,27 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         
         final ObservableList<ETime> observableListTimes = FXCollections.observableArrayList();
         observableListTimes.addAll(ETime.values());
-        cbTime.getItems().addAll(observableListTimes);
-        cbTime.getSelectionModel().selectFirst();
+        cbTimeChooser.getItems().addAll(observableListTimes);
+        cbTimeChooser.getSelectionModel().selectFirst();
     }
     
-    private void initializeDialog() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize Dialog"); // NOI18N
+    private void initializeExerciseTimer() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [Exercise] timer"); // NOI18N
         
-        // TODO add AnchorPane
-        dialog.initStyle(StageStyle.TRANSPARENT);
-        dialog.setAlwaysOnTop(true);
-        dialog.setTitle("Exercise"); // NOI18N
-        dialog.setResizable(false);
+        ptExerciseTimer.setAutoReverse(false);
+        ptExerciseTimer.setDelay(Duration.millis(125.0d));
+        ptExerciseTimer.setDuration(Duration.seconds(1.0d));
+        ptExerciseTimer.setOnFinished(value -> {
+            --exerciseTime;
+            this.onActionShowTime(exerciseTime);
+            
+            if (exerciseTime > 0) {
+                ptExerciseTimer.playFromStart();
+            }
+            else {
+                this.onActionExerciseIsReady();
+            }
+        });
     }
     
     private void initializeFlowPaneTerms() {
@@ -179,6 +198,16 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         lCounterTerms.setText("Terms: " + counterTerms); // NOI18N
     }
     
+    private void initializeTextFieldUserInput() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [TextField] [UserInput]"); // NOI18N
+        
+        tfUserInput.setOnKeyPressed((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                this.onActionUserPressEnter();
+            }
+        });
+    }
+    
     private char computeFirstChar(String term) {
         char firstSign = term.charAt(0);
         if (firstSign == 'ä') { // NOI18N
@@ -204,11 +233,10 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         lGenerationTime.setText(simpleDateFormat.format(new Date(exercise.getGenerationTime())));
         
         if (exercise.isReady()) {
-            this.onActionDisableComponents();
+            this.onActionPrepareForExerciseIsReady();
             this.onActionLoadAllTerms();
+            this.onActionCountTerms();
         }
-		
-        this.registerActions();
     }
     
     public long getId() {
@@ -226,13 +254,13 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         return flowPane;
     }
     
-    private Label getLabel(Term term) { // TODO create own component
+    private Label getLabel(Term term) {
         // Check in db if isMarkAsWrong
         final boolean isMarkAsWrong = SqlProvider.getDefault().isExerciseTermMarkAsWrong(exercise.getId(), term.getId());
         
         // Create the label
         final Label label = new Label(term.getTitle());
-        label.setUserData(term); // TODO tweak it
+        label.setUserData(term); // TODO tweak it - own component
         label.setStyle(
                 "-fx-background-color:"
                 + (isMarkAsWrong ? "ORANGERED;" : "LIGHTGREEN;")); // NOI18N
@@ -267,6 +295,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                     // TODO Reload only the relevant [FlowPane]
                     this.onActionResetFlowPanes();
                     this.onActionLoadAllTerms();
+                    this.onActionCountTerms();
                 }
             });
             cm.getItems().add(mi2);
@@ -283,6 +312,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                     // TODO Reload only the relevant [FlowPane]
                     this.onActionResetFlowPanes();
                     this.onActionLoadAllTerms();
+                    this.onActionCountTerms();
                 }
             });
             cm.getItems().add(mi);
@@ -295,8 +325,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     
     private void onActionAddTerm(Term term) {
         final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
-        System.out.println(" #firstchar: " + firstChar); // XXX
-        
         final FlowPane flowPane = this.getFlowPane(firstChar);
         boolean isTermAdded = false;
         for (Node node : flowPane.getChildren()) {
@@ -306,7 +334,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                     final Term addedTerm = (Term) label.getUserData();
                     if (addedTerm.getTitle().equals(term.getTitle())) {
                         isTermAdded = true;
-                        System.out.println(" #isTermAdded: true"); // XXX
                         break;
                     }
                 }
@@ -314,8 +341,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         }
         
         if (!isTermAdded) {
-            System.out.println(" #isTermAdded: false"); // XXX
-            
             flowPane.getChildren().add(this.getLabel(term));
             if (flowPane.getChildren().size() > 1) {
                 FXCollections.sort(flowPane.getChildren(), (Node node1, Node node2) -> {
@@ -348,28 +373,16 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         lCounterTerms.setText("Terms: " + counterTerms);
     }
     
-    private void onActionDisableComponents() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action disable [Component]s"); // NOI18N
-        
-        bStartExercise.setDisable(true);
-        cbTime.setDisable(true);
-    }
-    
     private void onActionExerciseIsReady() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [Exercise] is ready"); // NOI18N
 
         // Save new state
         exercise.setReady(true);
         SqlProvider.getDefault().updateExercise(exercise);
-        LoggerFacade.getDefault().debug(this.getClass(), "  # " + exercise.toString());
         
         // Reflect the new state in the gui
-        this.onActionDisableComponents();
-        this.onActionCountTerms();
+        this.onActionPrepareForExerciseIsReady();
         ActionFacade.getDefault().handle(ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TOPICS);
-        
-        // Close dialog
-        dialog.close();
     }
     
     private void onActionLoadAllTerms() {
@@ -382,8 +395,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                 .forEach(term -> {
                     this.onActionAddTerm(term);
                 });
-        
-        this.onActionCountTerms();
     }
     
     private void onActionResetFlowPanes() {
@@ -395,37 +406,132 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                 });
     }
     
-    public void onActionStartExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action start [Exercise]"); // NOI18N
+    private void onActionPrepareForExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise]"); // NOI18N
         
-        final ExerciseDialogView exerciseDialogView = new ExerciseDialogView();
-        final ExerciseDialogPresenter exerciseDialogPresenter = exerciseDialogView.getRealPresenter();
+        bPauseExercise.setDisable(true);
+        bStartExercise.setDisable(false);
+        bStopExercise.setDisable(true);
         
-        final ETime time = cbTime.getSelectionModel().getSelectedItem();
-        exerciseDialogPresenter.configure(exercise.getId(), time);
+        cbTimeChooser.setDisable(false);
         
-        final Scene scene = new Scene(exerciseDialogView.getView());
-        dialog.setScene(scene);
-        dialog.show();
+        lCounterTime.setText("00:00"); // NOI18N
+        exerciseTime = 0;
+        
+        tfUserInput.setDisable(true);
     }
     
-    private void onActionUserStopExercise() {
+    private void onActionPrepareForExerciseIsReady() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] is ready"); // NOI18N
+        
+        bPauseExercise.setDisable(true);
+        bStartExercise.setDisable(true);
+        bStopExercise.setDisable(true);
+        
+        cbTimeChooser.setDisable(true);
+        
+        lCounterTime.setText("00:00"); // NOI18N
+        exerciseTime = 0;
+        
+        tfUserInput.setDisable(true);
+    }
+    
+    private void onActionPrepareForExerciseIsStarted() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] is started"); // NOI18N
+        
+        bPauseExercise.setDisable(false);
+        bStartExercise.setDisable(true);
+        bStopExercise.setDisable(false);
+        
+        cbTimeChooser.setDisable(true);
+        
+        final ETime time = cbTimeChooser.getSelectionModel().getSelectedItem();
+        lCounterTime.setText(time.toString());
+        exerciseTime = time.getSeconds();
+        
+        tfUserInput.setDisable(false);
+        Platform.runLater(() -> {
+            tfUserInput.requestFocus();
+        });
+    }
+    
+    private void onActionPrepareForExerciseShouldPause() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] should pause"); // NOI18N
+        
+        bPauseExercise.setDisable(true);
+        bStartExercise.setDisable(false);
+        
+        tfUserInput.setDisable(true);
+    }
+    
+    private void onActionPrepareForExerciseStartAgain() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] start again"); // NOI18N
+        
+        bPauseExercise.setDisable(false);
+        bStartExercise.setDisable(true);
+        
+        tfUserInput.setDisable(false);
+        Platform.runLater(() -> {
+            tfUserInput.requestFocus();
+        });
+    }
+    
+    private void onActionShowTime(int _exerciseTime) {
+//        LoggerFacade.getDefault().debug(this.getClass(), "On action show Time: " + _exerciseTime); // NOI18N
+        
+        final SimpleDateFormat df = new SimpleDateFormat("mm:ss"); // NOI18N
+        final String formattedTime = df.format(_exerciseTime * 1000);
+        lCounterTime.setText(formattedTime);
+    }
+    
+    public void onActionUserPauseExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [User] pause [Exercise]"); // NOI18N
+        
+        if (ptExerciseTimer.getStatus().equals(Animation.Status.RUNNING)) {
+            this.onActionPrepareForExerciseShouldPause();
+            ptExerciseTimer.pause();
+        }
+    }
+    
+    public void onActionUserPressEnter() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [User] press [Enter]"); // NOI18N
+        
+        // Catch [UserInput]
+        final String userInput = tfUserInput.getText().trim();
+        if (userInput.isEmpty()) {
+            LoggerFacade.getDefault().warn(this.getClass(), "Empty User input - not a valid [Term]"); // NOI18N
+            return;
+        }
+        
+        this.onActionUserTypedTerm(userInput);
+    }
+    
+    public void onActionUserStartExercise() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [User] start [Exercise]"); // NOI18N
+        
+        if (ptExerciseTimer.getStatus().equals(Animation.Status.PAUSED)) {
+            this.onActionPrepareForExerciseStartAgain();
+            ptExerciseTimer.play();
+        }
+        else {
+            this.onActionPrepareForExerciseIsStarted();
+            ptExerciseTimer.playFromStart();
+        }
+    }
+    
+    public void onActionUserStopExercise() {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] stop [Exercise]"); // NOI18N
 
-        // Delete all existing [ExerciseTerm]s
-        SqlProvider.getDefault().deleteAllExerciseTermsWithExerciseId(exercise.getId());
+        // Stop timer
+        if (ptExerciseTimer.getStatus().equals(Animation.Status.RUNNING)) {
+            ptExerciseTimer.stop();
+        }
         
-        // Reset the gui
-        this.onActionResetFlowPanes();
-        this.onActionCountTerms();
-        
-        // Close dialog
-        dialog.close();
+        this.onActionExerciseIsReady();
     }
     
     private void onActionUserTypedTerm(String userInput) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] typed [Term]"); // NOI18N
-        System.out.println("  -> " + ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exercise.getId());// XXX
         
         // Check if the [Term] with the [title] in the [Database] exists
         final Term term = ModelProvider.getDefault().getTerm(userInput);
@@ -459,47 +565,12 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         // Show the [Term] in the [FlowPane]
         this.onActionAddTerm(term);
         this.onActionCountTerms();
-    }
-    
-    @Override
-    public void registerActions() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register actions in [ExercisePresenter]"); // NOI18N
-		
-        this.registerOnActionExerciseIsReady();
-        this.registerOnActionUserStopExercise();
-        this.registerOnActionUserTypedTerm();
-    }
-	
-    private void registerOnActionExerciseIsReady() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register on action [Exercise] is ready"); // NOI18N
-
-        ActionFacade.getDefault().register(
-                ACTION__EXERCISE_DIALOG__EXERCISE_IS_READY + exercise.getId(),
-                (ActionEvent event) -> {
-                    this.onActionExerciseIsReady();
-                });
-    }
-	
-    private void registerOnActionUserStopExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register on action [User] stop [Exercise]"); // NOI18N
-
-        ActionFacade.getDefault().register(
-                ACTION__EXERCISE_DIALOG__USER_STOP_EXERCISE + exercise.getId(),
-                (ActionEvent event) -> {
-                    this.onActionUserStopExercise();
-                });
-    }
-	
-    private void registerOnActionUserTypedTerm() {
-        LoggerFacade.getDefault().debug(this.getClass(), "Register on action [User] typed [Term]"); // NOI18N
-
-        ActionFacade.getDefault().register(
-                ACTION__EXERCISE_DIALOG__USER_TYPED_TERM + exercise.getId(),
-                (ActionEvent event) -> {
-                    final TransferData transferData = (TransferData) event.getSource();
-                    final String userInput = transferData.getString();
-                    this.onActionUserTypedTerm(userInput);
-                });
+        
+        // Refresh [TextField]
+        Platform.runLater(() -> {
+            tfUserInput.setText(null);
+            tfUserInput.requestFocus();
+        });
     }
 
 }
