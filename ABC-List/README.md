@@ -6,9 +6,9 @@ ABC-List
 Intention
 ---
 
-With the application `ABC-List` the user can train his abilities `structured thinking` 
-(about choosen topics)  and `deepen knowlegde` (about terms in context from the 
-respective topic).
+`ABC-List` is a learn software which allowed the user to train his ability 
+`structured thinking` about a choosen topic and `deepen` his knowlegde through 
+`key terms`.
 
 ABC-List is a [JavaFX] & [Maven] application, written in [NetBeans IDE].
 

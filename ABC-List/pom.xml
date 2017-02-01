@@ -7,8 +7,7 @@
     <packaging>jar</packaging>
     <name>ABC-List</name>
     
-    <description>With the application ABC-List the user can train his abilities structured thinking (about choosen topics)  and deepen knowlegde (about terms in context from the 
-respective topic).
+    <description>ABC-List is a learn software which allowed the user to train his ability structured thinking about a choosen topic and `deepen` his knowlegde through key terms.
 
 ABC-List is a JavaFX &amp; Maven application, written in NetBeans IDE.</description>
     
