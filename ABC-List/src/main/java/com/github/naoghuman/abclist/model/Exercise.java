@@ -199,6 +199,35 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     // END  FINISHEDTIME -------------------------------------------------------
     
+    // START  CONSOLIDATED -----------------------------------------------------
+    private BooleanProperty consolidatedProperty = null;
+    private boolean _consolidated = false;
+    
+    @Column(name = EXERCISE__COLUMN_NAME__CONSOLIDATED)
+    public boolean isConsolidated() {
+        if (consolidatedProperty == null) {
+            return _consolidated;
+        } else {
+            return consolidatedProperty.get();
+        }
+    }
+    
+    public void setConsolidated(boolean consolidated) {
+        if (consolidatedProperty == null) {
+            _consolidated = consolidated;
+        } else {
+            consolidatedProperty.set(consolidated);
+        }
+    }
+    
+    public BooleanProperty consolidatedProperty() {
+        if (consolidatedProperty == null) {
+            consolidatedProperty = new SimpleBooleanProperty(this, EXERCISE__COLUMN_NAME__CONSOLIDATED, _consolidated);
+        }
+        return consolidatedProperty;
+    }
+    // END  CONSOLIDATED -------------------------------------------------------
+    
     // START  READY ------------------------------------------------------------
     private BooleanProperty readyProperty = null;
     private boolean _ready = false;
@@ -274,6 +303,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
                 .append(EXERCISE__COLUMN_NAME__TOPIC_ID, this.getTopicId())
                 .append(EXERCISE__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
                 .append(EXERCISE__COLUMN_NAME__FINISHED_TIME, this.getFinishedTime())
+                .append(EXERCISE__COLUMN_NAME__CONSOLIDATED, this.isConsolidated())
                 .append(EXERCISE__COLUMN_NAME__READY, this.isReady())
                 .toString();
     }
@@ -284,6 +314,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         out.writeLong(this.getTopicId());
         out.writeLong(this.getGenerationTime());
         out.writeLong(this.getFinishedTime());
+        out.writeBoolean(this.isConsolidated());
         out.writeBoolean(this.isReady());
     }
 
@@ -293,6 +324,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         this.setTopicId(in.readLong());
         this.setGenerationTime(in.readLong());
         this.setFinishedTime(in.readLong());
+        this.setConsolidated(in.readBoolean());
         this.setReady(in.readBoolean());
     }
     
