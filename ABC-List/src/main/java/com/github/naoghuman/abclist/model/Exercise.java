@@ -18,6 +18,7 @@ package com.github.naoghuman.abclist.model;
 
 import com.github.naoghuman.abclist.configuration.IDefaultConfiguration;
 import com.github.naoghuman.abclist.configuration.IExerciseConfiguration;
+import com.github.naoghuman.abclist.view.exercise.ETime;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -26,6 +27,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -257,6 +260,36 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         return readyProperty;
     }
     // END  READY --------------------------------------------------------------
+    
+    // START  CHOOSENTIME ------------------------------------------------------
+    private StringProperty choosenTimeProperty = null;
+    private String _choosenTime = ETime.MIN_01_30.toString();
+    
+    @Column(name = EXERCISE__COLUMN_NAME__CHOOSEN_TIME)
+    public String getChoosenTime() {
+        if (choosenTimeProperty == null) {
+            return _choosenTime;
+        } else {
+            return choosenTimeProperty.get();
+        }
+    }
+    
+    public void setChoosenTime(String choosenTime) {
+        if (choosenTimeProperty == null) {
+            _choosenTime = choosenTime;
+        } else {
+            choosenTimeProperty.set(choosenTime);
+        }
+    }
+    
+    public StringProperty choosenTimeProperty() {
+        if (choosenTimeProperty == null) {
+            choosenTimeProperty = new SimpleStringProperty(this, EXERCISE__COLUMN_NAME__CHOOSEN_TIME, _choosenTime);
+        }
+        
+        return choosenTimeProperty;
+    }
+    // END  CHOOSENTIME --------------------------------------------------------
 
     @Override
     public int compareTo(Exercise other) {
@@ -306,6 +339,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
                 .append(EXERCISE__COLUMN_NAME__FINISHED_TIME, this.getFinishedTime())
                 .append(EXERCISE__COLUMN_NAME__CONSOLIDATED, this.isConsolidated())
                 .append(EXERCISE__COLUMN_NAME__READY, this.isReady())
+                .append(EXERCISE__COLUMN_NAME__CHOOSEN_TIME, this.getChoosenTime())
                 .toString();
     }
     
@@ -317,6 +351,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         out.writeLong(this.getFinishedTime());
         out.writeBoolean(this.isConsolidated());
         out.writeBoolean(this.isReady());
+        out.writeObject(this.getChoosenTime());
     }
 
     @Override
@@ -327,6 +362,7 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
         this.setFinishedTime(in.readLong());
         this.setConsolidated(in.readBoolean());
         this.setReady(in.readBoolean());
+        this.setChoosenTime(String.valueOf(in.readObject()));
     }
     
 }

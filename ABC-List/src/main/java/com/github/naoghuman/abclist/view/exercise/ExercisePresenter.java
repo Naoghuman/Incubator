@@ -59,7 +59,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.util.Duration;
 
-// TODO select in combobox the choosen time (need new parameter 'choosenTime (String)' in Exercise
 /**
  * 
  * @author Naoghuman
@@ -128,10 +127,10 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         
         cbTimeChooser.setCellFactory((ListView<ETime> listview) -> new ListCell<ETime>() {
             @Override
-            public void updateItem(ETime item, boolean empty) {
-                super.updateItem(item, empty);
+            public void updateItem(ETime time, boolean empty) {
+                super.updateItem(time, empty);
                 this.setGraphic(null);
-                this.setText(!empty ? item.toString() : null);
+                this.setText(!empty ? time.toString() : null);
             }
         });
         
@@ -229,6 +228,8 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.getDefault().debug(this.getClass(), "Configure"); // NOI18N
         
         this.exercise = exercise;
+        
+        cbTimeChooser.getSelectionModel().select(ETime.getTime(exercise.getChoosenTime()));
         
         lGenerationTime.setText(simpleDateFormat.format(new Date(exercise.getGenerationTime())));
         
@@ -482,6 +483,14 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         final SimpleDateFormat df = new SimpleDateFormat("mm:ss"); // NOI18N
         final String formattedTime = df.format(_exerciseTime * 1000);
         lCounterTime.setText(formattedTime);
+    }
+    
+    public void onActionUserChooseTime() {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action [User] choose time"); // NOI18N
+        
+        exercise.setChoosenTime(cbTimeChooser.getSelectionModel().getSelectedItem().toString());
+        
+        SqlProvider.getDefault().updateExercise(exercise);
     }
     
     public void onActionUserPauseExercise() {

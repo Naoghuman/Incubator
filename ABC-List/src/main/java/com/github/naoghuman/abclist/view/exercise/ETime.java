@@ -22,19 +22,30 @@ package com.github.naoghuman.abclist.view.exercise;
  */
 public enum ETime {
     
-    MIN_00_30(30 , "00:30"), // NOI18N // XXX REMOVE 
     MIN_01_30(90 , "01:30"), // NOI18N
     MIN_03_00(180, "03:00"), // NOI18N
     MIN_05_00(300, "05:00"), // NOI18N
     MIN_10_00(600, "10:00"); // NOI18N
+    
+    public static ETime getTime(String initialTime) {
+        ETime time = null;
+        for (ETime t : ETime.values()) {
+            if (t.toString().equals(initialTime)) {
+                time = t;
+                break;
+            }
+        }
+        
+        return time;
+    }
 
     private final int seconds;
 
-    private final String presentation;
+    private final String initialTime;
 
-    ETime(int seconds, String presentation) {
+    private ETime(int seconds, String initialTime) {
         this.seconds = seconds;
-        this.presentation = presentation;
+        this.initialTime = initialTime;
     }
 
     public int getSeconds() {
@@ -43,7 +54,7 @@ public enum ETime {
 
     @Override
     public String toString() {
-        return presentation;
+        return initialTime;
     }
-        
+       
 }
