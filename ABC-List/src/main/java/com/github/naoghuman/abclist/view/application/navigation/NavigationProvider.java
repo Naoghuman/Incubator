@@ -136,7 +136,8 @@ public class NavigationProvider implements IActionConfiguration, IDefaultConfigu
                 transferData.setActionId(ACTION__APPLICATION__OPEN_TERM);
                 
                 final Term term = lvNavigationTerms.getSelectionModel().getSelectedItem();
-                transferData.setObject(term);
+                final long entityId = term.getId();
+                transferData.setLong(entityId);
                 
                 ActionFacade.getDefault().handle(transferData);
             }

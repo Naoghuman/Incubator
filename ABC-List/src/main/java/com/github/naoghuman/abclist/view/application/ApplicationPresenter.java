@@ -102,7 +102,7 @@ public class ApplicationPresenter implements Initializable, IActionConfiguration
         // Update gui
         final ObservableList<Topic> topics = SqlProvider.getDefault().findAllTopics();
         NavigationProvider.getDefault().onActionRefreshNavigationTabTopics(topics);
-//        NavigationProvider.getDefault().onActionRefreshNavigationTabTerms(topics);
+        NavigationProvider.getDefault().onActionRefreshNavigationTabTerms(topics);
     }
     
     private void initializeNavigation() {
