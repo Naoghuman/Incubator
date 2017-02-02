@@ -18,8 +18,8 @@ package com.github.naoghuman.abclist.model;
 
 import com.github.naoghuman.abclist.view.application.navigation.ENavigationType;
 import com.github.naoghuman.abclist.view.application.navigation.Navigation;
-import java.util.Optional;
 import com.github.naoghuman.abclist.view.application.navigation.converter.INavigationConverter;
+import java.util.Optional;
 
 /**
  *
@@ -49,24 +49,12 @@ public class ModelProvider {
         return new Exercise(id, topicId);
     }
     
-    public Exercise getExercise(long id, long topicId, long generationTime) {
-        return new Exercise(id, topicId, generationTime);
-    }
-    
     public ExerciseTerm getExerciseTerm() {
         return new ExerciseTerm();
     }
     
-    public ExerciseTerm getExerciseTerm(long id) {
-        return new ExerciseTerm(id);
-    }
-    
     public ExerciseTerm getExerciseTerm(long exerciseId, long termId) {
         return new ExerciseTerm(exerciseId, termId);
-    }
-    
-    public ExerciseTerm getExerciseTerm(long id, long exerciseId, long termId) {
-        return new ExerciseTerm(id, exerciseId, termId);
     }
     
     public NavigationEntity getNavigationEntity(ENavigationType navigationType, long entityId, INavigationConverter entityConverter) {
@@ -80,20 +68,8 @@ public class ModelProvider {
         return new Term(term);
     }
     
-    public Term getTerm(long id, String term) {
-        return new Term(id, term);
-    }
-    
-    public Term getTerm(long id, long generationTime, String term) {
-        return new Term(id, generationTime, term);
-    }
-    
     public Topic getTopic(long id, String title) {
         return new Topic(id, title);
-    }
-    
-    public Topic getTopic(long id, long parentId, String title) {
-        return new Topic(id, parentId, title);
     }
     
     public Topic getTopic(String title) {
