@@ -66,17 +66,18 @@ public class Exercise implements Comparable<Exercise>, Externalizable, IDefaultC
     }
     
     public Exercise(long id, long topicId, long generationTime) {
-        this(id, topicId, generationTime, false);
+        this(id, topicId, generationTime, false, false);
     }
     
-    public Exercise(long id, long topicId, long generationTime, boolean ready) {
-        this.init(id, topicId, generationTime, ready);
+    public Exercise(long id, long topicId, long generationTime, boolean consolidated, boolean ready) {
+        this.init(id, topicId, generationTime, consolidated, ready);
     }
     
-    private void init(long id, long topicId, long generationTime, boolean ready) {
+    private void init(long id, long topicId, long generationTime, boolean consolidated, boolean ready) {
         this.setId(id);
         this.setTopicId(topicId);
         this.setGenerationTime(generationTime);
+        this.setConsolidated(consolidated);
         this.setReady(ready);
     }
     
