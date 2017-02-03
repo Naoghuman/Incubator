@@ -207,23 +207,6 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         });
     }
     
-    private char computeFirstChar(String term) {
-        char firstSign = term.charAt(0);
-        if (firstSign == 'ä') { // NOI18N
-            firstSign = 'a'; // NOI18N
-        }
-        
-        if (firstSign == 'ö') { // NOI18N
-            firstSign = 'o'; // NOI18N
-        }
-        
-        if (firstSign == 'ü') { // NOI18N
-            firstSign = 'u'; // NOI18N
-        }
-        
-        return firstSign;
-    }
-    
     public void configure(Exercise exercise) {
         LoggerFacade.getDefault().debug(this.getClass(), "Configure"); // NOI18N
         
@@ -325,7 +308,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     }
     
     private void onActionAddTerm(Term term) {
-        final char firstChar = this.computeFirstChar(term.getTitle().toLowerCase());
+        final char firstChar = CharacterExtractor.getDefault().computeFirstChar(term.getTitle());
         final FlowPane flowPane = this.getFlowPane(firstChar);
         boolean isTermAdded = false;
         for (Node node : flowPane.getChildren()) {
