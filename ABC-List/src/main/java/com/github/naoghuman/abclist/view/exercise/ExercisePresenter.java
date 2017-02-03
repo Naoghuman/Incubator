@@ -65,6 +65,8 @@ import javafx.util.Duration;
  */
 public class ExercisePresenter implements Initializable, IActionConfiguration, IExerciseConfiguration {
     
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("mm:ss"); // NOI18N
+    
     private final ObservableList<FlowPane> flowPaneTerms = FXCollections.observableArrayList();
     private final PauseTransition ptExerciseTimer = new PauseTransition();
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // NOI18N
@@ -114,16 +116,27 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ExercisePresenter"); // NOI18N
         
-        this.initializeComboBoxTime();
+        this.initializeBindings();
+        this.initializeComboBoxTimeChooser();
         this.initializeExerciseTimer();
         this.initializeFlowPaneTerms();
         this.initializeTextFieldUserInput();
         
-        this.onActionPrepareForExercise();
+        this.onActionPrepareExerciseFor(EState.PREPARE_STATE_FOR__INITIALIZE);
     }
     
-    private void initializeComboBoxTime() {
-        LoggerFacade.getDefault().info(this.getClass(), "Initialize ComboBox Time"); // NOI18N
+    private void initializeBindings() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [Bindings]"); // NOI18N
+        
+        bPauseExercise.disableProperty().bind(StateFacade.getDefault().disablePauseButtonProperty());
+        bStartExercise.disableProperty().bind(StateFacade.getDefault().disableStartButtonProperty());
+        bStopExercise.disableProperty().bind(StateFacade.getDefault().disableStopButtonProperty());
+        cbTimeChooser.disableProperty().bind(StateFacade.getDefault().disableTimeChooserComboBoxProperty());
+        tfUserInput.disableProperty().bind(StateFacade.getDefault().disableUserInputTextFieldProperty());
+    }
+    
+    private void initializeComboBoxTimeChooser() {
+        LoggerFacade.getDefault().info(this.getClass(), "Initialize [ComboBox] [TimeChooser]"); // NOI18N
         
         cbTimeChooser.setCellFactory((ListView<ETime> listview) -> new ListCell<ETime>() {
             @Override
@@ -217,7 +230,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         lGenerationTime.setText(simpleDateFormat.format(new Date(exercise.getGenerationTime())));
         
         if (exercise.isReady()) {
-            this.onActionPrepareForExerciseIsReady();
+            this.onActionPrepareExerciseFor(EState.PREPARE_STATE_FOR__IS_READY);
             this.onActionLoadAllTerms();
             this.onActionCountTerms();
         }
@@ -365,7 +378,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         SqlProvider.getDefault().updateExercise(exercise);
         
         // Reflect the new state in the gui
-        this.onActionPrepareForExerciseIsReady();
+        this.onActionPrepareExerciseFor(EState.PREPARE_STATE_FOR__IS_READY);
         ActionFacade.getDefault().handle(ACTION__APPLICATION__REFRESH_NAVIGATION_TAB_TOPICS);
     }
     
@@ -389,82 +402,52 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
                     flowPane.getChildren().clear();
                 });
     }
-    
-    private void onActionPrepareForExercise() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise]"); // NOI18N
+
+    private void onActionPrepareExerciseFor(EState state) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare [Exercise] for: " + state.name()); // NOI18N
         
-        bPauseExercise.setDisable(true);
-        bStartExercise.setDisable(false);
-        bStopExercise.setDisable(true);
+        // Swith to the new state
+        StateFacade.getDefault().setDisablePauseButton(state.isDisablePauseButton());
+        StateFacade.getDefault().setDisableStartButton(state.isDisableStartButton());
+        StateFacade.getDefault().setDisableStopButton(state.isDisableStopButton());
+        StateFacade.getDefault().setDisableTimeChooserComboBox(state.isDisableTimeChooserComboBox());
+        StateFacade.getDefault().setDisableUserInputTextField(state.isDisableUserInputTextField());
         
-        cbTimeChooser.setDisable(false);
-        
-        lCounterTime.setText("00:00"); // NOI18N
-        exerciseTime = 0;
-        
-        tfUserInput.setDisable(true);
-    }
-    
-    private void onActionPrepareForExerciseIsReady() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] is ready"); // NOI18N
-        
-        bPauseExercise.setDisable(true);
-        bStartExercise.setDisable(true);
-        bStopExercise.setDisable(true);
-        
-        cbTimeChooser.setDisable(true);
-        
-        lCounterTime.setText("00:00"); // NOI18N
-        exerciseTime = 0;
-        
-        tfUserInput.setDisable(true);
-    }
-    
-    private void onActionPrepareForExerciseIsStarted() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] is started"); // NOI18N
-        
-        bPauseExercise.setDisable(false);
-        bStartExercise.setDisable(true);
-        bStopExercise.setDisable(false);
-        
-        cbTimeChooser.setDisable(true);
-        
-        final ETime time = cbTimeChooser.getSelectionModel().getSelectedItem();
-        lCounterTime.setText(time.toString());
-        exerciseTime = time.getSeconds();
-        
-        tfUserInput.setDisable(false);
-        Platform.runLater(() -> {
-            tfUserInput.requestFocus();
-        });
-    }
-    
-    private void onActionPrepareForExerciseShouldPause() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] should pause"); // NOI18N
-        
-        bPauseExercise.setDisable(true);
-        bStartExercise.setDisable(false);
-        
-        tfUserInput.setDisable(true);
-    }
-    
-    private void onActionPrepareForExerciseStartAgain() {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action prepare for [Exercise] start again"); // NOI18N
-        
-        bPauseExercise.setDisable(false);
-        bStartExercise.setDisable(true);
-        
-        tfUserInput.setDisable(false);
-        Platform.runLater(() -> {
-            tfUserInput.requestFocus();
-        });
+        // Do extra stuff
+        switch (state) {
+            case PREPARE_STATE_FOR__INITIALIZE:
+            case PREPARE_STATE_FOR__IS_READY: {
+                lCounterTime.setText("00:00"); // NOI18N
+                exerciseTime = 0;
+                break;
+            }
+            case PREPARE_STATE_FOR__IS_STARTED: {
+                final ETime time = cbTimeChooser.getSelectionModel().getSelectedItem();
+                lCounterTime.setText(time.toString());
+                exerciseTime = time.getSeconds();
+                
+                Platform.runLater(() -> {
+                    tfUserInput.requestFocus();
+                });
+                break;
+            }
+            case PREPARE_STATE_FOR__SHOULD_PAUSE: {
+                /* do nothing extra */
+                break;
+            }
+            case PREPARE_STATE_FOR__START_AGAIN: {
+                Platform.runLater(() -> {
+                    tfUserInput.requestFocus();
+                });
+                break;
+            }
+        }
     }
     
     private void onActionShowTime(int _exerciseTime) {
 //        LoggerFacade.getDefault().debug(this.getClass(), "On action show Time: " + _exerciseTime); // NOI18N
         
-        final SimpleDateFormat df = new SimpleDateFormat("mm:ss"); // NOI18N
-        final String formattedTime = df.format(_exerciseTime * 1000);
+        final String formattedTime = SIMPLE_DATE_FORMAT.format(_exerciseTime * 1000);
         lCounterTime.setText(formattedTime);
     }
     
@@ -480,7 +463,7 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] pause [Exercise]"); // NOI18N
         
         if (ptExerciseTimer.getStatus().equals(Animation.Status.RUNNING)) {
-            this.onActionPrepareForExerciseShouldPause();
+            this.onActionPrepareExerciseFor(EState.PREPARE_STATE_FOR__SHOULD_PAUSE);
             ptExerciseTimer.pause();
         }
     }
@@ -502,11 +485,11 @@ public class ExercisePresenter implements Initializable, IActionConfiguration, I
         LoggerFacade.getDefault().debug(this.getClass(), "On action [User] start [Exercise]"); // NOI18N
         
         if (ptExerciseTimer.getStatus().equals(Animation.Status.PAUSED)) {
-            this.onActionPrepareForExerciseStartAgain();
+            this.onActionPrepareExerciseFor(EState.PREPARE_STATE_FOR__START_AGAIN);
             ptExerciseTimer.play();
         }
         else {
-            this.onActionPrepareForExerciseIsStarted();
+            this.onActionPrepareExerciseFor(EState.PREPARE_STATE_FOR__IS_STARTED);
             ptExerciseTimer.playFromStart();
         }
     }
