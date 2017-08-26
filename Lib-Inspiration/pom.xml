@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.naoghuman.lib.inspiration</groupId>
+    <artifactId>lib-inspiration</artifactId>
+    <version>0.1.0-SNAPSHOT</version> <!-- -SNAPSHOT -PRERELEASE -->
+    <packaging>jar</packaging>
+    <name>Lib-Inspiration</name>
+    <description>TODO</description>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    
+    <licenses>
+        <license>
+            <name>The GNU General Public License, Version 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+            <comments>The GNU General Public License is a free, copyleft license for software and other kinds of works.</comments>
+        </license>
+    </licenses>
+    
+    <build>
+        <resources>
+            <!--
+                Hint: Add here the suffixes from the files with should be in the
+                jar included.
+            -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.png</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.png</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-action</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-database-objectdb</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-logger</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-preferences</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-properties</artifactId>
+            <version>0.5.0</version>
+            <type>jar</type>
+        </dependency>
+            
+        <dependency>
+            <groupId>com.airhacks</groupId>
+            <artifactId>afterburner.fx</artifactId>
+            <version>1.7.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.6</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+</project>
