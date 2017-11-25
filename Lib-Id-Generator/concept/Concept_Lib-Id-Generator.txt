@@ -1,0 +1,29 @@
+-------------------------------------------------------------------------------
+CONCEPT LIB-ID-GENERATOR
+-------------------------------------------------------------------------------
+Basic idea from this library:
+ - A little library which generate an id for an JavaFX Node.
+
+-------------------------------------------------------------------------------
+Format:
+ - [package] + [_] + [type (Node.class)] + [_] + [System.nanomillis()]
+ - [optional String]
+     - if the optional String is set then a '_' will be added before.
+
+-------------------------------------------------------------------------------
+Example:
+ - For the library Lib-Tag for every Tag the parent-id is needed to identify 
+   the place (position) where every concreate Tag will be shown.
+ - So a concreate id will be:
+    - org.github.naoghuman.app.more.pac
+
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
