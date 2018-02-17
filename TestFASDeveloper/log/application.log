@@ -1,0 +1,27 @@
+2018-02-17 18:21:48,725  INFO  #initProjectBlackList(): List<String>     [StartClassFromDeveloper]
+2018-02-17 18:21:48,726  INFO  #initProjectWhiteList(): List<String>     [StartClassFromDeveloper]
+2018-02-17 18:21:48,727  INFO  #initSampleBlackList(): List<String>     [StartClassFromDeveloper]
+2018-02-17 18:21:48,727  INFO  #initSampleWhiteList(): List<String>     [StartClassFromDeveloper]
+2018-02-17 18:21:48,730  DEBUG Load properties: /com/github/naoghuman/testfascore/application/application.properties     [DefaultSimpleProperties]
+2018-02-17 18:21:48,730  INFO  
+################################################################################
+Start TestFASCore v0.1.0-SNAPSHOT.
+################################################################################     [Logger]
+2018-02-17 18:21:48,732  DEBUG   Init preferences file     [DefaultSimplePreferences]
+2018-02-17 18:21:48,733  DEBUG Initialize ObjectDB with database: application     [DefaultDatabase]
+2018-02-17 18:21:48,776  DEBUG #scan(): void     [ProjectSampleScanner]
+2018-02-17 18:21:48,776  DEBUG Found following projects:     [ProjectSampleScanner]
+2018-02-17 18:21:48,776  DEBUG #scanFor(Class, String[]): List<Class<?>>     [ProjectSampleScanner]
+2018-02-17 18:21:48,834  DEBUG  -> com.github.naoghuman.testfascore.test.Project1     [ProjectSampleScanner]
+2018-02-17 18:21:48,835  DEBUG Found following samples:     [ProjectSampleScanner]
+2018-02-17 18:21:48,835  DEBUG #scanFor(Class, String[]): List<Class<?>>     [ProjectSampleScanner]
+2018-02-17 18:21:48,865  DEBUG  -> com.github.naoghuman.testfascore.test.Sample1_1     [ProjectSampleScanner]
+2018-02-17 18:21:48,919  INFO  ApplicationPresenter.(URL, ResourceBundle)     [ApplicationPresenter]
+2018-02-17 18:21:48,919  DEBUG ApplicationPresenter.register()     [ApplicationPresenter]
+2018-02-17 18:21:49,029  DEBUG ApplicationPresenter.initializeAfterWindowIsShowing()     [ApplicationPresenter]
+2018-02-17 18:21:51,853  DEBUG Shutdown ObjectDB     [DefaultDatabase]
+2018-02-17 18:21:51,854  DEBUG  -> Shutdown EntityManagerFactory     [DefaultDatabase]
+2018-02-17 18:21:51,854  INFO  
+################################################################################
+Stop TestFASCore v0.1.0-SNAPSHOT.
+################################################################################     [Logger]
