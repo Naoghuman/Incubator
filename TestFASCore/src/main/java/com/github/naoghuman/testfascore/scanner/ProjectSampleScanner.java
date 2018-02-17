@@ -7,11 +7,14 @@ package com.github.naoghuman.testfascore.scanner;
 
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.testfascore.annotation.Project;
-import com.github.naoghuman.testfascore.test.Project1;
+import com.github.naoghuman.testfascore.annotation.Sample;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
-import io.github.lukehutch.fastclasspathscanner.matchprocessor.ClassAnnotationMatchProcessor;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 
 /**
@@ -35,29 +38,49 @@ public final class ProjectSampleScanner {
         
     }
 
-    public void scan() {
+    public void scan(List<String> projectWhiteAndBlackList, List<String> sampleWhiteAndBlackList) {
         LoggerFacade.getDefault().debug(this.getClass(), "#scan(): void"); // NOI18N
         
         LoggerFacade.getDefault().debug(this.getClass(), "Found following projects:"); // NOI18N
-        final List<Class<?>> projects = this.scanForProjects();
+        final List<Class<?>> projects = this.scanFor(Project.class, projectWhiteAndBlackList.toArray(new String[] {}));
         projects.stream()
                 .forEach(project -> {
                     LoggerFacade.getDefault().debug(this.getClass(), " -> " + project.getName()); // NOI18N
                 });
         
+        LoggerFacade.getDefault().debug(this.getClass(), "Found following samples:"); // NOI18N
+        final List<Class<?>> samples = this.scanFor(Sample.class, sampleWhiteAndBlackList.toArray(new String[] {}));
+        samples.stream()
+                .forEach(sample -> {
+                    LoggerFacade.getDefault().debug(this.getClass(), " -> " + sample.getName()); // NOI18N
+                });
+        
     }
     
-    private List<Class<?>> scanForProjects() {
-        LoggerFacade.getDefault().debug(this.getClass(), "#scanForProjects(): List<Class<?>>"); // NOI18N
+    private List<Class<?>> scanFor(Class annotationClass, String[] scanWhiteAndBlackList) {
+        LoggerFacade.getDefault().debug(this.getClass(), "#scanFor(Class, String[]): List<Class<?>>"); // NOI18N
         
-        final List<Class<?>> projects = FXCollections.observableArrayList();
-        new FastClasspathScanner(Project1.class.getPackage().getName())
-                .verbose()
-                .matchClassesWithAnnotation(Project.class, projects::add)
-//                .strictWhitelist()
-                .scan();
+        final List<Class<?>> annotationClasses = FXCollections.observableArrayList();
+        
+        try {
+            Constructor constructor = FastClasspathScanner.class.getConstructor(String[].class);
+            FastClasspathScanner fastClasspathScanner = (FastClasspathScanner) constructor.newInstance(new Object[] {scanWhiteAndBlackList});
+            fastClasspathScanner
+//                    .verbose()
+                    .matchClassesWithAnnotation(annotationClass, annotationClasses::add)
+                    .scan();
+        } catch (
+                IllegalAccessException
+                | IllegalArgumentException
+                | InstantiationException
+                | NoSuchMethodException
+                | SecurityException
+                | InvocationTargetException ex
+        ) {
+            Logger.getLogger(ProjectSampleScanner.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        return projects;
+        return annotationClasses;
     }
     
 }

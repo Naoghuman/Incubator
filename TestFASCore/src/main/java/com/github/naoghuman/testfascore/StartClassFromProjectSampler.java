@@ -14,19 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.testfascore.application;
-
-import static javafx.application.Application.launch;
+package com.github.naoghuman.testfascore;
 
 import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.lib.database.core.DatabaseFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
+import com.github.naoghuman.testfascore.application.ApplicationPresenter;
+import com.github.naoghuman.testfascore.application.ApplicationView;
 import com.github.naoghuman.testfascore.configuration.ApplicationConfiguration;
 import com.github.naoghuman.testfascore.scanner.ProjectSampleScanner;
+import java.util.List;
+import java.util.Optional;
 import javafx.animation.PauseTransition;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -37,15 +38,21 @@ import javafx.stage.WindowEvent;
  *
  * @author Name
  */
-public class StartApplication extends Application implements ApplicationConfiguration {
+public class StartClassFromProjectSampler implements ApplicationConfiguration {
+    
+    private static final Optional<StartClassFromProjectSampler> INSTANCE = Optional.of(new StartClassFromProjectSampler());
 
-    public static void main(String[] args) {
-        launch(args);
+    /**
+     * Returns a singleton instance from the class {@code StartClassFromProjectSampler}.
+     * 
+     * @return a singleton instance from the class {@code StartClassFromProjectSampler}.
+     */
+    public static final StartClassFromProjectSampler getDefault() {
+        return INSTANCE.get();
     }
 
-    @Override
-    public void init() throws Exception {
-        super.init();
+    public void init(List<String> projectWhiteAndBlackList, List<String> sampleWhiteAndBlackList) throws Exception {
+        System.out.println("*****: 1");
         
         PropertiesFacade.getDefault().register(KEY__APPLICATION__RESOURCE_BUNDLE);
         
@@ -59,11 +66,11 @@ public class StartApplication extends Application implements ApplicationConfigur
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
         
-        ProjectSampleScanner.getDefault().scan();
+        ProjectSampleScanner.getDefault().scan(projectWhiteAndBlackList, sampleWhiteAndBlackList);
     }
     
-    @Override
     public void start(Stage primaryStage) throws Exception {
+        System.out.println("*****: 2");
         final ApplicationView applicationView = new ApplicationView();
         final ApplicationPresenter applicationPresenter = applicationView.getRealPresenter();
         
@@ -78,11 +85,6 @@ public class StartApplication extends Application implements ApplicationConfigur
         
         primaryStage.show();
         applicationPresenter.initializeAfterWindowIsShowing();
-    }
-
-    @Override
-    public void stop() throws Exception {
-        Injector.forgetAll();
     }
     
     private String getProperty(String propertyKey) {

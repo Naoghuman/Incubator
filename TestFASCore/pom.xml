@@ -18,28 +18,6 @@
     
     <build>
         <defaultGoal>clean package</defaultGoal>
-        <!-- COMMENT OUT for release -->
-        <plugins>
-            <!-- 
-                See 'JavaFX-Maven-Plugin Generator' how to create the plugin 
-                configuration.
-                 - https://javafx-maven-plugin.github.io/
-                 - Run in your project folder the command: mvn jfx:jar 
-                   which create then the runable jar with all needed libraries
-                   into the folder \target\jfx\app\.
-            -->
-            <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.8.3</version>
-                <configuration>
-                    <mainClass>com.github.naoghuman.testfascore.application.StartApplication</mainClass>
-                    <jfxMainAppJarName>${project.artifactId}-${project.version}.jar</jfxMainAppJarName>
-                    <allPermissions>true</allPermissions>
-                    <verbose>true</verbose>
-                </configuration>
-            </plugin>
-        </plugins>
         <resources>
             <!--
                 Hint: Add here the suffixes from the files with should be in the
